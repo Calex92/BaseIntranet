@@ -1,0 +1,101 @@
+{# src/FrontBundle/views/Main/index.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+        {% block title %}
+            Accueil -
+        {% endblock %}
+        {% if app.request.getSchemeAndHttpHost() == "http://localhost" %}
+            Vanina Local
+        {% elseif app.request.getSchemeAndHttpHost() == "http://vanina" %}
+            Vanina
+        {% elseif app.request.getSchemeAndHttpHost() == "http://isidore" %}
+            Isidore
+        {% endif %}
+    </title>
+
+    {% block stylesheets %}
+        {# On charge le CSS de bootstrap depuis le site directement #}
+        <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+              integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+              crossorigin="anonymous">
+        <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+              integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+              crossorigin="anonymous">
+
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/front/css/frontStyle.css') }}">
+
+    {% endblock %}
+</head>
+
+<body>
+<!--<img src="{{ asset('bundles/front/img/logo_isidore.jpg') }}" alt="Logo Isidore"/>
+    <form>
+        <label for="login">Login
+            <input type="text" name="login">
+        </label>
+        <label for="password">Mot de passe
+            <input type="password" name="password">
+        </label>
+    </form>-->
+<header class="navbar navbar-static-top bs-docs-nav front-bar" id="top" role="banner">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="{{ app.request.getBaseURL() }}" class="navbar-brand" style="height: 70px; padding: 0px;">
+                <img src="{{ asset('bundles/front/img/logo_vanina.jpg') }}" alt="Logo Isidore"/>
+            </a>
+        </div>
+        <nav id="bs-navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" style="margin-top: 15px;">
+                <li class="active"><a href="#">News</a></li>
+                <li><a href="#">Documents références</a></li>
+                <li><a href="#">Mes applications</a></li>
+                <li><a href="#">Aide en ligne</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="margin-top: 15px;">
+                <li><a href="#">Se connecter</a></li>
+
+            </ul>
+        </nav>
+    </div>
+    <div class="bs-docs-header" id="content" tabindex="-1" style="background-color: #002e62; height: 75px; "></div>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2 side-bar">
+            <a  href="charget.php?file=//192.168.16.25/Public/News/EPI/pack_catalogue_EPI_AH_15-16.zip">
+                <img class="center-block" alt="Catalogue Usinage" style="height: 120px;" src="{{ asset('bundles/front/img/img-usinage_100.png') }}">
+            </a>
+            <hr/>
+            <a href="charget.php?file=//192.168.16.25/Public/News/TRANSMISSION/pack_catalogue_transmission_oct-dec_2015.zip">
+                <img class="center-block"  alt="Catalogue transmission" style="height: 120px;" src="{{ asset('bundles/front/img/img-transmission_100.png') }}">
+            </a>
+        </div>
+        <div class="col-sm-8">
+            Centre
+        </div>
+        <div class="col-sm-2 side-bar">
+            Droite
+        </div>
+    </div>
+</div>
+<div>
+
+</div>
+
+
+{% block javascripts %}
+    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalit�s du bootstrap Twitter #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+{% endblock %}
+
+</body>
+</html>
