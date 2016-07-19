@@ -46,7 +46,7 @@
                 <ul class="nav navbar-nav">
                     <li class="{% if app.request.attributes.get('_route') == 'front_news' or
                                     app.request.attributes.get('_route') == 'front_homepage' %}active{% endif %}"><a
-                                href="{{ path("front_news") }}">News</a></li>
+                                href="{{ path("front_news", {"domain" : "all"}) }}">News</a></li>
                     <li class="{% if app.request.attributes.get('_route') == 'front_documents' %}active{% endif %}"><a
                                 href="{{ path("front_documents") }}">Documents références</a></li>
                     <li class="{% if app.request.attributes.get('_route') == '_list' %}active{% endif %}"><a href="#">Applications</a>

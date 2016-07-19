@@ -12,43 +12,37 @@
     {% endif %}
 {% endblock %}
 
-
+{% block leftMenu %}
+    <div class="list-group small">
+        <a href="{{ path("front_news") }}" class="list-group-item
+         {% if app.request.attributes.get('_route_params')['domain'] == "all" %}active{% endif %}">
+            <h5 class="list-group-item-heading">Tous les domaines</h5>
+        </a>
+        {% for key, domain in domains %}
+            <a href="{{ path("front_news", {"domain" : key}) }}"
+               class="list-group-item {% if app.request.attributes.get('_route_params')['domain'] == key %}active{% endif %}">
+                {{ domain }}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
 {% block content %}
-    <div>
-        <div class="col-sm-3 main-content">
-            <ul class="list-group small">
-                <li class="list-group-item "><h5 class="list-group-item-heading">Tous les domaines</h5></li>
-                <li class="list-group-item active">Achat</li>
-                <li class="list-group-item">E-business</li>
-                <li class="list-group-item">Finances</li>
-                <li class="list-group-item">GISS</li>
-                <li class="list-group-item">Grands Comptes</li>
-                <li class="list-group-item">Informatique</li>
-                <li class="list-group-item">Juridique</li>
-                <li class="list-group-item">Logistique</li>
-                <li class="list-group-item">Marketing</li>
-                <li class="list-group-item">Métiers</li>
-                <li class="list-group-item">Organisation</li>
-                <li class="list-group-item">Perf'Co</li>
-                <li class="list-group-item">Qualité</li>
-                <li class="list-group-item">R.H.</li>
-                <li class="list-group-item">Réseau</li>
-            </ul>
-        </div>
-        <div class="col-sm-9 main-content">
-            <div style="margin-bottom: 45px">
-                <img style="height: 150px; float:left;"
-                     src="http://random-ize.com/lorem-ipsum-generators/lorem-ipsum/lorem-ipsum.jpg"/>
-                <label style="float: right;clear: right">Domaine</label>
-                    <h3>Titre</h3>
-                    <p>Pellentesque hendrerit, massa at euismod ullamcorper, enim tortor tincidunt sapien, nec
-                    convallis nisl mauris eu tellus. Nunc euismod ultrices viverra. Sed in mi ligula, a tincidunt leo. In
-                    hac habitasse platea dictumst. Quisque at augue quis tortor euismod tincidunt nec id magna.
-                    Vestibulum eu nunc at odi.</p>
-                <p style="float: left;">Author - Creation date</p>
-                <a href="#" style="float: right">Lire la suite</a>
+    <div class="main-content">
+        {% for new in news %}
+            <div class="single-new">
+                    <img class="new-image" src="{{ new.image }}"/>
+                    <label>{{ new.domain }}</label>
+                    <h3>{{ new.title }}</h3>
+                    <p>{{ new.text|length > 300 ? new.text|slice(0, 300) ~ '...' : new.text  }}</p>
+                    <p>
+                        <span>{{ new.author }}</span>
+                        <span>{{ new.creationDate | date('d/m/Y') }}</span>
+                        <span><a href="#">Lire la suite</a></span>
+                    </p>
             </div>
-            <hr/>
-        </div>
+            {% if not loop.last %}
+                <hr/>
+            {% endif %}
+        {% endfor %}
     </div>
 {% endblock %}

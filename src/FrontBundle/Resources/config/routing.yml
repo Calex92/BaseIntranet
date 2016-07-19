@@ -1,11 +1,17 @@
-front_homepage:
-    path:     /
-    defaults: { _controller: FrontBundle:Main:news }
-
 front_documents:
     path:    /documents
     defaults: { _controller: FrontBundle:Main:documents }
 
 front_news:
-    path:     /news
-    defaults: { _controller: FrontBundle:Main:news }
+    path:     /news/{domain}
+    defaults:
+        _controller: FrontBundle:Main:news
+        domain: "all"
+    requirements:
+        domain: "[a-zA-Z]*"
+
+front_homepage:
+    path:     /{domain}
+    defaults:
+        _controller: FrontBundle:Main:news
+        domain: "all"

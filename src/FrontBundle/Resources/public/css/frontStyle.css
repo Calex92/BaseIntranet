@@ -41,8 +41,7 @@ ul.nav.navbar-nav li a:link {
                                       Content
 ------------------------------------------------------------------------------------*/
 .container .main-content {
-    padding-top: 2%;
-    padding-bottom: 2%;
+    padding: 2%;
     margin: 0;
     background-color: white;
 }
@@ -55,7 +54,29 @@ ul.nav.navbar-nav li a:link {
     padding-bottom: 5px;
 }
 
-.list-group.small .list-group-item:hover{
-    background-color: rgba(211, 211, 211, 0.3);
-    cursor: pointer;
+.main-content .single-new{
+    min-height: 150px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.single-new .new-image{
+    height: 150px;
+    float:left;
+    margin-right: 8px;
+    margin-bottom: 4px;
+}
+
+.single-new label {
+    float: right;
+}
+
+.single-new p:last-child {
+    text-align: center;
+}
+.single-new p span:first-child {
+    float: left;
+}
+.single-new p span:last-child {
+    float: right;
 }
