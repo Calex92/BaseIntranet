@@ -10,6 +10,11 @@ documents_index:
         _controller: FrontBundle:Documents:index
         domain: "all"
 
+application_index:
+    path:    /application
+    defaults:
+        _controller: FrontBundle:Applications:index
+
 front_homepage:
     path:     /
     defaults:
