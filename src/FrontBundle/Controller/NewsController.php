@@ -26,6 +26,10 @@ class NewsController extends Controller
             "rh"            => "R.H.",
             "reseau"        => "Réseau");
 
+        $domainsCount = array("achat" => 1,
+            "giss" => 1,
+            "perfco" => 1);
+
         //Now, I create fake news, 2 of them
         $news = array();
         $new = array("title" => "Lorem Ipsum",
@@ -58,6 +62,7 @@ class NewsController extends Controller
 
 
         return $this->render('FrontBundle:News:index.html.twig', array("domains" => $domains,
-            "news" => $news));
+            "news" => $news,
+            "domainsCount" => $domainsCount));
     }
 }

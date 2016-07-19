@@ -6,7 +6,13 @@
 {% endblock %}
 
 {% block leftMenu %}
-    {{ include("@Front/Main/domainMenu.html.twig", {"domains" : domains}) }}
+    {# domains means Achat, E-busines, ...
+    from is used to know if we have to redirect to "news" or "documents"
+    domainsCount need to be deleted in a further evolution, it contains the number of news/document by domain #}
+    {{ include("@Front/Main/domainMenu.html.twig",
+    {"domains" : domains,
+        "from" : app.request.attributes.get('_route'),
+        "domainsCount" : domainsCount}) }}
 {% endblock %}
 {% block content %}
     <div class="main-content">

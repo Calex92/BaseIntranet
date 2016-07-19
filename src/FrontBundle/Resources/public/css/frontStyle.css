@@ -11,7 +11,7 @@ body {
 
 .navbar.front-bar {
     margin-bottom: 0;
-    border-width: 0 0 0;
+    border-width: 0;
 }
 
 ul.nav.navbar-nav li a:link {
@@ -46,14 +46,19 @@ ul.nav.navbar-nav li a:link {
     background-color: white;
 }
 
-/* ----------------------------------------------------------------------------------
-                                      Content News
-------------------------------------------------------------------------------------*/
 .list-group.small .list-group-item{
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
+.list-group.small .badge{
+    font-size: 10px;
+    padding: 3px 5px;
+
+}
+/* ----------------------------------------------------------------------------------
+                                      Content News
+------------------------------------------------------------------------------------*/
 .main-content .single-new{
     min-height: 150px;
     margin-bottom: 15px;
@@ -79,4 +84,11 @@ ul.nav.navbar-nav li a:link {
 }
 .single-new p span:last-child {
     float: right;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      Content Documents
+------------------------------------------------------------------------------------*/
+#table-document-downloadable td{
+    font-size: 80%;
 }
