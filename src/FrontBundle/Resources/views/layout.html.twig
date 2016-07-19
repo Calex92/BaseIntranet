@@ -6,7 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>
-        {% block title %} {% endblock %}
+        {% block title %}
+            {% if app.request.getSchemeAndHttpHost() == "http://localhost" %}
+                Vanina Local
+            {% elseif app.request.getSchemeAndHttpHost() == "http://vanina" %}
+                Vanina
+            {% elseif app.request.getSchemeAndHttpHost() == "http://isidore" %}
+                Isidore
+            {% endif %}
+        {% endblock %}
     </title>
 
     {% block stylesheets %}
@@ -45,8 +53,8 @@
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="{% if app.request.attributes.get('_route') == 'front_news' or
-                                    app.request.attributes.get('_route') == 'front_homepage' %}active{% endif %}"><a
-                                href="{{ path("front_news", {"domain" : "all"}) }}">News</a></li>
+                    app.request.attributes.get('_route') == 'front_homepage' %}active{% endif %}"><a
+                                href="{{ path("news_index", {"domain" : "all"}) }}">News</a></li>
                     <li class="{% if app.request.attributes.get('_route') == 'front_documents' %}active{% endif %}"><a
                                 href="{{ path("front_documents") }}">Documents références</a></li>
                     <li class="{% if app.request.attributes.get('_route') == '_list' %}active{% endif %}"><a href="#">Applications</a>

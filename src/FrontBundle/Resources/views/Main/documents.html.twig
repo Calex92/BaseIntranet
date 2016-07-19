@@ -2,14 +2,7 @@
 
 
 {% block title %}
-    Documents -
-    {% if app.request.getSchemeAndHttpHost() == "http://localhost" %}
-        Vanina Local
-    {% elseif app.request.getSchemeAndHttpHost() == "http://vanina" %}
-        Vanina
-    {% elseif app.request.getSchemeAndHttpHost() == "http://isidore" %}
-        Isidore
-    {% endif %}
+    Documents - {{ parent() }}
 {% endblock %}
 
 

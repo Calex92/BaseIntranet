@@ -2,29 +2,11 @@
 
 
 {% block title %}
-    News -
-    {% if app.request.getSchemeAndHttpHost() == "http://localhost" %}
-        Vanina Local
-    {% elseif app.request.getSchemeAndHttpHost() == "http://vanina" %}
-        Vanina
-    {% elseif app.request.getSchemeAndHttpHost() == "http://isidore" %}
-        Isidore
-    {% endif %}
+    News - {{ parent() }}
 {% endblock %}
 
 {% block leftMenu %}
-    <div class="list-group small">
-        <a href="{{ path("front_news") }}" class="list-group-item
-         {% if app.request.attributes.get('_route_params')['domain'] == "all" %}active{% endif %}">
-            <h5 class="list-group-item-heading">Tous les domaines</h5>
-        </a>
-        {% for key, domain in domains %}
-            <a href="{{ path("front_news", {"domain" : key}) }}"
-               class="list-group-item {% if app.request.attributes.get('_route_params')['domain'] == key %}active{% endif %}">
-                {{ domain }}
-            </a>
-        {% endfor %}
-    </div>
+    {{ include("@Front/Main/domainMenu.html.twig", {"domains" : domains}) }}
 {% endblock %}
 {% block content %}
     <div class="main-content">

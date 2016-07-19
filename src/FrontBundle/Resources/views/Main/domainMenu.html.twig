@@ -1,0 +1,12 @@
+<div class="list-group small">
+    <a href="{{ path("news_index") }}" class="list-group-item
+         {% if app.request.attributes.get('_route_params')['domain'] == "all" %}active{% endif %}">
+        <h5 class="list-group-item-heading">Tous les domaines</h5>
+    </a>
+    {% for key, domain in domains %}
+        <a href="{{ path("news_index", {"domain" : key}) }}"
+           class="list-group-item {% if app.request.attributes.get('_route_params')['domain'] == key %}active{% endif %}">
+            {{ domain }}
+        </a>
+    {% endfor %}
+</div>

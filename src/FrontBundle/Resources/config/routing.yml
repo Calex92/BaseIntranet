@@ -2,10 +2,10 @@ front_documents:
     path:    /documents
     defaults: { _controller: FrontBundle:Main:documents }
 
-front_news:
+news_index:
     path:     /news/{domain}
     defaults:
-        _controller: FrontBundle:Main:news
+        _controller: FrontBundle:News:index
         domain: "all"
     requirements:
         domain: "[a-zA-Z]*"
@@ -13,5 +13,5 @@ front_news:
 front_homepage:
     path:     /{domain}
     defaults:
-        _controller: FrontBundle:Main:news
+        _controller: FrontBundle:News:index
         domain: "all"
