@@ -36,3 +36,26 @@ ul.nav.navbar-nav li a:link {
     margin: 0;
     background-color: white;
 }
+
+/* ----------------------------------------------------------------------------------
+                                      Content
+------------------------------------------------------------------------------------*/
+.container .main-content {
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin: 0;
+    background-color: white;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      Content News
+------------------------------------------------------------------------------------*/
+.list-group.small .list-group-item{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.list-group.small .list-group-item:hover{
+    background-color: rgba(211, 211, 211, 0.3);
+    cursor: pointer;
+}
