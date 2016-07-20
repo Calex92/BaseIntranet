@@ -1,11 +1,17 @@
 <div class="list-group small">
-    <a href="{{ path(from) }}" class="list-group-item
+    <a href="{{ path(from) }}" class="list-group-item col-xs-4 col-sm-12
          {% if app.request.attributes.get('_route_params')['domain'] == "all" %}active{% endif %}">
-        <h5 class="list-group-item-heading">Tous les domaines</h5>
+        <span class="list-group-item-heading">Tous les domaines</span>
     </a>
     {% for key, domain in domains %}
+        {% if app.request.attributes.get('_route_params')['domain'] == key %}
+            {% set isActive = "active" %}
+        {% else %}
+            {% set isActive = "" %}
+        {% endif %}
+
         <a href="{{ path(from, {"domain" : key}) }}"
-           class="list-group-item {% if app.request.attributes.get('_route_params')['domain'] == key %}active{% endif %}">
+           class="list-group-item col-xs-4 col-sm-12 {{ isActive }}">
             <span class="badge">{% if domainsCount[key] is defined %}{{  domainsCount[key] }} {% endif %}</span>
             {{ domain }}
         </a>

@@ -69,24 +69,43 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Se connecter</a></li>
                 </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+            </div>
+        </div>
     </nav>
 
     <div class="separation-bar"></div>
 </header>
 
+{# The left menu is only displayed for news and application, when he's not here, for the small browsers (exemple: phone),
+        need to display the content in full screen #}
+{%  if app.request.attributes.get('_route') == 'news_index' or app.request.attributes.get('_route') == 'documents_index' %}
+    {% set sizeLeftBar = "col-sm-4" %}
+{% else %}
+    {% set sizeLeftBar = "hidden-xs hidden-sm" %}
+{% endif %}
+
+{# The main content need to be displayed in full screen when there's no left/right bars #}
+{%  if app.request.attributes.get('_route') == 'news_index' or app.request.attributes.get('_route') == 'documents_index' %}
+    {% set sizeContent ="col-sm-8 col-xs-12" %}
+{% else %}
+    {% set sizeContent = "col-sm-12 col-xs-12 col-md-8" %}
+{% endif %}
+
+
 <div class="container">
     <div class="row">
-        <div class="col-sm-2 side-bar">
+
+        <div class="col-md-2 side-bar {{ sizeLeftBar }}">
             {% block leftMenu %} {% endblock %}
-            {{ render (controller("FrontBundle:Main:sideMenu", { 'position' : 'left'})) }}
+            <div class="hidden-xs hidden-sm">{{ render (controller("FrontBundle:Main:sideMenu", { 'position' : 'left'})) }}</div>
         </div>
+
         {# The content of the page is in this div #}
-        <div class="col-sm-8">
+        <div class="{{ sizeContent }}">
             {% block content %} {% endblock %}
         </div>
-        <div class="col-sm-2 side-bar">
+
+        <div class="col-sm-2 side-bar hidden-xs hidden-sm">
             {{ render (controller("FrontBundle:Main:sideMenu", { 'position' : 'right'})) }}
         </div>
     </div>

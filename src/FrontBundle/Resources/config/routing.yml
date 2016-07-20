@@ -11,7 +11,7 @@ documents_index:
         domain: "all"
 
 application_index:
-    path:    /application
+    path:    /applications
     defaults:
         _controller: FrontBundle:Applications:index
 
