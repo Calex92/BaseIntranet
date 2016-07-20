@@ -18,7 +18,7 @@
     <div class="main-content">
         {% for new in news %}
             <div class="single-new">
-                    <img class="new-image" src="{{ new.image }}"/>
+                    <img class="new-image" src="{{ new.image }}" alt="{{ new.title }}"/>
                     <label>{{ new.domain }}</label>
                     <h3>{{ new.title }}</h3>
                     <p>{{ new.text|length > 300 ? new.text|slice(0, 300) ~ '...' : new.text  }}</p>
