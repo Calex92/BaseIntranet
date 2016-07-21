@@ -7,7 +7,8 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
+    secret: "secret_token"
 
 framework:
     #esi:             ~
@@ -32,6 +33,7 @@ framework:
     fragments:       ~
     http_method_override: true
     assets: ~
+    translator:    {fallback: ["%locale%"]}
 
 # Twig Configuration
 twig:

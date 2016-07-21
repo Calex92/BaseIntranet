@@ -12,7 +12,10 @@ $(".list-group.small a").on("click", function() {
 });
 
 $(document).ready(function() {
-    $('#table-document-downloadable').DataTable( {
+    //If I don't check if the element exist, some error appear in the pages where the datatable is not setted.
+    var myDatatable = $('#table-document-downloadable');
+    if(myDatatable.length)
+        myDatatable.DataTable({
         responsive: true,
         autoWidth: false,
         language: {

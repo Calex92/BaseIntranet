@@ -28,6 +28,7 @@
               integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
               crossorigin="anonymous">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/front/css/frontStyle.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/front/css/connection.css') }}">
     {% endblock %}
 </head>
 
@@ -59,15 +60,24 @@
                     <li class="{% if app.request.attributes.get('_route') == 'documents_index' %}active{% endif %}">
                         <a href="{{ path("documents_index") }}">Documents références</a>
                     </li>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <li class="{% if app.request.attributes.get('_route') == 'application_index' %}active{% endif %}">
                         <a href="{{ path("application_index") }}">Applications</a>
                     </li>
+                    {% endif %}
                     <li>
                         <a href="http://192.168.41.102/dokuwiki/doku.php">Aide</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Se connecter</a></li>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li>Connecté en tant que {{ app.user.firstname }}</li>
+                        <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                    {% else %}
+                        <li><a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a></li>
+                    {% endif %}
+
+
                 </ul>
             </div>
         </div>
@@ -105,7 +115,7 @@
             {% block content %} {% endblock %}
         </div>
 
-        <div class="col-sm-2 side-bar hidden-xs hidden-sm">
+        <div class="col-md-2 side-bar hidden-xs hidden-sm">
             {{ render (controller("FrontBundle:Main:sideMenu", { 'position' : 'right'})) }}
         </div>
     </div>
@@ -123,3 +133,8 @@
 
 </body>
 </html>
+
+{# Display the login pannel when it's called #}
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    {{ render(controller("FOSUserBundle:Security:login")) }}
+</div>
