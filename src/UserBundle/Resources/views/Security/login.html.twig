@@ -15,16 +15,17 @@
 
                 <input type="password" id="password" name="_password" placeholder="Mot de passe" required="required"/>
 
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
-                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-
                 <input type="submit" id="_submit" name="_submit" class="login loginmodal-submit"
                        value="{{ 'security.login.submit'|trans }}"/>
-            </form>
 
-            <div class="login-help">
-                <a href="#">Mot de passe oublié</a>
-            </div>
+                <label for="remember_me" class="login-help pull-left">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                    {{ 'security.login.remember_me'|trans }}
+                </label>
+                <div >
+                    <a href="#" class="login-help pull-right">Mot de passe oublié</a>
+                </div>
+            </form>
 
         </div>
     </div>
