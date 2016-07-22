@@ -31,7 +31,7 @@ class Application
     /**
      * @var string
      *
-     * @ORM\Column(name="location", type="string", length=255, unique=true)
+     * @ORM\Column(name="location", type="string", length=255)
      */
     private $location;
 

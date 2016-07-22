@@ -1,7 +1,7 @@
 news_index:
     path:     /news/{domain}
     defaults:
-        _controller: FrontAppBundle:News:index
+        _controller: FronFrontAppBundle:News:index
         domain: "all"
 
 documents_index:
@@ -20,3 +20,8 @@ front_homepage:
     defaults:
         _controller: FrontAppBundle:News:index
         domain: "all"
+
+users_admin:
+    path:    /adminIsidore/users
+    defaults:
+        _controller: FrontAppBundle:Admin:user

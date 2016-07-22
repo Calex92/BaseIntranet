@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block menus %}
+    {{ render(controller("FrontAppBundle:Admin:topMenu", {"route" : app.request.attributes.get('_route')})) }}
+{% endblock %}
+
+{% block content %}
+    Bonjour, vous entrez dans la gestion des utilisateurs qui n'est pas encore opérationnelle.
+    Revenez plus tard! :)
+{% endblock %}
