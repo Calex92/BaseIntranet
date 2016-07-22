@@ -13,9 +13,9 @@
 
             {% for application in applications %}
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6 thumb" >
-                    <a class="thumbnail" href="{{ application.href }}">
+                    <a class="thumbnail" href="{{ application.location }}">
                         <img style="min-height:100px;height:100px;" class="img-responsive"
-                             src="{{ asset(application.location) }}" alt="{{ application.name }}">
+                             src="{{ asset(application.image.url) }}" alt="{{ application.image.alt }}">
                         <h4 style="font-size: 80%; text-align: center;">
                             {{ application.name }}
                         </h4>

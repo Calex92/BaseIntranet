@@ -37,6 +37,12 @@ class User extends BaseUser
     private $surname;
 
     /**
+     *
+     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Contact", cascade={"persist"})
+     */
+    private $contact;
+
+    /**
      * Get id
      *
      * @return int
@@ -92,6 +98,16 @@ class User extends BaseUser
     public function getSurname()
     {
         return $this->surname;
+    }
+
+    public function getContact()
+    {
+        return $this->contact;
+    }
+    
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
     }
 }
 
