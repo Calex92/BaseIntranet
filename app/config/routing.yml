@@ -1,5 +1,9 @@
-front:
-    resource: "@FrontBundle/Resources/config/routing.yml"
+front_app:
+    resource: "@FrontAppBundle/Resources/config/routing.yml"
+    prefix:   /
+
+front_user:
+    resource: "@FrontUserBundle/Resources/config/routing.yml"
     prefix:   /
 
 fos_user:

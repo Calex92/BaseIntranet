@@ -1,0 +1,22 @@
+news_index:
+    path:     /news/{domain}
+    defaults:
+        _controller: FrontAppBundle:News:index
+        domain: "all"
+
+documents_index:
+    path:    /documents/{domain}
+    defaults:
+        _controller: FrontAppBundle:Documents:index
+        domain: "all"
+
+application_index:
+    path:    /applications
+    defaults:
+        _controller: FrontAppBundle:Applications:index
+
+front_homepage:
+    path:     /
+    defaults:
+        _controller: FrontAppBundle:News:index
+        domain: "all"
