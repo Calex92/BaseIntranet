@@ -52,10 +52,13 @@
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 {% block menus %}
                 {% endblock %}
+
+                {% block menusRight %}
                 <ul class="nav navbar-nav navbar-right">
                     <li>Connecté en tant que {{ app.user.firstname }}</li>
                     <li><a href="{{ path('news_index') }}">Accueil</a></li>
                 </ul>
+                {% endblock %}
             </div>
         </div>
     </nav>
@@ -63,15 +66,9 @@
     <div class="separation-bar"></div>
 </header>
 
-<div class="container">
-    <div class="row">
 
-        {# The content of the page is in this div #}
-        <div class="col-xs-12">
-            {% block content %} {% endblock %}
-        </div>
-    </div>
-</div>
+{% block mainContent %} {% endblock %}
+
 
 
 {% block javascripts %}

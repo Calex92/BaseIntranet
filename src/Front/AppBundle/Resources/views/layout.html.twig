@@ -1,140 +1,84 @@
-{# src/Front/AppBundle/views/Main/index.html.twig #}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends("::base.html.twig") %}
 
-    <title>
-        {% block title %}
-            {% if app.request.getSchemeAndHttpHost() == "http://localhost" %}
-                Vanina Local
-            {% elseif app.request.getSchemeAndHttpHost() == "http://vanina" %}
-                Vanina
-            {% elseif app.request.getSchemeAndHttpHost() == "http://isidore" %}
-                Isidore
-            {% endif %}
-        {% endblock %}
-    </title>
 
     {% block stylesheets %}
-        {# On charge le CSS de bootstrap depuis le site directement #}
-        <link type="text/css" rel="stylesheet"
-              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-              integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-              crossorigin="anonymous">
-        <link type="text/css" rel="stylesheet"
-              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
-              integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
-              crossorigin="anonymous">
-        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/front/css/frontStyle.css') }}">
+        {{ parent() }}
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/front/css/connection.css') }}">
     {% endblock %}
-</head>
 
-<body>
-<header class="navbar navbar-static-top bs-docs-nav front-bar" id="top">
-    <nav class="navbar navbar-default front-bar">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-left">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#navbar-collapse" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-header" href="{{ path("front_homepage") }}">
-                    <img src="{{ asset('bundles/front/img/logo.jpg') }}" alt="Logo Isidore"/>
-                </a>
+                {% block menus %}
+                    <ul class="nav navbar-nav">
+                        <li class="{% if app.request.attributes.get('_route') == 'news_index' or
+                        app.request.attributes.get('_route') == 'front_homepage' %}active{% endif %}">
+                            <a href="{{ path("news_index", {"domain" : "all"}) }}">News</a>
+                        </li>
+                        <li class="{% if app.request.attributes.get('_route') == 'documents_index' %}active{% endif %}">
+                            <a href="{{ path("documents_index") }}">Documents références</a>
+                        </li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li class="{% if app.request.attributes.get('_route') == 'application_index' %}active{% endif %}">
+                                <a href="{{ path("application_index") }}">Applications</a>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <a href="http://192.168.41.102/dokuwiki/doku.php">Aide</a>
+                        </li>
+                    </ul>
+                {% endblock %}
+                {% block menusRight %}
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li>Connecté en tant que {{ app.user.firstname }}</li>
+                            <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                        {% else %}
+                            <li><a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a></li>
+                        {% endif %}
+                    </ul>
+                {% endblock %}
+
+{% block mainContent %}
+    {# The left menu is only displayed for news and application, when he's not here, for the small browsers (exemple: phone),
+            need to display the content in full screen #}
+    {% if app.request.attributes.get('_route') == 'news_index' or app.request.attributes.get('_route') == 'documents_index' %}
+        {% set sizeLeftBar = "col-sm-4" %}
+    {% else %}
+        {% set sizeLeftBar = "hidden-xs hidden-sm" %}
+    {% endif %}
+
+    {# The main content need to be displayed in full screen when there's no left/right bars #}
+    {% if app.request.attributes.get('_route') == 'news_index' or app.request.attributes.get('_route') == 'documents_index' %}
+        {% set sizeContent ="col-sm-8 col-xs-12" %}
+    {% else %}
+        {% set sizeContent = "col-sm-12 col-xs-12 col-md-8" %}
+    {% endif %}
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-2 side-bar {{ sizeLeftBar }}">
+                {% block leftMenu %} {% endblock %}
+                <div class="hidden-xs hidden-sm">{{ render (controller("FrontAppBundle:Main:sideMenu", { 'position' : 'left'})) }}</div>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="{% if app.request.attributes.get('_route') == 'news_index' or
-                    app.request.attributes.get('_route') == 'front_homepage' %}active{% endif %}">
-                        <a href="{{ path("news_index", {"domain" : "all"}) }}">News</a>
-                    </li>
-                    <li class="{% if app.request.attributes.get('_route') == 'documents_index' %}active{% endif %}">
-                        <a href="{{ path("documents_index") }}">Documents références</a>
-                    </li>
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <li class="{% if app.request.attributes.get('_route') == 'application_index' %}active{% endif %}">
-                        <a href="{{ path("application_index") }}">Applications</a>
-                    </li>
-                    {% endif %}
-                    <li>
-                        <a href="http://192.168.41.102/dokuwiki/doku.php">Aide</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <li>Connecté en tant que {{ app.user.firstname }}</li>
-                        <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
-                    {% else %}
-                        <li><a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a></li>
-                    {% endif %}
-
-
-                </ul>
+            {# The content of the page is in this div #}
+            <div class="{{ sizeContent }}">
+                {% block content %} {% endblock %}
             </div>
-        </div>
-    </nav>
 
-    <div class="separation-bar"></div>
-</header>
-
-{# The left menu is only displayed for news and application, when he's not here, for the small browsers (exemple: phone),
-        need to display the content in full screen #}
-{%  if app.request.attributes.get('_route') == 'news_index' or app.request.attributes.get('_route') == 'documents_index' %}
-    {% set sizeLeftBar = "col-sm-4" %}
-{% else %}
-    {% set sizeLeftBar = "hidden-xs hidden-sm" %}
-{% endif %}
-
-{# The main content need to be displayed in full screen when there's no left/right bars #}
-{%  if app.request.attributes.get('_route') == 'news_index' or app.request.attributes.get('_route') == 'documents_index' %}
-    {% set sizeContent ="col-sm-8 col-xs-12" %}
-{% else %}
-    {% set sizeContent = "col-sm-12 col-xs-12 col-md-8" %}
-{% endif %}
-
-
-<div class="container">
-    <div class="row">
-
-        <div class="col-md-2 side-bar {{ sizeLeftBar }}">
-            {% block leftMenu %} {% endblock %}
-            <div class="hidden-xs hidden-sm">{{ render (controller("FrontAppBundle:Main:sideMenu", { 'position' : 'left'})) }}</div>
-        </div>
-
-        {# The content of the page is in this div #}
-        <div class="{{ sizeContent }}">
-            {% block content %} {% endblock %}
-        </div>
-
-        <div class="col-md-2 side-bar hidden-xs hidden-sm">
-            {{ render (controller("FrontAppBundle:Main:sideMenu", { 'position' : 'right'})) }}
+            <div class="col-md-2 side-bar hidden-xs hidden-sm">
+                {{ render (controller("FrontAppBundle:Main:sideMenu", { 'position' : 'right'})) }}
+            </div>
         </div>
     </div>
-</div>
-
+    {# Display the login pannel when it's called #}
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true" style="display: none;">
+        {{ render(controller("FOSUserBundle:Security:login")) }}
+    </div>
+{% endblock %}
 
 {% block javascripts %}
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalit?s du bootstrap Twitter #}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
+    {{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/front/js/front.js') }}"></script>
 {% endblock %}
-
-</body>
-</html>
-
-{# Display the login pannel when it's called #}
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    {{ render(controller("FOSUserBundle:Security:login")) }}
-</div>
