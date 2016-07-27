@@ -1,10 +1,12 @@
+{% extends "@FrontApp/layout.html.twig" %}
+
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
     <div class="modal-dialog">
+        {% if error %}
+            <div  class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
         <div class="loginmodal-container">
             <h1>Se connecter à votre compte</h1><br>
             <form action="{{ path("fos_user_security_check") }}" method="post">
@@ -29,6 +31,4 @@
 
         </div>
     </div>
-
-
 {% endblock fos_user_content %}
