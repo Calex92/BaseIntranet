@@ -1,8 +1,18 @@
 {# On étend notre layout #}
 {% extends "FrontAppBundle::layout.html.twig" %}
 
+    {% block title %}
+        Connexion -
+        {{ parent() }}
+    {% endblock %}
+    {% block stylesheets %}
+        {{ parent() }}
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontuser/css/style.css') }}">
+    {% endblock %}
+
 {# Dans notre layout, il faut définir le block body #}
 {% block content %}
+
 
     {# On affiche les messages flash que définissent les contrôleurs du bundle #}
     {% for key, messages in app.session.flashbag.all() %}

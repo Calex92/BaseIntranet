@@ -23,11 +23,16 @@ security:
         main:
             pattern: ^/
             form_login:
-                provider:    fos_userbundle
+                provider:       fos_userbundle
+                login_path:     /login
+                check_path:     /login_check
+                remember_me:    true
                 csrf_token_generator: security.csrf.token_manager
             remember_me:
                 secret: '%secret'
-            logout:    true
+            logout:
+                path:    /logout
+                target:  /
             anonymous:    true
 
     access_control:

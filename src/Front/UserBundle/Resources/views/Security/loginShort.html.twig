@@ -1,0 +1,27 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="modal-dialog">
+    <div class="loginmodal-container">
+        <h1>Se connecter à votre compte</h1><br>
+        <form action="{{ path("fos_user_security_check") }}" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+
+            <input type="text" id="username" name="_username" placeholder="Nom d'utilisateur"
+                   value="{{ last_username }}" required="required"/>
+
+            <input type="password" id="password" name="_password" placeholder="Mot de passe"
+                   required="required"/>
+
+            <input type="submit" id="_submit" name="_submit" class="login loginmodal-submit"
+                   value="{{ 'security.login.submit'|trans }}"/>
+
+            <label for="remember_me" class="login-help pull-left">
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                {{ 'security.login.remember_me'|trans }}
+            </label>
+            <div>
+                <a href="#" class="login-help pull-right">Mot de passe oublié</a>
+            </div>
+        </form>
+
+    </div>
+</div>

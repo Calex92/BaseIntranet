@@ -1,3 +1,7 @@
 front_user_homepage:
     path:     /
     defaults: { _controller: FrontUserBundle:Default:index }
+
+fos_user_security_login:
+    path:    /login
+    defaults: { _controller: FrontUserBundle:Security:login }

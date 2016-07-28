@@ -73,7 +73,7 @@
     {# Display the login pannel when it's called #}
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true" style="display: none;">
-        {{ render(controller("FOSUserBundle:Security:login")) }}
+        {{ render(controller("FOSUserBundle:Security:login", {'isLongTemplate': false })) }}
     </div>
 {% endblock %}
 
