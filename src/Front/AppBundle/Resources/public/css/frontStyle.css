@@ -93,3 +93,10 @@ ul.nav.navbar-nav li a:link {
     font-size: 80%;
     border-spacing: 0;
 }
+
+/* ----------------------------------------------------------------------------------
+                                      Profile pic menu
+------------------------------------------------------------------------------------*/
+.transparent {
+    background-color: transparent !important;
+}

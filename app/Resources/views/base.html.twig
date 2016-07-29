@@ -59,9 +59,40 @@
                 <ul class="nav navbar-nav navbar-right" data-hover="dropdown"
                     data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft">
                     <li>
-                        <img class="img img-circle" src="{{ asset(app.user.image.url) }}" style="height: 60px; margin: 5px;"/>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle transparent" role="button" data-toggle="dropdown" data-hover="dropdown">
+                                <img class="img img-circle"
+                                     src="{{ asset(app.user.image.url) }}"
+                                     style="height: 60px; margin: 5px 100px 5px 0;"/>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ path("front_homepage") }}">
+                                        <i class="glyphicon glyphicon-home"></i>
+                                        Accueil
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                        Profil
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="#">
+                                        <i class="glyphicon glyphicon-bell"></i>
+                                        Notifications
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('fos_user_security_logout') }}">
+                                        <i class="glyphicon glyphicon-off"></i>
+                                        Déconnexion
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
                 </ul>
                 {% endblock %}
             </div>
