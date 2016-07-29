@@ -43,6 +43,11 @@ class User extends BaseUser
     private $contact;
 
     /**
+     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist"})
+     */
+    private $image;
+
+    /**
      * Get id
      *
      * @return int
@@ -55,7 +60,7 @@ class User extends BaseUser
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $firstname
      *
      * @return User
      */
@@ -109,5 +114,23 @@ class User extends BaseUser
     {
         $this->contact = $contact;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+
 }
 
