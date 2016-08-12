@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/html">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +40,7 @@
             <div class="navbar-left">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#navbar-collapse" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">Navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -56,16 +56,17 @@
                 {% endblock %}
 
                 {% block menusRight %}
-                <ul class="nav navbar-nav navbar-right" data-hover="dropdown"
-                    data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft">
+                <ul class="nav navbar-nav navbar-right" data-hover="dropdown" data-animations="pulse">
                     <li>
                         <div class="dropdown">
                             <a class="dropdown-toggle transparent" role="button" data-toggle="dropdown" data-hover="dropdown">
-                                <img class="img img-circle"
-                                     src="{{ asset(app.user.image.url) }}"
-                                     style="height: 60px; margin: 5px 100px 5px 0;"/>
+                                {# I need to add the /> on the other line instead, it adds a "-" on the image on the
+                                hover with the mouse #}
+                                <img class="img img-circle img-profile-picture"
+                                     src="{{ asset(app.user.image.url) }}" alt="profile"
+                                /><span class="badge badge-profile-picture">2</span>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu closer">
                                 <li>
                                     <a href="{{ path("front_homepage") }}">
                                         <i class="glyphicon glyphicon-home"></i>
@@ -80,6 +81,7 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li><a href="#">
+                                        <span class="badge pull-right badge-notification">2</span>
                                         <i class="glyphicon glyphicon-bell"></i>
                                         Notifications
                                     </a>

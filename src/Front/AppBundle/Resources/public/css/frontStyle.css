@@ -100,3 +100,23 @@ ul.nav.navbar-nav li a:link {
 .transparent {
     background-color: transparent !important;
 }
+
+.dropdown-menu.closer {
+    margin: 0;
+}
+
+.badge.badge-profile-picture {
+    position: relative;
+    top: -20px;
+    left: -10px;
+}
+
+.img.img-profile-picture {
+    height: 60px;
+    margin: 5px -10px 5px 0;
+    text-decoration: none;
+}
+
+.badge.badge-notification {
+    margin-top: 12px;
+}

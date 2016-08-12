@@ -28,8 +28,10 @@
                 {% block menusRight %}
                     <ul class="nav navbar-nav navbar-right">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            {{ parent() }}
-                        {% else %}
+                            <li>
+                                {{ parent() }}
+                            </li>
+                        {% elseif app.request.attributes.get('_route') != 'fos_user_security_login' %}
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a></li>
                         {% endif %}
                     </ul>
@@ -69,11 +71,13 @@
             </div>
         </div>
     </div>
-    {# Display the login pannel when it's called #}
-    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true" style="display: none;">
-        {{ render(controller("FOSUserBundle:Security:login", {'isLongTemplate': false })) }}
-    </div>
+    {# Display the login pannel when it's called by clicking the button "Connection", no need to display it in the /login page#}
+    {% if app.request.attributes.get('_route') != 'fos_user_security_login' %}
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
+             aria-hidden="true" style="display: none;">
+            {{ render(controller("FOSUserBundle:Security:login", {'isLongTemplate': false })) }}
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
