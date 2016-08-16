@@ -34,7 +34,7 @@
 
 <body>
 <header class="navbar navbar-static-top bs-docs-nav front-bar" id="top">
-    <nav class="navbar navbar-default front-bar">
+    <nav class="navbar-default front-bar">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-left">
@@ -60,11 +60,11 @@
                     <li>
                         <div class="dropdown">
                             <a class="dropdown-toggle transparent" role="button" data-toggle="dropdown" data-hover="dropdown">
-                                {# I need to add the /> on the other line instead, it adds a "-" on the image on the
+                                {# I need to add the "<!-- -->" because instead, it adds a "-" on the image on the
                                 hover with the mouse #}
                                 <img class="img img-circle img-profile-picture"
-                                     src="{{ asset(app.user.image.url) }}" alt="profile"
-                                /><span class="badge badge-profile-picture">2</span>
+                                     src="{{ asset(app.user.image.url) }}" alt="profile"/><!--
+                                    --><span class="badge badge-profile-picture">2</span>
                             </a>
                             <ul class="dropdown-menu closer">
                                 <li>

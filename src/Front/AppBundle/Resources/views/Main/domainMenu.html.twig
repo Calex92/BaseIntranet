@@ -10,6 +10,11 @@
             {% set isActive = "" %}
         {% endif %}
 
+        {# If I don't add this, when we're on the first page (/) and we click on a specific domain, the adress isn't correct #}
+        {% if from == "front_homepage" %}
+            {% set from = "news_index" %}
+        {% endif %}
+
         <a href="{{ path(from, {"domain" : key}) }}"
            class="list-group-item col-xs-4 col-sm-12 {{ isActive }}">
             <span class="badge">{% if domainsCount[key] is defined %}{{  domainsCount[key] }} {% endif %}</span>
