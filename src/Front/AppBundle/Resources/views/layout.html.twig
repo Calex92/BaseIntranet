@@ -23,7 +23,9 @@
                         <li>
                             <a href="http://192.168.41.102/dokuwiki/doku.php">Aide</a>
                         </li>
-                        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") and app.request.attributes.get('_route') != 'fos_user_security_login'%}
+                        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") and
+                                    app.request.attributes.get('_route') != 'fos_user_security_login'%}
+                            {# This is only visible for the mobile/table size #}
                             <li class="hidden visible-xs">
                                 <a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a>
                             </li>

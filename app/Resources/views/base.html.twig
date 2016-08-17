@@ -34,76 +34,9 @@
 
 <body>
 <header class="navbar navbar-static-top bs-docs-nav front-bar" id="top">
-    {#<nav class="navbar-default front-bar">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-left">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#navbar-collapse" aria-expanded="false">
-                    <span class="sr-only">Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-header" href="{{ path("front_homepage") }}">
-                    <img src="{{ asset('bundles/frontapp/img/logo.jpg') }}" alt="Logo Isidore"/>
-                </a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                {% block menus %}
-                {% endblock %}
-
-                {% block menusRight %}
-                <ul class="nav navbar-nav navbar-right" data-hover="dropdown" data-animations="pulse">
-                    <li>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle transparent" role="button" data-toggle="dropdown" data-hover="dropdown">
-                                #}{##}{# I need to add the "<!-- -->" because instead, it adds a "-" on the image on the
-                                hover with the mouse #}{#
-                                <img class="img img-circle img-profile-picture"
-                                     src="{{ asset(app.user.image.url) }}" alt="profile"/><!--
-                                    --><span class="badge badge-profile-picture">2</span>
-                            </a>
-                            <ul class="dropdown-menu closer">
-                                <li>
-                                    <a href="{{ path("front_homepage") }}">
-                                        <i class="glyphicon glyphicon-home"></i>
-                                        Accueil
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="glyphicon glyphicon-user"></i>
-                                        Profil
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li><a href="#">
-                                        <span class="badge pull-right badge-notification">2</span>
-                                        <i class="glyphicon glyphicon-bell"></i>
-                                        Notifications
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li><a href="{{ path('fos_user_security_logout') }}">
-                                        <i class="glyphicon glyphicon-off"></i>
-                                        Déconnexion
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                {% endblock %}
-            </div>
-        </div>
-    </nav>#}
-
     <nav role="navigation" class="navbar-default front-bar">
         <div class="container">
-            <div class="navbar-header pull-left">
+            <div class="pull-left">
                 <a href="{{ path("front_homepage") }}">
                     <img src="{{ asset('bundles/frontapp/img/logo.jpg') }}" alt="Logo Isidore" title="Accueil"/>
                 </a>
@@ -134,7 +67,7 @@
                             </li>
                             <li class="divider"></li>
                             <li><a href="#">
-                                    <span class="badge pull-right badge-notification">2</span>
+                                    <span class="badge pull-right">2</span>
                                     <i class="glyphicon glyphicon-bell"></i>
                                     Notifications
                                 </a>
