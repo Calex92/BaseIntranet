@@ -23,18 +23,19 @@
                         <li>
                             <a href="http://192.168.41.102/dokuwiki/doku.php">Aide</a>
                         </li>
+                        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 {% endblock %}
                 {% block menusRight %}
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li>
-                                {{ parent() }}
-                            </li>
-                        {% elseif app.request.attributes.get('_route') != 'fos_user_security_login' %}
-                            <li><a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a></li>
-                        {% endif %}
-                    </ul>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {{ parent() }}
+                    {% elseif app.request.attributes.get('_route') != 'fos_user_security_login' %}
+
+                    {% endif %}
                 {% endblock %}
 
 {% block mainContent %}
