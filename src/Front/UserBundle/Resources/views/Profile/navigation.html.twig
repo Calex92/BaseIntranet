@@ -1,0 +1,13 @@
+<div class="list-group small navigation-profile">
+    <a href="{{ path("fos_user_profile_show") }}" class="list-group-item col-xs-4 col-sm-12
+    {% if app.request.attributes.get('_route') == 'fos_user_profile_show' %} active {% endif %}">
+        <span class="list-group-item-heading">Profil</span>
+    </a>
+    <a href="{{ path("fos_user_profile_edit") }}" class="list-group-item col-xs-4 col-sm-12
+    {% if app.request.attributes.get('_route') == 'fos_user_profile_edit' %} active {% endif %}">
+        <span class="list-group-item-heading">Modifier</span>
+    </a>
+    <a href="#" class="list-group-item col-xs-4 col-sm-12">
+        <span class="list-group-item-heading">Paramètres</span>
+    </a>
+</div>

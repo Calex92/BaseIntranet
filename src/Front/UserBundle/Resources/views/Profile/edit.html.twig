@@ -1,0 +1,9 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block leftMenu %}
+    {% include "@FrontUser/Profile/navigation.html.twig" %}
+{% endblock %}
+
+{% block fos_user_content %}
+{% include "@FrontUser/Profile/edit_content.html.twig" %}
+{% endblock fos_user_content %}
