@@ -99,6 +99,7 @@ ul.nav.navbar-nav li a:link {
 ------------------------------------------------------------------------------------*/
 .transparent {
     background-color: transparent !important;
+    padding: 0 !important;
 }
 
 .dropdown-menu.closer {

@@ -34,7 +34,7 @@
 
 <body>
 <header class="navbar navbar-static-top bs-docs-nav front-bar" id="top">
-    <nav class="navbar-default front-bar">
+    {#<nav class="navbar-default front-bar">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-left">
@@ -60,8 +60,8 @@
                     <li>
                         <div class="dropdown">
                             <a class="dropdown-toggle transparent" role="button" data-toggle="dropdown" data-hover="dropdown">
-                                {# I need to add the "<!-- -->" because instead, it adds a "-" on the image on the
-                                hover with the mouse #}
+                                #}{# I need to add the "<!-- -->" because instead, it adds a "-" on the image on the
+                                hover with the mouse #}{#
                                 <img class="img img-circle img-profile-picture"
                                      src="{{ asset(app.user.image.url) }}" alt="profile"/><!--
                                     --><span class="badge badge-profile-picture">2</span>
@@ -99,8 +99,68 @@
                 {% endblock %}
             </div>
         </div>
-    </nav>
+    </nav>#}
 
+    <nav role="navigation" class="navbar navbar-default front-bar">
+        <div class="container">
+            <div class="navbar-header navbar-left pull-left">
+                <a href="{{ path("front_homepage") }}">
+                    <img src="{{ asset('bundles/frontapp/img/logo.jpg') }}" alt="Logo Isidore" title="Accueil"/>
+                </a>
+            </div>
+            <div class="navbar-right pull-right">
+                <ul class="nav pull-left">
+                    <li class="dropdown pull-right">
+                        <a class="dropdown-toggle transparent" role="button" data-toggle="dropdown" data-hover="dropdown">
+                            {# I need to add the "<!-- -->" because instead, it adds a "-" on the image on the
+                                hover with the mouse #}
+                                <img class="img img-circle img-profile-picture"
+                                     src="{{ asset(app.user.image.url) }}" alt="profile"/><!--
+                                    --><span class="badge badge-profile-picture">2</span>
+                            </a>
+                        <ul class="dropdown-menu closer">
+                            <li>
+                                <a href="{{ path("front_homepage") }}">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                    Accueil
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    Profil
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#">
+                                    <span class="badge pull-right badge-notification">2</span>
+                                    <i class="glyphicon glyphicon-bell"></i>
+                                    Notifications
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}">
+                                    <i class="glyphicon glyphicon-off"></i>
+                                    Déconnexion
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="visible-xs-block clearfix"></div>
+            <div class="collapse navbar-collapse">
+                {% block menus %}
+                {% endblock %}
+            </div>
+        </div>
+    </nav>
     <div class="separation-bar"></div>
 </header>
 
