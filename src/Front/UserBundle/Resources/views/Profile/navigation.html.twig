@@ -6,7 +6,7 @@
     <li class="{% if app.request.attributes.get('_route') == 'user_profile_edit' %}active{% endif %}">
         <a href="{{ path("user_profile_edit") }}">Modifier</a>
     </li>
-    <li class="{% if app.request.attributes.get('_route') == 'application_index' %}active{% endif %}">
-        <a href="#">Paramètres</a>
+    <li class="{% if app.request.attributes.get('_route') == 'fos_user_change_password' %}active{% endif %}">
+        <a href="{{ path("fos_user_change_password") }}">Paramètres</a>
     </li>
 </ul>
