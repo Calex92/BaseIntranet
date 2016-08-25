@@ -1,4 +1,11 @@
+parameters:
+  interactive_login_listener.class:
+    Front\UserBundle\EventListener\PasswordListener
 services:
-#    front_user.example:
-#        class: Front\UserBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+  password_listener:
+    class: %interactive_login_listener.class%
+    arguments:
+      - "@fos_user.user_manager"
+      - "@router"
+    tags:
+     - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }

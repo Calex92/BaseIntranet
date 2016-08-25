@@ -47,6 +47,12 @@ class User extends BaseUser
      */
     private $image;
 
+
+    /**
+     * @ORM\Column(name="lastPasswordChange", type="date", nullable=true)
+     */
+    private $lastPasswordChange;
+
     /**
      * Get id
      *
@@ -129,6 +135,22 @@ class User extends BaseUser
     public function setImage($image)
     {
         $this->image = $image;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastPasswordChange()
+    {
+        return $this->lastPasswordChange;
+    }
+
+    /**
+     * @param mixed $lastPasswordChange
+     */
+    public function setLastPasswordChange($lastPasswordChange)
+    {
+        $this->lastPasswordChange = $lastPasswordChange;
     }
 
 
