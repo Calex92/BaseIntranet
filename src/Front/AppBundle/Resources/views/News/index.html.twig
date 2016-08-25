@@ -13,6 +13,8 @@
     {"domains" : domains,
         "from" : app.request.attributes.get('_route'),
         "domainsCount" : domainsCount}) }}
+
+    {{ parent() }}
 {% endblock %}
 
 {% block content %}

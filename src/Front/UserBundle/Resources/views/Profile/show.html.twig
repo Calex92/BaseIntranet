@@ -1,7 +1,10 @@
 {% extends "@FrontUser/layout.html.twig" %}
 
+{% block title %}
+    Profil - {{ parent() }}
+{% endblock %}
 
-{% block leftMenu %}
+{% block menus %}
     {% include "@FrontUser/Profile/navigation.html.twig" %}
 {% endblock %}
 

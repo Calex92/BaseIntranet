@@ -6,8 +6,17 @@
 }
 
 /* ----------------------------------------------------------------------------------
-                                    Gestion profil
+                                    Change profile
 ------------------------------------------------------------------------------------*/
-.navigation-profile{
-     margin-bottom: 100px;
+.change-profile input {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.change-profile input[type=password] {
+    height: 34px;
+}
+
+.change-profile label {
+    margin-top: 10px;
 }

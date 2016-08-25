@@ -6,10 +6,10 @@ fos_user_security_login:
     path:    /login
     defaults: { _controller: FrontUserBundle:Security:login }
 
-fos_user_profile_show:
+user_profile_show:
      path:    /profile
      defaults: { _controller: FrontUserBundle:Profile:show }
 
-fos_user_profile_edit:
+user_profile_edit:
      path:    /profile/edit
      defaults: { _controller: FrontUserBundle:Profile:edit }

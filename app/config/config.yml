@@ -74,3 +74,6 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Front\UserBundle\Entity\User
+    profile:
+        form:
+            type: Front\UserBundle\Form\ProfileFormType

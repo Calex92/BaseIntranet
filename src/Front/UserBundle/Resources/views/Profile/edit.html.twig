@@ -1,6 +1,10 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "@FrontUser/layout.html.twig" %}
 
-{% block leftMenu %}
+{% block title %}
+    Edition profil - {{ parent() }}
+{% endblock %}
+
+{% block menus %}
     {% include "@FrontUser/Profile/navigation.html.twig" %}
 {% endblock %}
 

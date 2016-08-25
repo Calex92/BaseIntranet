@@ -1,10 +1,5 @@
 {# On étend notre layout #}
 {% extends "FrontAppBundle::layout.html.twig" %}
-
-    {% block title %}
-        Connexion -
-        {{ parent() }}
-    {% endblock %}
     {% block stylesheets %}
         {{ parent() }}
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontuser/css/style.css') }}">
