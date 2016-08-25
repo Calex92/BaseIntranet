@@ -1,11 +1,8 @@
 parameters:
-  interactive_login_listener.class:
-    Front\UserBundle\EventListener\PasswordListener
+    password_checker.number_month: 6
 services:
-  password_listener:
-    class: %interactive_login_listener.class%
-    arguments:
-      - "@fos_user.user_manager"
-      - "@router"
-    tags:
-     - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+    front_userbundle.password_checker:
+            class:  Front\UserBundle\Handler\PasswordCheckerHandler
+            arguments:  ["@router", "@security.authorization_checker", "@session", "%password_checker.number_month%"]
+            tags:
+                - { name: 'monolog.logger', channel: 'security' }
