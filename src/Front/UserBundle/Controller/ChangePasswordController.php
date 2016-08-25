@@ -64,6 +64,9 @@ class ChangePasswordController extends Controller
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_SUCCESS, $event);
 
+            //Update the "lastPasswordChange" field
+            $user->setLastPasswordChange(new \DateTime());
+
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
