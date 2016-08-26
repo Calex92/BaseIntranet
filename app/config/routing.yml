@@ -8,3 +8,7 @@ front_user:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+admin_user_manager:
+    resource: "@AdminUserManagerBundle/Resources/config/routing.yml"
+    prefix:   /

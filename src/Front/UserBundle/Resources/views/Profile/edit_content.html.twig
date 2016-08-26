@@ -51,7 +51,7 @@
     <div class="form-group">
         {{ form_label(form.current_password, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
         <div class="col-sm-8">
-            {{ form_widget(form.current_password, {"attr": {'class' : "form-control", 'placeholder' : "Votre mot de passe actuel"}}) }}
+            {{ form_widget(form.current_password, {"attr": {'class' : "form-control", 'placeholder' : 'form.current_password' }}) }}
         </div>
         {{ form_errors(form.current_password) }}
     </div>

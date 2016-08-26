@@ -19,6 +19,8 @@ profile:
     show:
         username: 'Nom d''utilisateur'
         email: 'Adresse e-mail'
+        firstname: 'Prénom'
+        surname: 'Nom de famille'
     edit:
         submit: 'Mettre à jour'
     flash:
@@ -59,6 +61,8 @@ layout:
 form:
     group_name: 'Nom du groupe'
     username: 'Nom d''utilisateur'
+    firstname: 'Prénom'
+    surname: 'Nom de famille'
     email: 'Adresse e-mail'
     current_password: 'Mot de passe actuel'
     password: 'Mot de passe'

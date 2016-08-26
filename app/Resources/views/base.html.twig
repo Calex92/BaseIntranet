@@ -37,9 +37,11 @@
     <nav role="navigation" class="navbar-default front-bar">
         <div class="container">
             <div class="pull-left">
+                {% block imageBanner %}
                 <a href="{{ path("front_homepage") }}">
                     <img src="{{ asset('bundles/frontapp/img/logo.jpg') }}" alt="Logo Isidore" title="Accueil"/>
                 </a>
+                {% endblock %}
             </div>
             <div class="navbar-right pull-right">
                 {% block menusRight %}
@@ -97,7 +99,9 @@
             </div>
         </div>
     </nav>
-    <div class="separation-bar"></div>
+    {% block separationBar %}
+        <div class="separation-bar"></div>
+    {% endblock %}
 </header>
 
 

@@ -23,8 +23,12 @@ ul.nav.navbar-nav li a:link {
 }
 
 .separation-bar {
-    background-color: #002e62;
-    height: 40px;
+     background-color: #002e62;
+     height: 40px;
+ }
+
+.separation-bar.separation-bar-admin {
+    background-color: rgb(80,1,126);
 }
 
 /* ----------------------------------------------------------------------------------

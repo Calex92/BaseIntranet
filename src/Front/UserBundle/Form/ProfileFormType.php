@@ -16,8 +16,10 @@ class ProfileFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('surname', null, array('label' => 'Nom de famille'));
-        $builder->add('firstname', null, array('label' => 'Prénom'));
+        $builder->add('surname', null, array('label' => 'form.surname',
+            'translation_domain' => 'FOSUserBundle'));
+        $builder->add('firstname', null, array('label' => 'form.firstname',
+            'translation_domain' => 'FOSUserBundle'));
     }
 
     public function getParent()
