@@ -1,0 +1,29 @@
+{% extends("::base.html.twig") %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/adminapp/js/admin.js") }}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.bootstrap.min.js"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/adminapp/css/adminStyle.css') }}">
+{% endblock %}
+
+{% block imageBanner %}
+    <a href="{{ path("admin_user_manager_homepage") }}">
+        <img src="{{ asset('download/admin/img/admin.png') }}" alt="Administration Isidore" title="Accueil"/>
+    </a>
+{% endblock %}
+
+{% block separationBar %}
+    <div class="separation-bar separation-bar-admin"></div>
+{% endblock %}
+
+{% block menus %}
+    {{ render(controller("AdminAppBundle:Base:topMenu", {"route" : app.request.attributes.get('_route')})) }}
+{% endblock %}

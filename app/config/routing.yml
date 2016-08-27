@@ -11,4 +11,4 @@ fos_user:
 
 admin_user_manager:
     resource: "@AdminUserManagerBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin
