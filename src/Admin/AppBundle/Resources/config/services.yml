@@ -1,0 +1,4 @@
+services:
+#    admin_app.example:
+#        class: Admin\AppBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
