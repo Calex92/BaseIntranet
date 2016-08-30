@@ -1,3 +1,7 @@
 admin_user_manager_homepage:
     path:     /users
     defaults: { _controller: AdminUserManagerBundle:User:index }
+
+admin_user_manager_create:
+    path:     /user/add
+    defaults: { _controller: AdminUserManagerBundle:User:create }

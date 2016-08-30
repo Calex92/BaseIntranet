@@ -39,7 +39,7 @@ class PasswordCheckerHandler implements AuthenticationSuccessHandlerInterface
         //If he didn't changed his password before the last 3 months, the only page he will see will be the change
         //you password page
         if ($user->getLastPasswordChange() === null || $monthPasswordCreated > ($this->numberMonth-1)) {
-            $this->session->getFlashBag()->add("danger", "Vous devez changer votre mot de passe tout les ".$this->numberMonth." mois!");
+            $this->session->getFlashBag()->add("danger", "Vous devez changer votre mot de passe tous les ".$this->numberMonth." mois!");
             return new RedirectResponse($this->router->generate("fos_user_change_password"));
         }
 

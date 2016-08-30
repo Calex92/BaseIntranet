@@ -27,3 +27,13 @@
 {% block menus %}
     {{ render(controller("AdminAppBundle:Base:topMenu", {"route" : app.request.attributes.get('_route')})) }}
 {% endblock %}
+
+{% block mainContent %}
+    {% for key, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ key }}" style="margin-top: 15px;">
+                {{ message|trans({}, 'FOSUserBundle') }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

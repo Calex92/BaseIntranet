@@ -4,12 +4,14 @@ namespace Front\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Front\AppBundle\Entity\Image;
 
 /**
  * User
  *
  * @ORM\Table(name="`user`")
  * @ORM\Entity(repositoryClass="Front\UserBundle\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
@@ -153,6 +155,18 @@ class User extends BaseUser
         $this->lastPasswordChange = $lastPasswordChange;
     }
 
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prepareObjectPersist() {
+        //The user need his basic profile picture and need to be activated.
+        //This is just done before the user is added in the database.
+        $image = new Image();
+        $image->setAlt("My profile picture");
+        $image->setUrl("bundles/frontuser/img/basic_avatar.png");
 
+        $this->setEnabled(true);
+        $this->setImage($image);
+    }
 }
 
