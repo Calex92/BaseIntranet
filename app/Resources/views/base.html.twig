@@ -74,6 +74,15 @@
                                     Notifications
                                 </a>
                             </li>
+                            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{ path('admin_user_manager_homepage', {'_switch_user': '_exit'}) }}">
+                                        <i class="glyphicon glyphicon-new-window"></i>
+                                        Quitter ce profil temporaire
+                                    </a>
+                                </li>
+                            {% endif %}
                             <li class="divider"></li>
                             <li><a href="{{ path('fos_user_security_logout') }}">
                                     <i class="glyphicon glyphicon-off"></i>

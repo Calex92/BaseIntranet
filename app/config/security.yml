@@ -6,6 +6,7 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
+        ROLE_USER:        ROLE_ALLOWED_TO_SWITCH
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
@@ -35,6 +36,7 @@ security:
                 path:    /logout
                 target:  /
             anonymous:    true
+            switch_user: ~
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

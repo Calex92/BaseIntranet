@@ -26,7 +26,17 @@
                         <td>{{ user.firstname }}</td>
                         <td>{{ user.surname }}</td>
                         <td>{{ user.email }}</td>
-                        <td style="text-align: center"><a href="#"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+                        <td style="text-align: center">
+                            {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                <a href="{{ path('front_homepage', {'_switch_user': user.username }) }}" title="Se connecter en tant que">
+                                <i class="glyphicon glyphicon-log-in"></i>
+                                </a>
+                            {% else %}
+                                <a href="{{ path('admin_user_manager_homepage', {'_switch_user': '_exit'}) }}" title="Se déconnecter du profil temporaire">
+                                    <i class="glyphicon glyphicon-new-window"></i>
+                                </a>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
