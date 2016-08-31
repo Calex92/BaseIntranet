@@ -5,3 +5,9 @@ admin_user_manager_homepage:
 admin_user_manager_create:
     path:     /user/add
     defaults: { _controller: AdminUserManagerBundle:User:create }
+
+admin_user_manager_update:
+    path:     /user/{idUser}
+    requirements:
+        id: \d+
+    defaults: { _controller: AdminUserManagerBundle:User:update }

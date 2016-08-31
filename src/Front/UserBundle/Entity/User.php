@@ -5,12 +5,15 @@ namespace Front\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Front\AppBundle\Entity\Image;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="`user`")
  * @ORM\Entity(repositoryClass="Front\UserBundle\Repository\UserRepository")
+ * @UniqueEntity("email")
+ * @UniqueEntity("username")
  * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser

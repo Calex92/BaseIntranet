@@ -1,9 +1,12 @@
 {% extends("AdminAppBundle:Base:index.html.twig") %}
 
 {% block mainContent %}
-    {{ parent() }}
+
     <div class="container">
         <div class="col-md-12 main-content">
+            <div class="col-md-12">
+                {{ parent() }}
+            </div>
             <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_user_manager_create") }}">Créer utilisateur</a>
             <h2 class="col-md-7" style="margin-top: 0;">Liste des utilisateurs</h2>
             <div class="col-md-12">
@@ -27,15 +30,15 @@
                         <td>{{ user.surname }}</td>
                         <td>{{ user.email }}</td>
                         <td style="text-align: center">
+                            {# If the user is logged as someone else, his only possibility is to switch back to its profile before connecting as
+                            someone else. I can't do another way because it's built like that.
+                            I have also to put everything on a single line either is adds an underline #}
                             {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                <a href="{{ path('front_homepage', {'_switch_user': user.username }) }}" title="Se connecter en tant que">
-                                <i class="glyphicon glyphicon-log-in"></i>
-                                </a>
+                                <a href="{{ path('front_homepage', {'_switch_user': user.username }) }}" title="Se connecter en tant que {{ user.username }}"><i class="glyphicon glyphicon-log-in"></i></a>
                             {% else %}
-                                <a href="{{ path('admin_user_manager_homepage', {'_switch_user': '_exit'}) }}" title="Se déconnecter du profil temporaire">
-                                    <i class="glyphicon glyphicon-new-window"></i>
-                                </a>
+                                <a href="{{ path('admin_user_manager_homepage', {'_switch_user': '_exit'}) }}" title="Se déconnecter du profil temporaire"><i class="glyphicon glyphicon-new-window"></i></a>
                             {% endif %}
+                            <a href="{{ path('admin_user_manager_update', {'idUser': user.id }) }}" title="Modifier"><i class="glyphicon glyphicon-cog"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
