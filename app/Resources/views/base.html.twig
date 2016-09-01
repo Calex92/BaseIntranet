@@ -52,7 +52,10 @@
                                 hover with the mouse #}
                                 <img class="img img-circle img-profile-picture"
                                      src="{{ asset(app.user.image.url) }}" alt="profile"/><!--
-                                    --><span class="badge badge-profile-picture">2</span>
+                                    --><span class="badge badge-profile-picture badge-alert">2</span>
+                            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                <span class="badge badge-connected-as badge-info">!</span>
+                            {% endif %}
                             </a>
                         <ul class="dropdown-menu closer">
                             <li>
@@ -69,7 +72,7 @@
                             </li>
                             <li class="divider"></li>
                             <li><a href="#">
-                                    <span class="badge pull-right">2</span>
+                                    <span class="badge pull-right badge-alert">2</span>
                                     <i class="glyphicon glyphicon-bell"></i>
                                     Notifications
                                 </a>
@@ -78,6 +81,7 @@
                                 <li class="divider"></li>
                                 <li>
                                     <a href="{{ path('admin_user_manager_homepage', {'_switch_user': '_exit'}) }}">
+                                        <span class="badge pull-right badge-info">!</span>
                                         <i class="glyphicon glyphicon-new-window"></i>
                                         Quitter ce profil temporaire
                                     </a>

@@ -130,7 +130,20 @@ ul.nav.navbar-nav li a:link {
     position: relative;
     top: -20px;
     left: -10px;
+}
+
+.badge.badge-connected-as {
+    position: relative;
+    bottom: -20px;
+    left: -33px;
+}
+
+.badge.badge-alert {
     background-color: red;
+}
+
+.badge.badge-info {
+    background-color: green;
 }
 
 .img.img-profile-picture {
