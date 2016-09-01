@@ -5,10 +5,6 @@ body {
     background-color: #e6e6e6;
 }
 
-/* ----------------------------------------------------------------------------------
-                                    Header
-------------------------------------------------------------------------------------*/
-
 .navbar.front-bar {
     margin-bottom: 0;
     border-width: 0;
@@ -29,6 +25,10 @@ ul.nav.navbar-nav li a:link {
 
 .separation-bar.separation-bar-admin {
     background-color: rgb(80,1,126);
+}
+
+.hidden-not-important {
+    display: none;
 }
 
 /* ----------------------------------------------------------------------------------
@@ -99,6 +99,22 @@ ul.nav.navbar-nav li a:link {
 }
 
 /* ----------------------------------------------------------------------------------
+                                      Content Applications
+------------------------------------------------------------------------------------*/
+.thumbnail.application {
+    height: 130px;
+}
+
+.thumbnail.application img {
+    height: 60%;
+}
+
+.thumbnail.application h4 {
+    font-size: 80%;
+    text-align: center;
+}
+
+/* ----------------------------------------------------------------------------------
                                       Profile pic menu
 ------------------------------------------------------------------------------------*/
 .transparent {
@@ -121,4 +137,62 @@ ul.nav.navbar-nav li a:link {
     height: 60px;
     margin: 5px -10px 5px 0;
     text-decoration: none;
+}
+
+.img.img-profile-picture-large {
+    height: 100px;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      View in form blocks
+------------------------------------------------------------------------------------*/
+.well.well-block-info {
+    overflow: hidden;
+}
+
+.well.well-block-info h4 {
+    text-decoration: underline;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      Padding/Margin
+------------------------------------------------------------------------------------*/
+.margin-15 {
+    margin: 15px;
+}
+
+.margin-top-15 {
+    margin-top: 15px;
+}
+
+.margin-bottom-15 {
+    margin-bottom: 15px;
+}
+
+.margin-left-15 {
+    margin-left: 15px;
+}
+
+.margin-right-15 {
+    margin-right: 15px;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+.padding-top-15 {
+    padding-top: 15px;
+}
+
+.padding-bottom-15 {
+    padding-bottom: 15px;
+}
+
+.padding-left-15 {
+    padding-left: 15px;
+}
+
+.padding-right-15 {
+    padding-right: 15px;
 }

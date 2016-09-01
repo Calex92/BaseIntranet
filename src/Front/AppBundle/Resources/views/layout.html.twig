@@ -76,8 +76,8 @@
     </div>
     {# Display the login pannel when it's called by clicking the button "Connection", no need to display it in the /login page#}
     {% if app.request.attributes.get('_route') != 'fos_user_security_login' %}
-        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
-             aria-hidden="true" style="display: none;">
+        <div class="modal fade hidden-not-important" id="login-modal" tabindex="-1" role="dialog"
+             aria-hidden="true">
             {{ render(controller("FOSUserBundle:Security:login", {'isLongTemplate': false })) }}
         </div>
     {% endif %}

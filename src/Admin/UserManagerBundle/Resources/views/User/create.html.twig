@@ -16,8 +16,8 @@
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                 {{ form_errors(form) }}
 
-            <div class="well col-md-6" style="overflow: hidden">
-                <h4 style="text-decoration: underline">Informations personnelles</h4>
+            <div class="well col-md-6 well-block-info" >
+                <h4>Informations personnelles</h4>
                 <div class="form-group">
                     {{ form_label(form.username, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
                     <div class="col-sm-8">
@@ -50,8 +50,8 @@
                     {{ form_errors(form.email) }}
                 </div>
             </div>
-            <div class="well col-md-6" style="overflow: hidden">
-                <h4 style="text-decoration: underline">Informations professionnelles</h4>
+            <div class="well col-md-6 well-block-info">
+                <h4>Informations professionnelles</h4>
                 <div class="form-group">
                     {{ form_label(form.plainPassword.first, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
                     <div class="col-sm-8">

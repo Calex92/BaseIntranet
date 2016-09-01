@@ -1,12 +1,12 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<div class="main-content change-profile" style="overflow: hidden">
+<div class="main-content change-profile">
     <h2>Modification de votre profil</h2>
 
     {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
 
     {{ form_errors(form) }}
-    <div class="well" style="overflow: hidden">
-        <h4><u>Informations personnelles</u></h4>
+    <div class="well well-block-info">
+        <h4>Informations personnelles</h4>
         <div class="form-group">
             {{ form_label(form.username, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
             <div class="col-sm-8">
@@ -40,11 +40,11 @@
         </div>
     </div>
 
-    <div class="well" style="overflow: hidden">
-        <h4><u>Informations professionnelles</u></h4>
+    <div class="well well-block-info">
+        <h4>Informations professionnelles</h4>
     </div>
 
-    <span class="control-label" style="padding-left: 15px;">
+    <span class="control-label padding-left-15">
         Afin de confirmer les modifications, veuillez entrer votre mot de passe actuel:
     </span>
 

@@ -1,17 +1,19 @@
 {% extends("AdminAppBundle:Base:index.html.twig") %}
 
-{% block mainContent %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/adminusermanager/css/userManagerStyle.css') }}">
+{% endblock %}
 
+{% block mainContent %}
     <div class="container">
         <div class="col-md-12 main-content">
             <div class="col-md-12">
+                {# If there's any errors, they will be displayed here #}
                 {{ parent() }}
             </div>
             <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_user_manager_create") }}">Créer utilisateur</a>
-            <h2 class="col-md-7" style="margin-top: 0;">Liste des utilisateurs</h2>
-            <div class="col-md-12">
-                {{ parent() }}
-            </div>
+            <h2 class="col-md-7 text-nowrap">Liste des utilisateurs</h2>
             <table class="table table-striped table-bordered table-hover dataTable">
                 <thead>
                 <tr>
@@ -29,7 +31,7 @@
                         <td>{{ user.firstname }}</td>
                         <td>{{ user.surname }}</td>
                         <td>{{ user.email }}</td>
-                        <td style="text-align: center">
+                        <td class="text-center">
                             {# If the user is logged as someone else, his only possibility is to switch back to its profile before connecting as
                             someone else. I can't do another way because it's built like that.
                             I have also to put everything on a single line either is adds an underline #}

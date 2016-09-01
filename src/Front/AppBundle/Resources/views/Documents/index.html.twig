@@ -37,7 +37,7 @@
                 <td>{{ document.type }}</td>
                 <td>{{ document.creationDate | date("d/m/Y") }}</td>
                 <td>{{ document.fileName }}</td>
-                <td style="text-align: center"><a href="{{ asset(document.location) }}"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+                <td class="text-center"><a href="{{ asset(document.location) }}"><span class="glyphicon glyphicon-download-alt"></span></a></td>
             </tr>
             {% endfor %}
             </tbody>

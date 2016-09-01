@@ -31,7 +31,7 @@
 {% block mainContent %}
     {% for key, messages in app.session.flashbag.all() %}
         {% for message in messages %}
-            <div class="alert alert-{{ key }}" style="margin-top: 15px;">
+            <div class="alert alert-{{ key }} margin-top-15">
                 {{ message|trans({}, 'FOSUserBundle') }}
             </div>
         {% endfor %}

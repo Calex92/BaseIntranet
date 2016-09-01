@@ -14,7 +14,8 @@
         {{ parent() }}
     </div>
 
-    <div class="well col-md-6" style="overflow: hidden">
+    <div class="well col-md-6 well-block-info">
+        <h4>Informations personnelles</h4>
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
         {{ form_errors(form) }}
         {{ form_rest(form) }}
