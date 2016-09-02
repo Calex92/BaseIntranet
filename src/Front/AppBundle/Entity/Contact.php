@@ -3,6 +3,7 @@
 namespace Front\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Contact
@@ -12,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Contact
 {
+    const SEPARATOR = " ";
+
+
     /**
      * @var int
      *
@@ -25,6 +29,7 @@ class Contact
      * @var int
      *
      * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     * @Assert\Regex(pattern="/^\d{8,14}$/", message="Le numéro ne doit contenir que des chiffre et faire entre 8 et 14 caractères")
      */
     private $phone;
 
@@ -32,6 +37,7 @@ class Contact
      * @var int
      *
      * @ORM\Column(name="mobilePhone", type="string", length=255, nullable=true)
+     * @Assert\Regex(pattern="/^\d{8,14}$/", message="Le numéro ne doit contenir que des chiffre et faire entre 8 et 14 caractères")
      */
     private $mobilePhone;
 
@@ -39,10 +45,11 @@ class Contact
      * @var int
      *
      * @ORM\Column(name="fax", type="string", length=255, nullable=true)
+     * @Assert\Regex(pattern="/^\d{8,14}$/", message="Le numéro ne doit contenir que des chiffre et faire entre 8 et 14 caractères")
      */
     private $fax;
 
-
+    
     /**
      * Get id
      *
@@ -62,7 +69,7 @@ class Contact
      */
     public function setPhone($phone)
     {
-        $this->phone = $phone;
+        $this->phone = $this->removeBadCharPhone($phone);
 
         return $this;
     }
@@ -74,7 +81,7 @@ class Contact
      */
     public function getPhone()
     {
-        return wordwrap($this->phone, 2, ".", true);
+        return wordwrap($this->phone, 2, self::SEPARATOR, true);
     }
 
     /**
@@ -86,7 +93,7 @@ class Contact
      */
     public function setMobilePhone($mobilePhone)
     {
-        $this->mobilePhone = $mobilePhone;
+        $this->mobilePhone = $this->removeBadCharPhone($mobilePhone);
 
         return $this;
     }
@@ -98,7 +105,7 @@ class Contact
      */
     public function getMobilePhone()
     {
-        return wordwrap($this->mobilePhone, 2, ".", true);
+        return wordwrap($this->mobilePhone, 2, self::SEPARATOR, true);
     }
 
     /**
@@ -110,7 +117,7 @@ class Contact
      */
     public function setFax($fax)
     {
-        $this->fax = $fax;
+        $this->fax = $this->removeBadCharPhone($fax);
 
         return $this;
     }
@@ -122,7 +129,11 @@ class Contact
      */
     public function getFax()
     {
-        return $this->fax;
+        return wordwrap($this->fax, 2, self::SEPARATOR, true);
+    }
+
+    private function removeBadCharPhone($phone) {
+        return str_replace(str_split('\\/:*?"<>=|+- '), '', $phone);
     }
 }
 

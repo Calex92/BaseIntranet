@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Front\AppBundle\Entity\Image;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -44,11 +45,13 @@ class User extends BaseUser
     /**
      *
      * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Contact", cascade={"persist"})
+     * @Assert\Valid()
      */
     private $contact;
 
     /**
      * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist"})
+
      */
     private $image;
 

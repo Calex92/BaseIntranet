@@ -2,7 +2,7 @@
 
 namespace Admin\UserManagerBundle\Controller;
 
-use Admin\UserManagerBundle\Form\UserAdminType;
+use Admin\UserManagerBundle\Form\UserEditType;
 use Admin\UserManagerBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +47,7 @@ class UserController extends Controller
             return $this->redirectToRoute("admin_user_manager_homepage");
         }
 
-        $form = $this->createForm(UserAdminType::class, $user);
+        $form = $this->createForm(UserEditType::class, $user);
 
         //The validation is checked in the entity User.
         if ($request->isMethod("POST") && $form->handleRequest($request)->isValid()) {

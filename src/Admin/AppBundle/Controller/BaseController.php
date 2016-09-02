@@ -8,10 +8,10 @@ class BaseController extends Controller
 {
     public function topMenuAction($route) {
         $menus = array();
-
         $menu = array("route" => "admin_user_manager_homepage",
             "name" => "Utilisateurs",
-            "active" => "");
+            "active" => in_array($route,
+                array('admin_user_manager_update', 'admin_user_manager_homepage', 'admin_user_manager_create'))? "active": "");
 
         array_push($menus, $menu);
 

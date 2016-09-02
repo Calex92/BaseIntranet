@@ -6,43 +6,14 @@
 
     {{ form_errors(form) }}
     <div class="well well-block-info">
-        <h4>Informations personnelles</h4>
-        <div class="form-group">
-            {{ form_label(form.username, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
-            <div class="col-sm-8">
-                {{ form_widget(form.username, {"attr": {'class' : "form-control"}}) }}
-            </div>
-            {{ form_errors(form.username) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_label(form.firstname, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
-            <div class="col-sm-8">
-                {{ form_widget(form.firstname, {"attr": {'class' : "form-control"}}) }}
-            </div>
-            {{ form_errors(form.firstname) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_label(form.surname, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
-            <div class="col-sm-8">
-                {{ form_widget(form.surname, {"attr": {'class' : "form-control"}}) }}
-            </div>
-            {{ form_errors(form.surname) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_label(form.email, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
-            <div class="col-sm-8">
-                {{ form_widget(form.email, {"attr": {'class' : "form-control"}}) }}
-            </div>
-            {{ form_errors(form.email) }}
-        </div>
+        {{ include('@AdminUserManager/Form/UserType.html.twig') }}
     </div>
 
     <div class="well well-block-info">
-        <h4>Informations professionnelles</h4>
+        {{ include("@FrontApp/Form/contactType.html.twig") }}
     </div>
+
+
 
     <span class="control-label padding-left-15">
         Afin de confirmer les modifications, veuillez entrer votre mot de passe actuel:
