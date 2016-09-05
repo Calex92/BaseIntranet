@@ -4,7 +4,9 @@ namespace Front\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Front\AppBundle\Entity\Agency;
 use Front\AppBundle\Entity\Image;
+use Front\AppBundle\Entity\UserAgency;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -51,9 +53,14 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist"})
-
      */
     private $image;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\UserAgency", mappedBy="user")
+     */
+    private $user_agencies;
 
 
     /**
@@ -71,6 +78,30 @@ class User extends BaseUser
         return $this->id;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUserAgencies()
+    {
+        return $this->user_agencies;
+    }
+
+    /**
+     * @param mixed $user_agencies
+     */
+    public function setUserAgency($user_agencies)
+    {
+        $this->user_agencies = $user_agencies;
+    }
+
+    public function getAgencies() {
+        $agencies = array();
+        foreach ($this->user_agencies as $user_agency) {
+            if ($user_agency instanceof UserAgency)
+                array_push($agencies, $user_agency->getAgency());
+        }
+        return $agencies;
+    }
     /**
      * Set name
      *
@@ -173,6 +204,14 @@ class User extends BaseUser
 
         $this->setEnabled(true);
         $this->setImage($image);
+    }
+
+    public function addAgency (Agency $agency, $primary) {
+        $user_agency = new UserAgency();
+        $user_agency->setAgency($agency);
+        $user_agency->setPrincipal($primary);
+
+        $this->user_agencies[] = $user_agency;
     }
 }
 

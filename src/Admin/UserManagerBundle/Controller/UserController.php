@@ -2,8 +2,9 @@
 
 namespace Admin\UserManagerBundle\Controller;
 
-use Admin\UserManagerBundle\Form\UserEditType;
+use Admin\UserManagerBundle\Form\UserAdminEditType;
 use Admin\UserManagerBundle\Form\UserType;
+use Front\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -38,6 +39,7 @@ class UserController extends Controller
     public function updateAction(Request $request, $idUser)
     {
         $userManager = $this->get('fos_user.user_manager');
+        /** @var User $user */
         $user = $userManager->findUserBy(array("id" => $idUser));
 
 
@@ -47,13 +49,13 @@ class UserController extends Controller
             return $this->redirectToRoute("admin_user_manager_homepage");
         }
 
-        $form = $this->createForm(UserEditType::class, $user);
+        $form = $this->createForm(UserAdminEditType::class, $user);
 
         //The validation is checked in the entity User.
         if ($request->isMethod("POST") && $form->handleRequest($request)->isValid()) {
             $userManager->updateUser($user);
             $this->get('session')->getFlashBag()
-                ->add("success", "L'utilisateur " . $user->getsurname() . " " . $user->getfirstname() . " a bien été modifié");
+                ->add("success", "L'utilisateur " . $user->getSurname() . " " . $user->getFirstname() . " a bien été modifié");
 
             return $this->redirectToRoute("admin_user_manager_homepage");
         }

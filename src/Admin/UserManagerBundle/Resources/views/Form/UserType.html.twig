@@ -5,7 +5,7 @@
         <div class="col-sm-8">
             {{ form_widget(form.username, {"attr": {'class' : "form-control"}}) }}
         </div>
-        {{ form_errors(form.username) }}
+        {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.username}) }}
     </div>
 
     <div class="form-group">
@@ -13,7 +13,7 @@
         <div class="col-sm-8">
             {{ form_widget(form.firstname, {"attr": {'class' : "form-control"}}) }}
         </div>
-        {{ form_errors(form.firstname) }}
+        {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.firstname}) }}
     </div>
 
     <div class="form-group">
@@ -21,7 +21,7 @@
         <div class="col-sm-8">
             {{ form_widget(form.surname, {"attr": {'class' : "form-control"}}) }}
         </div>
-        {{ form_errors(form.surname) }}
+        {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.surname}) }}
     </div>
 
     <div class="form-group">
@@ -29,7 +29,7 @@
         <div class="col-sm-8">
             {{ form_widget(form.email, {"attr": {'class' : "form-control"}}) }}
         </div>
-        {{ form_errors(form.email) }}
+        {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.email}) }}
     </div>
 
 {% if form.plainPassword.first is defined %}
@@ -38,14 +38,14 @@
             <div class="col-sm-8">
                 {{ form_widget(form.plainPassword.first, {"attr": {'class' : "form-control"}}) }}
             </div>
-            {{ form_errors(form.plainPassword.first) }}
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.plainPassword.first}) }}
         </div>
         <div class="form-group">
             {{ form_label(form.plainPassword.second, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
             <div class="col-sm-8">
                 {{ form_widget(form.plainPassword.second, {"attr": {'class' : "form-control"}}) }}
             </div>
-            {{ form_errors(form.plainPassword.second) }}
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.plainPassword.second}) }}
         </div>
 {% endif %}
 </div>

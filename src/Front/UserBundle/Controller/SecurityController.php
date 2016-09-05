@@ -75,6 +75,9 @@ class SecurityController extends Controller
         if (!$data["isLongTemplate"]) {
             return $this->render('FrontUserBundle:Security:loginShort.html.twig', $data);
         }
+        if ($this->getUser()!== null) {
+            return $this->redirectToRoute("news_index");
+        }
 
         return $this->render('FOSUserBundle:Security:login.html.twig', $data);
     }

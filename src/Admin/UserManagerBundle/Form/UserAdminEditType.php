@@ -9,15 +9,24 @@
 namespace Admin\UserManagerBundle\Form;
 
 
+use Front\AppBundle\Entity\Agency;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserEditType extends AbstractType
+class UserAdminEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->remove("plainPassword");
+        $builder->remove("plainPassword")
+            ->add('agencies', EntityType::class, array(
+                'class' => 'Front\AppBundle\Entity\Agency',
+                'choice_label' => function($agency) {
+                    /** @var Agency $agency */
+                    return $agency->getCode()." - ".$agency->getName();
+                }
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

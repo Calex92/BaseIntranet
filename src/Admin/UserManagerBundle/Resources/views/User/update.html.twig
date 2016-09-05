@@ -19,6 +19,9 @@
                     <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Informations générales</a>
                 </li>
                 <li role="presentation">
+                    <a href="#agency" aria-controls="profile" role="tab" data-toggle="tab">Agences</a>
+                </li>
+                <li role="presentation">
                     <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Groupes</a>
                 </li>
                 <li role="presentation">
@@ -45,6 +48,10 @@
                             {{ include('@FrontApp/Form/contactType.html.twig') }}
                         </div>
                     </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="agency">
+                    {{ form_row(form.agencies) }}
+                    <a href="#" id="add_agency" class="btn btn-default">Ajouter une agence</a>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="profile">Pannel groupe</div>
                 <div role="tabpanel" class="tab-pane" id="messages">Pannel paramètres</div>
