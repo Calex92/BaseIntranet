@@ -25,6 +25,7 @@ class UserType extends AbstractType
                 ->add('firstname', TextType::class, array('label' => "form.firstname", 'translation_domain' => 'FOSUserBundle'))
                 ->add('email', EmailType::class, array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
                 ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+                //->add('id', HiddenType::class)
                 ->add('plainPassword', RepeatedType::class, array(
             'type' => PasswordType::class,
             'options' => array('translation_domain' => 'FOSUserBundle'),
