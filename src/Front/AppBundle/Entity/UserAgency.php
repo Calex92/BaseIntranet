@@ -9,10 +9,13 @@
 namespace Front\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Front\UserBundle\Entity\User;
+
 /**
  * Class UserAgency
  * @package Front\AppBundle\Entity
  * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\UserAgencyRepository")
  * @ORM\Table(name="user_agency")
  */
 class UserAgency
@@ -41,7 +44,20 @@ class UserAgency
      */
     private $agency;
 
-    
+    /**
+     * UserAgency constructor.
+     * @param $user
+     * @param $agency
+     * @param $principal boolean User to know if this is the main agency or not
+     */
+    public function __construct(User $user, Agency $agency, $principal = false)
+    {
+        $this->user = $user;
+        $this->agency = $agency;
+        $this->principal = $principal;
+    }
+
+
     /**
      * @return mixed
      */

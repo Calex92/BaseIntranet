@@ -51,10 +51,18 @@
                 </div>
                 <div role="tabpanel" class="tab-pane" id="agency">
                     <div class="col-md-12">
-                        {{ form_row(form.user_agencies) }}
+                        <label for="user_admin_edit_agencies">Agences :</label>
+                        <select id="user_admin_edit_agencies">
+                            {% for agency in agencies %}
+                                <option value="{{ agency.id }}">{{ agency.code }} - {{ agency.name }}</option>
+                            {% endfor %}
+                        </select>
                         <a href="#" id="add_agency" class="btn btn-default">Ajouter une agence</a>
+                        <img src="{{ asset('download/front/general/ajax/ajax-loader.gif') }}"
+                                title="Veuillez patienter" class="ajax-loader hidden">
                     </div>
 
+                    <input type="hidden" id="id_user" value="{{ user.id }}">
                     <table class="table table-striped table-bordered table-hover" id="userAgencyTable">
                         <thead>
                         <tr>
@@ -66,35 +74,40 @@
                         </tr>
                         </thead>
                         <tbody>
+                        {# This is used to add the infos in the table with AJAX#}
+                        <tr id="templateAgency" class="hidden">
+                                <td class="hidden agency_id">__idAgency__</td>
+                                <td class="agency_code">__code__</td>
+                                <td class="agency_name">__name__</td>
+                                <td>__function__</td>
+                                <td class="text-center">__principale__</td>
+                                <td class="text-center">
+                                    <a href="#" data-value="__idUserAgency__" class="remove_agency">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {# This is the end of the template #}
+
                         {% for userAgency in user.userAgencies %}
-                            <tr id="{{ userAgency.id }}">
-                                <td>{{ userAgency.agency.code }}</td>
-                                <td>{{ userAgency.agency.name }}</td>
+                            <tr>
+                                <td class="hidden agency_id">{{ userAgency.agency.id }}</td>
+                                <td class="agency_code">{{ userAgency.agency.code }}</td>
+                                <td class="agency_name">{{ userAgency.agency.name }}</td>
                                 <td></td>
-                                <td>{{ userAgency.principal }}</td>
+                                <td class="text-center">
+                                {% if userAgency.principal %}
+                                      <span class="glyphicon glyphicon-ok"></span>
+                                {% endif %}
+                                 </td>
 
                                 <td class="text-center">
-                                    <a href="#">
-                                        <span class="glyphicon glyphicon-download-alt"></span>
+                                    <a href="#" data-value="{{ userAgency.id }}" class="remove_agency">
+                                        <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
                             </tr>
                         {% endfor %}
-                            {# This is used to add the infos in the table with AJAX#}
-                            <tr id="templateAgency" class="hidden">
-                                <td>__code__</td>
-                                <td>__name__</td>
-                                <td>__function__</td>
-                                <td>__principale__</td>
-
-                                <td class="text-center">
-                                    <a href="#">
-                                        <span class="glyphicon glyphicon-download-alt"></span>
-                                    </a>
-                                </td>
-                            </tr>
-
-
                         </tbody>
                     </table>
                 </div>

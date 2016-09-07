@@ -1,0 +1,58 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: acastelain
+ * Date: 07/09/2016
+ * Time: 10:19
+ */
+
+namespace Front\AppBundle\Repository;
+
+
+use Doctrine\ORM\EntityRepository;
+use Front\AppBundle\Entity\UserAgency;
+
+class UserAgencyRepository extends EntityRepository
+{
+    /**
+     * This method is used to add a agency to a user. Or add a user to an agency.
+     * @param $idUser
+     * @param $idAgency
+     * @return array If there's an error, the array will contain the "message" with the "code" of the error. If there's no
+     * problem, the array contains the "user_agency" newly added and the code.
+     */
+    public function addUserAgency($idUser, $idAgency) {
+        $entityManager = $this->getEntityManager();
+
+        $user = $entityManager->getRepository("FrontUserBundle:User")->find(array("id" => $idUser));
+        $agency = $entityManager->getRepository("FrontAppBundle:Agency")->find(array("id" => $idAgency));
+
+        //If the user or the agency is not found in DB
+        if (!isset($user) || !isset($agency)) {
+            return array("message" => "L'utilisateur d'id ". $idUser ." ou l'agence d'id ".$idAgency. " n'ont pas été trouvés
+                                        en base de données, veuillez vérifier la cohérence des information et tenter à nouveau
+                                        l'ajout.",
+                                        "code" => 515);
+        }
+        //If the user already got the agency in his list
+        else if (in_array($agency, $user->getAgencies())) {
+            return array("message" => "L'utilisateur ".$user->getUsername() .
+                                        " appartient déjà à l'agence ".$agency->getCode()." ".$agency->getName().".",
+                        "code" => 515);
+        }
+        else {
+            $user_agency = new UserAgency($user, $agency);
+
+            //This is not yet saved in DB, so the number of Agencies is equals to 0 instead of 1
+            if (count($user_agency->getUser()->getAgencies())== 0) {
+                $user_agency->setPrincipal(true);
+            }
+
+            $entityManager->persist($user_agency);
+            $entityManager->flush();
+
+            return array("user_agency" => $user_agency,
+                        "code" => 201);
+        }
+    }
+}

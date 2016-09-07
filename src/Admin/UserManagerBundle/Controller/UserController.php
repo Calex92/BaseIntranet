@@ -54,6 +54,7 @@ class UserController extends Controller
         }
 
         $form = $this->createForm(UserAdminEditType::class, $user);
+        $agenciesForUser = $this->getDoctrine()->getRepository("FrontAppBundle:Agency")->getAgenciesNotUser($user->getId());
 
         //The validation is checked in the entity User.
         if ($request->isMethod("POST") && $form->handleRequest($request)->isValid()) {
@@ -66,7 +67,8 @@ class UserController extends Controller
 
         return $this->render("AdminUserManagerBundle:User:update.html.twig", array(
             "form" => $form->createView(),
-            "user" => $user));
+            "user" => $user,
+            "agencies" => $agenciesForUser));
     }
 
     public function updateAgenciesAction(Request $request, $idUser) {
@@ -77,47 +79,33 @@ class UserController extends Controller
     public function updateAgencyAjaxAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
-            $userManager = $this->get('fos_user.user_manager');
-
-
 
             $idUser = $request->get('idUser');
             $idAgency = $request->get('idAgency');
-            /** @var User $user */
-            $user = $userManager->findUserBy(array("id" => $idUser));
-            /** @var Agency $agency */
-            $agency = $em->getRepository('FrontAppBundle:Agency')->find($idAgency);
 
             switch($request->get('type')) {
                 case "add":
-                    if (!in_array($agency, $user->getAgencies())) {
-                        $user_agency = new UserAgency();
-                        $user_agency->setUser($user);
-                        $user_agency->setAgency($agency);
-                        $user_agency->setPrincipal(false);
-
-                        $em->persist($user_agency);
-                        $em->flush();
-
-                        if (count($user_agency->getUser()->getAgencies())== 0) {
-                            $principale = 1;
-                        }
-                        else {
-                            $principale = "";
-                        }
-
-                        return new JsonResponse('[{ "id" : "'.$user_agency->getId().'",
-                                                                        "code": "'.$agency->getCode().'",
-                                                                        "name": "'.$agency->getName().'",
-                                                                        "function": "",
-                                                                        "principale": "'.$principale.'"}]', 201);
+                    $return = $em->getRepository('FrontAppBundle:UserAgency')->addUserAgency($idUser, $idAgency);
+                    //If there's any problem during the add in DB, a message with a code will be sended
+                    if (isset($return['message'])) {
+                        return new JsonResponse($return["message"], $return["code"]);
                     }
+                    //If there's no problem, the User_Agency newly added will be sended.
                     else {
-                        return new JsonResponse("L'utilisateur ".$user->getUsername() .
-                            " appartient déjà à l'agence ".$agency->getCode()." ".$agency->getName().".", 515);
+                        /** @var UserAgency $user_agency */
+                        $user_agency = $return["user_agency"];
+                        return new JsonResponse('[{ "id" : "'.$user_agency->getId().'",
+                                                    "idAgency": "'.$user_agency->getAgency()->getId().'",
+                                                    "idUserAgency": "'.$user_agency->getId().'",
+                                                    "code": "'.$user_agency->getAgency()->getCode().'",
+                                                     "name": "'.$user_agency->getAgency()->getName().'",
+                                                     "function": "",
+                                                     "principale": "'.$user_agency->getPrincipal().'"}]', 201);
                     }
+
                     break;
                 case "remove":
+                    
                     break;
                 case "update":
                     break;
@@ -127,6 +115,6 @@ class UserController extends Controller
 
 
         }
-        return new Response("Nonnn ....");
+        return new Response("Erreur, vous ne pouvez appeler cette méthode de cette manière");
     }
 }

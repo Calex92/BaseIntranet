@@ -24,7 +24,7 @@ class AgencyRepository extends \Doctrine\ORM\EntityRepository
      * @param $idUser
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getAgenciesNotUserQuery($idUser) {
+    public function getAgenciesNotUser($idUser) {
 
         //First query, it get the id agencies that are linked to the user
         $subQb = $this->getEntityManager()->createQueryBuilder();
@@ -49,6 +49,6 @@ class AgencyRepository extends \Doctrine\ORM\EntityRepository
                 ->setParameter("subQuery", $subQuery);
         }
 
-        return $query;
+        return $query->getQuery()->getResult();
     }
 }
