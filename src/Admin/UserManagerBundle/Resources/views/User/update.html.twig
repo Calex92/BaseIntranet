@@ -57,6 +57,9 @@
                                 <option value="{{ agency.id }}">{{ agency.code }} - {{ agency.name }}</option>
                             {% endfor %}
                         </select>
+                        <input type="hidden" value="<option value='__idAgency__'>__codeAgency__ - __nameAgency__</option>"
+                                id="templateAgencyInfo">
+
                         <a href="#" id="add_agency" class="btn btn-default">Ajouter une agence</a>
                         <img src="{{ asset('download/front/general/ajax/ajax-loader.gif') }}"
                                 title="Veuillez patienter" class="ajax-loader hidden">
@@ -76,22 +79,22 @@
                         <tbody>
                         {# This is used to add the infos in the table with AJAX#}
                         <tr id="templateAgency" class="hidden">
-                                <td class="hidden agency_id">__idAgency__</td>
-                                <td class="agency_code">__code__</td>
-                                <td class="agency_name">__name__</td>
-                                <td>__function__</td>
-                                <td class="text-center">__principale__</td>
-                                <td class="text-center">
-                                    <a href="#" data-value="__idUserAgency__" class="remove_agency">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                </td>
-                            </tr>
+                            <td class="hidden agency_id" id="agency__idAgency__"></td>
+                            <td class="agency_code">__code__</td>
+                            <td class="agency_name">__name__</td>
+                            <td>__function__</td>
+                            <td class="text-center">__principale__</td>
+                            <td class="text-center">
+                                <a href="#" data-value="__idUserAgency__" class="remove_agency">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </td>
+                        </tr>
                         {# This is the end of the template #}
 
                         {% for userAgency in user.userAgencies %}
                             <tr>
-                                <td class="hidden agency_id">{{ userAgency.agency.id }}</td>
+                                <td class="hidden agency_id" id="agency{{ userAgency.agency.id }}"></td>
                                 <td class="agency_code">{{ userAgency.agency.code }}</td>
                                 <td class="agency_name">{{ userAgency.agency.name }}</td>
                                 <td></td>

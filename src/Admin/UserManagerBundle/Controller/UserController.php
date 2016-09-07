@@ -40,7 +40,7 @@ class UserController extends Controller
             array('form' => $form->createView()));
     }
 
-    public function updateBaseAction(Request $request, $idUser)
+    public function updateAction(Request $request, $idUser)
     {
         $userManager = $this->get('fos_user.user_manager');
         /** @var User $user */
@@ -71,41 +71,50 @@ class UserController extends Controller
             "agencies" => $agenciesForUser));
     }
 
-    public function updateAgenciesAction(Request $request, $idUser) {
-
-    }
-
 
     public function updateAgencyAjaxAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
 
-            $idUser = $request->get('idUser');
-            $idAgency = $request->get('idAgency');
-
             switch($request->get('type')) {
                 case "add":
+                    $idUser = $request->get('idUser');
+                    $idAgency = $request->get('idAgency');
+
                     $return = $em->getRepository('FrontAppBundle:UserAgency')->addUserAgency($idUser, $idAgency);
                     //If there's any problem during the add in DB, a message with a code will be sended
                     if (isset($return['message'])) {
-                        return new JsonResponse($return["message"], $return["code"]);
+                        return new JsonResponse($return["message"], 515);
                     }
                     //If there's no problem, the User_Agency newly added will be sended.
-                    else {
-                        /** @var UserAgency $user_agency */
-                        $user_agency = $return["user_agency"];
-                        return new JsonResponse('[{ "id" : "'.$user_agency->getId().'",
-                                                    "idAgency": "'.$user_agency->getAgency()->getId().'",
-                                                    "idUserAgency": "'.$user_agency->getId().'",
-                                                    "code": "'.$user_agency->getAgency()->getCode().'",
-                                                     "name": "'.$user_agency->getAgency()->getName().'",
-                                                     "function": "",
-                                                     "principale": "'.$user_agency->getPrincipal().'"}]', 201);
-                    }
+
+                    /** @var UserAgency $user_agency */
+                    $user_agency = $return["user_agency"];
+                    return new JsonResponse('[{ "id" : "'.$user_agency->getId().'",
+                                                "idAgency": "'.$user_agency->getAgency()->getId().'",
+                                                "idUserAgency": "'.$user_agency->getId().'",
+                                                "code": "'.$user_agency->getAgency()->getCode().'",
+                                                "name": "'.$user_agency->getAgency()->getName().'",
+                                                "function": "",
+                                                "principale": "'.$user_agency->getPrincipal().'"}]', 201);
+
 
                     break;
                 case "remove":
-                    
+                    $idUserAgency = $request->get('idUserAgency');
+
+                    $return = $em->getRepository("FrontAppBundle:UserAgency")->removeUserAgency($idUserAgency);
+
+                    if (isset($return['message'])) {
+                        return new JsonResponse($return["message"], 516);
+                    }
+
+                    /** @var Agency $agency */
+                    $agency = $return["agency"];
+                    return new JsonResponse('[{"idAgency" : "'.$agency->getId().'",
+                                                "codeAgency" : "'.$agency->getCode(). '",
+                                                "nameAgency" : "'.$agency->getName(). '"}]',
+                                            202);
                     break;
                 case "update":
                     break;

@@ -10,7 +10,7 @@ admin_user_manager_update:
     path:     /user/{idUser}
     requirements:
         id: \d+
-    defaults: { _controller: AdminUserManagerBundle:User:updateBase }
+    defaults: { _controller: AdminUserManagerBundle:User:update }
 
 admin_user_agency_update:
     path:    /user/ajax/agency/update

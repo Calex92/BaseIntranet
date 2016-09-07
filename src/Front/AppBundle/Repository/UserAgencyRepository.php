@@ -29,30 +29,54 @@ class UserAgencyRepository extends EntityRepository
 
         //If the user or the agency is not found in DB
         if (!isset($user) || !isset($agency)) {
-            return array("message" => "L'utilisateur d'id ". $idUser ." ou l'agence d'id ".$idAgency. " n'ont pas été trouvés
+            return array("message" => "L'utilisateur d'id " . $idUser . " ou l'agence d'id " . $idAgency . " n'ont pas été trouvés
                                         en base de données, veuillez vérifier la cohérence des information et tenter à nouveau
-                                        l'ajout.",
-                                        "code" => 515);
-        }
-        //If the user already got the agency in his list
+                                        l'ajout.");
+        } //If the user already got the agency in his list
         else if (in_array($agency, $user->getAgencies())) {
-            return array("message" => "L'utilisateur ".$user->getUsername() .
-                                        " appartient déjà à l'agence ".$agency->getCode()." ".$agency->getName().".",
-                        "code" => 515);
+            return array("message" => "L'utilisateur " . $user->getUsername() .
+                " appartient déjà à l'agence " . $agency->getCode() . " " . $agency->getName() . ".");
         }
-        else {
-            $user_agency = new UserAgency($user, $agency);
+        $user_agency = new UserAgency($user, $agency);
 
-            //This is not yet saved in DB, so the number of Agencies is equals to 0 instead of 1
-            if (count($user_agency->getUser()->getAgencies())== 0) {
-                $user_agency->setPrincipal(true);
-            }
-
-            $entityManager->persist($user_agency);
-            $entityManager->flush();
-
-            return array("user_agency" => $user_agency,
-                        "code" => 201);
+        //This is not yet saved in DB, so the number of Agencies is equals to 0 instead of 1
+        if (count($user_agency->getUser()->getAgencies()) == 0) {
+            $user_agency->setPrincipal(true);
         }
+
+        $entityManager->persist($user_agency);
+        $entityManager->flush();
+
+        return array("user_agency" => $user_agency);
+
+    }
+
+    public function removeUserAgency($idUserAgency)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $userAgency = $this->getFromUserAndAgency($idUserAgency);
+
+        if (!isset($userAgency)) {
+            return array("message" => "Impossible de trouver de lien en base de données entre cet utilisateur et cette agence.",
+                "code" => 516);
+        }
+        else if ($userAgency->getPrincipal()) {
+            return array("message" => "Impossible de supprimer l'agence " . $userAgency->getAgency()->getName() . " car c'est l'agence
+                                        principale de l'utilisateur. Veuillez définir une autre agence avant de supprimer celle-ci");
+        }
+
+        $entityManager->remove($userAgency);
+        $entityManager->flush();
+
+        return array("agency" => $userAgency->getAgency());
+    }
+
+    public function getFromUserAndAgency($idUserAgency)
+    {
+        $entityManager = $this->getEntityManager()
+            ->find("FrontAppBundle:UserAgency", array("id" => $idUserAgency));
+
+        return $entityManager;
     }
 }
