@@ -29,7 +29,7 @@ class Contact
      * @var int
      *
      * @ORM\Column(name="phone", type="string", length=255, nullable=true)
-     * @Assert\Regex(pattern="/^\d{8,14}$/", message="Le numéro ne doit contenir que des chiffre et faire entre 8 et 14 caractères")
+     * @Assert\Regex(pattern="/^\d{8,14}$/", message="Le numéro ne doit contenir QUE des chiffres et faire entre 8 et 14 caractères")
      */
     private $phone;
 
@@ -37,7 +37,7 @@ class Contact
      * @var int
      *
      * @ORM\Column(name="mobilePhone", type="string", length=255, nullable=true)
-     * @Assert\Regex(pattern="/^\d{8,14}$/", message="Le numéro ne doit contenir que des chiffre et faire entre 8 et 14 caractères")
+     * @Assert\Regex(pattern="/^\d{8,14}$/", message="Le numéro ne doit contenir QUE des chiffres et faire entre 8 et 14 caractères")
      */
     private $mobilePhone;
 
@@ -45,7 +45,7 @@ class Contact
      * @var int
      *
      * @ORM\Column(name="fax", type="string", length=255, nullable=true)
-     * @Assert\Regex(pattern="/^\d{8,14}$/", message="Le numéro ne doit contenir que des chiffre et faire entre 8 et 14 caractères")
+     * @Assert\Regex(pattern="/^\d{8,14}$/", message="Le numéro ne doit contenir QUE des chiffres et faire entre 8 et 14 caractères")
      */
     private $fax;
 

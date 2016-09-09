@@ -8,18 +8,48 @@
             <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
             <p>{{ 'profile.show.firstname'|trans }} : {{ user.firstname }}</p>
             <p>{{ 'profile.show.surname'|trans }}: {{ user.surname }}</p>
-            <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+
         </div>
         <div class="pull-right col-md-4 col-sm-12 col-xs-12">
             <p>Votre photo de profil:</p>
             <img src="{{ asset(user.image.url) }}" alt="Mon image" class="img img-profile-picture img-profile-picture-large">
         </div>
     </div>
+        <div class="well well-block-info">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <h4>Informations de contact</h4>
+                <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+                {% if user.contact.phone is not empty %}
+                    <p>Téléphone : {{ user.contact.phone }}</p>
+                {% endif %}
+                {% if user.contact.mobilePhone is not empty %}
+                    <p>Mobile : {{ user.contact.mobilePhone }}</p>
+                {% endif %}
+                {% if user.contact.fax is not empty %}
+                    <p>Fax : {{ user.contact.fax }}</p>
+                {% endif %}
+            </div>
+        </div>
     <div class="well well-block-info" >
         <div class="col-md-12">
         <h4>Informations professionnelles</h4>
-        <p>Votre poste: Web developer</p>
-        <p>Votre agence: Bondues</p>
+        {% if user.userAgencies|length > 0  %}
+            <div>
+                {% if user.userAgencies|length == 1 %}
+                    Votre agence :
+                {% else %}
+                    Vos agences :
+                {% endif %}
+                <ul>
+                {% for agency in user.agencies %}
+                    <li>{{ agency.code }} - {{ agency.name }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p class="alert alert-danger">Vous n'avez aucune agence d'affectée, vous ne pourrez donc pas accéder à la moindre application.</p>
+        {% endif %}
+
         </div>
     </div>
 </div>

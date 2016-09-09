@@ -46,7 +46,9 @@ class AgencyRepository extends \Doctrine\ORM\EntityRepository
 
         if (count($subQuery) > 0) {
             $query->where($qb->expr()->notIn("agency.id", ":subQuery"))
-                ->setParameter("subQuery", $subQuery);
+                ->setParameter("subQuery", $subQuery)
+                ->andWhere("agency.active = :active")
+                ->setParameter("active", true);
         }
 
         return $query->getQuery()->getResult();
