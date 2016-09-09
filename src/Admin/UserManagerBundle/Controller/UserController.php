@@ -82,15 +82,15 @@ class UserController extends Controller
                     $idAgency = $request->get('idAgency');
 
                     $return = $em->getRepository('FrontAppBundle:UserAgency')->addUserAgency($idUser, $idAgency);
-                    //If there's any problem during the add in DB, a message with a code will be sended
+                    //If there's any problem during the add in DB, a message with a code will be sent
                     if (isset($return['message'])) {
                         return new JsonResponse($return["message"], 515);
                     }
-                    //If there's no problem, the User_Agency newly added will be sended.
+                    //If there's no problem, the User_Agency newly added will be sent.
 
                     /** @var UserAgency $user_agency */
                     $user_agency = $return["user_agency"];
-                    return new JsonResponse('[{ "id" : "'.$user_agency->getId().'",
+                    return new JsonResponse('[{ "idUserAgency" : "'.$user_agency->getId().'",
                                                 "idAgency": "'.$user_agency->getAgency()->getId().'",
                                                 "idUserAgency": "'.$user_agency->getId().'",
                                                 "code": "'.$user_agency->getAgency()->getCode().'",
@@ -116,7 +116,21 @@ class UserController extends Controller
                                                 "nameAgency" : "'.$agency->getName(). '"}]',
                                             202);
                     break;
-                case "update":
+                case "setPrincipal":
+                    $idUserAgency = $request->get('idUserAgency');
+
+                    $return = $em->getRepository("FrontAppBundle:UserAgency")->setAsPrincipal($idUserAgency);
+
+                    //If there's any problem during the update in DB, a message with a code will be sent
+                    if (isset($return['message'])) {
+                        return new JsonResponse($return["message"], 515);
+                    }
+
+                    //If there's no problem, the id of the User_Agency updated will be sent
+                    /** @var UserAgency $user_agency */
+                    $user_agency = $return["user_agency"];
+                    return new JsonResponse('[{"idUserAgency" : "'.$user_agency->getId().'",
+                                                "idAgency" : "'.$user_agency->getAgency()->getId().'"}]', 215);
                     break;
                 default:
 

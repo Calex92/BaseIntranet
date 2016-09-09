@@ -20,6 +20,12 @@ $(document).on("click", ".remove_agency", function (e) {
     e.preventDefault();
 });
 
+/* Listener on the button to update the agency and set it as the principal in the user list */
+$(document).on("click", ".set_principal_agency", function(e) {
+    updateAgency("setPrincipal", null, null, $(this).attr("data-value"));
+    e.preventDefault();
+});
+
 
 function updateAgency(type, idAgency, idUser, idUserAgency) {
 
@@ -31,6 +37,7 @@ function updateAgency(type, idAgency, idUser, idUserAgency) {
     }
     //The cursor is now "waiting" the Ajax callbacks
     $('body').addClass("wait");
+    $(".ajax-loader").removeClass("hidden");
 
     $.ajax({
         url: Routing.generate("admin_user_agency_update"),
@@ -55,12 +62,17 @@ function updateAgency(type, idAgency, idUser, idUserAgency) {
                 case 202:
                     removeLineInTable($.parseJSON(result));
                     writeMessage("L'agence a bien été supprimée", "info");
+                    break;
+                case 215:
+                    setLineAsPrincipalInTable($.parseJSON(result));
+                    writeMessage("L'agence a bien été définie comme étant principale", "info");
             }
         },
         error: function(result) {
             switch (result.status) {
                 case 515:
                     //When there's an error during the add of the agency, show the error message.
+                    //The update use the same error code
                     writeMessageJson(result.responseText, "danger");
                     break;
                 case 516:
@@ -76,12 +88,11 @@ function updateAgency(type, idAgency, idUser, idUserAgency) {
                 case 515:
                     //By default, whe have disabled the button in the adding case, we have to remove this class.
                     $("#add_agency").removeClass("disabled");
-                    $(".ajax-loader").addClass("hidden");
                     break;
             }
             //The cursor is no longuer waiting
             $('body').removeClass("wait");
-
+            $(".ajax-loader").addClass("hidden");
         }
     })
 }
@@ -120,19 +131,24 @@ function writeMessage(message, type) {
  */
 function addLineInTable(object) {
     var template = $("#templateAgency").html();
-    template = "<tr id='__id__'>" + template + "</tr>";
+    template = "<tr>" + template + "</tr>";
 
     $(object).each(function (i, val) {
         $.each(val, function (key, value) {
             /* This part of the code transform the "true" of "principale" into a glyphicon */
-            if (key == "principale" && value == true) {
-                var iconToAdd = '<span class="glyphicon glyphicon-ok"></span>';
-                template = template.replace("__" + key + "__", iconToAdd);
+            if (key == "principale") {
+                var templatePrincipale = '<span class="glyphicon glyphicon-ok ';
+                if (!value) {
+                    templatePrincipale += "hidden";
+                }
+                templatePrincipale += '"></span>';
+                template = template.replace("__" + key + "__", templatePrincipale);
             }
             /* In the other cases, we have to replace the key sourrounded by "__" by the value. The keys can be
              * the code, the id, principale, ... The values of the Agency in fact */
             else {
-                template = template.replace("__" + key + "__", value);
+                //The regex is used because there's several occurence of certains key so they need to be all replaced.
+                template = template.replace(new RegExp("__" + key + "__", 'g'), value);
             }
         });
     });
@@ -141,6 +157,7 @@ function addLineInTable(object) {
 }
 
 function removeLineInTable(object) {
+    //The template is added in the combobox
     var template = $("#templateAgencyInfo").val();
     $(object).each(function (i, val) {
         $.each(val, function (key, value) {
@@ -155,4 +172,30 @@ function removeLineInTable(object) {
 
     //Then add the template in the select/option
     $("#user_admin_edit_agencies").append(template);
+}
+
+function setLineAsPrincipalInTable(object) {
+    //Remove the things that are used to show this is the principal agency
+    $(".glyphicon-ok").each(function() {
+        $(this).addClass("hidden");
+    }).addClass("hidden");
+    $(".set_principal_agency").each(function() {
+        $(this).removeClass("hidden");
+    });
+
+    //Then, we have to search the line where we have to set it as the principal agency
+     var lineUserAgency = "";
+    $(object).each(function (i, val) {
+        $.each(val, function (key, value) {
+            if (key == "idUserAgency") {
+                lineUserAgency = $("#user_agency" + value).closest("tr");
+            }
+        });
+    });
+
+    if (lineUserAgency != "") {
+        lineUserAgency.find(".set_principal_agency").addClass("hidden");
+        lineUserAgency.find(".glyphicon-ok").removeClass("hidden");
+    }
+
 }

@@ -18,9 +18,9 @@ class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('phone', TextType::class, array('label' => "Téléphone", 'required' => false))
-            ->add('mobilePhone', TextType::class, array('label' => "Portable", 'required' => false))
-            ->add('fax', TextType::class, array('label' => 'Fax', 'required' => false));
+        $builder->add('phone', TextType::class, array('label' => 'phones.phone', 'required' => false, 'translation_domain' => 'Contact'))
+            ->add('mobilePhone', TextType::class, array('label' => "phones.mobile", 'required' => false, 'translation_domain' => 'Contact'))
+            ->add('fax', TextType::class, array('label' => 'phones.fax', 'required' => false, 'translation_domain' => 'Contact'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

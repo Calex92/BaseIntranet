@@ -11,6 +11,7 @@ namespace Front\AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Front\AppBundle\Entity\UserAgency;
+use Front\UserBundle\Entity\User;
 
 class UserAgencyRepository extends EntityRepository
 {
@@ -58,8 +59,7 @@ class UserAgencyRepository extends EntityRepository
         $userAgency = $this->getFromUserAndAgency($idUserAgency);
 
         if (!isset($userAgency)) {
-            return array("message" => "Impossible de trouver de lien en base de données entre cet utilisateur et cette agence.",
-                "code" => 516);
+            return array("message" => "Impossible de trouver de lien en base de données entre cet utilisateur et cette agence.");
         }
         else if ($userAgency->getPrincipal()) {
             return array("message" => "Impossible de supprimer l'agence " . $userAgency->getAgency()->getName() . " car c'est l'agence
@@ -78,5 +78,34 @@ class UserAgencyRepository extends EntityRepository
             ->find("FrontAppBundle:UserAgency", array("id" => $idUserAgency));
 
         return $entityManager;
+    }
+
+    public function setAsPrincipal($idUserAgency) {
+        $entityManager = $this->getEntityManager();
+
+        $userAgency = $this->getFromUserAndAgency($idUserAgency);
+
+        if (!isset($userAgency)) {
+            return array("message" => "Impossible de trouver l'agence de cet utilisateur dans la base de données");
+        }
+        else if ($userAgency->getPrincipal()) {
+            return array("message" => "Cette agence est déjà selectionnée comme étant principale");
+        }
+
+        /** @var User $user */
+        $user = $userAgency->getUser();
+        foreach ($user->getUserAgencies() as $userAgencyLoop) {
+            /** @var UserAgency $userAgencyLoop */
+            if ($userAgencyLoop->getPrincipal()) {
+                $userAgencyLoop->setPrincipal(false);
+                $entityManager->flush($userAgencyLoop);
+            }
+        }
+
+        $userAgency->setPrincipal(true);
+        $entityManager->flush($userAgency);
+
+
+        return array("user_agency" => $userAgency);
     }
 }
