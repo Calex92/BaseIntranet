@@ -37,6 +37,9 @@ class UserAgencyRepository extends EntityRepository
         else if (in_array($agency, $user->getAgencies())) {
             return array("message" => "L'utilisateur " . $user->getUsername() .
                 " appartient déjà à l'agence " . $agency->getCode() . " " . $agency->getName() . ".");
+        } //If the agency is not active
+        else if (!$agency->getActive()) {
+            return array("message" => "L'agence est définie comme étant inactive, impossible de l'ajouter à l'utilisateur.");
         }
         $user_agency = new UserAgency($user, $agency);
 

@@ -39,7 +39,7 @@ class Application
     /**
      * @var Image
      *
-     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist", "remove"})
      */
     private $image;
 

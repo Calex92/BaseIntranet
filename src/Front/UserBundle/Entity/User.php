@@ -46,13 +46,14 @@ class User extends BaseUser
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Contact", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Contact", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      * @Assert\Valid()
      */
     private $contact;
 
     /**
-     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist", "remove"})
      */
     private $image;
 
@@ -196,20 +197,20 @@ class User extends BaseUser
      * @ORM\PrePersist()
      */
     public function prepareObjectPersist() {
-        //The user need his basic profile picture and need to be activated.
-        //This is just done before the user is added in the database.
-        $image = new Image();
-        $image->setAlt("My profile picture");
-        $image->setUrl("bundles/frontuser/img/basic_avatar.png");
+        if ($this->image == null) {
+            //The user need his basic profile picture and need to be activated.
+            //This is just done before the user is added in the database.
+            $image = new Image();
+            $image->setAlt("My profile picture");
+            $image->setUrl("bundles/frontuser/img/basic_avatar.png");
 
-        $this->setEnabled(true);
-        $this->setImage($image);
+            $this->setEnabled(true);
+            $this->setImage($image);
+        }
     }
 
     public function addAgency (Agency $agency, $primary) {
-        $user_agency = new UserAgency();
-        $user_agency->setAgency($agency);
-        $user_agency->setPrincipal($primary);
+        $user_agency = new UserAgency($this, $agency, $primary);
 
         $this->user_agencies[] = $user_agency;
     }
