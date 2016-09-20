@@ -121,6 +121,18 @@ class UserAgency
     {
         $this->agency = $agency;
     }
-    
+
+
+    public function getJson() {
+        $json_response = '{';
+        $json_response .= '"idUser_Agency" : "'. $this->getId() . '",';
+        $json_response .= '"idAgency" : "'. $this->getAgency()->getId(). '",';
+        $json_response .= '"codeAgency" : "'. $this->getAgency()->getCode(). '",';
+        $json_response .= '"principale" : "'. $this->getPrincipal(). '",';
+        $json_response .= '"nameAgency" : "'. addslashes($this->getAgency()->getName()) . '"';
+        $json_response .= '}';
+
+        return $json_response;
+    }
     
 }

@@ -16,28 +16,27 @@ $(document).on("click", "#add_agency", function (e) {
 
 /* Listener on the button to delete an agency in the user list */
 $(document).on("click", ".remove_agency", function (e) {
-    updateAgency("remove", null, null, $(this).attr("data-value"));
+    updateAgency("remove", null, $("#id_user").val(), $(this).attr("data-value"));
     e.preventDefault();
 });
 
 /* Listener on the button to update the agency and set it as the principal in the user list */
 $(document).on("click", ".set_principal_agency", function(e) {
-    updateAgency("setPrincipal", null, null, $(this).attr("data-value"));
+    updateAgency("setPrincipal", null, $("#id_user").val(), $(this).attr("data-value"));
     e.preventDefault();
 });
 
 
 function updateAgency(type, idAgency, idUser, idUserAgency) {
+    //Disable the buttons button to prevent multiple action during the AJAX call.
+    $(".canBeDisabled").addClass("disabled");
 
-    switch (type) {
-        case "add":
-            //Disable the "Add Agency" button whe it's an add type
-            $("#add_agency").addClass("disabled");
-            break;
-    }
     //The cursor is now "waiting" the Ajax callbacks
     $('body').addClass("wait");
     $(".ajax-loader").removeClass("hidden");
+
+    //Remove the previous messages
+    deleteDivDeletable();
 
     $.ajax({
         url: Routing.generate("admin_user_agency_update"),
@@ -49,50 +48,35 @@ function updateAgency(type, idAgency, idUser, idUserAgency) {
             'type': type
         },
         dataType: "json",
-        success: function (result, status, xhr) {
-            switch (xhr.status) {
-                case 201:
-                    //When the element is successfully added in db, add the line in JS (in the result) and add a message
-                    //to inform the user and finally, remove the agency in the list (only in JS, the server side is not
-                    //managed here.
-                    addLineInTable($.parseJSON(result));
-                    writeMessage("L'ajout a bien été effectué", "info");
-                    $("#user_admin_edit_agencies").find("option:selected").remove();
-                    break;
-                case 202:
-                    removeLineInTable($.parseJSON(result));
-                    writeMessage("L'agence a bien été supprimée", "info");
-                    break;
-                case 215:
-                    setLineAsPrincipalInTable($.parseJSON(result));
-                    writeMessage("L'agence a bien été définie comme étant principale", "info");
-            }
+        success: function (result) {
+            //We have to empty the list of Agencies + refresh the table with the good values.
+
+            //Parse the string into JSON
+            var contentObjects = JSON.parse(result);
+            emptyDropDownAndTableThenFillThemWithDatas(contentObjects);
+
+            writeMessage("La modification a bien été effectuée", "info");
+
         },
         error: function(result) {
             switch (result.status) {
                 case 515:
-                    //When there's an error during the add of the agency, show the error message.
-                    //The update use the same error code
-                    writeMessageJson(result.responseText, "danger");
-                    break;
                 case 516:
+                    //When there's an error during the add/update/deletion of the agency, show the error message.
                     writeMessageJson(result.responseText, "danger");
                     break;
                 default:
+                    //If another error occurs
                     writeMessage("Une erreur s'est produite lors de l'opération", "danger");
             }
         },
-        complete: function(xhr) {
-            switch (xhr.status) {
-                case 201:
-                case 515:
-                    //By default, whe have disabled the button in the adding case, we have to remove this class.
-                    $("#add_agency").removeClass("disabled");
-                    break;
-            }
+        complete: function() {
             //The cursor is no longuer waiting
             $('body').removeClass("wait");
             $(".ajax-loader").addClass("hidden");
+
+            //By default, whe have disabled the button in the adding case, we have to remove this class.
+            $(".canBeDisabled").removeClass("disabled");
         }
     })
 }
@@ -107,7 +91,7 @@ function deleteDivDeletable() {
 }
 
 /**
- * The JSON message need to be managed before showed.
+ * The JSON message need to be managed before shown.
  * @param message
  * @param type
  */
@@ -126,7 +110,7 @@ function writeMessage(message, type) {
 }
 
 /**
- * This method use the template in the HTML page "templateAgency" to add the latest agency in the table.
+ * This method use the template in the HTML page "templateAgency" to add an agency in the table.
  * @param object
  */
 function addLineInTable(object) {
@@ -140,6 +124,10 @@ function addLineInTable(object) {
                 var templatePrincipale = '<span class="glyphicon glyphicon-ok ';
                 if (!value) {
                     templatePrincipale += "hidden";
+                    template = template.replace(new RegExp("__isPrincipalHidden__", 'g'), "");
+                }
+                else {
+                    template = template.replace(new RegExp("__isPrincipalHidden__", 'g'), "hidden");
                 }
                 templatePrincipale += '"></span>';
                 template = template.replace("__" + key + "__", templatePrincipale);
@@ -156,46 +144,28 @@ function addLineInTable(object) {
     $("#userAgencyTable").find("tbody").append(template);
 }
 
-function removeLineInTable(object) {
-    //The template is added in the combobox
-    var template = $("#templateAgencyInfo").val();
-    $(object).each(function (i, val) {
-        $.each(val, function (key, value) {
-            //First, remove the line in the table
-            if (key == "idAgency") {
-                $("#agency" + value).closest("tr").remove();
-            }
-            //Then replace the values in the template
-            template = template.replace("__" + key + "__", value)
-        });
-    });
+function emptyDropDownAndTableThenFillThemWithDatas(datas) {
+    //Empty the select/Option
+    var selectOption = $("#user_admin_edit_agencies");
+    selectOption.empty();
 
-    //Then add the template in the select/option
-    $("#user_admin_edit_agencies").append(template);
-}
+    //For each agency in the list, add it in the select/option
+    for(var i = 0; i < datas.agencies.length; i++) {
+        var agency = datas.agencies[i];
 
-function setLineAsPrincipalInTable(object) {
-    //Remove the things that are used to show this is the principal agency
-    $(".glyphicon-ok").each(function() {
-        $(this).addClass("hidden");
-    }).addClass("hidden");
-    $(".set_principal_agency").each(function() {
-        $(this).removeClass("hidden");
-    });
+        var option = document.createElement('option');
+        option.value = agency.idAgency;
+        option.textContent = agency.codeAgency+" - "+agency.nameAgency;
 
-    //Then, we have to search the line where we have to set it as the principal agency
-     var lineUserAgency = "";
-    $(object).each(function (i, val) {
-        $.each(val, function (key, value) {
-            if (key == "idUserAgency") {
-                lineUserAgency = $("#user_agency" + value).closest("tr");
-            }
-        });
-    });
-
-    if (lineUserAgency != "") {
-        lineUserAgency.find(".set_principal_agency").addClass("hidden");
-        lineUserAgency.find(".glyphicon-ok").removeClass("hidden");
+        selectOption.append(option)
     }
 
+    //Empty the table
+    $("#userAgencyTable").find("tbody").find("tr[id!=templateAgency]").remove();
+
+    //For each user_agency in the list, add it in the table
+    for(i = 0; i < datas.user_agency.length; i++) {
+        var user_agency = datas.user_agency[i];
+        addLineInTable(user_agency);
+    }
 }

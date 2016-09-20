@@ -104,6 +104,16 @@ class Agency
         return $users;
     }
 
+    public function getJson() {
+        $json_response = '{';
+        $json_response .= '"idAgency" : "'. $this->getId() . '",';
+        $json_response .= '"codeAgency" : "'. $this->getCode() . '",';
+        $json_response .= '"nameAgency" : "'. addslashes($this->getName()) . '"';
+        $json_response .= '}';
+
+        return $json_response;
+    }
+
     /**
      * Set number
      *

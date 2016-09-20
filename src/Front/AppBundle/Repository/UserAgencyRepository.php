@@ -12,6 +12,7 @@ namespace Front\AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Front\AppBundle\Entity\UserAgency;
 use Front\UserBundle\Entity\User;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class UserAgencyRepository extends EntityRepository
 {
@@ -30,16 +31,16 @@ class UserAgencyRepository extends EntityRepository
 
         //If the user or the agency is not found in DB
         if (!isset($user) || !isset($agency)) {
-            return array("message" => "L'utilisateur d'id " . $idUser . " ou l'agence d'id " . $idAgency . " n'ont pas été trouvés
+            throw new Exception("L'utilisateur d'id " . $idUser . " ou l'agence d'id " . $idAgency . " n'ont pas été trouvés
                                         en base de données, veuillez vérifier la cohérence des information et tenter à nouveau
                                         l'ajout.");
         } //If the user already got the agency in his list
         else if (in_array($agency, $user->getAgencies())) {
-            return array("message" => "L'utilisateur " . $user->getUsername() .
+            throw new Exception("L'utilisateur " . $user->getUsername() .
                 " appartient déjà à l'agence " . $agency->getCode() . " " . $agency->getName() . ".");
         } //If the agency is not active
         else if (!$agency->getActive()) {
-            return array("message" => "L'agence est définie comme étant inactive, impossible de l'ajouter à l'utilisateur.");
+            throw new Exception("L'agence est définie comme étant inactive, impossible de l'ajouter à l'utilisateur.");
         }
         $user_agency = new UserAgency($user, $agency);
 
@@ -62,25 +63,32 @@ class UserAgencyRepository extends EntityRepository
         $userAgency = $this->getFromUserAndAgency($idUserAgency);
 
         if (!isset($userAgency)) {
-            return array("message" => "Impossible de trouver de lien en base de données entre cet utilisateur et cette agence.");
+            throw new Exception("Impossible de trouver de lien en base de données entre cet utilisateur et cette agence.");
         }
         else if ($userAgency->getPrincipal()) {
-            return array("message" => "Impossible de supprimer l'agence " . $userAgency->getAgency()->getName() . " car c'est l'agence
-                                        principale de l'utilisateur. Veuillez définir une autre agence avant de supprimer celle-ci");
+            throw new Exception("Impossible de supprimer l'agence " . $userAgency->getAgency()->getName() . " car c'est l'agence
+                                        principale de l'utilisateur. Veuillez définir une autre agence avant de supprimer celle-ci.");
         }
 
         $entityManager->remove($userAgency);
         $entityManager->flush();
-
-        return array("agency" => $userAgency->getAgency());
     }
 
-    public function getFromUserAndAgency($idUserAgency)
+    protected function getFromUserAndAgency($idUserAgency)
     {
         $entityManager = $this->getEntityManager()
             ->find("FrontAppBundle:UserAgency", array("id" => $idUserAgency));
 
         return $entityManager;
+    }
+
+    public function getFromUser ($idUser) {
+        return $this->createQueryBuilder('user_agency_repository')
+            ->innerJoin("user_agency_repository.user", "user")
+            ->where('user.id = :idUser')
+            ->setParameter('idUser', $idUser)
+            ->getQuery()
+            ->getResult();
     }
 
     public function setAsPrincipal($idUserAgency) {
@@ -89,10 +97,10 @@ class UserAgencyRepository extends EntityRepository
         $userAgency = $this->getFromUserAndAgency($idUserAgency);
 
         if (!isset($userAgency)) {
-            return array("message" => "Impossible de trouver l'agence de cet utilisateur dans la base de données");
+            throw new Exception("Impossible de trouver l'agence de cet utilisateur dans la base de données.");
         }
         else if ($userAgency->getPrincipal()) {
-            return array("message" => "Cette agence est déjà selectionnée comme étant principale");
+            throw new Exception("Cette agence est déjà selectionnée comme étant principale.");
         }
 
         /** @var User $user */

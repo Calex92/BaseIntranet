@@ -12,11 +12,8 @@
             </div>
         </div>
     </div>
-    <input type="hidden"
-           value="<option value='__idAgency__'>__codeAgency__ - __nameAgency__</option>"
-           id="templateAgencyInfo">
     <div class="col-md-4 col-sm-3">
-        <a href="#" id="add_agency" class="btn btn-default margin-left-15">Ajouter une agence</a>
+        <a href="#" id="add_agency" class="btn btn-default margin-left-15 canBeDisabled">Ajouter une agence</a>
         <img src="{{ asset('download/front/general/ajax/ajax-loader.gif') }}"
              title="Veuillez patienter" class="ajax-loader hidden">
     </div>
@@ -35,16 +32,16 @@
     {# This is used to add the infos in the table with AJAX#}
     <tr id="templateAgency" class="hidden">
         <td class="hidden agency_id" id="agency__idAgency__"></td>
-        <td class="hidden user_agency_id" id="user_agency__idUserAgency__"></td>
-        <td class="agency_code">__code__</td>
-        <td class="agency_name">__name__</td>
+        <td class="hidden user_agency_id" id="user_agency__idUser_Agency__"></td>
+        <td class="agency_code">__codeAgency__</td>
+        <td class="agency_name">__nameAgency__</td>
         <td class="text-center">__principale__</td>
         <td class="text-center">
-            <a href="#" data-value="__idUserAgency__" class="set_principal_agency"
+            <a href="#" data-value="__idUser_Agency__" class="set_principal_agency __isPrincipalHidden__ canBeDisabled"
                title="Définir en tant qu'agence principale">{#
                                          #}<span class="glyphicon glyphicon-hand-down"></span>{#
                                    #}</a>
-            <a href="#" data-value="__idUserAgency__" class="remove_agency"
+            <a href="#" data-value="__idUser_Agency__" class="remove_agency __isPrincipalHidden__ canBeDisabled"
                title="Retirer cette agence">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
@@ -78,10 +75,11 @@
                 <a href="#" data-value="{{ userAgency.id }}"
                    class="set_principal_agency {{ hidden }}"
                    title="Définir en tant qu'agence principale">{#
-                                         #}<span class="glyphicon glyphicon-hand-down"></span>{#
-                                   #}</a>
+                  #}<span class="glyphicon glyphicon-hand-down"></span>{#
+              #}</a>
                 {# this is used to delete the agency from the list#}
-                <a href="#" data-value="{{ userAgency.id }}" class="remove_agency"
+                <a href="#" data-value="{{ userAgency.id }}"
+                   class="remove_agency {{ hidden }}"
                    title="Retirer cette agence">
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>

@@ -8,6 +8,7 @@ use Front\AppBundle\Entity\Agency;
 use Front\AppBundle\Entity\UserAgency;
 use Front\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,70 +75,75 @@ class UserController extends Controller
 
     public function updateAgencyAjaxAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-
-            switch($request->get('type')) {
-                case "add":
-                    $idUser = $request->get('idUser');
-                    $idAgency = $request->get('idAgency');
-
-                    $return = $em->getRepository('FrontAppBundle:UserAgency')->addUserAgency($idUser, $idAgency);
-                    //If there's any problem during the add in DB, a message with a code will be sent
-                    if (isset($return['message'])) {
-                        return new JsonResponse($return["message"], 515);
-                    }
-                    //If there's no problem, the User_Agency newly added will be sent.
-
-                    /** @var UserAgency $user_agency */
-                    $user_agency = $return["user_agency"];
-                    return new JsonResponse('[{ "idUserAgency" : "'.$user_agency->getId().'",
-                                                "idAgency": "'.$user_agency->getAgency()->getId().'",
-                                                "idUserAgency": "'.$user_agency->getId().'",
-                                                "code": "'.$user_agency->getAgency()->getCode().'",
-                                                "name": "'.$user_agency->getAgency()->getName().'",
-                                                "function": "",
-                                                "principale": "'.$user_agency->getPrincipal().'"}]', 201);
-
-
-                    break;
-                case "remove":
-                    $idUserAgency = $request->get('idUserAgency');
-
-                    $return = $em->getRepository("FrontAppBundle:UserAgency")->removeUserAgency($idUserAgency);
-
-                    if (isset($return['message'])) {
-                        return new JsonResponse($return["message"], 516);
-                    }
-
-                    /** @var Agency $agency */
-                    $agency = $return["agency"];
-                    return new JsonResponse('[{"idAgency" : "'.$agency->getId().'",
-                                                "codeAgency" : "'.$agency->getCode(). '",
-                                                "nameAgency" : "'.$agency->getName(). '"}]',
-                                            202);
-                    break;
-                case "setPrincipal":
-                    $idUserAgency = $request->get('idUserAgency');
-
-                    $return = $em->getRepository("FrontAppBundle:UserAgency")->setAsPrincipal($idUserAgency);
-
-                    //If there's any problem during the update in DB, a message with a code will be sent
-                    if (isset($return['message'])) {
-                        return new JsonResponse($return["message"], 515);
-                    }
-
-                    //If there's no problem, the id of the User_Agency updated will be sent
-                    /** @var UserAgency $user_agency */
-                    $user_agency = $return["user_agency"];
-                    return new JsonResponse('[{"idUserAgency" : "'.$user_agency->getId().'",
-                                                "idAgency" : "'.$user_agency->getAgency()->getId().'"}]', 215);
-                    break;
-                default:
-
+            $userAgencyRepository = $this->getDoctrine()->getManager()->getRepository('FrontAppBundle:UserAgency');
+            //This is the id of the user we want to update. It's send in the request.
+            $idUser = $request->get('idUser');
+            try {
+                switch ($request->get('type')) {
+                    case "add":
+                        $idAgency = $request->get('idAgency');
+                        $userAgencyRepository->addUserAgency($idUser, $idAgency);
+                        break;
+                    case "remove":
+                        $idUserAgency = $request->get('idUserAgency');
+                        $userAgencyRepository->removeUserAgency($idUserAgency);
+                        break;
+                    case "setPrincipal":
+                        $idUserAgency = $request->get('idUserAgency');
+                        $userAgencyRepository->setAsPrincipal($idUserAgency);
+                        break;
+                    default:
+                        return new JsonResponse("Cette requête a généré un résultat inatendu. 
+                    Veuillez réessayer. Si le problème persiste, contactez le HELP.", 515);
+                }
+            }//If an error has been throw during the previous operation, an exception is thrown
+            catch (Exception $e) {
+                return new JsonResponse($e->getMessage(), 515);
             }
 
-
+            return new JsonResponse($this->generateJsonForAjaxAgencies($idUser));
         }
-        return new Response("Erreur, vous ne pouvez appeler cette méthode de cette manière");
+
+        return new Response("Impossible de renvoyer un résultat");
+    }
+
+    /**
+     * This function is used to generate the JSON sent back to the AJAX call when we manage the agencies
+     * from one user. For every modification (add,update,remove) the response is the same: the list updated.
+     *
+     * @param integer $idUser The id of the user we've just updated
+     * @return string The Json generated for the response
+     */
+    protected function generateJsonForAjaxAgencies($idUser) {
+        $agenciesForUser = $this->getDoctrine()->getRepository("FrontAppBundle:Agency")->getAgenciesNotUser($idUser);
+
+        $json_response = '{"user_agency": [';
+
+        $i = 0;
+        $user_agencies = $this->getDoctrine()->getRepository("FrontAppBundle:UserAgency")->getFromUser($idUser);
+        $len = count($user_agencies);
+        foreach ($user_agencies as $user_agency) {
+            /** @var UserAgency $user_agency */
+            $json_response .= $user_agency->getJson();
+            if ($i !== $len - 1) {
+                $json_response .= ',';
+            }
+            $i++;
+        }
+
+        $json_response .= '], "agencies" : [';
+        $i = 0;
+        $len = count($agenciesForUser);
+        foreach ($agenciesForUser as $agency) {
+            /** @var Agency $agency */
+            $json_response .= $agency->getJson();
+
+            if ($i !== $len - 1) {
+                $json_response .= ',';
+            }
+            $i++;
+        }
+        $json_response .= ']}';
+        return $json_response;
     }
 }
