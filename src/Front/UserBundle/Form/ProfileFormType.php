@@ -10,18 +10,21 @@ namespace Front\UserBundle\Form;
 
 
 use Front\AppBundle\Form\ContactType;
+use Front\AppBundle\Form\ImageType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ProfileFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('surname', null, array('label' => 'form.surname',
+        $builder->add('surname', TextType::class, array('label' => 'form.surname',
             'translation_domain' => 'FOSUserBundle'))
-            ->add('firstname', null, array('label' => 'form.firstname',
+            ->add('firstname', TextType::class, array('label' => 'form.firstname',
             'translation_domain' => 'FOSUserBundle'))
-            ->add('contact', ContactType::class);
+            ->add('contact', ContactType::class)
+            ->add('image', ImageType::class, array("required" => false));
     }
 
     public function getParent()

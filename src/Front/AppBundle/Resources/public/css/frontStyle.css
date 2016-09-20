@@ -148,6 +148,7 @@ ul.nav.navbar-nav li a:link {
 
 .img.img-profile-picture {
     height: 60px;
+    width: 60px;
     margin: 5px -10px 5px 0;
     text-decoration: none;
 }

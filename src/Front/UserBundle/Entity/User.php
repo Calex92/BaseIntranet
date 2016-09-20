@@ -54,6 +54,7 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $image;
 

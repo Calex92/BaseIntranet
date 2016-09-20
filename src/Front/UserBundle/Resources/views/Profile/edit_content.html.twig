@@ -9,10 +9,33 @@
         {{ include('@AdminUserManager/Form/userType.html.twig') }}
     </div>
 
+    <div class="col-md-12 margin-bottom-15 text-right">
+        <input type="submit" class="btn btn-default" value="{{ 'profile.edit.submit'|trans }}"/>
+    </div>
+
+
     <div class="well well-block-info">
         {{ include("@FrontApp/Form/contactType.html.twig") }}
     </div>
 
+    <div class="well well-block-info">
+        <div>
+            <h4 class="margin-left-15">Photo de profil</h4>
+            <div class="form-group">
+                {{ form_label(form.image.file, "Fichier", {"label_attr" : {"class": "col-sm-2 control-label"}} ) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.image.file, {"attr": {"class" : ""}} ) }}
+                </div>
+                <div>
+                    <label for="renewAvatar">
+                        <input type="checkbox" name="renewAvatar"/>
+                        Mettre la photo de profil par défaut
+                    </label>
+                </div>
+                {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.image.file}) }}
+            </div>
+        </div>
+    </div>
 
 
     <span class="control-label padding-left-15">
