@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * User
  *
- * @ORM\Table(name="`user`")
+ * @ORM\Table(name="base_user")
  * @ORM\Entity(repositoryClass="Front\UserBundle\Repository\UserRepository")
  * @UniqueEntity("email")
  * @UniqueEntity("username")

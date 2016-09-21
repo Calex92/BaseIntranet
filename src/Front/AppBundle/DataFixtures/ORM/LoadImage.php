@@ -43,7 +43,7 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
         }
 
 
-        $applications = array ("admin", "gdComptes", "giss", "referenciel", "omniview", "elearning", "helpAdv", "bookRe");
+        $applications = array ("Administration Isidore", "Grands Comptes", "GISS", "Help référenciel", "Omniview", "E-learning", "Help ADV", "Book-Re");
         $urls = array($applications[0] => "download/front/applications/adminisidore.png",
                     $applications[1] => "download/front/applications/espacegrandcompte.png",
                     $applications[2] => "download/front/applications/giss.jpg",

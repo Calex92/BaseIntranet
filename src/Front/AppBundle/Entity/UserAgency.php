@@ -16,7 +16,7 @@ use Front\UserBundle\Entity\User;
  * @package Front\AppBundle\Entity
  * @ORM\Entity()
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\UserAgencyRepository")
- * @ORM\Table(name="user_agency")
+ * @ORM\Table(name="base_user_agency")
  */
 class UserAgency
 {

@@ -18,17 +18,20 @@
 
     {% block stylesheets %}
         {# On charge le CSS de bootstrap depuis le site directement #}
-        <link type="text/css" rel="stylesheet"
+        {#<link type="text/css" rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
               integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
               crossorigin="anonymous">
         <link type="text/css" rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
               integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
-              crossorigin="anonymous">
+              crossorigin="anonymous">#}
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/bootstrap3.3.6.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/bootstrap-theme.3.3.6.min.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/frontStyle.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/animate.min.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/bootstrap-dropdownhover.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/PNotify/css/pnotify.custom.min.css') }}">
     {% endblock %}
 </head>
 
@@ -124,14 +127,17 @@
 
 {% block javascripts %}
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalit?s du bootstrap Twitter #}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+    {#<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
-    <script src="{{ asset("bundles/frontapp/js/bootstrap-dropdownhover.min.js") }}"></script>
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-
+            crossorigin="anonymous"></script>#}
+    <script type="text/javascript" src="{{ asset("bundles/frontapp/js/jquery2.2.4.min.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("bundles/frontapp/js/bootstrap3.3.6.min.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("bundles/frontapp/js/bootstrap-dropdownhover.min.js") }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/PNotify/js/pnotify.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset("bundles/frontapp/js/front.js") }}"></script>
 {% endblock %}
 
 </body>

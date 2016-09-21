@@ -35,9 +35,6 @@ function updateAgency(type, idAgency, idUser, idUserAgency) {
     $('body').addClass("wait");
     $(".ajax-loader").removeClass("hidden");
 
-    //Remove the previous messages
-    deleteDivDeletable();
-
     $.ajax({
         url: Routing.generate("admin_user_agency_update"),
         type: "POST",
@@ -54,21 +51,44 @@ function updateAgency(type, idAgency, idUser, idUserAgency) {
             //Parse the string into JSON
             var contentObjects = JSON.parse(result);
             emptyDropDownAndTableThenFillThemWithDatas(contentObjects);
-
-            writeMessage("La modification a bien été effectuée", "info");
+            var message = "";
+            var title = "";
+            switch (type) {
+                case "add":
+                    title = "L'ajout a bien été effectué.";
+                    message = "L'agence a bien été affectée à cet utilisateur.";
+                    break;
+                case "remove":
+                    title = "La suppression a bien été effectuée.";
+                    message = "L'agence a bien été retirée de la liste de cet utilisateur.";
+                    break;
+                case "setPrincipal":
+                    title = "Modification effectuée";
+                    message = "L'agence est bien définie comme étant l'agence principale de l'utilisateur.";
+                    break;
+                default:
+                    title = "La modification a été effectuée.";
+                    message = "Le cas n'est pas correctement géré en Javascript, veuillez contacter le Help avec ce message.";
+            }
+            writeMessage(title, message, "success", "glyphicon glyphicon-ok");
 
         },
         error: function(result) {
+            var message = "";
+            var title = "";
             switch (result.status) {
                 case 515:
                 case 516:
                     //When there's an error during the add/update/deletion of the agency, show the error message.
-                    writeMessageJson(result.responseText, "danger");
+                    title = "Mise à jour impossible.";
+                    message = JSON.parse(result.responseText);
                     break;
                 default:
                     //If another error occurs
-                    writeMessage("Une erreur s'est produite lors de l'opération", "danger");
+                    title = "Erreur.";
+                    message = "Une erreur s'est produite lors de l'opération";
             }
+            writeMessage(title, message, "danger", "glyphicon glyphicon-remove");
         },
         complete: function() {
             //The cursor is no longuer waiting
@@ -82,31 +102,14 @@ function updateAgency(type, idAgency, idUser, idUserAgency) {
 }
 
 /**
- * This method is used to delete the messages that are showed to the user before showing a new one.
- */
-function deleteDivDeletable() {
-    $(".to-delete").each(function() {
-        $(this).remove();
-    });
-}
-
-/**
- * The JSON message need to be managed before shown.
- * @param message
- * @param type
- */
-function writeMessageJson(message, type) {
-    writeMessage(JSON.parse(message), type);
-}
-
-/**
  * This method is used to show a message to the users in any case, with the type they want
- * @param message
+ * @param title Le titre de la notification
+ * @param message Le corps de la notification
  * @param type "danger", "warning", "success", "info"
+ * @param icon You can add icon if you not, but it's not necessary, you can let "undefined"
  */
-function writeMessage(message, type) {
-    deleteDivDeletable();
-    $(".main-content").prepend("<div class='alert alert-" + type + " to-delete'>" + message + "</div>");
+function writeMessage(title, message, type, icon) {
+    notify(title, message, type , icon);
 }
 
 /**

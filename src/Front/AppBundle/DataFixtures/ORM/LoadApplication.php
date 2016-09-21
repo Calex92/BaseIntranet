@@ -19,7 +19,7 @@ class LoadApplication extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $applications = array ("admin", "gdComptes", "giss", "referenciel", "omniview", "elearning", "helpAdv", "bookRe");
+        $applications = array ("Administration Isidore", "Grands Comptes", "GISS", "Help référenciel", "Omniview", "E-learning", "Help ADV", "Book-Re");
 
         $locations = array($applications[0] => "admin_user_manager_homepage",
                     $applications[1] => "admin_user_manager_homepage",

@@ -18,7 +18,7 @@ class LoadAgency extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $agencies= array("PLOISY", "BEARING EXPRESS", "NEGOCE DUNKERQUE", "TRNOVEC NAD VAHOM", "WAREGEM", "Dunkerque", "Orexad Albaut Rouen Plateforme");
+        $agencies= array("Ploisy", "Bearing Express", "Negoce Dunkerque", "Trnovec Nad Vahom", "Waregem", "Dunkerque", "Orexad Albaut Rouen Plateforme");
 
         $codes = array($agencies[0] => 2,
                     $agencies[1] => 112,
