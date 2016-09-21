@@ -22,7 +22,7 @@
         <div>
             <h4 class="margin-left-15">Photo de profil</h4>
             <div class="form-group">
-                {{ form_label(form.image.file, "Fichier", {"label_attr" : {"class": "col-sm-2 control-label"}} ) }}
+                {{ form_label(form.image.file, null, {"label_attr" : {"class": "col-sm-2 control-label"}} ) }}
                 <div class="col-sm-10">
                     {{ form_widget(form.image.file, {"attr": {"class" : ""}} ) }}
                 </div>

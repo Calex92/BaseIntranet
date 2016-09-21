@@ -1,0 +1,3 @@
+contact:
+    number:
+        onlyNumbers: 'Le numéro ne doit contenir QUE des chiffres et faire entre 8 et 14 caractères'
