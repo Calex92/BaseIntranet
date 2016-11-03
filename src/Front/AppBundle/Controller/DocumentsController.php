@@ -49,7 +49,7 @@ class DocumentsController extends Controller
         if ($domain == "all" || $domains[$domain] == $document["domain"])
             array_push($documents, $document);
 
-        return $this->render('FrontAppBundle:Documents:index.html.twig', array("domains" => $domains,
+        return $this->render('FrontAppBundle:Documents:index.html.twig', array("domains" => array(),
             "documents" => $documents,
             "domainsCount" => $domainsCount));
     }

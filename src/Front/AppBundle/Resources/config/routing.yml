@@ -1,3 +1,8 @@
+news_view:
+    path:    /news/view/{id}
+    defaults:
+        _controller: FrontAppBundle:News:view
+
 news_index:
     path:     /news/{domain}
     defaults:

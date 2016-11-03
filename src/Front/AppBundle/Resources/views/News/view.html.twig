@@ -1,0 +1,23 @@
+{% extends "FrontAppBundle::layout.html.twig" %}
+
+
+{% block title %}
+    News - {{ parent() }}
+{% endblock %}
+
+{% block leftMenu %}
+    {# domains means Achat, E-busines, ...
+    from is used to know if we have to redirect to "news" or "documents"
+    domainsCount need to be deleted in a further evolution, it contains the number of news/document by domain #}
+    {#{{ include("FrontAppBundle:Main:domainMenu.html.twig",
+    {"domains" : domains,
+        "from" : app.request.attributes.get('_route')}) }}
+#}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        Une news!
+    </div>
+{% endblock %}

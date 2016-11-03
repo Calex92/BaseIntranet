@@ -3,8 +3,10 @@
          {% if app.request.attributes.get('_route_params')['domain'] == "all" %}active{% endif %}">
         <span class="list-group-item-heading">Tous les domaines</span>
     </a>
-    {% for key, domain in domains %}
-        {% if app.request.attributes.get('_route_params')['domain'] == key %}
+    {% for domain in domains %}
+        {# @var domain \Front\AppBundle\Entity\Domain #}
+
+        {% if app.request.attributes.get('_route_params')['domain'] == domain.labelSimplified %}
             {% set isActive = "active" %}
         {% else %}
             {% set isActive = "" %}
@@ -15,10 +17,10 @@
             {% set from = "news_index" %}
         {% endif %}
 
-        <a href="{{ path(from, {"domain" : key}) }}"
+        <a href="{{ path(from, {"domain" : domain.labelSimplified}) }}"
            class="list-group-item col-xs-4 col-sm-12 {{ isActive }}">
-            <span class="badge">{% if domainsCount[key] is defined %}{{  domainsCount[key] }} {% endif %}</span>
-            {{ domain }}
+            <span class="badge">{% if domain.news|length > 0 %}{{  domain.news|length }} {% endif %}</span>
+            {{ domain.label }}
         </a>
     {% endfor %}
 </div>

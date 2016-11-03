@@ -71,6 +71,25 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
             $manager->persist($image);
         }
 
+        $news = array("Lorem Ipsum",
+            "Pourquoi l'utiliser?",
+            "Petit texte");
+        $urls = array($news[0] => "http://random-ize.com/lorem-ipsum-generators/lorem-ipsum/lorem-ipsum.jpg",
+            $news[1] => "http://www.jusderaisin.com/wp-content/uploads/2014/06/Content-is-like-water-1980.jpg",
+            $news[2] => "https://www.newton.ac.uk/files/covers/968361.jpg");
+        $alts = array($news[0] => "Lorem ipsum",
+            $news[1] => "Le contenu, c'est comme l'eau",
+            $news[2] => "Couverture");
+
+        for ($i = 0; $i < count($news) ; $i++) {
+            $image = new Image();
+            $image->setAlt($alts[$news[$i]]);
+            $image->setUrl($urls[$news[$i]]);
+
+            $this->addReference("image-news".$news[$i], $image);
+            $manager->persist($image);
+        }
+
         $manager->flush();
     }
 
