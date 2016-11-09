@@ -5,9 +5,7 @@ namespace Front\AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * newsDomain
- *
- * @ORM\Table(name="base_news_domain")
+ * @ORM\Table(name="base_domain")
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\DomainRepository")
  */
 class Domain
@@ -45,9 +43,9 @@ class Domain
     /**
      * @var array(News)
      *
-     * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\News", mappedBy="domain")
+     * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\DomainElement", mappedBy="domain")
      */
-    private $news;
+    private $domainElements;
 
 
     /**
@@ -129,7 +127,28 @@ class Domain
      */
     public function getNews()
     {
-        return $this->news;
+        $news = array();
+        foreach ($this->domainElements as $domainElement) {
+            if ($domainElement instanceof News) {
+                $news[] = $domainElement;
+            }
+        }
+        return $news;
     }
+
+    /**
+     * @return array
+     */
+    public function getDocuments()
+    {
+        $documents = array();
+        foreach ($this->domainElements as $domainElement) {
+            if ($domainElement instanceof Document) {
+                $documents[] = $domainElement;
+            }
+        }
+        return $documents;
+    }
+
 }
 

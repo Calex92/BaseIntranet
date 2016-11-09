@@ -32,7 +32,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             $users[2] => "Thomas",
             $users[3] => "Aurélien",
             $users[4] => "Anthony",
-            $users[5] => "Marie");
+            $users[5] => "Alexandre");
 
         $surnames = array($users[0] => "Firmin",
             $users[1] => "Loncke",
