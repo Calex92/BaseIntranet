@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Document
  *
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\DocumentRepository")
+ * @ORM\Table(name="base_domain_document")
  */
 class Document extends DomainElement
 {

@@ -20,9 +20,9 @@
         <a href="{{ path(from, {"domain" : domain.labelSimplified}) }}"
            class="list-group-item col-xs-6 col-sm-12 {{ isActive }}">
             {% if "news" in from %}
-                <span class="badge">{% if domain.news|length > 0 %}{{ domain.news|length }} {% endif %}</span>
+                <span class="badge">{% if domain.recentNews|length > 0 %}{{ domain.news|length }} {% endif %}</span>
             {% elseif "document" in from %}
-                <span class="badge">{% if domain.documents|length > 0 %}{{ domain.documents|length }} {% endif %}</span>
+                <span class="badge">{% if domain.recentDocuments|length > 0 %}{{ domain.documents|length }} {% endif %}</span>
             {% endif %}
             {{ domain.label }}
         </a>

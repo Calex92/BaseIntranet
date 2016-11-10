@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * News
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\NewsRepository")
+ * @ORM\Table(name="base_domain_news")
  */
 class News extends DomainElement
 {

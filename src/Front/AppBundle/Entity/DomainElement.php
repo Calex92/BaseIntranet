@@ -14,7 +14,7 @@ use Front\UserBundle\Entity\User;
 
 /**
  * @ORM\Entity()
- * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\InheritanceType("JOINED")
  * @ORM\Table(name="base_domain_element")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"news" = "News", "document" = "Document"})

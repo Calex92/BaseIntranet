@@ -3,6 +3,7 @@
 namespace Front\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Table(name="base_domain")
@@ -41,7 +42,7 @@ class Domain
     private $active;
 
     /**
-     * @var array(News)
+     * @var PersistentCollection(DomainElement)
      *
      * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\DomainElement", mappedBy="domain")
      */
@@ -68,7 +69,7 @@ class Domain
     public function setLabel($label)
     {
         $this->label = $label;
-    
+
         return $this;
     }
 
@@ -92,7 +93,7 @@ class Domain
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -127,13 +128,25 @@ class Domain
      */
     public function getNews()
     {
-        $news = array();
-        foreach ($this->domainElements as $domainElement) {
-            if ($domainElement instanceof News) {
-                $news[] = $domainElement;
+         return $this->domainElements->filter(
+            function (DomainElement $domainElement) {
+                return $domainElement instanceof News;
             }
-        }
-        return $news;
+        );
+    }
+
+    /**
+     * This is used to get the latest news (1 month ago)
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecentNews() {
+        return $this->domainElements->filter(
+            function (DomainElement $domainElement) {
+                if (new \DateTime("-1 months") > $domainElement->getCreationDate())
+                    return false;
+                return $domainElement instanceof News;
+            }
+        );
     }
 
     /**
@@ -141,14 +154,25 @@ class Domain
      */
     public function getDocuments()
     {
-        $documents = array();
-        foreach ($this->domainElements as $domainElement) {
-            if ($domainElement instanceof Document) {
-                $documents[] = $domainElement;
+        return $this->domainElements->filter(
+            function (DomainElement $domainElements) {
+                return $domainElements instanceof Document;
             }
-        }
-        return $documents;
+        );
     }
 
+    /**
+     * This is used to get the latest documents (1 month ago)
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecentDocuments() {
+        return $this->domainElements->filter(
+            function (DomainElement $domainElements) {
+                if (new \DateTime("-1 months") > $domainElements->getCreationDate())
+                    return false;
+                return $domainElements instanceof Document;
+            }
+        );
+    }
 }
 
