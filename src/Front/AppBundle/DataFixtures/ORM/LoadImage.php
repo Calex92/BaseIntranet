@@ -71,6 +71,21 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
             $manager->persist($image);
         }
 
+        $applications = array ("Générateur de signature");
+        $urls = array($applications[0] => "download/front/applications/logo_signature.gif");
+
+        $alts = array($applications[0] => "Générateur de signature");
+
+        for ($i = 0; $i < count($applications) ; $i++) {
+            $image = new Image();
+            $image->setAlt($alts[$applications[$i]]);
+            $image->setUrl($urls[$applications[$i]]);
+
+            $this->addReference("image-application-external".$applications[$i], $image);
+            $manager->persist($image);
+        }
+
+
         $news = array("Lorem Ipsum",
             "Pourquoi l'utiliser?",
             "Petit texte");

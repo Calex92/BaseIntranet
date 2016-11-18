@@ -2,6 +2,7 @@
 
 namespace Front\AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 
@@ -124,7 +125,7 @@ class Domain
     }
 
     /**
-     * @return array
+     * @return Collection
      */
     public function getNews()
     {
@@ -137,7 +138,7 @@ class Domain
 
     /**
      * This is used to get the latest news (1 month ago)
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getRecentNews() {
         return $this->domainElements->filter(
@@ -150,7 +151,7 @@ class Domain
     }
 
     /**
-     * @return array
+     * @return Collection
      */
     public function getDocuments()
     {
@@ -163,7 +164,7 @@ class Domain
 
     /**
      * This is used to get the latest documents (1 month ago)
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getRecentDocuments() {
         return $this->domainElements->filter(

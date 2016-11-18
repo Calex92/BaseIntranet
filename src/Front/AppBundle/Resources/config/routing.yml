@@ -20,6 +20,11 @@ application_index:
     defaults:
         _controller: FrontAppBundle:Applications:index
 
+application_external_access:
+    path:    /applications/external_access/{applicationId}
+    defaults:
+        _controller: FrontAppBundle:Applications:externalAccess
+
 front_homepage:
     path:     /
     defaults:

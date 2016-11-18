@@ -9,7 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Application
  *
  * @ORM\Table(name="base_application")
+ * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\Entity(repositoryClass="Front\UserBundle\Repository\ApplicationRepository")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"Application" = "Application", "ApplicationExternal" = "ApplicationExternal"})
  */
 class Application
 {
@@ -109,6 +112,10 @@ class Application
     public function setLocation($location)
     {
         $this->location = $location;
+    }
+
+    public function isExternal() {
+        return false;
     }
 }
 
