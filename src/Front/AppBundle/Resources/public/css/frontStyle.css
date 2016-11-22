@@ -154,7 +154,10 @@ ul.nav.navbar-nav li a:link {
 }
 
 .img.img-profile-picture-large {
-    height: 100px;
+    height: auto;
+    width: auto;
+    max-height: 100px;
+    max-width: 100px;
 }
 
 /* ----------------------------------------------------------------------------------

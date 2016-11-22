@@ -47,6 +47,22 @@ class Image
     private $tempFilename;
 
     /**
+     * @var string
+     * @ORM\Column(name="folder", type="string", length=255)
+     */
+    private $folder;
+
+    /**
+     * Image constructor.
+     * @param string $folder
+     */
+    public function __construct($folder)
+    {
+        $this->folder = $folder;
+    }
+
+
+    /**
      * Get id
      *
      * @return int
@@ -190,7 +206,7 @@ class Image
     }
 
     public function getWebPath() {
-        return "uploads/avatar/".$this->getId().".".$this->getUrl();
+        return $this->folder."/".$this->getUrl();
     }
 }
 

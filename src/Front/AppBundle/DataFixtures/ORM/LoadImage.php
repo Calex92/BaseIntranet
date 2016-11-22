@@ -19,12 +19,12 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $users = array("pfirmin", "gloncke", "tbarrez", "acallens", "asergent", "acastelain");
-        $urls = array($users[0] => "bundles/frontuser/img/basic_avatar.png",
-                    $users[1] => "bundles/frontuser/img/basic_avatar.png",
-                    $users[2] => "bundles/frontuser/img/basic_avatar.png",
-                    $users[3] => "bundles/frontuser/img/basic_avatar.png",
-                    $users[4] => "bundles/frontuser/img/basic_avatar.png",
-                    $users[5] => "download/front/user/user-profile/Photo officielle.png");
+        $urls = array($users[0] => "basic_avatar.png",
+                    $users[1] => "basic_avatar.png",
+                    $users[2] => "basic_avatar.png",
+                    $users[3] => "basic_avatar.png",
+                    $users[4] => "basic_avatar.png",
+                    $users[5] => "6.jpeg");
 
         $alts = array($users[0] => "My profile picture",
                     $users[1] => "My profile picture",
@@ -34,7 +34,7 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
                     $users[5] => "My profile picture");
 
         for ($i = 0; $i < count($urls) ; $i++) {
-            $image = new Image();
+            $image = new Image("uploads/avatar");
             $image->setAlt($alts[$users[$i]]);
             $image->setUrl($urls[$users[$i]]);
 
@@ -44,14 +44,14 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
 
 
         $applications = array ("Administration Isidore", "Grands Comptes", "GISS", "Help référenciel", "Omniview", "E-learning", "Help ADV", "Book-Re");
-        $urls = array($applications[0] => "download/front/applications/adminisidore.png",
-                    $applications[1] => "download/front/applications/espacegrandcompte.png",
-                    $applications[2] => "download/front/applications/giss.jpg",
-                    $applications[3] => "download/front/applications/referentiel.png",
-                    $applications[4] => "download/front/applications/omniview.jpg",
-                    $applications[5] => "download/front/applications/elearning.png",
-                    $applications[6] => "download/front/applications/HELP-ADV2.png",
-                    $applications[7] => "download/front/applications/bookre.png");
+        $urls = array($applications[0] => "adminisidore.png",
+                    $applications[1] => "espacegrandcompte.png",
+                    $applications[2] => "giss.jpg",
+                    $applications[3] => "referentiel.png",
+                    $applications[4] => "omniview.jpg",
+                    $applications[5] => "elearning.png",
+                    $applications[6] => "HELP-ADV2.png",
+                    $applications[7] => "bookre.png");
 
         $alts = array($applications[0] => "Administration Isidore",
                     $applications[1] => "Espaces Grands Comptes",
@@ -63,7 +63,7 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
                     $applications[7] => "Book RE / DR");
 
         for ($i = 0; $i < count($applications) ; $i++) {
-            $image = new Image();
+            $image = new Image("download/front/applications");
             $image->setAlt($alts[$applications[$i]]);
             $image->setUrl($urls[$applications[$i]]);
 
@@ -72,12 +72,12 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
         }
 
         $applications = array ("Générateur de signature");
-        $urls = array($applications[0] => "download/front/applications/logo_signature.gif");
+        $urls = array($applications[0] => "logo_signature.gif");
 
         $alts = array($applications[0] => "Générateur de signature");
 
         for ($i = 0; $i < count($applications) ; $i++) {
-            $image = new Image();
+            $image = new Image("download/front/applications");
             $image->setAlt($alts[$applications[$i]]);
             $image->setUrl($urls[$applications[$i]]);
 
@@ -97,7 +97,7 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
             $news[2] => "Couverture");
 
         for ($i = 0; $i < count($news) ; $i++) {
-            $image = new Image();
+            $image = new Image("empty");
             $image->setAlt($alts[$news[$i]]);
             $image->setUrl($urls[$news[$i]]);
 

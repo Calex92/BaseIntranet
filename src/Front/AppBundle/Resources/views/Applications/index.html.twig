@@ -20,7 +20,7 @@
                         <a class="thumbnail application" href="{{ path(application.location) }}">
                     {% endif %}
                         <img class="img-responsive"
-                            src="{{ asset(application.image.url) }}" alt="{{ application.image.alt }}">
+                            src="{{ asset(application.image.webPath) }}" alt="{{ application.image.alt }}">
                         <h4>
                             {{ application.name }}
                         </h4>

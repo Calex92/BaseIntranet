@@ -18,23 +18,26 @@ class LoadContact extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $users = array("pfirmin", "gloncke", "acallens", "asergent", "mcastelain");
+        $users = array("pfirmin", "gloncke", "acallens", "asergent", "acastelain", "tbarrez");
         $phones = array($users[0] => "0320799807",
             $users[1] => "0320769800",
             $users[2] => "0708090504",
             $users[3] => "0230040556",
+            $users[5] => "",
             $users[4] => "056331578");
 
         $mobiles = array($users[0] => "0320799807",
             $users[1] => "0798364502",
             $users[2] => "0405090807",
             $users[3] => "",
+            $users[5] => "",
             $users[4] => "0498367983");
 
         $faxes = array($users[0] => "0102030405",
             $users[1] => "",
             $users[2] => "4587985652",
             $users[3] => "",
+            $users[5] => "",
             $users[4] => "003256331578");
 
         for ($i = 0; $i < count($users) ; $i++) {
