@@ -47,6 +47,8 @@ class ProfileController extends Controller
 
     /**
      * Edit the user
+     * @param Request $request
+     * @return null|RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request)
     {
@@ -95,5 +97,17 @@ class ProfileController extends Controller
         return $this->render('FrontUserBundle:Profile:edit.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    public function defaultAvatarAction() {
+        /** @var User $user */
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $user->getImage()->setUrl("basic_avatar.png");
+
+        $em->flush();
+
+        return $this->redirectToRoute('user_profile_edit');
     }
 }

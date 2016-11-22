@@ -55,10 +55,12 @@ class Image
     /**
      * Image constructor.
      * @param string $folder
+     * @param $alt
      */
-    public function __construct($folder)
+    public function __construct($folder, $alt)
     {
         $this->folder = $folder;
+        $this->alt = $alt;
     }
 
 
@@ -166,8 +168,8 @@ class Image
         if ($this->file === null) {
             return;
         }
-        $this->url = $this->file->guessExtension();
-        $this->alt = $this->file->getClientOriginalName();
+        $this->url = $this->getId().".".$this->file->guessExtension();
+        $this->alt = "Image";
     }
 
     /**
@@ -179,7 +181,7 @@ class Image
             return;
         }
         elseif ($this->tempFilename !== null) {
-            $oldFile = $this->getUploadRootDir()."/".$this->getId().".".$this->getTempFilename();
+            $oldFile = $this->getUploadRootDir()."/".$this->getId().".".$this->file->guessExtension();
 
             if (file_exists($oldFile)) {
                 unlink($oldFile);
@@ -188,7 +190,7 @@ class Image
 
         $this->file->move(
             $this->getUploadRootDir(),
-            $this->getId().".".$this->getUrl()
+            $this->getUrl()
         );
     }
 
@@ -202,11 +204,19 @@ class Image
     }
 
     protected function getUploadRootDir() {
-        return __DIR__.'/../../../../web/uploads/avatar';
+        return __DIR__.'/../../../../web/'.$this->getFolder();
     }
 
     public function getWebPath() {
         return $this->folder."/".$this->getUrl();
+    }
+
+    /**
+     * @return string
+     */
+    public function getFolder()
+    {
+        return $this->folder;
     }
 }
 

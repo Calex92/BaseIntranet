@@ -55,6 +55,7 @@ class User extends BaseUser
     /**
      * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist", "remove"})
      * @Assert\Valid()
+     * @var Image
      */
     private $image;
 
@@ -163,7 +164,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return mixed
+     * @return Image
      */
     public function getImage()
     {
@@ -201,9 +202,8 @@ class User extends BaseUser
         if ($this->image == null) {
             //The user need his basic profile picture and need to be activated.
             //This is just done before the user is added in the database.
-            $image = new Image();
-            $image->setAlt("My profile picture");
-            $image->setUrl("bundles/frontuser/img/basic_avatar.png");
+            $image = new Image("uploads/avatar", "Mon avatar");
+            $image->setUrl("basic_avatar.png");
 
             $this->setEnabled(true);
             $this->setImage($image);

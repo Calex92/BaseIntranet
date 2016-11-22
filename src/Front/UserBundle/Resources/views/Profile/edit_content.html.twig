@@ -27,10 +27,7 @@
                     {{ form_widget(form.image.file, {"attr": {"class" : ""}} ) }}
                 </div>
                 <div>
-                    <label for="renewAvatar">
-                        <input type="checkbox" name="renewAvatar"/>
-                        Mettre la photo de profil par défaut
-                    </label>
+                    <a class="btn btn-primary margin-top-15 margin-left-15" href="{{ path("user_profile_default_avatar") }}">Remettre la photo de profil par défaut</a>
                 </div>
                 {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.image.file}) }}
             </div>
