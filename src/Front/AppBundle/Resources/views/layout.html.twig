@@ -9,7 +9,8 @@
                 {% block menus %}
                     <ul class="nav navbar-nav">
                         <li class="{% if app.request.attributes.get('_route') == 'news_index' or
-                        app.request.attributes.get('_route') == 'front_homepage' %}active{% endif %}">
+                        app.request.attributes.get('_route') == 'front_homepage' or
+                        app.request.attributes.get('_route') == 'news_view' %}active{% endif %}">
                             <a href="{{ path("news_index", {"domain" : "all"}) }}">News</a>
                         </li>
                         <li class="{% if app.request.attributes.get('_route') == 'documents_index' %}active{% endif %}">

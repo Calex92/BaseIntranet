@@ -19,17 +19,29 @@
 {% block content %}
     <div class="main-content single-new">
         <div class="col-md-12 col-sm-12 col-xs-12">
-        <img class="new-image" src="{{ news.image.url }}" alt="{{ news.image.alt }}">
-        <h2>{{ news.title }}</h2>
-        <p>
-            {{ news.text }}
-        </p>
-        <p>
-            <span>{{ news.creator.firstname|slice(0,1) }}. {{ news.creator.surname }}</span>
-            <span>{{ news.creationDate | date('d/m/Y') }}</span>
-        </p>
+            <div class="row">
+                <img class="new-image margin-top-20 margin-left-15" src="{{ news.image.url }}" alt="{{ news.image.alt }}">
+                <h2>{{ news.title }}</h2>
+                <p class="text-justify margin-left-15 margin-right-15">
+                    {{ news.text }}
+                </p>
+            </div>
+            <div class="row">
+                {% for externalVideo in news.externalVideo %}
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <iframe src="{{ externalVideo }}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                {% endfor %}
+            </div>
+            <p>
+                <span>{{ news.creator.firstname|slice(0,1) }}. {{ news.creator.surname }}</span>
+                <span>{{ news.creationDate | date('d/m/Y') }}</span>
+            </p>
         </div>
-        <a class="btn btn-primary col-md-offset-9 col-sm-offset-8 col-xs-offset-6 col-md-3 col-sm-4 col-xs-6" href="{{ path(referer.name) }}">Retour</a>
+
+
+        <a class="btn btn-primary col-md-offset-9 col-sm-offset-8 col-xs-offset-6 col-md-3 col-sm-4 col-xs-6"
+           href="{{ path("news_index") }}">Retour</a>
         <div class="clearfix"></div>
     </div>
 {% endblock %}

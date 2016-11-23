@@ -60,6 +60,10 @@ class LoadNews extends AbstractFixture implements OrderedFixtureInterface
             "9",
             "3");
 
+        $externalVideos = array(array(),
+            array("https://www.youtube.com/embed/yOW3CaLm1sI", "https://www.youtube.com/embed/77rurM5oRJc", "https://www.youtube.com/embed/usu3wLVTMxA"),
+            array("https://www.youtube.com/embed/77rurM5oRJc"));
+
 
         for ($i = 0; $i < count($titles); $i++) {
             $news = new News();
@@ -75,6 +79,10 @@ class LoadNews extends AbstractFixture implements OrderedFixtureInterface
             $image = $this->getReference("image-news".$titles[$i]);
             $news->setImage($image);
             $news->setCreationDate(new \DateTime());
+
+            foreach ($externalVideos[$i] as $externalVideo) {
+                $news->addExternalVideo($externalVideo);
+            }
 
             $manager->persist($news);
         }

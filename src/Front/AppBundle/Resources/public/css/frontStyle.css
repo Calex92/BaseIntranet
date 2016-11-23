@@ -80,9 +80,6 @@ ul.nav.navbar-nav li a:link {
     float: right;
 }
 
-.single-new p:last-child {
-    text-align: center;
-}
 .single-new p span:first-child {
     float: left;
 }
@@ -220,4 +217,44 @@ body.wait, body.wait *{
 
 .padding-right-15 {
     padding-right: 15px;
+}
+
+.margin-20 {
+    margin: 20px;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.margin-left-20 {
+    margin-left: 20px;
+}
+
+.margin-right-20 {
+    margin-right: 20px;
+}
+
+.padding-20 {
+    padding: 20px;
+}
+
+.padding-top-20 {
+    padding-top: 20px;
+}
+
+.padding-bottom-20 {
+    padding-bottom: 20px;
+}
+
+.padding-left-20 {
+    padding-left: 20px;
+}
+
+.padding-right-20 {
+    padding-right: 20px;
 }

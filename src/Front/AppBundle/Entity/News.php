@@ -25,6 +25,21 @@ class News extends DomainElement
      */
     private $image;
 
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="external_video", type="array")
+     */
+    private $externalVideo;
+
+    /**
+     * News constructor.
+     */
+    public function __construct()
+    {
+        $this->externalVideo = array();
+    }
+
 
     /**
      * Set text
@@ -66,6 +81,27 @@ class News extends DomainElement
         $this->image = $image;
     }
 
+    /**
+     * @return array
+     */
+    public function getExternalVideo()
+    {
+        return $this->externalVideo;
+    }
 
+    /**
+     * @param array $externalVideo
+     */
+    public function setExternalVideo($externalVideo)
+    {
+        $this->externalVideo = $externalVideo;
+    }
+
+    /**
+     * @param string $externalVideo
+     */
+    public function addExternalVideo($externalVideo) {
+        $this->externalVideo[] = $externalVideo;
+    }
 }
 

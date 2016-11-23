@@ -34,7 +34,7 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
                     $users[5] => "My profile picture");
 
         for ($i = 0; $i < count($urls) ; $i++) {
-            $image = new Image("uploads/avatar");
+            $image = new Image("uploads/avatar", $alts[$users[$i]]);
             $image->setAlt($alts[$users[$i]]);
             $image->setUrl($urls[$users[$i]]);
 
@@ -63,7 +63,7 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
                     $applications[7] => "Book RE / DR");
 
         for ($i = 0; $i < count($applications) ; $i++) {
-            $image = new Image("download/front/applications");
+            $image = new Image("download/front/applications", $alts[$applications[$i]]);
             $image->setAlt($alts[$applications[$i]]);
             $image->setUrl($urls[$applications[$i]]);
 
@@ -77,7 +77,7 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
         $alts = array($applications[0] => "Générateur de signature");
 
         for ($i = 0; $i < count($applications) ; $i++) {
-            $image = new Image("download/front/applications");
+            $image = new Image("download/front/applications", $alts[$applications[$i]]);
             $image->setAlt($alts[$applications[$i]]);
             $image->setUrl($urls[$applications[$i]]);
 
@@ -97,7 +97,7 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
             $news[2] => "Couverture");
 
         for ($i = 0; $i < count($news) ; $i++) {
-            $image = new Image("empty");
+            $image = new Image("empty", $alts[$news[$i]]);
             $image->setAlt($alts[$news[$i]]);
             $image->setUrl($urls[$news[$i]]);
 
