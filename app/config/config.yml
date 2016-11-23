@@ -41,6 +41,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
             - 'bootstrap_3_layout.html.twig'
+            - 'VichUploaderBundle:Form:fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -79,3 +80,14 @@ fos_user:
     profile:
         form:
             type: Front\UserBundle\Form\ProfileFormType
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        user_avatar:
+            # I don't understand clearly how I have to create the good Path for here. The "Isidore2" part is not good
+            # but I don't manage to change it
+            uri_prefix:            /../isidore2/web/uploads/avatar
+            upload_destination:    '%kernel.root_dir%/../web/uploads/avatar'
+            namer:                 vich_uploader.namer_origname

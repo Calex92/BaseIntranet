@@ -88,11 +88,12 @@ class Agency
     }
 
     /**
-     * @param mixed $user_Agencies
+     * @param $user_agencies
+     * @internal param mixed $user_Agencies
      */
     public function setUserAgencies($user_agencies)
     {
-        $this->user_Agencies = $user_agencies;
+        $this->user_agencies = $user_agencies;
     }
 
     public function getUsers() {

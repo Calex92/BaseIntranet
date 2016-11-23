@@ -9,11 +9,6 @@
         {{ include('@AdminUserManager/Form/userType.html.twig') }}
     </div>
 
-    <div class="col-md-12 margin-bottom-15 text-right">
-        <input type="submit" class="btn btn-default" value="{{ 'profile.edit.submit'|trans }}"/>
-    </div>
-
-
     <div class="well well-block-info">
         {{ include("@FrontApp/Form/contactType.html.twig") }}
     </div>
@@ -21,16 +16,25 @@
     <div class="well well-block-info">
         <div>
             <h4 class="margin-left-15">Photo de profil</h4>
-            <div class="form-group">
-                {{ form_label(form.image.file, null, {"label_attr" : {"class": "col-sm-2 control-label"}} ) }}
-                <div class="col-sm-10">
-                    {{ form_widget(form.image.file, {"attr": {"class" : ""}} ) }}
+            <div class="row form-group">
+                {{ form_label(form.imageFile.file, null, {"label_attr" : {"class": "col-sm-4 control-label"}} ) }}
+                <div class="col-sm-8">
+                    {{ form_widget(form.imageFile.file, {"attr": {"class" : ""}} ) }}
+
+                    {% if form.delete is defined %}
+                        {{ form_widget(form.imageFile.delete, {"label_attr" : {"class": "test"}}) }}
+                    {% endif %}
                 </div>
-                <div>
-                    <a class="btn btn-primary margin-top-15 margin-left-15" href="{{ path("user_profile_default_avatar") }}">Remettre la photo de profil par défaut</a>
-                </div>
-                {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.image.file}) }}
             </div>
+            {% if form.imageFile.delete is defined %}
+            <div class="row form-group ">
+                <label class="col-sm-4 control-label">Remettre l'image par défaut :</label>
+                <div class="col-sm-8">
+                        {{ form_widget(form.imageFile.delete) }}
+                </div>
+            </div>
+            {% endif %}
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.imageFile}) }}
         </div>
     </div>
 

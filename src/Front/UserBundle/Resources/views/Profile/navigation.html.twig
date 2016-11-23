@@ -1,6 +1,7 @@
 <ul class="nav navbar-nav">
     <li class="{% if app.request.attributes.get('_route') == 'news_index' or
-    app.request.attributes.get('_route') == 'user_profile_show' %}active{% endif %}">
+    app.request.attributes.get('_route') == 'user_profile_show' or
+    app.request.attributes.get('_route') == 'fos_user_profile_show' %}active{% endif %}">
         <a href="{{ path("user_profile_show") }}">Profil</a>
     </li>
     <li class="{% if app.request.attributes.get('_route') == 'user_profile_edit' %}active{% endif %}">

@@ -12,7 +12,13 @@
         </div>
         <div class="pull-right col-md-4 col-sm-12 col-xs-12">
             <p>Votre photo de profil:</p>
-            <img src="{{ asset(user.image.webPath) }}" alt="Mon image" class="img img-profile-picture img-profile-picture-large">
+            {% if user.imageName != "" %}
+                <img class="img img-profile-picture img-profile-picture-large"
+                     src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="Avatar"/>
+            {% else %}
+                <img class="img img-profile-picture img-profile-picture-large"
+                     src="{{ asset("uploads/avatar/basic_avatar.png") }}" alt="Avatar"/>
+            {% endif %}
         </div>
     </div>
         <div class="well well-block-info">

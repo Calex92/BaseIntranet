@@ -5,7 +5,8 @@ namespace Front\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Front\AppBundle\Entity\Agency;
-use Front\AppBundle\Entity\Image;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Front\AppBundle\Entity\UserAgency;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity("email")
  * @UniqueEntity("username")
  * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable()
  */
 class User extends BaseUser
 {
@@ -53,12 +55,19 @@ class User extends BaseUser
     private $contact;
 
     /**
-     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist", "remove"})
-     * @Assert\Valid()
-     * @var Image
+     * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="imageName")
+     *
+     * @var File
+     * @Assert\File(mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif"})
      */
-    private $image;
+    private $imageFile;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $imageName;
 
     /**
      * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\UserAgency", mappedBy="user")
@@ -70,6 +79,13 @@ class User extends BaseUser
      * @ORM\Column(name="lastPasswordChange", type="date", nullable=true)
      */
     private $lastPasswordChange;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     /**
      * Get id
@@ -164,22 +180,6 @@ class User extends BaseUser
     }
 
     /**
-     * @return Image
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
-    /**
      * @return mixed
      */
     public function getLastPasswordChange()
@@ -195,25 +195,68 @@ class User extends BaseUser
         $this->lastPasswordChange = $lastPasswordChange;
     }
 
-    /**
-     * @ORM\PrePersist()
-     */
-    public function prepareObjectPersist() {
-        if ($this->image == null) {
-            //The user need his basic profile picture and need to be activated.
-            //This is just done before the user is added in the database.
-            $image = new Image("uploads/avatar", "Mon avatar");
-            $image->setUrl("basic_avatar.png");
-
-            $this->setEnabled(true);
-            $this->setImage($image);
-        }
-    }
-
     public function addAgency (Agency $agency, $primary) {
         $user_agency = new UserAgency($this, $agency, $primary);
 
         $this->user_agencies[] = $user_agency;
     }
+
+    public function setImageFile(File $image = null) {
+        $this->imageFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param string $imageName
+     *
+     * @return User
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+
 }
 

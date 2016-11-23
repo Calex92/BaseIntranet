@@ -65,8 +65,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             $user->setPlainPassword($passwords[$users[$i]]);
             $user->setRoles(array('Role_User'));
 
-            $image = $this->getReference("image-user".$users[$i]);
-            $user->setImage($image);
+            $user->setUpdatedAt(new \DateTime());
 
             if ($this->hasReference("user-contact".$users[$i])) {
                 $contact = $this->getReference("user-contact".$users[$i]);

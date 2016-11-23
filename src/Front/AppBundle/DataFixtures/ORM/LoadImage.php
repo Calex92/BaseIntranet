@@ -18,31 +18,6 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $users = array("pfirmin", "gloncke", "tbarrez", "acallens", "asergent", "acastelain");
-        $urls = array($users[0] => "basic_avatar.png",
-                    $users[1] => "basic_avatar.png",
-                    $users[2] => "basic_avatar.png",
-                    $users[3] => "basic_avatar.png",
-                    $users[4] => "basic_avatar.png",
-                    $users[5] => "6.jpeg");
-
-        $alts = array($users[0] => "My profile picture",
-                    $users[1] => "My profile picture",
-                    $users[2] => "My profile picture",
-                    $users[3] => "My profile picture",
-                    $users[4] => "My profile picture",
-                    $users[5] => "My profile picture");
-
-        for ($i = 0; $i < count($urls) ; $i++) {
-            $image = new Image("uploads/avatar", $alts[$users[$i]]);
-            $image->setAlt($alts[$users[$i]]);
-            $image->setUrl($urls[$users[$i]]);
-
-            $this->addReference("image-user".$users[$i], $image);
-            $manager->persist($image);
-        }
-
-
         $applications = array ("Administration Isidore", "Grands Comptes", "GISS", "Help référenciel", "Omniview", "E-learning", "Help ADV", "Book-Re");
         $urls = array($applications[0] => "adminisidore.png",
                     $applications[1] => "espacegrandcompte.png",

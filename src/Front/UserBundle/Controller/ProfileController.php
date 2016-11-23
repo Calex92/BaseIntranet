@@ -98,16 +98,4 @@ class ProfileController extends Controller
             'form' => $form->createView()
         ));
     }
-
-    public function defaultAvatarAction() {
-        /** @var User $user */
-        $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-
-        $user->getImage()->setUrl("basic_avatar.png");
-
-        $em->flush();
-
-        return $this->redirectToRoute('user_profile_edit');
-    }
 }

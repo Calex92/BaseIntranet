@@ -14,10 +14,6 @@ user_profile_edit:
      path:    /profile/edit
      defaults: { _controller: FrontUserBundle:Profile:edit }
 
-user_profile_default_avatar:
-    path:    /profile/default_avatar
-    defaults: { _controller: FrontUserBundle:Profile:defaultAvatar}
-
 user_change_password:
     path:    /profile/change-password
     defaults: { _controller: FrontUserBundle:ChangePassword:changePassword }
