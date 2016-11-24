@@ -30,7 +30,7 @@
             </thead>
             <tbody>
             {% for document in documents %}
-                {# @var document \Front\AppBundle\Entity\Document #}
+                {# @var document \Front\DomainBundle\Entity\Document #}
                 <tr>
                     <td>{{ document.creator.firstname|slice(0,1) }}. {{ document.creator.surname }}</td>
                     <td>{{ document.title }}</td>

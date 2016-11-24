@@ -12,8 +12,8 @@ namespace Front\AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Front\AppBundle\Entity\Document;
-use Front\AppBundle\Entity\Domain;
+use Front\DomainBundle\Entity\Document;
+use Front\DomainBundle\Entity\Domain;
 use Front\UserBundle\Entity\User;
 
 class LoadDocument extends AbstractFixture implements OrderedFixtureInterface

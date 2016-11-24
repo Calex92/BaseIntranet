@@ -6,7 +6,7 @@
  * Time: 14:25
  */
 
-namespace Front\AppBundle\Entity;
+namespace Front\DomainBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
@@ -47,7 +47,7 @@ abstract class DomainElement
     /**
      * @var Domain
      *
-     * @ORM\ManyToOne(targetEntity="Front\AppBundle\Entity\Domain", inversedBy="domainElements")
+     * @ORM\ManyToOne(targetEntity="Front\DomainBundle\Entity\Domain", inversedBy="domainElements")
      */
     private $domain;
 

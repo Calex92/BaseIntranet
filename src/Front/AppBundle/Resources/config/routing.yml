@@ -1,20 +1,3 @@
-news_view:
-    path:    /news/view/{id}
-    defaults:
-        _controller: FrontAppBundle:News:view
-
-news_index:
-    path:     /news/{domain}
-    defaults:
-        _controller: FrontAppBundle:News:index
-        domain: "all"
-
-documents_index:
-    path:    /documents/{domain}
-    defaults:
-        _controller: FrontAppBundle:Documents:index
-        domain: "all"
-
 application_index:
     path:    /applications
     defaults:
@@ -28,7 +11,7 @@ application_external_access:
 front_homepage:
     path:     /
     defaults:
-        _controller: FrontAppBundle:News:index
+        _controller: FrontDomainBundle:News:index
         domain: "all"
 
 users_admin:

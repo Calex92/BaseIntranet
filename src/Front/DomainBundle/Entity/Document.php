@@ -1,13 +1,13 @@
 <?php
 
-namespace Front\AppBundle\Entity;
+namespace Front\DomainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Document
  *
- * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\DocumentRepository")
+ * @ORM\Entity(repositoryClass="Front\DomainBundle\Repository\DocumentRepository")
  * @ORM\Table(name="base_domain_document")
  */
 class Document extends DomainElement

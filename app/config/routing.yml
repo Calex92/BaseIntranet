@@ -1,3 +1,7 @@
+front_domain:
+    resource: "@FrontDomainBundle/Resources/config/routing.yml"
+    prefix:   /
+
 front_app:
     resource: "@FrontAppBundle/Resources/config/routing.yml"
     prefix:   /

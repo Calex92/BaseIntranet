@@ -12,7 +12,7 @@ namespace Front\AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Front\AppBundle\Entity\Domain;
+use Front\DomainBundle\Entity\Domain;
 
 class LoadDomain extends AbstractFixture implements OrderedFixtureInterface
 {

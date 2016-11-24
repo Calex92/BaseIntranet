@@ -1,6 +1,6 @@
 <?php
 
-namespace Front\AppBundle\Entity;
+namespace Front\DomainBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -8,7 +8,7 @@ use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Table(name="base_domain")
- * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\DomainRepository")
+ * @ORM\Entity(repositoryClass="Front\DomainBundle\Repository\DomainRepository")
  */
 class Domain
 {
@@ -45,7 +45,7 @@ class Domain
     /**
      * @var PersistentCollection(DomainElement)
      *
-     * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\DomainElement", mappedBy="domain")
+     * @ORM\OneToMany(targetEntity="Front\DomainBundle\Entity\DomainElement", mappedBy="domain")
      */
     private $domainElements;
 

@@ -1,12 +1,13 @@
 <?php
 
-namespace Front\AppBundle\Entity;
+namespace Front\DomainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Front\AppBundle\Entity\Image;
 
 /**
  * News
- * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\NewsRepository")
+ * @ORM\Entity(repositoryClass="Front\DomainBundle\Repository\NewsRepository")
  * @ORM\Table(name="base_domain_news")
  */
 class News extends DomainElement

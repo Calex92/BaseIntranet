@@ -6,15 +6,16 @@
  * Time: 15:11
  */
 
-namespace Front\AppBundle\DataFixtures\ORM;
+namespace Front\DomainBundle\DataFixtures\ORM;
 
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Front\AppBundle\Entity\Image;
-use Front\AppBundle\Entity\News;
-use Front\AppBundle\Entity\Domain;
+
+use Front\DomainBundle\Entity\Domain;
+use Front\DomainBundle\Entity\News;
 use Front\UserBundle\Entity\User;
 
 class LoadNews extends AbstractFixture implements OrderedFixtureInterface
