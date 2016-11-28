@@ -13,6 +13,7 @@ use Front\DomainBundle\Repository\DomainRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,8 +27,8 @@ class NewsType extends AbstractType
     {
         $builder->add('title', TextType::class, array("label" => "Titre"))
             ->add('text', TextareaType::class, array("label" => "Corps du texte"))
-            ->add('beginPublicationDate', TextType::class, array("label" => "Début de parution"))
-            ->add('endPublicationDate', TextType::class, array("label" => "Fin de parution", "required" => false))
+            ->add('beginPublicationDate', DateType::class, array("label" => "Début de parution", "widget" => "single_text", 'format' => 'dd-MM-yyyy', 'placeholder' => 'jj-mm-yyyy'))
+            ->add('endPublicationDate', DateType::class, array("label" => "Fin de parution", "required" => false, "widget" => "single_text", 'format' => 'dd-MM-yyyy', 'placeholder' => 'jj-mm-yyyy'))
             ->add('imageFile', VichImageType::class, array("label" => "Image de couverture", "required" => false))
             ->add('domain', EntityType::class,
                 array("class"       => "Front\\DomainBundle\\Entity\\Domain",

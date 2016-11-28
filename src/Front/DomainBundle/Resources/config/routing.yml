@@ -23,12 +23,17 @@ domain_manager_index:
 domain_manager_news:
     path:    /domain_manager/news
     defaults:
-        _controller: FrontDomainBundle:App:news
+        _controller: FrontDomainBundle:News:list
 
 domain_manager_add_news:
     path:    /domain_manager/news/add
     defaults:
-        _controller: FrontDomainBundle:App:addNews
+        _controller: FrontDomainBundle:News:add
+
+domain_manager_modify_news:
+    path:    /domain_manager_news/modify/{id}
+    defaults:
+        _controller: FrontDomainBundle:News:modify
 
 domain_manager_document:
     path:    /domain_manager/document

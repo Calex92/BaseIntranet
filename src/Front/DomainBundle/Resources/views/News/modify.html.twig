@@ -1,0 +1,23 @@
+{% extends "@FrontDomain/News/add.html.twig" %}
+
+{% block content %}
+    {# @var news \Front\DomainBundle\Entity\News #}
+    {{ form_start(form, { 'action': path('domain_manager_modify_news', {'id' : news.id}), 'attr': { 'class': 'domain_manager_modify_news' } }) }}
+    <a href="{{ path('domain_manager_news') }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Retour aux news
+    </a>
+
+    {% block titlePage %}
+        <p class="alert alert-warning">
+            Vous éditez une annonce déjà existante, merci de ne pas changer
+            l'esprit général de l'annonce déjà publiée.
+        </p>
+
+        <h2 class="col-md-12">Modifier une news</h2>
+    {% endblock %}
+
+    {% include ("@FrontDomain/Form/newsType.html.twig") %}
+
+    {{ form_end(form) }}
+{% endblock %}

@@ -33,9 +33,9 @@
                 <td>{{ new.beginPublicationDate | date('d/m/Y') }}</td>
                 <td>{% if new.endPublicationDate %} {{ new.endPublicationDate | date('d/m/Y') }} {% endif %}</td>
                 <td class="text-center">
-                        <a href="{{ path('front_homepage', {'_switch_user': app.user.username }) }}"
-                           title="Se connecter en tant que {{ app.user.username }}"><i
-                                    class="glyphicon glyphicon-log-in"></i></a>
+                        <a href="{{ path('domain_manager_modify_news', {'id': new.id }) }}"
+                           title="Modifier la news"><i
+                                    class="glyphicon glyphicon-cog"></i></a>
                 </td>
             </tr>
         {% endfor %}
