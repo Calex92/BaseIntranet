@@ -6,7 +6,7 @@
  * Time: 15:12
  */
 
-namespace Front\AppBundle\DataFixtures\ORM;
+namespace Front\DomainBundle\DataFixtures\ORM;
 
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -79,6 +79,8 @@ class LoadDocument extends AbstractFixture implements OrderedFixtureInterface
             $document->setType($types[$i]);
             $document->setFileName($fileNames[$i]);
             $document->setFilePath($filePath[$i]);
+            $document->setBeginPublicationDate(new \DateTime());
+            $document->setEndPublicationDate((new \DateTime())->add(new \DateInterval('P10D')));
 
             $document->setCreationDate(new \DateTime());
 

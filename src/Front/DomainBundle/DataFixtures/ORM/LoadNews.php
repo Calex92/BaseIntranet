@@ -12,7 +12,6 @@ namespace Front\DomainBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Front\AppBundle\Entity\Image;
 
 use Front\DomainBundle\Entity\Domain;
 use Front\DomainBundle\Entity\News;
@@ -76,10 +75,10 @@ class LoadNews extends AbstractFixture implements OrderedFixtureInterface
             /** @var Domain $domain */
             $domain = $this->getReference("news-domain".$labelsDomain[$labelsNews[$i]]);
             $news->setDomain($domain);
-            /** @var Image $image */
-            $image = $this->getReference("image-news".$titles[$i]);
-            $news->setImage($image);
+           // $news->setImage($image);
             $news->setCreationDate(new \DateTime());
+            $news->setBeginPublicationDate(new \DateTime());
+            $news->setEndPublicationDate((new \DateTime())->add(new \DateInterval('P10D')));
 
             foreach ($externalVideos[$i] as $externalVideo) {
                 $news->addExternalVideo($externalVideo);

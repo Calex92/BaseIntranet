@@ -59,6 +59,18 @@ abstract class DomainElement
     private $creationDate;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="begin_publication_date", type="date")
+     */
+    private $beginPublicationDate;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="end_publication_date", type="date", nullable=true)
+     */
+    private $endPublicationDate;
+
+    /**
      * Get id
      *
      * @return integer
@@ -148,5 +160,37 @@ abstract class DomainElement
     public function setDomain($domain)
     {
         $this->domain = $domain;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBeginPublicationDate()
+    {
+        return $this->beginPublicationDate;
+    }
+
+    /**
+     * @param \DateTime $beginPublicationDate
+     */
+    public function setBeginPublicationDate($beginPublicationDate)
+    {
+        $this->beginPublicationDate = $beginPublicationDate;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndPublicationDate()
+    {
+        return $this->endPublicationDate;
+    }
+
+    /**
+     * @param \DateTime $endPublicationDate
+     */
+    public function setEndPublicationDate($endPublicationDate)
+    {
+        $this->endPublicationDate = $endPublicationDate;
     }
 }

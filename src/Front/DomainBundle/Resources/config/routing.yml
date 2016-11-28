@@ -14,3 +14,23 @@ documents_index:
     defaults:
         _controller: FrontDomainBundle:Documents:index
         domain: "all"
+
+domain_manager_index:
+    path:    /domain_manager
+    defaults:
+        _controller: FrontDomainBundle:App:index
+
+domain_manager_news:
+    path:    /domain_manager/news
+    defaults:
+        _controller: FrontDomainBundle:App:news
+
+domain_manager_add_news:
+    path:    /domain_manager/news/add
+    defaults:
+        _controller: FrontDomainBundle:App:addNews
+
+domain_manager_document:
+    path:    /domain_manager/document
+    defaults:
+        _controller: FrontDomainBundle:App:document

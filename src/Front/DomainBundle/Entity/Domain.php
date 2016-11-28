@@ -143,7 +143,9 @@ class Domain
     public function getRecentNews() {
         return $this->domainElements->filter(
             function (DomainElement $domainElement) {
-                if (new \DateTime("-1 months") > $domainElement->getCreationDate())
+                if (new \DateTime("-1 months") > $domainElement->getCreationDate()
+                    ||  new \DateTime() < $domainElement->getBeginPublicationDate()
+                    || ($domainElement->getEndPublicationDate()!= NULL && new \DateTime() > $domainElement->getEndPublicationDate()))
                     return false;
                 return $domainElement instanceof News;
             }

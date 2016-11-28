@@ -19,6 +19,10 @@ class NewsRepository extends EntityRepository
         }
         return $qb->andWhere("domain.active = :active")
             ->setParameter("active", true)
+            ->andWhere("news_repository.beginPublicationDate <= :dateToday")
+            ->andWhere("news_repository.endPublicationDate >= :dateToday")
+            ->orWhere($qb->expr()->isNull("news_repository.endPublicationDate"))
+            ->setParameter("dateToday", new \DateTime())
             ->leftJoin("news_repository.domain", "domain")
             ->orderBy("news_repository.creationDate", "DESC")
             ->getQuery()

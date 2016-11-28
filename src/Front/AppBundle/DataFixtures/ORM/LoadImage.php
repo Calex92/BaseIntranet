@@ -18,7 +18,7 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $applications = array ("Administration Isidore", "Grands Comptes", "GISS", "Help référenciel", "Omniview", "E-learning", "Help ADV", "Book-Re");
+        $applications = array ("Administration Isidore", "Grands Comptes", "GISS", "Help référenciel", "Omniview", "E-learning", "Help ADV", "Book-Re", "Gestion du portail web");
         $urls = array($applications[0] => "adminisidore.png",
                     $applications[1] => "espacegrandcompte.png",
                     $applications[2] => "giss.jpg",
@@ -26,7 +26,8 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
                     $applications[4] => "omniview.jpg",
                     $applications[5] => "elearning.png",
                     $applications[6] => "HELP-ADV2.png",
-                    $applications[7] => "bookre.png");
+                    $applications[7] => "bookre.png",
+                    $applications[8] => "gestion portail web.png");
 
         $alts = array($applications[0] => "Administration Isidore",
                     $applications[1] => "Espaces Grands Comptes",
@@ -35,7 +36,8 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
                     $applications[4] => "Omniview",
                     $applications[5] => "E-learning",
                     $applications[6] => "Help ADV",
-                    $applications[7] => "Book RE / DR");
+                    $applications[7] => "Book RE / DR",
+                    $applications[8] => "Gestion portail web");
 
         for ($i = 0; $i < count($applications) ; $i++) {
             $image = new Image("download/front/applications", $alts[$applications[$i]]);

@@ -24,7 +24,11 @@ ul.nav.navbar-nav li a:link {
  }
 
 .separation-bar.separation-bar-admin {
-    background-color: rgb(80,1,126);
+     background-color: rgb(80,1,126);
+ }
+
+.separation-bar.separation-bar-domain-manager {
+    background-color: rgb(26,107,208);
 }
 
 .hidden-not-important {

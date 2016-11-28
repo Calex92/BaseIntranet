@@ -1,0 +1,69 @@
+{# @var form \Front\DomainBundle\Entity\News #}
+<h2 class="col-md-12">Créer une news</h2>
+
+<div class="well well-block-info">
+    <div class="col-md-6 col-sm-12 ">
+        <h4>Informations générales</h4>
+        <div class="form-group">
+            {{ form_label(form.title, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.title, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.title}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.beginPublicationDate, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.beginPublicationDate, {"attr": {'class' : "datepicker"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.beginPublicationDate}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.endPublicationDate, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.endPublicationDate, {"attr": {'class' : "datepicker"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.endPublicationDate}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.domain, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.domain, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.domain}) }}
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <h4>Documents liés</h4>
+        <div class="row form-group">
+            {{ form_label(form.imageFile, null, {"label_attr" : {"class": "col-sm-6 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.imageFile, {"attr": {"class" : ""}} ) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.imageFile}) }}
+        </div>
+
+
+        <div class="form-group">
+            {{ form_label(form.externalVideo, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <a href="#" id="add_externalVideo" class="btn btn-default pull-right">Ajouter une video Youtube</a>
+            <div class="col-sm-12">
+                {{ form_widget(form.externalVideo) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.externalVideo}) }}
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <h4>{{ form_label(form.text) }}</h4>
+        <div class="form-group">
+
+            <div class="col-sm-12">
+                {{ form_widget(form.text, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.text}) }}
+        </div>
+    </div>
+</div>
+
+{{ form_rest(form) }}

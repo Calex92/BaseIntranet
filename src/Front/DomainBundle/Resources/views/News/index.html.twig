@@ -18,14 +18,17 @@
 {% block content %}
     <div class="main-content">
         {% for new in news %}
+            {# @var new \Front\DomainBundle\Entity\News #}
             <div class="single-new">
-                    <img class="new-image" src="{{ new.image.url }}" alt="{{ new.image.alt }}"/>
+                {% if new.imageName %}
+                    <img class="new-image" src="{{ vich_uploader_asset(new, 'imageFile') }}" alt="News"/>
+                {% endif %}
                     <label>{{ new.domain.label }}</label>
                     <h3>{{ new.title }}</h3>
                     <p class="text-justify">{{ new.text|length > 300 ? new.text|slice(0, 300) ~ '...' : new.text  }}</p>
                     <p class="text-center">
                         <span>{{ new.creator.firstname|slice(0,1) }}. {{ new.creator.surname }}</span>
-                        <span >{{ new.creationDate | date('d/m/Y') }}</span>
+                        <span >{{ new.beginPublicationDate | date('d/m/Y') }}</span>
                         <span><a href="{{ path("news_view", {id : new.id} ) }}">Lire la suite</a></span>
                     </p>
             </div>

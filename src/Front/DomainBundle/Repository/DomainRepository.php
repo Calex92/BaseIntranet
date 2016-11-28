@@ -11,4 +11,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class DomainRepository extends EntityRepository
 {
+    public function getActiveQueryBuilder() {
+        $qb = $this->createQueryBuilder('domain_repository');
+        return $qb
+            ->where($qb->expr()->eq("domain_repository.active", true));
+    }
 }

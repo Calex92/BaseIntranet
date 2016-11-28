@@ -6,7 +6,7 @@
  * Time: 15:00
  */
 
-namespace Front\AppBundle\DataFixtures\ORM;
+namespace Front\DomainBundle\DataFixtures\ORM;
 
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
