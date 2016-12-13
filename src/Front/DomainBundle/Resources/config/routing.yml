@@ -31,7 +31,7 @@ domain_manager_add_news:
         _controller: FrontDomainBundle:News:add
 
 domain_manager_modify_news:
-    path:    /domain_manager_news/modify/{id}
+    path:    /domain_manager/news/modify/{id}
     defaults:
         _controller: FrontDomainBundle:News:modify
 

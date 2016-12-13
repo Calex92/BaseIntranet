@@ -94,5 +94,10 @@ vich_uploader:
 
         news_image:
             uri_prefix:            /../isidore2/web/uploads/news
-            upload_destination:    '%%kernel.root_dir%/../uploads/news'
+            upload_destination:    '%kernel.root_dir%/../web/uploads/news'
+            namer:                 vich_uploader.namer_origname
+
+        news_file:
+            uri_prefix:            /../isidore2/web/uploads/newsFiles
+            upload_destination:    '%kernel.root_dir%/../web/uploads/newsFiles'
             namer:                 vich_uploader.namer_origname

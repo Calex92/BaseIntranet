@@ -6,7 +6,7 @@
  * Time: 17:47
  */
 
-namespace Front\DomainBundle\Form;
+namespace Front\DomainBundle\Form\Type;
 
 
 use Front\DomainBundle\Repository\DomainRepository;
@@ -25,11 +25,16 @@ class NewsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', TextType::class, array("label" => "Titre"))
-            ->add('text', TextareaType::class, array("label" => "Corps du texte"))
-            ->add('beginPublicationDate', DateType::class, array("label" => "Début de parution", "widget" => "single_text", 'format' => 'dd-MM-yyyy', 'placeholder' => 'jj-mm-yyyy'))
-            ->add('endPublicationDate', DateType::class, array("label" => "Fin de parution", "required" => false, "widget" => "single_text", 'format' => 'dd-MM-yyyy', 'placeholder' => 'jj-mm-yyyy'))
-            ->add('imageFile', VichImageType::class, array("label" => "Image de couverture", "required" => false))
+        $builder->add('title', TextType::class,
+                array("label" => "Titre"))
+            ->add('text', TextareaType::class,
+                array("label" => "Corps du texte"))
+            ->add('beginPublicationDate', DateType::class,
+                array("label" => "Début de parution", "widget" => "single_text", 'format' => 'dd-MM-yyyy', 'placeholder' => 'jj-mm-yyyy'))
+            ->add('endPublicationDate', DateType::class,
+                array("label" => "Fin de parution", "required" => false, "widget" => "single_text", 'format' => 'dd-MM-yyyy', 'placeholder' => 'jj-mm-yyyy'))
+            ->add('imageFile', VichImageType::class,
+                array("label" => "Image de couverture", "required" => false))
             ->add('domain', EntityType::class,
                 array("class"       => "Front\\DomainBundle\\Entity\\Domain",
                     "choice_label"  => "label",
@@ -43,6 +48,13 @@ class NewsType extends AbstractType
                 "allow_add"     => true,
                 "allow_delete"  => true,
                 "label"         => "Vidéos Youtube"
+            ))
+            ->add('files', CollectionType::class, array(
+                "entry_type"    => NewsFileType::class,
+                "allow_add"     => true,
+                "by_reference"  => false,
+                "allow_delete"  => true,
+                "label"         => "Pièces jointes"
             ))
             ->add('save', SubmitType::class);
     }

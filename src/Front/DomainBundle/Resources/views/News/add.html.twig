@@ -50,29 +50,45 @@
             });
 
             // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-            var $container = $('div#news_externalVideo');
+            var $containerExternalVideo = $('div#news_externalVideo');
+            var $containerFiles = $('div#news_files');
 
             // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-            var index = $container.find(':input').length;
+            var indexExternalVideo = $containerExternalVideo.find(':input').length;
+            var indexFiles = $containerFiles.find(':input').length;
+
             // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
             $('#add_externalVideo').click(function(e) {
-                addExternalVideo($container);
+                addExternalVideo($containerExternalVideo);
 
                 e.preventDefault(); // évite qu'un # apparaisse dans l'URL
                 return false;
             });
 
-            if (index != 0) {
+            $('#add_files').on("click", function(e) {
+                addFiles($containerFiles);
+                e.preventDefault();
+                return false;
+            });
+
+            if (indexExternalVideo != 0) {
                 // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
-                $container.children('div').each(function() {
+                $containerExternalVideo.children('div').each(function() {
                     $(this).children('label:first').html("Lien");
 
                     //I have to do this because if I don't, if we create 1 then 2 links, save in database & edit it
-                    //Remove the first link, save it. Then edit it again and create a new link, the index will be "1" instead
+                    //Remove the first link, save it. Then edit it again and create a new link, the indexExternalVideo will be "1" instead
                     //of 2, so he will erase the datas
                     var name = $(this).children('input:first').attr('name');
-                    var nameIndex = (name.split("]["))[1].replace(']','');
-                    index = ++nameIndex;
+                    var nameindexExternalVideo = (name.split("]["))[1].replace(']','');
+                    indexExternalVideo = ++nameindexExternalVideo;
+                    addDeleteLink($(this));
+                });
+            }
+
+            if (indexFiles != 0) {
+                $containerFiles.children('div').each(function() {
+                    $(this).children('label:first').html("Fichier");
                     addDeleteLink($(this));
                 });
             }
@@ -84,7 +100,7 @@
                 // - le texte "__name__" qu'il contient par le numéro du champ
                 var template = $container.attr('data-prototype')
                                 .replace(/__name__label__/g, 'Lien')
-                                .replace(/__name__/g,        index);
+                                .replace(/__name__/g,        indexExternalVideo);
 
                 // On crée un objet jquery qui contient ce template
                 var $prototype = $(template);
@@ -99,7 +115,20 @@
                 $container.append($prototype);
 
                 // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-                index++;
+                indexExternalVideo++;
+            }
+
+            function addFiles($container) {
+                var template = $container.attr('data-prototype')
+                                .replace(/__name__label__/g, 'Fichier')
+                                .replace(/__name__/g,       indexFiles);
+
+                var $prototype = $(template);
+
+                addDeleteLink($prototype);
+
+                $container.append($prototype);
+                indexFiles++;
             }
 
             // La fonction qui ajoute un lien de suppression d'une catégorie

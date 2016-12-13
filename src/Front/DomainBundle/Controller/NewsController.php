@@ -3,7 +3,7 @@
 namespace Front\DomainBundle\Controller;
 
 use Front\DomainBundle\Entity\News;
-use Front\DomainBundle\Form\NewsType;
+use Front\DomainBundle\Form\Type\NewsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;

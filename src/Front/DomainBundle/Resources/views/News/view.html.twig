@@ -21,7 +21,8 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="row">
                 {% if news.imageName %}
-                    <img class="new-image margin-top-20 margin-left-15" src="{{ vich_uploader_asset(news, 'imageFile') }}" alt="News"/>
+                    <img class="new-image margin-top-20 margin-left-15"
+                         src="{{ vich_uploader_asset(news, 'imageFile') }}" alt="News"/>
                 {% endif %}
                 <h2>{{ news.title }}</h2>
                 <p class="text-justify margin-left-15 margin-right-15">
@@ -35,6 +36,19 @@
                     </div>
                 {% endfor %}
             </div>
+            {% if news.files|length > 0 %}
+                <br/>
+                <div class="row">
+                    <h4 class="col-md-12">Pièce(s) jointe(s)</h4>
+                    {% for file in news.files %}
+                        {# @var file \Front\DomainBundle\Entity\NewsFile #}
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <a href="{{ vich_uploader_asset(file, 'file') }}" target="_blank">{{ file.title }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <br/>
+            {% endif %}
             <p>
                 <span>{{ news.creator.firstname|slice(0,1) }}. {{ news.creator.surname }}</span>
                 <span>{{ news.creationDate | date('d/m/Y') }}</span>

@@ -74,7 +74,8 @@ ul.nav.navbar-nav li a:link {
 }
 
 .single-new .new-image{
-    height: 150px;
+    max-height: 150px;
+    max-width: 250px;
     float:left;
     margin-right: 8px;
     margin-bottom: 4px;
@@ -168,8 +169,12 @@ ul.nav.navbar-nav li a:link {
     overflow: hidden;
 }
 
-.well.well-block-info h4 {
+.well.well-block-info h4,
+.well.well-block-info h4 label{
     text-decoration: underline;
+    display: inherit;
+    max-width: inherit;
+    font-weight: inherit;
 }
 
 /* ----------------------------------------------------------------------------------

@@ -2,6 +2,8 @@
 
 namespace Front\DomainBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -40,8 +42,14 @@ class News extends DomainElement
 
     /**
      * @var array
-     *
      * @ORM\Column(name="external_video", type="array")
+     * @Assert\All({
+     *     @Assert\Regex(
+     *          pattern="/^https:\/\/www\.youtube\.com\/embed\/.+$/i",
+     *          match=true,
+     *          message="Nous n avons besoin que du lien (qui commence par https://www.youtube.com/embed/ ...)."
+     * )
+     *     })
      */
     private $externalVideo;
 
@@ -53,11 +61,18 @@ class News extends DomainElement
     private $updatedAt;
 
     /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Front\DomainBundle\Entity\NewsFile", mappedBy="news", cascade={"persist", "merge"})
+     */
+    private $files;
+
+    /**
      * News constructor.
      */
     public function __construct()
     {
         $this->externalVideo = array();
+        $this->files = new ArrayCollection();
     }
 
 
@@ -181,5 +196,43 @@ class News extends DomainElement
         $this->updatedAt = new \DateTime('now');
     }
 
+    /**
+     * @param NewsFile $file
+     * @return News
+     */
+    public function addFile(NewsFile $file) {
+        $this->files[] = $file;
+        $file->setNews($this);
+
+        if ($file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param NewsFile $file
+     */
+    public function removeFile(NewsFile $file) {
+        $this->files->removeElement($file);
+        $file->setNews(null);
+
+        if ($file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
 }
 
