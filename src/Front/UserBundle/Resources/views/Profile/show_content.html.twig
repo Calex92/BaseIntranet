@@ -1,45 +1,45 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div class="main-content user_user_show">
-    <h2>Votre profil</h2>
-    <div class="well well-block-info">
-        <div class="col-md-8 col-sm-12 col-xs-12">
-            <h4>Informations personnelles</h4>
-            <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-            <p>{{ 'profile.show.firstname'|trans }} : {{ user.firstname }}</p>
-            <p>{{ 'profile.show.surname'|trans }}: {{ user.surname }}</p>
 
-        </div>
-        <div class="pull-right col-md-4 col-sm-12 col-xs-12">
-            <p>Votre photo de profil:</p>
-            {% if user.imageName != "" %}
-                <img class="img img-profile-picture img-profile-picture-large"
-                     src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="Avatar"/>
-            {% else %}
-                <img class="img img-profile-picture img-profile-picture-large"
-                     src="{{ asset("uploads/avatar/basic_avatar.png") }}" alt="Avatar"/>
-            {% endif %}
-        </div>
+<h2>Votre profil</h2>
+<div class="well well-block-info">
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <h4>Informations personnelles</h4>
+        <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+        <p>{{ 'profile.show.firstname'|trans }} : {{ user.firstname }}</p>
+        <p>{{ 'profile.show.surname'|trans }}: {{ user.surname }}</p>
+
     </div>
-        <div class="well well-block-info">
-            <div class="col-md-8 col-sm-12 col-xs-12">
-                <h4>Informations de contact</h4>
-                <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-                {% if user.contact.phone is not empty %}
-                    <p>Téléphone : {{ user.contact.phone }}</p>
-                {% endif %}
-                {% if user.contact.mobilePhone is not empty %}
-                    <p>Mobile : {{ user.contact.mobilePhone }}</p>
-                {% endif %}
-                {% if user.contact.fax is not empty %}
-                    <p>Fax : {{ user.contact.fax }}</p>
-                {% endif %}
-            </div>
-        </div>
-    <div class="well well-block-info" >
-        <div class="col-md-12">
+    <div class="pull-right col-md-4 col-sm-12 col-xs-12">
+        <p>Votre photo de profil:</p>
+        {% if user.imageName != "" %}
+            <img class="img img-profile-picture img-profile-picture-large"
+                 src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="Avatar"/>
+        {% else %}
+            <img class="img img-profile-picture img-profile-picture-large"
+                 src="{{ asset("uploads/avatar/basic_avatar.png") }}" alt="Avatar"/>
+        {% endif %}
+    </div>
+</div>
+<div class="well well-block-info">
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <h4>Informations de contact</h4>
+        <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+        {% if user.contact.phone is not empty %}
+            <p>Téléphone : {{ user.contact.phone }}</p>
+        {% endif %}
+        {% if user.contact.mobilePhone is not empty %}
+            <p>Mobile : {{ user.contact.mobilePhone }}</p>
+        {% endif %}
+        {% if user.contact.fax is not empty %}
+            <p>Fax : {{ user.contact.fax }}</p>
+        {% endif %}
+    </div>
+</div>
+<div class="well well-block-info">
+    <div class="col-md-12">
         <h4>Informations professionnelles</h4>
-        {% if user.userAgencies|length > 0  %}
+        {% if user.userAgencies|length > 0 %}
             <div>
                 {% if user.userAgencies|length == 1 %}
                     Votre agence :
@@ -47,15 +47,16 @@
                     Vos agences :
                 {% endif %}
                 <ul>
-                {% for agency in user.agencies %}
-                    <li>{{ agency.code }} - {{ agency.name }}</li>
-                {% endfor %}
+                    {% for agency in user.agencies %}
+                        <li>{{ agency.code }} - {{ agency.name }}</li>
+                    {% endfor %}
                 </ul>
             </div>
         {% else %}
-            <p class="alert alert-danger">Vous n'avez aucune agence d'affectée, vous ne pourrez donc pas accéder à la moindre application.</p>
+            <p class="alert alert-danger">Vous n'avez aucune agence d'affectée, vous ne pourrez donc pas accéder à la
+                moindre application.</p>
         {% endif %}
 
-        </div>
     </div>
 </div>
+

@@ -1,5 +1,5 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<div class="main-content change-profile">
+
     <h2>Modification de votre profil</h2>
 
     {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
@@ -56,4 +56,3 @@
     <input type="submit" class="btn btn-default pull-right" value="{{ 'profile.edit.submit'|trans }}"/>
 
     {{ form_end(form) }}
-</div>

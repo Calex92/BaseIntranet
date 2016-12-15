@@ -1,37 +1,34 @@
-{% extends("AdminAppBundle:Base:index.html.twig") %}
+{% extends("@AdminUserManager/layout.html.twig") %}
 
 {% block title %}
     Création utilisateur - {{ parent() }}
 {% endblock %}
 
 
-{% block mainContent %}
-    <div class="container">
-
-        <div class="col-md-12 main-content">
-            <h2 class="col-md-12">Création utilisateur</h2>
-            <div class="col-md-12">
-                {{ parent() }}
-            </div>
-            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-            {{ form_errors(form) }}
-
-            <div class="well well-block-info">
-                <div class="col-md-6">
-                    {{ include('AdminUserManagerBundle:Form:userType.html.twig') }}
-                </div>
-                <div class="col-md-6">
-                    {{ include('@FrontApp/Form/contactType.html.twig') }}
-                </div>
-            </div>
-
-            {{ form_rest(form) }}
-
-            <div>
-                <input type="submit" class="btn btn-default pull-right" value="Créer"/>
-            </div>
-
-            {{ form_end(form) }}
+{% block content %}
+    <div class="col-md-12 main-content">
+        <h2 class="col-md-12">Création utilisateur</h2>
+        <div class="col-md-12">
+            {{ parent() }}
         </div>
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+
+        <div class="well well-block-info">
+            <div class="col-md-6">
+                {{ include('AdminUserManagerBundle:Form:userType.html.twig') }}
+            </div>
+            <div class="col-md-6">
+                {{ include('@FrontApp/Form/contactType.html.twig') }}
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+
+        <div>
+            <input type="submit" class="btn btn-default pull-right" value="Créer"/>
+        </div>
+
+        {{ form_end(form) }}
     </div>
 {% endblock %}

@@ -17,6 +17,7 @@
 
 {% block content %}
     <div class="main-content">
+        {{ parent() }}
         {% for new in news %}
             {# @var new \Front\DomainBundle\Entity\News #}
             <div class="single-new">

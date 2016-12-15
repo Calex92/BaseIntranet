@@ -9,5 +9,8 @@
 {% endblock %}
 
 {% block fos_user_content %}
-{% include "@FrontUser/Profile/show_content.html.twig" %}
+    <div class="main-content user_user_show">
+        {{ parent() }}
+        {% include "@FrontUser/Profile/show_content.html.twig" %}
+    </div>
 {% endblock fos_user_content %}

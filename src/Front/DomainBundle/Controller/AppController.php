@@ -29,7 +29,7 @@ class AppController extends Controller
         $menus[] = array("route" => "domain_manager_news",
             "name" => "News",
             "active" => in_array($route,
-                array('domain_manager_news'))? "active": "");
+                array('domain_manager_news', 'domain_manager_add_news', 'domain_manager_modify_news'))? "active": "");
 
         $menus[] = array("route" => "news_index",
             "name" => "Documents",
