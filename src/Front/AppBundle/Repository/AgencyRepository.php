@@ -23,7 +23,7 @@ class AgencyRepository extends EntityRepository
      * This method is used to know the agencies that are not tied to an existing user.
      *
      * @param $idUser
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return array(Agency)
      */
     public function getAgenciesNotUser($idUser) {
 
@@ -36,6 +36,8 @@ class AgencyRepository extends EntityRepository
             ->innerJoin("user_agency.agency", "agency")
             ->where("user.id = :id")
             ->setParameter("id", $idUser)
+            ->andWhere("agency.active = :active")
+            ->setParameter("active", true)
             ->getQuery()
             ->getResult();
 

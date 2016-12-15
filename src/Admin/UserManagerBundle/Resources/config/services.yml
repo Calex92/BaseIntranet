@@ -1,4 +1,4 @@
 services:
-#    admin_user_manager.example:
-#        class: Admin\UserManagerBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    admin_user_manager_json_generator.agencies_for_ajax:
+        class: Admin\UserManagerBundle\Service\JsonGenerator\AgenciesForAjaxCall
+        arguments: [ "@doctrine.orm.entity_manager"]
