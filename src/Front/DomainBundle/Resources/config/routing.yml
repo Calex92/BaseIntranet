@@ -4,10 +4,13 @@ news_view:
         _controller: FrontDomainBundle:News:view
 
 news_index:
-    path:     /news/{domain}
+    path:     /news/{domain}/{page}
     defaults:
         _controller: FrontDomainBundle:News:index
-        domain: "all"
+        page:        1
+        domain:      "all"
+    requirements:
+        page:    \d*
 
 documents_index:
     path:    /documents/{domain}

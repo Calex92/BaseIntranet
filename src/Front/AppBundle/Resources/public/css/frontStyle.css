@@ -68,13 +68,13 @@ ul.nav.navbar-nav li a:link {
                                       Content News
 ------------------------------------------------------------------------------------*/
 .main-content .single-new{
-    min-height: 150px;
+    min-height: 120px;
     margin-bottom: 15px;
     margin-top: 15px;
 }
 
 .single-new .new-image{
-    max-height: 150px;
+    max-height: 120px;
     max-width: 250px;
     float:left;
     margin-right: 8px;
@@ -178,7 +178,7 @@ ul.nav.navbar-nav li a:link {
 }
 
 /* ----------------------------------------------------------------------------------
-                                      Padding/Margin
+                                      Cursor
 ------------------------------------------------------------------------------------*/
 body.wait, body.wait *{
     cursor: not-allowed !important;
@@ -266,4 +266,16 @@ body.wait, body.wait *{
 
 .padding-right-20 {
     padding-right: 20px;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      General
+------------------------------------------------------------------------------------*/
+hr.darker{
+    border-top: 1px solid #d2d2d2;
+}
+
+hr.smaller {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

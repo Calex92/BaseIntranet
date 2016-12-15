@@ -20,7 +20,7 @@ class DocumentRepository extends EntityRepository
         return $qb->andWhere("domain.active = :active")
             ->setParameter("active", true)
             ->leftJoin("document_repository.domain", "domain")
-            ->orderBy("document_repository.creationDate", "DESC")
+            ->orderBy("document_repository.beginPublicationDate", "DESC")
             ->getQuery()
             ->getResult();
     }

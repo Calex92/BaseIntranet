@@ -2,6 +2,7 @@
 
 namespace Front\DomainBundle\Repository;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * NewsRepository
@@ -11,21 +12,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class NewsRepository extends EntityRepository
 {
-    public function getActiveNews($domain) {
-        $qb = $this->createQueryBuilder("news_repository");
+    public function getActiveNews($domain, $page, $nbPerPage) {
+        $qb = $this->createQueryBuilder("news_repository")
+            ->leftJoin("news_repository.domain", "domain");
+
+        $qb->where("news_repository.endPublicationDate >= :dateToday")
+            ->orWhere($qb->expr()->isNull("news_repository.endPublicationDate"));
+
         if ($domain != "all") {
-            $qb->where("domain.labelSimplified = :domain")
+            $qb->andWhere("domain.labelSimplified = :domain")
                 ->setParameter("domain", $domain);
         }
-        return $qb->andWhere("domain.active = :active")
+        $query = $qb
+            ->andWhere("domain.active = :active")
             ->setParameter("active", true)
             ->andWhere("news_repository.beginPublicationDate <= :dateToday")
-            ->andWhere("news_repository.endPublicationDate >= :dateToday")
-            ->orWhere($qb->expr()->isNull("news_repository.endPublicationDate"))
             ->setParameter("dateToday", new \DateTime())
-            ->leftJoin("news_repository.domain", "domain")
-            ->orderBy("news_repository.creationDate", "DESC")
-            ->getQuery()
-            ->getResult();
+
+            ->orderBy("news_repository.beginPublicationDate", "DESC")
+            ->getQuery();
+
+        $query->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage);
+
+        return new Paginator($query, true);
     }
 }

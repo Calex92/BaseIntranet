@@ -16,4 +16,23 @@ class DomainRepository extends EntityRepository
         return $qb
             ->where($qb->expr()->eq("domain_repository.active", true));
     }
+
+    public function getActiveWithChildrenNews() {
+        $em = $this->getEntityManager();
+        $qb = $this->getActiveQueryBuilder();
+        $qb->join("domain_repository.domainElements", "domain_elements")
+
+            ->where("domain_elements.endPublicationDate >= :dateToday")
+            ->orWhere($qb->expr()->isNull("domain_elements.endPublicationDate"))
+            ->andWhere("domain_elements.beginPublicationDate <= :dateToday")
+            ->setParameter("dateToday", new \DateTime())
+            ->andWhere("domain_elements INSTANCE OF :class")
+            ->setParameter("class", $em->getClassMetadata("FrontDomainBundle:News"))
+
+            ->orderBy("domain_repository.label");
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 }

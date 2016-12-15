@@ -10,13 +10,25 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class NewsController extends Controller
 {
-    public function indexAction($domain)
+    public function indexAction($domain, $page)
     {
-        $domains = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->findBy(array("active" => 1));
-        $news = $this->getDoctrine()->getRepository("FrontDomainBundle:News")->getActiveNews($domain);
+        $nbPerPage = 4;
+        $domains = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildrenNews();
+        $news = $this->getDoctrine()->getRepository("FrontDomainBundle:News")->getActiveNews($domain, $page, $nbPerPage);
 
-        return $this->render('FrontDomainBundle:News:index.html.twig', array("domains" => $domains,
-            "news" => $news));
+        $nbPages = ceil(count($news) / $nbPerPage);
+        // If the page doesn't exist, throw an Exception
+        if ($page > $nbPages) {
+            $this->get("session")->getFlashBag()->add("danger", "La page sélectionnée n'existe pas");
+            //throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+            return $this->redirectToRoute("news_index", array("domain" => "all", "page" => 1));
+        }
+
+        return $this->render('FrontDomainBundle:News:index.html.twig',
+            array("domains"     => $domains,
+                    "news"      => $news,
+                    "nbPages"   => $nbPages,
+                    "page"      => $page));
     }
 
     public function viewAction($id) {

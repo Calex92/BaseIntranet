@@ -13,6 +13,7 @@ front_homepage:
     defaults:
         _controller: FrontDomainBundle:News:index
         domain: "all"
+        page : 1
 
 users_admin:
     path:    /adminIsidore/users
