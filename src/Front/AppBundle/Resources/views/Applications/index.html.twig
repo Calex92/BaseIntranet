@@ -15,15 +15,17 @@
                 <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 thumb">
                     {% if application.isExternal %}
                         <a class="thumbnail application"
-                           href="{{ path(application.location, {'applicationId': application.id }) }}">
+                            href="{{ path(application.location, {'applicationId': application.id }) }}">
                     {% else %}
                         <a class="thumbnail application" href="{{ path(application.location) }}">
                     {% endif %}
-                        <img class="img-responsive"
-                            src="{{ asset(application.image.webPath) }}" alt="{{ application.image.alt }}">
-                        <h4>
-                            {{ application.name }}
-                        </h4>
+                            <div class="application-img-frame">
+                                <img class="img-responsive"
+                                     src="{{ asset(application.image.webPath) }}" alt="{{ application.image.alt }}">
+                            </div>
+                            <h4>
+                                {{ application.name }}
+                            </h4>
 
                     {% if application.isExternal %}
                         </a>
