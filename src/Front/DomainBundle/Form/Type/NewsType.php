@@ -14,7 +14,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -47,7 +46,7 @@ class NewsType extends AbstractType
                 "entry_type"    => TextType::class,
                 "allow_add"     => true,
                 "allow_delete"  => true,
-                "label"         => "Vidéos Youtube"
+                "label"         => "Vidéos Youtube (prendre le lien \"embed\")"
             ))
             ->add('files', CollectionType::class, array(
                 "entry_type"    => NewsFileType::class,
@@ -55,8 +54,7 @@ class NewsType extends AbstractType
                 "by_reference"  => false,
                 "allow_delete"  => true,
                 "label"         => "Pièces jointes"
-            ))
-            ->add('save', SubmitType::class);
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

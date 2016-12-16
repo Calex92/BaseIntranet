@@ -1,4 +1,12 @@
 {% extends "@FrontDomain/App/base.html.twig" %}
+{% form_theme form _self %}
+{% block _news_files_entry_row %}
+    {% include "@FrontDomain/Form/document.html.twig" %}
+{% endblock %}
+
+{% block _news_externalVideo_entry_row %}
+    {% include "@FrontDomain/Form/externalVideo.html.twig" %}
+{% endblock %}
 
 {% block content %}
 
@@ -10,7 +18,7 @@
 
             <h2 class="col-md-12">Créer une news</h2>
             {% include ("@FrontDomain/Form/newsType.html.twig") %}
-
+            <input type="submit" class="btn btn-default pull-right" value="Ajouter"/>
     {{ form_end(form) }}
 {% endblock %}
 
@@ -74,22 +82,12 @@
             if (indexExternalVideo != 0) {
                 // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
                 $containerExternalVideo.children('div').each(function() {
-                    $(this).children('label:first').html("Lien");
-
                     //I have to do this because if I don't, if we create 1 then 2 links, save in database & edit it
                     //Remove the first link, save it. Then edit it again and create a new link, the indexExternalVideo will be "1" instead
                     //of 2, so he will erase the datas
                     var name = $(this).children('input:first').attr('name');
                     var nameindexExternalVideo = (name.split("]["))[1].replace(']','');
                     indexExternalVideo = ++nameindexExternalVideo;
-                    addDeleteLink($(this));
-                });
-            }
-
-            if (indexFiles != 0) {
-                $containerFiles.children('div').each(function() {
-                    $(this).children('label:first').html("Fichier");
-                    addDeleteLink($(this));
                 });
             }
 
@@ -108,8 +106,6 @@
                 $prototype.prepend("<div class='col-md-12 col-sm-12'>");
                 $prototype.append("</div>");
 
-                // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
-                addDeleteLink($prototype);
 
                 // On ajoute le prototype modifié à la fin de la balise <div>
                 $container.append($prototype);
@@ -125,28 +121,20 @@
 
                 var $prototype = $(template);
 
-                addDeleteLink($prototype);
 
                 $container.append($prototype);
                 indexFiles++;
             }
 
-            // La fonction qui ajoute un lien de suppression d'une catégorie
-            function addDeleteLink($prototype) {
-                // Création du lien
-                var $deleteLink = $('<a href="#" class="btn btn-danger pull-right">Supprimer</a>');
 
-                // Ajout du lien
-                $prototype.append($deleteLink);
 
-                // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
-                $deleteLink.click(function(e) {
-                    $prototype.remove();
+        });
 
-                    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-                    return false;
-                });
-            }
+        // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+        $(document.body).on("click", ".delete-btn", function(e) {
+            $(this).closest(".form-group").closest(".form-group").remove();
+            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            return false;
         });
     </script>
 {% endblock %}
