@@ -54,7 +54,7 @@
     <script type="text/javascript" src="{{ asset("bundles/frontapp/js/responsive.dataTables2.1.0.min.js") }}"></script>
     <script type="text/javascript"
             src="{{ asset("bundles/frontapp/js/responsive.bootstrap.datatables2.1.0.min.js") }}"></script>
-
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#table-document-downloadable').DataTable({
@@ -90,5 +90,5 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css"/>
 {% endblock %}
