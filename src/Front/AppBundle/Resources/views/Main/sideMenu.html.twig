@@ -1,9 +1,0 @@
-{% for menu in menus %}
-    <a href="{{ menu.href }}">
-        <img class="center-block img-responsive" alt="{{ menu.alt }}"
-             src="{{ asset(menu.src) }}">
-    </a>
-    {% if not loop.last %}
-        <hr class="darker"/>
-    {% endif %}
-{% endfor %}

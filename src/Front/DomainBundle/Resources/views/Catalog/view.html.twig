@@ -1,0 +1,9 @@
+{% for catalog in catalogs %}
+    <a href="{{ vich_uploader_asset(catalog, 'file') }}" download="{{ catalog.fileNameShown }}">
+        <img class="center-block img-responsive" alt="{{ catalog.title }}"
+             src="{{ vich_uploader_asset(catalog, 'imageFile') }}">
+    </a>
+    {% if not loop.last %}
+        <hr class="darker"/>
+    {% endif %}
+{% endfor %}

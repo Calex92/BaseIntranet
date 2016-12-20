@@ -61,7 +61,7 @@
 
             <div class="col-md-2 side-bar {{ sizeLeftBar }} left-menu">
                 {% block leftMenu %}
-                    <div class="hidden-xs hidden-sm">{{ render (controller("FrontAppBundle:Main:sideMenu", { 'position' : 'left'})) }}</div>
+                    <div class="hidden-xs hidden-sm">{{ render (controller("FrontDomainBundle:Catalog:view", { 'isLeft' : true})) }}</div>
                 {% endblock %}
             </div>
 
@@ -79,7 +79,7 @@
             </div>
 
             <div class="col-md-2 side-bar hidden-xs hidden-sm">
-                {{ render (controller("FrontAppBundle:Main:sideMenu", { 'position' : 'right'})) }}
+                {{ render (controller("FrontDomainBundle:Catalog:view", { 'isLeft' : false})) }}
             </div>
         </div>
     </div>

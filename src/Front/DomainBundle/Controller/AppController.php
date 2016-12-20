@@ -32,11 +32,10 @@ class AppController extends Controller
             "active" => in_array($route,
                 array('domain_manager_document', 'domain_manager_add_document', 'domain_manager_modify_document'))? "active" : "");
 
-        foreach ($menus as $key => &$val) {
-            if ($val['route'] == $route) {
-                $val['active'] = "active";
-            }
-        }
+        $menus[] = array("route" => "domain_manager_catalog_index",
+            "name" => "Catalogues",
+            "active" => in_array($route,
+                array('domain_manager_catalog_index'))? "active" : "");
 
         return $this->render('@AdminApp/Base/topMenu.html.twig', array("menus" => $menus));
     }

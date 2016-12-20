@@ -1,0 +1,53 @@
+{% extends "@FrontDomain/App/base.html.twig" %}
+
+{% block content %}
+
+    {{ form_start(form, { 'action': path('domain_manager_add_catalog') }) }}
+    <a href="{{ path('domain_manager_document') }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Retour aux catalogues
+    </a>
+
+    <h2 class="col-md-12">Créer un catalogue</h2>
+    {% include ("@FrontDomain/Form/catalogType.html.twig") %}
+    <input type="submit" class="btn btn-default pull-right" value="Ajouter"/>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script
+            src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+
+    {# Voici le script en question : #}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var datepicker = $(".datepicker");
+            datepicker.datepicker({
+                dateFormat: "dd-mm-yy",
+                firstDay: 1,
+                closeText: 'Fermer',
+                prevText: 'Précédent',
+                nextText: 'Suivant',
+                currentText: 'Aujourd\'hui',
+                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                weekHeader: 'Sem.'
+            });
+            datepicker.keypress(function (event) {
+                if (event.which != 8) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+{% endblock %}

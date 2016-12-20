@@ -93,16 +93,26 @@ vich_uploader:
             namer:                 vich_uploader.namer_origname
 
         news_image:
-            uri_prefix:            /../isidore2/web/uploads/news
-            upload_destination:    '%kernel.root_dir%/../web/uploads/news'
+            uri_prefix:            /../isidore2/web/uploads/domain/news
+            upload_destination:    '%kernel.root_dir%/../web/uploads/domain/news'
             namer:                 vich_uploader.namer_origname
 
         news_file:
-            uri_prefix:            /../isidore2/web/uploads/newsFiles
-            upload_destination:    '%kernel.root_dir%/../web/uploads/newsFiles'
+            uri_prefix:            /../isidore2/web/uploads/domain/newsFiles
+            upload_destination:    '%kernel.root_dir%/../web/uploads/domain/newsFiles'
             namer:                 vich_uploader.namer_origname
 
         document_file:
-            uri_prefix:            /../isidore2/web/uploads/frontDocuments
-            upload_destination:    '%kernel.root_dir%/../web/uploads/frontDocuments'
+            uri_prefix:            /../isidore2/web/uploads/domain/frontDocuments
+            upload_destination:    '%kernel.root_dir%/../web/uploads/domain/frontDocuments'
+            namer:                 vich_uploader.namer_origname
+
+        catalog_file:
+            uri_prefix:            /../isidore2/web/uploads/domain/catalog/file
+            upload_destination:    '%kernel.root_dir%/../web/uploads/domain/catalog/file'
+            namer:                 vich_uploader.namer_origname
+
+        catalog_image:
+            uri_prefix:            /../isidore2/web/uploads/domain/catalog/image
+            upload_destination:    '%kernel.root_dir%/../web/uploads/domain/catalog/image'
             namer:                 vich_uploader.namer_origname
