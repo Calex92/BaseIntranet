@@ -3,77 +3,37 @@
 namespace Front\DomainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Document
  *
  * @ORM\Entity(repositoryClass="Front\DomainBundle\Repository\DocumentRepository")
  * @ORM\Table(name="base_domain_document")
+ * @Vich\Uploadable()
  */
 class Document extends DomainElement
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
-     */
-    private $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="fileName", type="string", length=255)
+     * @var  string
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fileName;
 
     /**
+     * @var  File $back_image
+     * @Vich\UploadableField(mapping="document_file", fileNameProperty="fileName")
+     */
+    private $file;
+
+    /**
      * @var string
-     *
-     * @ORM\Column(name="filePath", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
-    private $filePath;
+    private $fileNameShown;
 
     /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Document
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set fileName
-     *
-     * @param string $fileName
-     *
-     * @return Document
-     */
-    public function setFileName($fileName)
-    {
-        $this->fileName = $fileName;
-    
-        return $this;
-    }
-
-    /**
-     * Get fileName
-     *
      * @return string
      */
     public function getFileName()
@@ -82,27 +42,45 @@ class Document extends DomainElement
     }
 
     /**
-     * Set filePath
-     *
-     * @param string $filePath
-     *
-     * @return Document
+     * @param string $fileName
      */
-    public function setFilePath($filePath)
+    public function setFileName($fileName)
     {
-        $this->filePath = $filePath;
-    
-        return $this;
+        $this->fileName = $fileName;
     }
 
     /**
-     * Get filePath
-     *
+     * @return File
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param File $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
      * @return string
      */
-    public function getFilePath()
+    public function getFileNameShown()
     {
-        return $this->filePath;
+        return $this->fileNameShown;
     }
+
+    /**
+     * @param string $fileNameShown
+     */
+    public function setFileNameShown($fileNameShown)
+    {
+        $this->fileNameShown = $fileNameShown;
+    }
+
+
 }
 

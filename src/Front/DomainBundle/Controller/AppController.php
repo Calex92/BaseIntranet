@@ -16,10 +16,6 @@ class AppController extends Controller
         return $this->redirectToRoute("domain_manager_news");
     }
 
-
-
-
-
     public function documentAction() {
 
     }
@@ -31,9 +27,10 @@ class AppController extends Controller
             "active" => in_array($route,
                 array('domain_manager_news', 'domain_manager_add_news', 'domain_manager_modify_news'))? "active": "");
 
-        $menus[] = array("route" => "news_index",
+        $menus[] = array("route" => "domain_manager_document",
             "name" => "Documents",
-            "active" => "");
+            "active" => in_array($route,
+                array('domain_manager_document', 'domain_manager_add_document', 'domain_manager_modify_document'))? "active" : "");
 
         foreach ($menus as $key => &$val) {
             if ($val['route'] == $route) {

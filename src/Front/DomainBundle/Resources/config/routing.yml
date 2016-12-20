@@ -41,4 +41,14 @@ domain_manager_modify_news:
 domain_manager_document:
     path:    /domain_manager/document
     defaults:
-        _controller: FrontDomainBundle:App:document
+        _controller: FrontDomainBundle:Documents:list
+
+domain_manager_add_document:
+   path:    /domain_manager/document/add
+   defaults:
+       _controller: FrontDomainBundle:Documents:add
+
+domain_manager_modify_document:
+    path:    /domain_manager/document/document/{id}
+    defaults:
+        _controller: FrontDomainBundle:Documents:modify
