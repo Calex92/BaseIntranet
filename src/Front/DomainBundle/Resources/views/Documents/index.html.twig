@@ -23,6 +23,7 @@
                 <th data-priority="2">Auteur</th>
                 <th data-priority="3">Titre</th>
                 <th data-priority="4">Date</th>
+                <th data-priority="6">Domaine</th>
                 <th data-priority="5">Nom du fichier</th>
                 <th data-priority="1">Télécharger</th>
             </tr>
@@ -33,7 +34,8 @@
                 <tr>
                     <td>{{ document.creator.firstname|slice(0,1) }}. {{ document.creator.surname }}</td>
                     <td>{{ document.title }}</td>
-                    <td>{{ document.creationDate | date("d/m/Y") }}</td>
+                    <td>{{ document.beginPublicationDate | date("d/m/Y") }}</td>
+                    <td>{{ document.domain.label }}</td>
                     <td>{{ document.fileNameShown }}</td>
                     <td class="text-center">
                         <a href="{{ vich_uploader_asset(document, 'file') }}" download="{{ document.fileNameShown}}">
@@ -82,7 +84,8 @@
                         "sSortAscending": ": activer pour trier la colonne par ordre croissant",
                         "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
                     }
-                }
+                },
+                order: []
             });
         });
     </script>

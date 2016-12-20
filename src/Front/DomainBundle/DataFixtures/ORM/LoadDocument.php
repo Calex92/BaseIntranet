@@ -26,25 +26,33 @@ class LoadDocument extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $titles = array("Lorem Ipsum",
-            "Pourquoi l'utiliser?",
-            "Petit texte");
+        $titles = array("Procédure Réseau",
+            "Procédure de gestion des baies informatique en agence",
+            "Charte informatique",
+            "Autre fichier important",
+            "Organigramme service Juridique dec. 2016",
+            "Masque prez OREXAD 2015");
 
-        $types = array("application PDF",
-            "application msw",
-            "application vnd");
+        $fileNames = array("5859100415b07_depositphotos_98601436-Cloud-hosting-icons-set",
+            "7692.xlsx",
+            "5760.doc",
+            "5760.doc",
+            "5760.doc",
+            "5760.doc");
 
-        $fileNames = array("Fichier Excel",
-            "Fichier Msw",
-            "Fichier Vnd");
-
-        $filePath = array("bundles/frontapp/documents/5760.doc",
-            "bundles/frontapp/documents/7692.xlsx",
-            "bundles/frontapp/documents/5760.doc");
+        $fileNameShown = array("Procédure Réseau",
+            "Procédure gestion baies informatique",
+            "Charte informatique",
+            "Document important!",
+            "Organigramme service Juridique",
+            "Masque OREXAD");
 
         $users = array("pfirmin", "gloncke", "tbarrez", "acallens", "asergent", "acastelain");
         $usersDocument = array("0",
             "3",
+            "5",
+            "0",
+            "1",
             "5");
 
         $labelsDomain = array("Achat",
@@ -62,9 +70,21 @@ class LoadDocument extends AbstractFixture implements OrderedFixtureInterface
             "Réseau",
             "Grands Comptes",
             "Informatique");
+
         $labelsDocument = array("3",
             "4",
-            "7");
+            "7",
+            "5",
+            "4",
+            "8");
+
+        $beginPublication = array ((new \DateTime())->modify('-3 month'),
+            (new \DateTime())->modify('-5 days'),
+            (new \DateTime())->modify('-7 days'),
+            (new \DateTime())->modify('-2 month'),
+            (new \DateTime())->modify('-2 days'),
+            (new \DateTime())->modify('-11 month'),
+        );
 
 
         for ($i = 0; $i < count($titles); $i++) {
@@ -76,11 +96,9 @@ class LoadDocument extends AbstractFixture implements OrderedFixtureInterface
             /** @var Domain $domain */
             $domain = $this->getReference("news-domain".$labelsDomain[$labelsDocument[$i]]);
             $document->setDomain($domain);
-            $document->setType($types[$i]);
             $document->setFileName($fileNames[$i]);
-            $document->setFilePath($filePath[$i]);
-            $document->setBeginPublicationDate(new \DateTime());
-            $document->setEndPublicationDate((new \DateTime())->add(new \DateInterval('P10D')));
+            $document->setFileNameShown($fileNameShown[$i]);
+            $document->setBeginPublicationDate($beginPublication[$i]);
 
             $document->setCreationDate(new \DateTime());
 

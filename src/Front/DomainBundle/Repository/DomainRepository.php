@@ -17,17 +17,22 @@ class DomainRepository extends EntityRepository
             ->where($qb->expr()->eq("domain_repository.active", true));
     }
 
-    public function getActiveWithChildrenNews() {
+    /**
+     * @param string $metadataClass
+     * @return array
+     */
+    public function getActiveWithChildren($metadataClass) {
         $em = $this->getEntityManager();
-        $qb = $this->getActiveQueryBuilder();
+        $qb = $this->createQueryBuilder('domain_repository');
         $qb->join("domain_repository.domainElements", "domain_elements")
 
             ->where("domain_elements.endPublicationDate >= :dateToday")
             ->orWhere($qb->expr()->isNull("domain_elements.endPublicationDate"))
+            ->andWhere($qb->expr()->eq("domain_repository.active", true))
             ->andWhere("domain_elements.beginPublicationDate <= :dateToday")
             ->setParameter("dateToday", new \DateTime())
             ->andWhere("domain_elements INSTANCE OF :class")
-            ->setParameter("class", $em->getClassMetadata("FrontDomainBundle:News"))
+            ->setParameter("class", $em->getClassMetadata($metadataClass))
 
             ->orderBy("domain_repository.label");
 

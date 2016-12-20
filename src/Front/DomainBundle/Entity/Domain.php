@@ -170,10 +170,11 @@ class Domain
      */
     public function getRecentDocuments() {
         return $this->domainElements->filter(
-            function (DomainElement $domainElements) {
-                if (new \DateTime("-1 month") > $domainElements->getCreationDate())
+            function (DomainElement $domainElement) {
+                if (new \DateTime("-1 month") > $domainElement->getBeginPublicationDate()
+                    ||  new \DateTime() < $domainElement->getBeginPublicationDate())
                     return false;
-                return $domainElements instanceof Document;
+                return $domainElement instanceof Document;
             }
         );
     }

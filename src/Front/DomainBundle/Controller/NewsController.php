@@ -13,7 +13,7 @@ class NewsController extends Controller
     public function indexAction($domain, $page)
     {
         $nbPerPage = 4;
-        $domains = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildrenNews();
+        $domains = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildren("FrontDomainBundle:News");
         $news = $this->getDoctrine()->getRepository("FrontDomainBundle:News")->getActiveNews($domain, $page, $nbPerPage);
 
         $nbPages = ceil(count($news) / $nbPerPage);
