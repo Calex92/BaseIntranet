@@ -2,6 +2,7 @@
 
 namespace Front\DomainBundle\Repository;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * DocumentRepository
@@ -11,17 +12,46 @@ use Doctrine\ORM\EntityRepository;
  */
 class DocumentRepository extends EntityRepository
 {
+    /**
+     * @param string $domain
+     * @return array(Document)
+     */
     public function getActiveDocument($domain) {
+        $qb = $this->getActiveDocumentQueryBuilder($domain);
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param $domain
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    private function getActiveDocumentQueryBuilder ($domain) {
         $qb = $this->createQueryBuilder("document_repository");
         if ($domain != "all") {
             $qb->where("domain.labelSimplified = :domain")
                 ->setParameter("domain", $domain);
         }
+
         return $qb->andWhere("domain.active = :active")
             ->setParameter("active", true)
             ->leftJoin("document_repository.domain", "domain")
-            ->orderBy("document_repository.beginPublicationDate", "DESC")
-            ->getQuery()
-            ->getResult();
+            ->orderBy("document_repository.beginPublicationDate", "DESC");
+    }
+
+    /**
+     * @param string $domain
+     * @param integer $page
+     * @param integer $nbPerPage
+     * @return Paginator
+     */
+    public function getActiveDocumentPaginated($domain, $page, $nbPerPage) {
+        $query = $this->getActiveDocumentQueryBuilder($domain)
+            ->getQuery();
+        $query->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage);
+
+        return new Paginator($query, true);
     }
 }

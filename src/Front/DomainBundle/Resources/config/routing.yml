@@ -23,11 +23,6 @@ domain_manager_index:
     defaults:
         _controller: FrontDomainBundle:App:index
 
-domain_manager_news:
-    path:    /domain_manager/news
-    defaults:
-        _controller: FrontDomainBundle:News:list
-
 domain_manager_add_news:
     path:    /domain_manager/news/add
     defaults:
@@ -38,10 +33,14 @@ domain_manager_modify_news:
     defaults:
         _controller: FrontDomainBundle:News:modify
 
-domain_manager_document:
-    path:    /domain_manager/document
+domain_manager_news:
+    path:    /domain_manager/news/{domain}/{page}
     defaults:
-        _controller: FrontDomainBundle:Documents:list
+        _controller: FrontDomainBundle:News:list
+        page:        1
+        domain:      "all"
+    requirements:
+            page:    \d*
 
 domain_manager_add_document:
    path:    /domain_manager/document/add
@@ -52,6 +51,15 @@ domain_manager_modify_document:
     path:    /domain_manager/document/modify/{id}
     defaults:
         _controller: FrontDomainBundle:Documents:modify
+
+domain_manager_document:
+    path:    /domain_manager/document/{domain}/{page}
+    defaults:
+        _controller: FrontDomainBundle:Documents:list
+        page:        1
+        domain:      "all"
+    requirements:
+            page:    \d*
 
 domain_manager_catalog_index:
     path:    /domain_manager/catalog

@@ -9,8 +9,23 @@
 {% endblock %}
 
 {% block content %}
-    <h2 class="col-md-7 text-nowrap">Liste des news</h2>
-    <a class="col-md-3 btn btn-default pull-right" href="{{ path("domain_manager_add_news") }}">
+    <h2 class="col-md-4 text-nowrap">Liste des news</h2>
+    <div class="col-md-3 margin-top-20">
+        <select title="Domaines" class="form-control" onchange="location = this.options[this.selectedIndex].value;">
+            <option value="{{ path("domain_manager_news", {'domain': "all"}) }}">Tous les domaines</option>
+            {% for domain in domains %}
+                {% if app.request.attributes.get('_route_params')['domain'] == domain.labelSimplified %}
+                    {% set isSelected = "selected" %}
+                {% else %}
+                    {% set isSelected = "" %}
+                {% endif %}
+
+                {# @var domain \Front\DomainBundle\Entity\Domain#}
+                <option value="{{ path("domain_manager_news", {'domain': domain.labelSimplified}) }}" {{ isSelected }}>{{ domain.label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <a class="col-md-3 margin-top-20 btn btn-default pull-right" href="{{ path("domain_manager_add_news") }}">
         Créer une news
     </a>
     <table class="table table-striped table-bordered table-hover dataTable">
@@ -41,4 +56,12 @@
         {% endfor %}
         </tbody>
     </table>
+    <ul class="pagination pull-right">
+        {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+        {% for p in range(1, nbPages) %}
+            <li{% if p == page %} class="active"{% endif %}>
+                <a href="{{ path('domain_manager_news', {'page': p}) }}">{{ p }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

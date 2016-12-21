@@ -19,10 +19,23 @@ class DocumentsController extends Controller
             "documents" => $documents));
     }
 
-    public function listAction() {
-        $documents = $this->getDoctrine()->getRepository("FrontDomainBundle:Document")->findAll();
+    public function listAction($domain, $page) {
+        $nbPerPage  = 20;
+        $domains    = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildren("FrontDomainBundle:Document");
+        $documents  = $this->getDoctrine()->getRepository("FrontDomainBundle:Document")->getActiveDocumentPaginated($domain, $page, $nbPerPage);
 
-        return $this->render("@FrontDomain/Documents/list.html.twig", array("documents" => $documents));
+        $nbPages = ceil(count($documents) / $nbPerPage);
+        // If the page doesn't exist, throw an Exception
+        if ($page > $nbPages) {
+            $this->get("session")->getFlashBag()->add("danger", "La page sélectionnée n'existe pas");
+            return $this->redirectToRoute("domain_manager_document", array("domain" => "all", "page" => 1));
+        }
+
+        return $this->render("@FrontDomain/Documents/list.html.twig", array(
+            "documents" => $documents,
+            "domains"   => $domains,
+            "nbPages"   => $nbPages,
+            "page"      => $page));
     }
 
     public function addAction(Request $request) {

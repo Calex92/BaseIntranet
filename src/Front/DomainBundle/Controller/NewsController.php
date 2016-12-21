@@ -20,7 +20,6 @@ class NewsController extends Controller
         // If the page doesn't exist, throw an Exception
         if ($page > $nbPages) {
             $this->get("session")->getFlashBag()->add("danger", "La page sélectionnée n'existe pas");
-            //throw $this->createNotFoundException("La page ".$page." n'existe pas.");
             return $this->redirectToRoute("news_index", array("domain" => "all", "page" => 1));
         }
 
@@ -61,10 +60,23 @@ class NewsController extends Controller
         ));
     }
 
-    public function listAction() {
-        $news = $this->getDoctrine()->getRepository("FrontDomainBundle:News")->findAll();
+    public function listAction($domain, $page) {
+        $nbPerPage  = 20;
+        $domains    = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildren("FrontDomainBundle:News");
+        $news       = $this->getDoctrine()->getRepository("FrontDomainBundle:News")->getActiveNews($domain, $page, $nbPerPage);
 
-        return $this->render('FrontDomainBundle:News:list.html.twig', array("news" => $news));
+        $nbPages = ceil(count($news) / $nbPerPage);
+        // If the page doesn't exist, throw an Exception
+        if ($page > $nbPages) {
+            $this->get("session")->getFlashBag()->add("danger", "La page sélectionnée n'existe pas");
+            return $this->redirectToRoute("domain_manager_news", array("domain" => "all", "page" => 1));
+        }
+
+        return $this->render('FrontDomainBundle:News:list.html.twig', array(
+            "news"      => $news,
+            "domains"   => $domains,
+            "nbPages"   => $nbPages,
+            "page"      => $page));
     }
 
     public function addAction(Request $request) {
