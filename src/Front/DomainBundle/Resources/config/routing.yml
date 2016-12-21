@@ -66,13 +66,14 @@ domain_manager_add_catalog:
     defaults:
         _controller: FrontDomainBundle:Catalog:add
 
+domain_manager_modify_catalog:
+    path:    /domain_manager/catalog/modify/{id}
+    defaults:
+        _controller: FrontDomainBundle:Catalog:modify
+
 domain_manager_catalog_index:
     path:    /domain_manager/catalog/{page}
     defaults:
         _controller: FrontDomainBundle:Catalog:index
         page:        1
 
-domain_manager_modify_catalog:
-    path:    /domain_manager/catalog/modify/{id}
-    defaults:
-        _controller: FrontDomainBundle:Catalog:modify

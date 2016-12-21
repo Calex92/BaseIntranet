@@ -21,6 +21,8 @@ class CatalogRepository extends EntityRepository
             ->setParameter("isLeft", $isLeft)
             ->andWhere("catalog_repository.beginPublicationDate < :today")
             ->setParameter("today", new \DateTime())
+            ->andWhere("catalog_repository.visible = :isVisible")
+            ->setParameter("isVisible", true)
             ->orderBy("catalog_repository.beginPublicationDate", "DESC")
             ->getQuery()
             ->getResult();

@@ -47,6 +47,10 @@ class CatalogType extends AbstractType
             ->add("isPositionLeft", CheckboxType::class, array(
                 "label"     => " ",
                 "required"  => false
+            ))
+            ->add("visible", CheckboxType::class, array(
+                "label"     => " ",
+                "required"  => false
             ));
     }
 

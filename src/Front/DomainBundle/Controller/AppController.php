@@ -35,7 +35,7 @@ class AppController extends Controller
         $menus[] = array("route" => "domain_manager_catalog_index",
             "name" => "Catalogues",
             "active" => in_array($route,
-                array('domain_manager_catalog_index'))? "active" : "");
+                array('domain_manager_catalog_index', 'domain_manager_add_catalog', 'domain_manager_modify_catalog'))? "active" : "");
 
         return $this->render('@AdminApp/Base/topMenu.html.twig', array("menus" => $menus));
     }

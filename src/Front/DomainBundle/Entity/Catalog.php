@@ -100,6 +100,21 @@ class Catalog
     private $updatedAt;
 
     /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    private $visible;
+
+    /**
+     * Catalog constructor.
+     */
+    public function __construct()
+    {
+        $this->visible = true;
+    }
+
+
+    /**
      * Get id
      *
      * @return integer
@@ -316,6 +331,22 @@ class Catalog
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * @param bool $visible
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
     }
 
 
