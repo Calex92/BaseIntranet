@@ -17,11 +17,21 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class CatalogController extends Controller
 {
-    public function indexAction() {
-        $catalogs = $this->getDoctrine()->getRepository("FrontDomainBundle:Catalog")->findAll();
+    public function indexAction($page) {
+        $nbPerPage  = 20;
+        $catalogs   = $this->getDoctrine()->getRepository("FrontDomainBundle:Catalog")->getPaginator($page, $nbPerPage);
+
+        $nbPages = ceil(count($catalogs) / $nbPerPage);
+        // If the page doesn't exist, throw an Exception
+        if ($page > $nbPages) {
+            $this->get("session")->getFlashBag()->add("danger", "La page sélectionnée n'existe pas");
+            return $this->redirectToRoute("domain_manager_catalog_index", array("page" => 1));
+        }
 
         return $this->render("FrontDomainBundle:Catalog:index.html.twig", array(
-            "catalogs" => $catalogs
+            "catalogs"  => $catalogs,
+            "page"      => $page,
+            "nbPages"   => $nbPages
         ));
     }
 

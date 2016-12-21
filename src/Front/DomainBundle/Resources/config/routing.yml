@@ -61,15 +61,16 @@ domain_manager_document:
     requirements:
             page:    \d*
 
-domain_manager_catalog_index:
-    path:    /domain_manager/catalog
-    defaults:
-        _controller: FrontDomainBundle:Catalog:index
-
 domain_manager_add_catalog:
     path:    /domain_manager/catalog/add
     defaults:
         _controller: FrontDomainBundle:Catalog:add
+
+domain_manager_catalog_index:
+    path:    /domain_manager/catalog/{page}
+    defaults:
+        _controller: FrontDomainBundle:Catalog:index
+        page:        1
 
 domain_manager_modify_catalog:
     path:    /domain_manager/catalog/modify/{id}

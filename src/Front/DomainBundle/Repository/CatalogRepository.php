@@ -3,6 +3,7 @@
 namespace Front\DomainBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * CatalogRepository
@@ -12,7 +13,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class CatalogRepository extends EntityRepository
 {
-    public function getFromSide($isLeft) {
+    public function getFromSide($isLeft)
+    {
         $qb = $this->createQueryBuilder("catalog_repository");
 
         return $qb->where("catalog_repository.isPositionLeft = :isLeft")
@@ -22,5 +24,15 @@ class CatalogRepository extends EntityRepository
             ->orderBy("catalog_repository.beginPublicationDate", "DESC")
             ->getQuery()
             ->getResult();
+    }
+
+    public function getPaginator($page, $nbPerPage)
+    {
+        $query = $this->createQueryBuilder("catalog_repository")
+            ->getQuery()
+            ->setFirstResult(($page - 1) * $nbPerPage)
+            ->setMaxResults($nbPerPage);
+
+        return new Paginator($query);
     }
 }
