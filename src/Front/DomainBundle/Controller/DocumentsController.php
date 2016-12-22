@@ -10,16 +10,16 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class DocumentsController extends Controller
 {
-    public function indexAction($domain)
+    public function viewAction($domain)
     {
         $domains = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildren("FrontDomainBundle:Document");
         $documents = $this->getDoctrine()->getRepository("FrontDomainBundle:Document")->getActiveDocument($domain);
 
-        return $this->render('FrontDomainBundle:Documents:index.html.twig', array("domains" => $domains,
+        return $this->render('FrontDomainBundle:Documents:view.html.twig', array("domains" => $domains,
             "documents" => $documents));
     }
 
-    public function listAction($domain, $page) {
+    public function indexAction($domain, $page) {
         $nbPerPage  = 20;
         $domains    = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildren("FrontDomainBundle:Document");
         $documents  = $this->getDoctrine()->getRepository("FrontDomainBundle:Document")->getActiveDocumentPaginated($domain, $page, $nbPerPage);
@@ -28,10 +28,10 @@ class DocumentsController extends Controller
         // If the page doesn't exist, throw an Exception
         if ($page > $nbPages) {
             $this->get("session")->getFlashBag()->add("danger", "La page sélectionnée n'existe pas");
-            return $this->redirectToRoute("domain_manager_document", array("domain" => "all", "page" => 1));
+            return $this->redirectToRoute("domain_manager_document_index", array("domain" => "all", "page" => 1));
         }
 
-        return $this->render("@FrontDomain/Documents/list.html.twig", array(
+        return $this->render("@FrontDomain/Documents/index.html.twig", array(
             "documents" => $documents,
             "domains"   => $domains,
             "nbPages"   => $nbPages,
@@ -54,7 +54,7 @@ class DocumentsController extends Controller
             /** @var Session $session */
             $session = $request->getSession();
             $session->getFlashBag()->add("success", "Le document a bien été ajouté");
-            return $this->redirectToRoute("domain_manager_document");
+            return $this->redirectToRoute("domain_manager_document_index");
         }
 
         return $this->render('@FrontDomain/Documents/add.html.twig', array(
@@ -77,7 +77,7 @@ class DocumentsController extends Controller
             /** @var Session $session */
             $session = $request->getSession();
             $session->getFlashBag()->add("success", "Le document a bien été modifié");
-            return $this->redirectToRoute("domain_manager_document");
+            return $this->redirectToRoute("domain_manager_document_index");
         }
 
         return $this->render('@FrontDomain/Documents/modify.html.twig', array(

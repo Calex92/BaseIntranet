@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Admin\AppBundle\AdminAppBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Front\DomainBundle\FrontDomainBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

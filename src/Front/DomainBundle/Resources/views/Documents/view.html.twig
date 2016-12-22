@@ -1,0 +1,97 @@
+{% extends "FrontAppBundle::layout.html.twig" %}
+
+
+{% block title %}
+    Documents - {{ parent() }}
+{% endblock %}
+
+{% block leftMenu %}
+    {# domains means Achat, E-busines, ...
+    from is used to know if we have to redirect to "news" or "documents"
+    domainsCount need to be deleted in a further evolution, it contains the number of news/document by domain #}
+    {{ include("FrontAppBundle:Main:domainMenu.html.twig",
+    { "domains" : domains,
+        "from" : app.request.attributes.get('_route')}) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <table id="table-document-downloadable" class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th data-priority="2">Auteur</th>
+                <th data-priority="3">Titre</th>
+                <th data-priority="4">Date</th>
+                <th data-priority="6">Domaine</th>
+                <th data-priority="5">Nom du fichier</th>
+                <th data-priority="1">Télécharger</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for document in documents %}
+                {# @var document \Front\DomainBundle\Entity\Document #}
+                <tr>
+                    <td>{{ document.creator.firstname|slice(0,1) }}. {{ document.creator.surname }}</td>
+                    <td>{{ document.title }}</td>
+                    <td>{{ document.beginPublicationDate | date("d/m/Y") }}</td>
+                    <td>{{ document.domain.label }}</td>
+                    <td>{{ document.fileNameShown }}</td>
+                    <td class="text-center">
+                        <a href="{{ vich_uploader_asset(document, 'file') }}" download="{{ document.fileNameShown}}">
+                            <span class="glyphicon glyphicon-download-alt"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset("bundles/frontapp/js/jquery.dataTable1.10.12.min.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("bundles/frontapp/js/bootstrap-dropdownhover.min.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("bundles/frontapp/js/responsive.dataTables2.1.0.min.js") }}"></script>
+    <script type="text/javascript"
+            src="{{ asset("bundles/frontapp/js/responsive.bootstrap.datatables2.1.0.min.js") }}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table-document-downloadable').DataTable({
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    "sProcessing": "Traitement en cours...",
+                    "sSearch": "",
+                    "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                    "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_",
+                    "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                    "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    "sInfoPostFix": "",
+                    "searchPlaceholder": "Recherche",
+                    "sLoadingRecords": "Chargement en cours...",
+                    "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                    "oPaginate": {
+                        "sFirst": "Premier",
+                        "sPrevious": "Pr&eacute;c&eacute;dent",
+                        "sNext": "Suivant",
+                        "sLast": "Dernier"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                        "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                    }
+                },
+                order: []
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css"/>
+{% endblock %}

@@ -14,7 +14,7 @@
 
         {# If I don't add this, when we're on the first page (/) and we click on a specific domain, the adress isn't correct #}
         {% if from == "front_homepage" %}
-            {% set from = "news_index" %}
+            {% set from = "domain_manager_news_list_view" %}
         {% endif %}
 
         <a href="{{ path(from, {"domain" : domain.labelSimplified}) }}"

@@ -1,97 +1,70 @@
-{% extends "FrontAppBundle::layout.html.twig" %}
-
-
-{% block title %}
-    Documents - {{ parent() }}
-{% endblock %}
-
-{% block leftMenu %}
-    {# domains means Achat, E-busines, ...
-    from is used to know if we have to redirect to "news" or "documents"
-    domainsCount need to be deleted in a further evolution, it contains the number of news/document by domain #}
-    {{ include("FrontAppBundle:Main:domainMenu.html.twig",
-    { "domains" : domains,
-        "from" : app.request.attributes.get('_route')}) }}
-    {{ parent() }}
-{% endblock %}
-
-{% block content %}
-    <div class="main-content">
-        <table id="table-document-downloadable" class="table table-striped table-bordered table-hover">
-            <thead>
-            <tr>
-                <th data-priority="2">Auteur</th>
-                <th data-priority="3">Titre</th>
-                <th data-priority="4">Date</th>
-                <th data-priority="6">Domaine</th>
-                <th data-priority="5">Nom du fichier</th>
-                <th data-priority="1">Télécharger</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for document in documents %}
-                {# @var document \Front\DomainBundle\Entity\Document #}
-                <tr>
-                    <td>{{ document.creator.firstname|slice(0,1) }}. {{ document.creator.surname }}</td>
-                    <td>{{ document.title }}</td>
-                    <td>{{ document.beginPublicationDate | date("d/m/Y") }}</td>
-                    <td>{{ document.domain.label }}</td>
-                    <td>{{ document.fileNameShown }}</td>
-                    <td class="text-center">
-                        <a href="{{ vich_uploader_asset(document, 'file') }}" download="{{ document.fileNameShown}}">
-                            <span class="glyphicon glyphicon-download-alt"></span>
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% endblock %}
+{% extends "@FrontDomain/App/base.html.twig" %}
 
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset("bundles/frontapp/js/jquery.dataTable1.10.12.min.js") }}"></script>
-    <script type="text/javascript" src="{{ asset("bundles/frontapp/js/bootstrap-dropdownhover.min.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("bundles/frontapp/js/bootstrap.dataTable1.10.12.min.js") }}"></script>
     <script type="text/javascript" src="{{ asset("bundles/frontapp/js/responsive.dataTables2.1.0.min.js") }}"></script>
-    <script type="text/javascript"
-            src="{{ asset("bundles/frontapp/js/responsive.bootstrap.datatables2.1.0.min.js") }}"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#table-document-downloadable').DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    "sProcessing": "Traitement en cours...",
-                    "sSearch": "",
-                    "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
-                    "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_",
-                    "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-                    "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                    "sInfoPostFix": "",
-                    "searchPlaceholder": "Recherche",
-                    "sLoadingRecords": "Chargement en cours...",
-                    "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                    "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
-                    "oPaginate": {
-                        "sFirst": "Premier",
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant",
-                        "sLast": "Dernier"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-                        "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-                    }
-                },
-                order: []
-            });
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset("bundles/frontapp/js/responsive.bootstrap.datatables2.1.0.min.js") }}"></script>
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css"/>
+{% block content %}
+    <h2 class="col-md-4 text-nowrap">Liste des documents</h2>
+    <div class="col-md-3 margin-top-20">
+        <select title="Domaines" class="form-control" onchange="location = this.options[this.selectedIndex].value;">
+            <option value="{{ path("domain_manager_document_index", {'domain': "all"}) }}">Tous les domaines</option>
+            {% for domain in domains %}
+                {% if app.request.attributes.get('_route_params')['domain'] == domain.labelSimplified %}
+                    {% set isSelected = "selected" %}
+                {% else %}
+                    {% set isSelected = "" %}
+                {% endif %}
+
+                {# @var domain \Front\DomainBundle\Entity\Domain#}
+                <option value="{{ path("domain_manager_document_index", {'domain': domain.labelSimplified}) }}" {{ isSelected }}>{{ domain.label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <a class="col-md-3 margin-top-20 btn btn-default pull-right" href="{{ path("domain_manager_document_add") }}">
+        Créer un document
+    </a>
+    <table class="table table-striped table-bordered table-hover dataTable">
+        <thead>
+        <tr>
+            <th data-priority="2">Titre</th>
+            <th data-priority="5">Domaine</th>
+            <th data-priority="4">Auteur</th>
+            <th data-priority="3">Date de création</th>
+            <th>Début de parution</th>
+            <th data-priority="3">Nom du fichier</th>
+            <th data-priority="1">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for document in documents %}
+            <tr>
+                <td>{{ document.title }}</td>
+                <td>{{ document.domain.label }}</td>
+                <td>{{ document.creator.firstname|slice(0,1) }}. {{ document.creator.surname }}</td>
+                <td>{{ document.creationDate | date('d/m/Y') }}</td>
+                <td>{{ document.beginPublicationDate | date('d/m/Y') }}</td>
+                <td>{{ document.fileNameShown }}</td>
+                <td class="text-center">
+                    <a href="{{ path('domain_manager_document_modify', {'id': document.id }) }}"
+                       title="Modifier le document">
+                        <i class="glyphicon glyphicon-cog"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <ul class="pagination pull-right">
+        {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+        {% for p in range(1, nbPages) %}
+            <li{% if p == page %} class="active"{% endif %}>
+                <a href="{{ path('domain_manager_document_index', {'page': p}) }}">{{ p }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class NewsController extends Controller
 {
-    public function indexAction($domain, $page)
+    public function viewListAction($domain, $page)
     {
         $nbPerPage = 4;
         $domains = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildren("FrontDomainBundle:News");
@@ -20,10 +20,10 @@ class NewsController extends Controller
         // If the page doesn't exist, throw an Exception
         if ($page > $nbPages) {
             $this->get("session")->getFlashBag()->add("danger", "La page sélectionnée n'existe pas");
-            return $this->redirectToRoute("news_index", array("domain" => "all", "page" => 1));
+            return $this->redirectToRoute("domain_manager_news_list_view", array("domain" => "all", "page" => 1));
         }
 
-        return $this->render('FrontDomainBundle:News:index.html.twig',
+        return $this->render('FrontDomainBundle:News:viewList.html.twig',
             array("domains"     => $domains,
                     "news"      => $news,
                     "nbPages"   => $nbPages,
@@ -51,7 +51,7 @@ class NewsController extends Controller
             /** @var Session $session */
             $session = $request->getSession();
             $session->getFlashBag()->add("success", "La news a bien été modifiée");
-            return $this->redirectToRoute("domain_manager_news");
+            return $this->redirectToRoute("domain_manager_news_index");
         }
 
         return $this->render('@FrontDomain/News/modify.html.twig', array(
@@ -60,7 +60,7 @@ class NewsController extends Controller
         ));
     }
 
-    public function listAction($domain, $page) {
+    public function indexAction($domain, $page) {
         $nbPerPage  = 20;
         $domains    = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildren("FrontDomainBundle:News");
         $news       = $this->getDoctrine()->getRepository("FrontDomainBundle:News")->getActiveNews($domain, $page, $nbPerPage);
@@ -69,10 +69,10 @@ class NewsController extends Controller
         // If the page doesn't exist, throw an Exception
         if ($page > $nbPages) {
             $this->get("session")->getFlashBag()->add("danger", "La page sélectionnée n'existe pas");
-            return $this->redirectToRoute("domain_manager_news", array("domain" => "all", "page" => 1));
+            return $this->redirectToRoute("domain_manager_news_index", array("domain" => "all", "page" => 1));
         }
 
-        return $this->render('FrontDomainBundle:News:list.html.twig', array(
+        return $this->render('FrontDomainBundle:News:index.html.twig', array(
             "news"      => $news,
             "domains"   => $domains,
             "nbPages"   => $nbPages,
@@ -95,7 +95,7 @@ class NewsController extends Controller
             /** @var Session $session */
             $session = $request->getSession();
             $session->getFlashBag()->add("success", "La news a bien été ajoutée");
-            return $this->redirectToRoute("domain_manager_news");
+            return $this->redirectToRoute("domain_manager_news_index");
         }
 
         return $this->render('@FrontDomain/News/add.html.twig', array(

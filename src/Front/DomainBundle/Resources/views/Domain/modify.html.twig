@@ -1,0 +1,23 @@
+{% extends "FrontDomainBundle:Documents:add.html.twig" %}
+
+{% block content %}
+    {# @var domain \Front\DomainBundle\Entity\Domain #}
+    {{ form_start(form, { 'action': path('domain_manager_domain_modify', {'id' : domain.id}), 'attr': { 'class': 'domain_manager_document_modify' } }) }}
+    <a href="{{ path('domain_manager_domain_index') }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Retour aux domaines
+    </a>
+
+    {% block titlePage %}
+        <p class="alert alert-warning">
+            Vous éditez un domaine déjà existant, merci de ne pas changer
+            l'esprit général du domaine déjà publié.
+        </p>
+
+        <h2 class="col-md-12">Modifier un domaine</h2>
+    {% endblock %}
+
+    {% include ("@FrontDomain/Form/domainType.html.twig") %}
+    <input type="submit" class="btn btn-default pull-right" value="Modifier"/>
+    {{ form_end(form) }}
+{% endblock %}

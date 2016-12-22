@@ -46,11 +46,19 @@ class CatalogType extends AbstractType
             ))
             ->add("isPositionLeft", CheckboxType::class, array(
                 "label"     => " ",
-                "required"  => false
+                "required"  => false,
+                "attr"      => array('class' => 'datepicker',
+                            'data-toggle'   => 'toggle',
+                            'data-off'      => 'Droite',
+                            'data-on'       => 'Gauche')
             ))
             ->add("visible", CheckboxType::class, array(
                 "label"     => " ",
-                "required"  => false
+                "required"  => false,
+                "attr"      => array("class" => "datepicker",
+                                "data-toggle"   => "toggle",
+                                "data-off"      => "Caché",
+                                "data-on"       => "Visible")
             ));
     }
 

@@ -15,19 +15,19 @@ class BaseController extends Controller
 
         array_push($menus, $menu);
 
-        $menu = array("route" => "news_index",
+        $menu = array("route" => "domain_manager_news_list_view",
             "name" => "Groupes",
             "active" => "");
 
         array_push($menus, $menu);
 
-        $menu = array("route" => "news_index",
+        $menu = array("route" => "domain_manager_news_list_view",
             "name" => "Applications",
             "active" => "");
 
         array_push($menus, $menu);
 
-        $menu = array("route" => "news_index",
+        $menu = array("route" => "domain_manager_news_list_view",
             "name" => "News",
             "active" => "");
 

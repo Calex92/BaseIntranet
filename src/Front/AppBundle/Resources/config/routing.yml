@@ -11,7 +11,7 @@ application_external_access:
 front_homepage:
     path:     /
     defaults:
-        _controller: FrontDomainBundle:News:index
+        _controller: FrontDomainBundle:News:viewList
         domain: "all"
         page : 1
 

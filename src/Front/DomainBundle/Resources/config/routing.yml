@@ -1,21 +1,21 @@
-news_view:
+domain_manager_news_view:
     path:    /news/view/{id}
     defaults:
         _controller: FrontDomainBundle:News:view
 
-news_index:
+domain_manager_news_list_view:
     path:     /news/{domain}/{page}
     defaults:
-        _controller: FrontDomainBundle:News:index
+        _controller: FrontDomainBundle:News:viewList
         page:        1
         domain:      "all"
     requirements:
         page:    \d*
 
-documents_index:
+domain_manager_documents_view:
     path:    /documents/{domain}
     defaults:
-        _controller: FrontDomainBundle:Documents:index
+        _controller: FrontDomainBundle:Documents:view
         domain: "all"
 
 domain_manager_index:
@@ -23,50 +23,50 @@ domain_manager_index:
     defaults:
         _controller: FrontDomainBundle:App:index
 
-domain_manager_add_news:
+domain_manager_news_add:
     path:    /domain_manager/news/add
     defaults:
         _controller: FrontDomainBundle:News:add
 
-domain_manager_modify_news:
+domain_manager_news_modify:
     path:    /domain_manager/news/modify/{id}
     defaults:
         _controller: FrontDomainBundle:News:modify
 
-domain_manager_news:
+domain_manager_news_index:
     path:    /domain_manager/news/{domain}/{page}
     defaults:
-        _controller: FrontDomainBundle:News:list
+        _controller: FrontDomainBundle:News:index
         page:        1
         domain:      "all"
     requirements:
             page:    \d*
 
-domain_manager_add_document:
+domain_manager_document_add:
    path:    /domain_manager/document/add
    defaults:
        _controller: FrontDomainBundle:Documents:add
 
-domain_manager_modify_document:
+domain_manager_document_modify:
     path:    /domain_manager/document/modify/{id}
     defaults:
         _controller: FrontDomainBundle:Documents:modify
 
-domain_manager_document:
+domain_manager_document_index:
     path:    /domain_manager/document/{domain}/{page}
     defaults:
-        _controller: FrontDomainBundle:Documents:list
+        _controller: FrontDomainBundle:Documents:index
         page:        1
         domain:      "all"
     requirements:
             page:    \d*
 
-domain_manager_add_catalog:
+domain_manager_catalog_add:
     path:    /domain_manager/catalog/add
     defaults:
         _controller: FrontDomainBundle:Catalog:add
 
-domain_manager_modify_catalog:
+domain_manager_catalog_modify:
     path:    /domain_manager/catalog/modify/{id}
     defaults:
         _controller: FrontDomainBundle:Catalog:modify
@@ -77,3 +77,17 @@ domain_manager_catalog_index:
         _controller: FrontDomainBundle:Catalog:index
         page:        1
 
+domain_manager_domain_index:
+    path:    /domain_manager/domain
+    defaults:
+        _controller: FrontDomainBundle:Domain:index
+
+domain_manager_domain_add:
+    path:    /domain_manager/domain/add
+    defaults:
+        _controller: FrontDomainBundle:Domain:add
+
+domain_manager_domain_modify:
+    path:    /domain_manager/domain/modify/{id}
+    defaults:
+        _controller: FrontDomainBundle:Domain:modify

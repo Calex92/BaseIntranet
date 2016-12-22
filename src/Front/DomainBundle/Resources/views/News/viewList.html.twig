@@ -1,0 +1,50 @@
+{% extends "FrontAppBundle::layout.html.twig" %}
+
+
+{% block title %}
+    News - {{ parent() }}
+{% endblock %}
+
+{% block leftMenu %}
+    {# domains means Achat, E-busines, ...
+    from is used to know if we have to redirect to "news" or "documents" #}
+    {{ include("FrontAppBundle:Main:domainMenu.html.twig",
+    {"domains" : domains,
+        "from" : app.request.attributes.get('_route')}) }}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        {{ parent() }}
+        {% for new in news %}
+            {# @var new \Front\DomainBundle\Entity\News #}
+            <div class="single-new">
+                {% if new.imageName %}
+                    <img class="new-image" src="{{ vich_uploader_asset(new, 'imageFile') }}" alt="News"/>
+                {% endif %}
+                    <label>{{ new.domain.label }}</label>
+                    <h3>{{ new.title }}</h3>
+                    <p class="text-justify">{{ new.text|length > 300 ? new.text|slice(0, 300) ~ '...' : new.text  }}</p>
+                    <p class="text-center">
+                        <span>{{ new.creator.firstname|slice(0,1) }}. {{ new.creator.surname }}</span>
+                        <span >{{ new.beginPublicationDate | date('d/m/Y') }}</span>
+                        <span><a href="{{ path("domain_manager_news_view", {id : new.id} ) }}">Lire la suite</a></span>
+                    </p>
+            </div>
+            {% if not loop.last %}
+                <hr class="darker smaller"/>
+            {% endif %}
+        {% endfor %}
+        <ul class="pagination pull-right">
+            {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+            {% for p in range(1, nbPages) %}
+                <li{% if p == page %} class="active"{% endif %}>
+                    <a href="{{ path('domain_manager_news_list_view', {'page': p}) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+{% endblock %}

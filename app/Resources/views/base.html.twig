@@ -55,7 +55,7 @@
                         <a class="dropdown-toggle transparent" role="button" data-toggle="dropdown" data-hover="dropdown">
                             {# I need to add the "<!-- -->" because instead, it adds a "-" on the image on the
                                 hover with the mouse #}
-                                {% if app.user.imageName != "" %}
+                                {% if app.user is not null and app.user.imageName != "" %}
                                     <img class="img img-circle img-profile-picture"
                                          src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="profile"/>
                                 {% else %}

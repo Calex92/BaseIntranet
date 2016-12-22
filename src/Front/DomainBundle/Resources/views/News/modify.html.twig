@@ -2,8 +2,8 @@
 
 {% block content %}
     {# @var news \Front\DomainBundle\Entity\News #}
-    {{ form_start(form, { 'action': path('domain_manager_modify_news', {'id' : news.id}), 'attr': { 'class': 'domain_manager_modify_news' } }) }}
-    <a href="{{ path('domain_manager_news') }}" class="btn btn-default">
+    {{ form_start(form, { 'action': path('domain_manager_news_modify', {'id' : news.id}), 'attr': { 'class': 'domain_manager_news_modify' } }) }}
+    <a href="{{ path('domain_manager_news_index') }}" class="btn btn-default">
         <i class="glyphicon glyphicon-chevron-left"></i>
         Retour aux news
     </a>

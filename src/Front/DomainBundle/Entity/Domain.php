@@ -5,6 +5,7 @@ namespace Front\DomainBundle\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Table(name="base_domain")
@@ -31,6 +32,7 @@ class Domain
     /**
      * @var string
      *
+     * @Gedmo\Slug(fields={"label"})
      * @ORM\Column(name="labelSimplified", type="string", length=255)
      */
     private $labelSimplified;
@@ -48,6 +50,14 @@ class Domain
      * @ORM\OneToMany(targetEntity="Front\DomainBundle\Entity\DomainElement", mappedBy="domain")
      */
     private $domainElements;
+
+    /**
+     * Domain constructor.
+     */
+    public function __construct()
+    {
+        $this->active = true;
+    }
 
 
     /**

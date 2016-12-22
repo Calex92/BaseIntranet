@@ -8,13 +8,13 @@
 
                 {% block menus %}
                     <ul class="nav navbar-nav">
-                        <li class="{% if app.request.attributes.get('_route') == 'news_index' or
+                        <li class="{% if app.request.attributes.get('_route') == 'domain_manager_news_list_view' or
                         app.request.attributes.get('_route') == 'front_homepage' or
-                        app.request.attributes.get('_route') == 'news_view' %}active{% endif %}">
-                            <a href="{{ path("news_index", {"domain" : "all"}) }}">News</a>
+                        app.request.attributes.get('_route') == 'domain_manager_news_view' %}active{% endif %}">
+                            <a href="{{ path("domain_manager_news_list_view", {"domain" : "all"}) }}">News</a>
                         </li>
-                        <li class="{% if app.request.attributes.get('_route') == 'documents_index' %}active{% endif %}">
-                            <a href="{{ path("documents_index") }}">Documents références</a>
+                        <li class="{% if app.request.attributes.get('_route') == 'domain_manager_documents_view' %}active{% endif %}">
+                            <a href="{{ path("domain_manager_documents_view") }}">Documents références</a>
                         </li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <li class="{% if app.request.attributes.get('_route') == 'application_index' %}active{% endif %}">
@@ -47,8 +47,8 @@
     {# The left menu is only displayed for news and application, when he's not here, for the small browsers (exemple: phone),
             need to display the content in full screen #}
     {# The main content need to be displayed in full screen when there's no left/right bars #}
-    {% if app.request.attributes.get('_route') == 'news_index' or
-            app.request.attributes.get('_route') == 'documents_index'  %}
+    {% if app.request.attributes.get('_route') == 'domain_manager_news_list_view' or
+            app.request.attributes.get('_route') == 'domain_manager_news_view'  %}
         {% set sizeLeftBar = "col-sm-4" %}
         {% set sizeContent ="col-sm-8 col-xs-12" %}
     {% else %}

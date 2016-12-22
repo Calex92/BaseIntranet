@@ -10,8 +10,8 @@
 
 {% block content %}
 
-    {{ form_start(form, { 'action': path('domain_manager_add_news'), 'attr': { 'class': 'domain_manager_add_news' } }) }}
-            <a href="{{ path('domain_manager_news') }}" class="btn btn-default">
+    {{ form_start(form, { 'action': path('domain_manager_news_add'), 'attr': { 'class': 'domain_manager_news_add' } }) }}
+            <a href="{{ path('domain_manager_news_index') }}" class="btn btn-default">
                 <i class="glyphicon glyphicon-chevron-left"></i>
                 Retour aux news
             </a>

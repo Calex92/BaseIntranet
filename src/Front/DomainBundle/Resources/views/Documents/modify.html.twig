@@ -2,8 +2,8 @@
 
 {% block content %}
     {# @var document \Front\DomainBundle\Entity\Document #}
-    {{ form_start(form, { 'action': path('domain_manager_modify_document', {'id' : document.id}), 'attr': { 'class': 'domain_manager_modify_document' } }) }}
-    <a href="{{ path('domain_manager_document') }}" class="btn btn-default">
+    {{ form_start(form, { 'action': path('domain_manager_document_modify', {'id' : document.id}), 'attr': { 'class': 'domain_manager_document_modify' } }) }}
+    <a href="{{ path('domain_manager_document_index') }}" class="btn btn-default">
         <i class="glyphicon glyphicon-chevron-left"></i>
         Retour aux documents
     </a>

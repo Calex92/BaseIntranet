@@ -1,6 +1,7 @@
 <?php
 
 namespace Front\DomainBundle\Repository;
+
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -11,7 +12,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class DomainRepository extends EntityRepository
 {
-    public function getActiveQueryBuilder() {
+    public function getActiveQueryBuilder()
+    {
         $qb = $this->createQueryBuilder('domain_repository');
         return $qb
             ->where($qb->expr()->eq("domain_repository.active", true));
@@ -21,22 +23,24 @@ class DomainRepository extends EntityRepository
      * @param string $metadataClass
      * @return array
      */
-    public function getActiveWithChildren($metadataClass) {
+    public function getActiveWithChildren($metadataClass = NULL)
+    {
         $em = $this->getEntityManager();
         $qb = $this->createQueryBuilder('domain_repository');
         $qb->join("domain_repository.domainElements", "domain_elements")
-
             ->where("domain_elements.endPublicationDate >= :dateToday")
             ->orWhere($qb->expr()->isNull("domain_elements.endPublicationDate"))
             ->andWhere($qb->expr()->eq("domain_repository.active", true))
             ->andWhere("domain_elements.beginPublicationDate <= :dateToday")
-            ->setParameter("dateToday", new \DateTime())
-            ->andWhere("domain_elements INSTANCE OF :class")
-            ->setParameter("class", $em->getClassMetadata($metadataClass))
+            ->setParameter("dateToday", new \DateTime());
 
-            ->orderBy("domain_repository.label");
+        if ($metadataClass != NULL) {
+            $qb->andWhere("domain_elements INSTANCE OF :class")
+                ->setParameter("class", $em->getClassMetadata($metadataClass));
+        }
 
         return $qb
+            ->orderBy("domain_repository.label")
             ->getQuery()
             ->getResult();
     }

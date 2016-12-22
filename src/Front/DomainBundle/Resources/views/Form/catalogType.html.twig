@@ -17,18 +17,18 @@
                 {{ form_widget(form.beginPublicationDate, {"attr": {'class' : "datepicker"}}) }}
             </div>
             {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.beginPublicationDate}) }}
-        </div><br/>
+        </div>
         <div class="form-group">
             <label class="col-sm-4 control-label control-label required" for="catalog_isPositionLeft">Position</label>
             <div class="col-sm-8">
-                {{ form_widget(form.isPositionLeft, {"attr": {'class' : "datepicker", 'data-toggle' : 'toggle', 'data-off': 'Droite', 'data-on' : 'Gauche'}}) }}
+                {{ form_widget(form.isPositionLeft) }}
             </div>
             {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.isPositionLeft}) }}
         </div>
         <div class="form-group">
             <label class="col-sm-4 control-label control-label required" for="catalog_isPositionLeft">Visibilité</label>
             <div class="col-sm-8">
-                {{ form_widget(form.visible, {"attr": {'class' : "datepicker", 'data-toggle' : 'toggle', 'data-off': 'Caché', 'data-on' : 'Visible'}}) }}
+                {{ form_widget(form.visible) }}
             </div>
             {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.visible}) }}
         </div>

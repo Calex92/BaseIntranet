@@ -38,6 +38,6 @@ class AdminController extends Controller
             }
         }
 
-        return $this->render('@FrontApp/Admin/topMenu.html.twig', array("menus" => $menus));
+        return $this->render('@AdminApp/Base/topMenu.html.twig', array("menus" => $menus));
     }
 }
