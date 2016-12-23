@@ -1,0 +1,49 @@
+{% extends "FrontAppBundle::layout.html.twig" %}
+
+{% block title %}
+    Notifications - {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        {{ parent() }}
+        <h2>Mes notifications</h2>
+        <p>
+            Cette section recense les différentes notifications qui vous ont été envoyées.
+            Pour pouvoir lire le message, il vous suffit de cliquer sur le titre de la notification pour être automatiquement redirigé.
+        </p>
+        <table class="table table-striped table-bordered table-hover dataTable table-notification">
+            <thead>
+            <tr>
+                <th class="col-md-9">Titre</th>
+                <th class="col-md-3 text-center">Date du message</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for notification in notifications %}
+                {# @var notification \Front\AppBundle\Entity\Notification#}
+                {% if notification.seen %}
+                    {% set isSeen = "" %}
+                {% else %}
+                    {% set isSeen = "is-not-read" %}
+                {% endif %}
+                <tr class="{{ isSeen }}">
+                    <td>
+                        <a href="{{ path("user_notifications_view", {"id" : notification.id}) }}">{{ notification.title }}</a>
+                    </td>
+                    <td class="text-center">{{ notification.creationDate | date ('d/m/Y')  }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <ul class="pagination pull-right">
+            {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+            {% for p in range(1, nbPages) %}
+                <li{% if p == page %} class="active"{% endif %}>
+                    <a href="{{ path('user_notifications', {'page': p}) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+{% endblock %}

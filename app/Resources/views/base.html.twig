@@ -37,6 +37,8 @@
     {% endblock %}
 </head>
 
+{% set numberNotification = userUnreadMessage()|length %}
+
 <body>
 <header class="navbar navbar-static-top bs-docs-nav front-bar" id="top">
     <nav class="navbar-default front-bar">
@@ -62,7 +64,9 @@
                                     <img class="img img-circle img-profile-picture"
                                          src="{{ asset("uploads/avatar/basic_avatar.png") }}" alt="profile"/>
                                 {% endif %}
-                            <span class="badge badge-profile-picture badge-alert">2</span>
+                            {% if numberNotification > 0 %}
+                                <span class="badge badge-profile-picture badge-alert">{{ numberNotification }}</span>
+                            {% endif %}
                             {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                 <span class="badge badge-connected-as badge-info">!</span>
                             {% endif %}
@@ -81,8 +85,10 @@
                                 </a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="#">
-                                    <span class="badge pull-right badge-alert">2</span>
+                            <li><a href="{{ path("user_notifications") }}">
+                                    {% if numberNotification %}
+                                    <span class="badge pull-right badge-alert">{{ numberNotification }}</span>
+                                    {% endif %}
                                     <i class="glyphicon glyphicon-bell"></i>
                                     Notifications
                                 </a>

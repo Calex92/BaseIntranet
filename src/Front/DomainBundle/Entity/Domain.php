@@ -8,7 +8,7 @@ use Doctrine\ORM\PersistentCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Table(name="base_domain")
+ * @ORM\Table(name="domain")
  * @ORM\Entity(repositoryClass="Front\DomainBundle\Repository\DomainRepository")
  */
 class Domain

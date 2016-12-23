@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * News
  * @ORM\Entity(repositoryClass="Front\DomainBundle\Repository\NewsRepository")
- * @ORM\Table(name="base_domain_news")
+ * @ORM\Table(name="domain_news")
  * @Vich\Uploadable()
  * @ORM\HasLifecycleCallbacks()
  */

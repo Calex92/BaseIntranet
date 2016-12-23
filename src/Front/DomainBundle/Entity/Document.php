@@ -10,7 +10,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * Document
  *
  * @ORM\Entity(repositoryClass="Front\DomainBundle\Repository\DocumentRepository")
- * @ORM\Table(name="base_domain_document")
+ * @ORM\Table(name="domain_document")
  * @Vich\Uploadable()
  */
 class Document extends DomainElement

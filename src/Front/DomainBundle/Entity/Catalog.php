@@ -10,7 +10,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Catalog
- * @ORM\Table(name="base_domain_catalog")
+ * @ORM\Table(name="domain_catalog")
  * @ORM\Entity(repositoryClass="Front\DomainBundle\Repository\CatalogRepository")
  * @Vich\Uploadable()
  */

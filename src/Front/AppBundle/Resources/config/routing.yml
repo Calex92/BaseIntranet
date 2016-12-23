@@ -19,3 +19,14 @@ users_admin:
     path:    /adminIsidore/users
     defaults:
         _controller: FrontAppBundle:Admin:user
+
+user_notifications:
+    path:    /notifications/{page}
+    defaults:
+        _controller: FrontAppBundle:Notification:index
+        page : 1
+
+user_notifications_view:
+    path:    /notification/{id}
+    defaults:
+        _controller: FrontAppBundle:Notification:view

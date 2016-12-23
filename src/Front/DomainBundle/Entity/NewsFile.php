@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
- * @ORM\Table(name="base_domain_news_file")
+ * @ORM\Table(name="domain_news_file")
  * @ORM\Entity(repositoryClass="Front\DomainBundle\Repository\NewsFileRepository")
  * @Vich\Uploadable()
  */
