@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ApplicationExternal
- * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\DocumentRepository")
+ * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\ApplicationExternalRepository")
  */
 class ApplicationExternal extends Application
 {
@@ -22,6 +22,13 @@ class ApplicationExternal extends Application
      * @ORM\Column(name="destination_route", type="string", length=255, unique=true)
      */
     private $destinationRoute;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="unique_identifier", type="integer")
+     */
+    private $uniqueIdentifier;
 
     /**
      * @return string
@@ -43,5 +50,21 @@ class ApplicationExternal extends Application
     public function isExternal()
     {
         return true;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUniqueIdentifier()
+    {
+        return $this->uniqueIdentifier;
+    }
+
+    /**
+     * @param int $uniqueIdentifier
+     */
+    public function setUniqueIdentifier($uniqueIdentifier)
+    {
+        $this->uniqueIdentifier = $uniqueIdentifier;
     }
 }

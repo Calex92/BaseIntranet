@@ -25,20 +25,24 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
      */
     public function load(ObjectManager $manager)
     {
-        $applications = array ("Générateur de signature");
+        $applications = array ("Générateur de signature", "Help référenciel", "Help ADV", "Espaces Grands Comptes");
 
         $locations = array("application_external_access");
 
-        $destinationRoute = array("signature/index.php");
+        $destinationRoute = array("signature/index.php", "prp2/index.php", "help_adv/index.php", "ggc/index.php");
+
+        $uniqueIdentifiers = array(0, 1, 2, 3);
 
         for ($i = 0; $i < count($applications) ; $i++) {
             $application = new ApplicationExternal();
             $application->setName($applications[$i]);
-            $application->setLocation($locations[$i]);
+            $application->setLocation($locations[0]);
             $application->setDestinationRoute($destinationRoute[$i]);
             /** @var Image $image */
             $image = $this->getReference("image-application-external".$applications[$i]);
             $application->setImage($image);
+
+            $application->setUniqueIdentifier($uniqueIdentifiers[$i]);
 
             $this->addReference("application-external".$applications[$i], $application);
             $manager->persist($application);

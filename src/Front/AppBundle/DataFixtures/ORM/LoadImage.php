@@ -18,26 +18,20 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $applications = array ("Administration Isidore", "Grands Comptes", "GISS", "Help référenciel", "Omniview", "E-learning", "Help ADV", "Book-Re", "Gestion du portail web");
+        $applications = array ("Administration Isidore", "GISS", "Omniview", "E-learning", "Book-Re", "Gestion du portail web");
         $urls = array($applications[0] => "adminisidore.png",
-                    $applications[1] => "espacegrandcompte.png",
-                    $applications[2] => "giss.jpg",
-                    $applications[3] => "referentiel.png",
-                    $applications[4] => "omniview.jpg",
-                    $applications[5] => "elearning.png",
-                    $applications[6] => "HELP-ADV2.png",
-                    $applications[7] => "bookre.png",
-                    $applications[8] => "gestion portail web.png");
+                    $applications[1] => "giss.jpg",
+                    $applications[2] => "omniview.jpg",
+                    $applications[3] => "elearning.png",
+                    $applications[4] => "bookre.png",
+                    $applications[5] => "gestion portail web.png");
 
         $alts = array($applications[0] => "Administration Isidore",
-                    $applications[1] => "Espaces Grands Comptes",
-                    $applications[2] => "Espace GISS",
-                    $applications[3] => "Helpdesk Référentiel",
-                    $applications[4] => "Omniview",
-                    $applications[5] => "E-learning",
-                    $applications[6] => "Help ADV",
-                    $applications[7] => "Book RE / DR",
-                    $applications[8] => "Gestion portail web");
+                    $applications[1] => "Espace GISS",
+                    $applications[2] => "Omniview",
+                    $applications[3] => "E-learning",
+                    $applications[4] => "Book RE / DR",
+                    $applications[5] => "Gestion portail web");
 
         for ($i = 0; $i < count($applications) ; $i++) {
             $image = new Image("download/front/applications", $alts[$applications[$i]]);
@@ -48,10 +42,16 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
             $manager->persist($image);
         }
 
-        $applications = array ("Générateur de signature");
-        $urls = array($applications[0] => "logo_signature.gif");
+        $applications = array ("Générateur de signature", "Help référenciel", "Help ADV", "Espaces Grands Comptes");
+        $urls = array($applications[0] => "logo_signature.gif",
+            $applications[1] => "referentiel.png",
+            $applications[2] => "HELP-ADV2.png",
+            $applications[3] => "espacegrandcompte.png",);
 
-        $alts = array($applications[0] => "Générateur de signature");
+        $alts = array($applications[0] => "Générateur de signature",
+            $applications[1] => "Helpdesk Référentiel",
+            $applications[2] => "Help ADV",
+            $applications[3] => "Espaces Grands Comptes");
 
         for ($i = 0; $i < count($applications) ; $i++) {
             $image = new Image("download/front/applications", $alts[$applications[$i]]);

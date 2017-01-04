@@ -9,7 +9,9 @@
 namespace Front\AppBundle\Repository;
 
 
-class ApplicationExternalRepository
+use Doctrine\ORM\EntityRepository;
+
+class ApplicationExternalRepository extends EntityRepository
 {
 
 }
