@@ -21,8 +21,8 @@
                                 <a href="{{ path("application_index") }}">Applications</a>
                             </li>
                         {% endif %}
-                        <li>
-                            <a href="http://192.168.41.102/dokuwiki/doku.php">Aide</a>
+                        <li class="{% if app.request.attributes.get('_route') == 'front_help' %}active{% endif %}">
+                            <a href="{{ path("front_help") }}">Aide</a>
                         </li>
                         {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") and
                                     app.request.attributes.get('_route') != 'fos_user_security_login'%}
@@ -83,16 +83,16 @@
             </div>
         </div>
     </div>
-    {# Display the login pannel when it's called by clicking the button "Connection", no need to display it in the /login page#}
-    {% if app.request.attributes.get('_route') != 'fos_user_security_login' %}
-        <div class="modal fade hidden-not-important" id="login-modal" tabindex="-1" role="dialog"
-             aria-hidden="true">
-            {{ render(controller("FOSUserBundle:Security:login", {'isLongTemplate': false })) }}
-        </div>
-    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
+    {# Display the login pannel when it's called by clicking the button "Connection", no need to display it in the /login page#}
+    {% if app.request.attributes.get('_route') != 'fos_user_security_login' %}
+        <div class="modal fade hidden-not-important" id="login-modal" tabindex="-1" role="dialog"
+            aria-hidden="true">
+        {{ render(controller("FOSUserBundle:Security:login", {'isLongTemplate': false })) }}
+    </div>
+    {% endif %}
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalit?s du bootstrap Twitter #}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/frontapp/js/front.js') }}"></script>
