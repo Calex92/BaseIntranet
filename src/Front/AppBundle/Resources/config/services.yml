@@ -9,3 +9,7 @@ services:
         arguments: ['@doctrine.orm.entity_manager', '@security.token_storage']
         tags:
             - { name: twig.extension }
+
+    frontapp.application_getter:
+        class: Front\AppBundle\Services\ApplicationGetter
+        arguments: ["@doctrine.orm.entity_manager"]

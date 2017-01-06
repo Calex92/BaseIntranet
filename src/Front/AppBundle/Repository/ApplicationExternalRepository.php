@@ -13,5 +13,15 @@ use Doctrine\ORM\EntityRepository;
 
 class ApplicationExternalRepository extends EntityRepository
 {
+    /**
+     * @param array $externalAppsCode
+     * @return array
+     */
+    public function getUserApplication(array $externalAppsCode) {
+        $qb = $this->createQueryBuilder("application_external_repository");
 
+        $qb->where($qb->expr()->in("application_external_repository.uniqueIdentifier", $externalAppsCode));
+
+         return $qb->getQuery()->getResult();
+    }
 }

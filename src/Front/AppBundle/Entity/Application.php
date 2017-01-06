@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="base_application")
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\Entity(repositoryClass="Front\UserBundle\Repository\ApplicationRepository")
+ * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\ApplicationRepository")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"Application" = "Application", "ApplicationExternal" = "ApplicationExternal"})
  */

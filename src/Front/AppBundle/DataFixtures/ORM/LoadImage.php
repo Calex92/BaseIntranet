@@ -45,7 +45,8 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
             "Focus",
             "P.F.S Infos",
             "Calendrier livraison",
-            "Portail fournisseurs Oradis");
+            "Portail fournisseurs Oradis",
+            "Helpdesk Informatique");
 
         $urls = array($applications[0] => "adminisidore.png",
             $applications[1] => "logo_signature.gif",
@@ -59,7 +60,8 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
             $applications[9] => "logo_srm.png",
             $applications[10] => "icone pfs info.png",
             $applications[11] => "calendrier livraison.png",
-            $applications[12] => "portail_frs.jpg"
+            $applications[12] => "portail_frs.jpg",
+            $applications[13] => "helpdesk.png"
             );
 
         $alts = array($applications[0] => "Administration isidore",
@@ -75,6 +77,7 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
             $applications[10] => "P.F.S. Infos",
             $applications[11] => "Calendrier livraison",
             $applications[12] => "Portail fournisseur Oradis",
+            $applications[13] => "Helpdesk Informatique"
             );
 
         for ($i = 0; $i < count($applications) ; $i++) {

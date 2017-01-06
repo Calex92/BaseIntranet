@@ -37,7 +37,8 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
             "Focus",
             "P.F.S Infos",
             "Calendrier livraison",
-            "Portail fournisseurs Oradis");
+            "Portail fournisseurs Oradis",
+            "Helpdesk Informatique");
 
         $locations = array("application_external_access");
 
@@ -53,7 +54,8 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
             "srm/",
             "pfs-info/index.php",
             "calendrierLivraison/appointment/index",
-            "http://extranet.orexad.com/extranet/litigfrs/auth/login");
+            "http://extranet.orexad.com/extranet/litigfrs/auth/login",
+            "osi/index.php");
 
         for ($i = 0; $i < count($applications) ; $i++) {
             $application = new ApplicationExternal();
