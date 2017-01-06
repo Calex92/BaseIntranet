@@ -38,7 +38,8 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
             "P.F.S Infos",
             "Calendrier livraison",
             "Portail fournisseurs Oradis",
-            "Helpdesk Informatique");
+            "Helpdesk Informatique",
+            "Help Bearing");
 
         $locations = array("application_external_access");
 
@@ -51,11 +52,12 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
             "http://vanina/omniview/auth/login",
             "http://192.168.41.16/oregesfi/?key=Uj4_OiezB",
             "histo_book/index.php?page_inc=reporting",
-            "srm/",
+            "/srm",
             "pfs-info/index.php",
             "calendrierLivraison/appointment/index",
             "http://extranet.orexad.com/extranet/litigfrs/auth/login",
-            "osi/index.php");
+            "osi/index.php",
+            "/help_plateforme");
 
         for ($i = 0; $i < count($applications) ; $i++) {
             $application = new ApplicationExternal();
