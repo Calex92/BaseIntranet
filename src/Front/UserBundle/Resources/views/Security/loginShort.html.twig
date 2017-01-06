@@ -19,7 +19,7 @@
                 {{ 'security.login.remember_me'|trans }}
             </label>
             <div>
-                <a href="#" class="login-help pull-right">Mot de passe oublié</a>
+                <a href="{{ path("fos_user_resetting_request") }}" class="login-help pull-right">Mot de passe oublié</a>
             </div>
         </form>
 

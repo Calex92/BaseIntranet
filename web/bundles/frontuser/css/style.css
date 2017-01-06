@@ -1,0 +1,26 @@
+/* ----------------------------------------------------------------------------------
+                                    Connexion
+------------------------------------------------------------------------------------*/
+.alert-danger-connection {
+    margin: 15px 0 -10px 0;
+}
+
+/* ----------------------------------------------------------------------------------
+                                    Change profile
+------------------------------------------------------------------------------------*/
+.change-profile {
+    overflow: hidden;
+}
+
+.change-profile input {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.change-profile input[type=password] {
+    height: 34px;
+}
+
+.change-profile .control-label {
+    margin-top: 10px;
+}

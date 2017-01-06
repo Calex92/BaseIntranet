@@ -1,0 +1,310 @@
+/* ----------------------------------------------------------------------------------
+                                    Header
+------------------------------------------------------------------------------------*/
+body {
+    background-color: #e6e6e6;
+}
+
+.navbar.front-bar {
+    margin-bottom: 0;
+    border-width: 0;
+}
+
+ul.nav.navbar-nav li a:link {
+    line-height: 40px;
+}
+
+.navbar .container {
+    padding-left: 0;
+}
+
+.separation-bar {
+     background-color: #002e62;
+     height: 40px;
+ }
+
+.separation-bar.separation-bar-admin {
+     background-color: rgb(80,1,126);
+ }
+
+.separation-bar.separation-bar-domain-manager {
+    background-color: rgb(26,107,208);
+}
+
+.hidden-not-important {
+    display: none;
+}
+
+/* ----------------------------------------------------------------------------------
+                                    Side bars
+------------------------------------------------------------------------------------*/
+.side-bar {
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin: 0;
+    background-color: white;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      Content
+------------------------------------------------------------------------------------*/
+.container .main-content {
+    padding: 2%;
+    margin: 0;
+    background-color: white;
+}
+
+.list-group.small .list-group-item{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.list-group.small .badge{
+    font-size: 10px;
+    padding: 3px 5px;
+
+}
+/* ----------------------------------------------------------------------------------
+                                      Content News
+------------------------------------------------------------------------------------*/
+.main-content .single-new{
+    min-height: 120px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.single-new .new-image{
+    max-height: 120px;
+    max-width: 250px;
+    float:left;
+    margin-right: 8px;
+    margin-bottom: 4px;
+}
+
+.single-new label {
+    float: right;
+}
+
+.single-new p span:first-child {
+    float: left;
+}
+.single-new p span:last-child {
+    float: right;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      Content Documents
+------------------------------------------------------------------------------------*/
+#table-document-downloadable {
+    font-size: 80%;
+    border-spacing: 0;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      Content Applications
+------------------------------------------------------------------------------------*/
+.thumbnail.application {
+    height: 130px;
+}
+
+.thumbnail.application img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.thumbnail.application h4 {
+    font-size: 80%;
+    text-align: center;
+}
+
+.thumbnail.application .application-img-frame {
+    height: 65%;
+    position: relative;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      Profile pic menu
+------------------------------------------------------------------------------------*/
+.transparent {
+    background-color: transparent !important;
+    padding: 0 !important;
+}
+
+.dropdown-menu.closer {
+    margin: 0;
+}
+
+.badge.badge-profile-picture {
+    position: relative;
+    top: -20px;
+    left: -10px;
+}
+
+.badge.badge-connected-as {
+    position: relative;
+    bottom: -20px;
+    left: -33px;
+}
+
+.badge.badge-alert {
+    background-color: red;
+}
+
+.badge.badge-info {
+    background-color: green;
+}
+
+.img.img-profile-picture {
+    height: 60px;
+    width: 60px;
+    margin: 5px -10px 5px 0;
+    text-decoration: none;
+}
+
+.img.img-profile-picture-large {
+    height: auto;
+    width: auto;
+    max-height: 100px;
+    max-width: 100px;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      View in form blocks
+------------------------------------------------------------------------------------*/
+.well.well-block-info {
+    overflow: hidden;
+}
+
+.well.well-block-info h4,
+.well.well-block-info h4 label{
+    text-decoration: underline;
+    display: inherit;
+    max-width: inherit;
+    font-weight: inherit;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      Cursor
+------------------------------------------------------------------------------------*/
+body.wait, body.wait *{
+    cursor: not-allowed !important;
+}
+
+
+/* ----------------------------------------------------------------------------------
+                                      Padding/Margin
+------------------------------------------------------------------------------------*/
+.margin-15 {
+    margin: 15px;
+}
+
+.margin-top-15 {
+    margin-top: 15px;
+}
+
+.margin-bottom-15 {
+    margin-bottom: 15px;
+}
+
+.margin-left-15 {
+    margin-left: 15px;
+}
+
+.margin-right-15 {
+    margin-right: 15px;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+.padding-top-15 {
+    padding-top: 15px;
+}
+
+.padding-bottom-15 {
+    padding-bottom: 15px;
+}
+
+.padding-left-15 {
+    padding-left: 15px;
+}
+
+.padding-right-15 {
+    padding-right: 15px;
+}
+
+.margin-20 {
+    margin: 20px;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.margin-left-20 {
+    margin-left: 20px;
+}
+
+.margin-right-20 {
+    margin-right: 20px;
+}
+
+.padding-20 {
+    padding: 20px;
+}
+
+.padding-top-20 {
+    padding-top: 20px;
+}
+
+.padding-bottom-20 {
+    padding-bottom: 20px;
+}
+
+.padding-left-20 {
+    padding-left: 20px;
+}
+
+.padding-right-20 {
+    padding-right: 20px;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      General
+------------------------------------------------------------------------------------*/
+hr.darker{
+    border-top: 1px solid #d2d2d2;
+}
+
+hr.smaller {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* ----------------------------------------------------------------------------------
+                                      Glyphicon
+------------------------------------------------------------------------------------*/
+.icon-success {
+    color: #5CB85C;
+}
+.icon-danger {
+    color: #843534;
+}
+/* ----------------------------------------------------------------------------------
+                                      Notification
+------------------------------------------------------------------------------------*/
+.is-not-read {
+    font-weight: bold;
+    background-color: rgba(255,165,0, 0.3) !important;
+
+}
+
+.table-notification a {
+    color: black;
+}
