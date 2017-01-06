@@ -15,11 +15,6 @@ front_homepage:
         domain: "all"
         page : 1
 
-users_admin:
-    path:    /adminIsidore/users
-    defaults:
-        _controller: FrontAppBundle:Admin:user
-
 user_notifications:
     path:    /notifications/{page}
     defaults:
