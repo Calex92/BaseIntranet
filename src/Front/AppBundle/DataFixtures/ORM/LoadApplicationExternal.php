@@ -25,13 +25,35 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
      */
     public function load(ObjectManager $manager)
     {
-        $applications = array ("Générateur de signature", "Help référenciel", "Help ADV", "Espaces Grands Comptes");
+        $applications = array ("Administration Isidore",
+            "Générateur de signature",
+            "Help référenciel",
+            "Help ADV",
+            "Espaces Grands Comptes",
+            "GISS",
+            "Omniview",
+            "E-learning",
+            "Book-Re",
+            "Focus",
+            "P.F.S Infos",
+            "Calendrier livraison",
+            "Portail fournisseurs Oradis");
 
         $locations = array("application_external_access");
 
-        $destinationRoute = array("signature/index.php", "prp2/index.php", "help_adv/index.php", "ggc/index.php");
-
-        $uniqueIdentifiers = array(0, 1, 2, 3);
+        $destinationRoute = array("",
+            "signature/index.php",
+            "prp2/index.php",
+            "help_adv/index.php",
+            "ggc/index.php",
+            "espace_giss/",
+            "http://vanina/omniview/auth/login",
+            "http://192.168.41.16/oregesfi/?key=Uj4_OiezB",
+            "histo_book/index.php?page_inc=reporting",
+            "srm/",
+            "pfs-info/index.php",
+            "calendrierLivraison/appointment/index",
+            "http://extranet.orexad.com/extranet/litigfrs/auth/login");
 
         for ($i = 0; $i < count($applications) ; $i++) {
             $application = new ApplicationExternal();
@@ -42,7 +64,7 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
             $image = $this->getReference("image-application-external".$applications[$i]);
             $application->setImage($image);
 
-            $application->setUniqueIdentifier($uniqueIdentifiers[$i]);
+            $application->setUniqueIdentifier($i);
 
             $this->addReference("application-external".$applications[$i], $application);
             $manager->persist($application);

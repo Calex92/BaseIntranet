@@ -18,20 +18,12 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $applications = array ("Administration Isidore", "GISS", "Omniview", "E-learning", "Book-Re", "Gestion du portail web");
-        $urls = array($applications[0] => "adminisidore.png",
-                    $applications[1] => "giss.jpg",
-                    $applications[2] => "omniview.jpg",
-                    $applications[3] => "elearning.png",
-                    $applications[4] => "bookre.png",
-                    $applications[5] => "gestion portail web.png");
+        $applications = array ("Administration Isidore 2", "Gestion du portail web");
+        $urls = array($applications[0] => "adminisidore 2.png",
+                    $applications[1] => "gestion portail web.png");
 
         $alts = array($applications[0] => "Administration Isidore",
-                    $applications[1] => "Espace GISS",
-                    $applications[2] => "Omniview",
-                    $applications[3] => "E-learning",
-                    $applications[4] => "Book RE / DR",
-                    $applications[5] => "Gestion portail web");
+                    $applications[1] => "Gestion portail web");
 
         for ($i = 0; $i < count($applications) ; $i++) {
             $image = new Image("download/front/applications", $alts[$applications[$i]]);
@@ -42,16 +34,48 @@ class LoadImage extends AbstractFixture implements OrderedFixtureInterface
             $manager->persist($image);
         }
 
-        $applications = array ("Générateur de signature", "Help référenciel", "Help ADV", "Espaces Grands Comptes");
-        $urls = array($applications[0] => "logo_signature.gif",
-            $applications[1] => "referentiel.png",
-            $applications[2] => "HELP-ADV2.png",
-            $applications[3] => "espacegrandcompte.png",);
+        $applications = array ("Administration Isidore", "Générateur de signature",
+            "Help référenciel",
+            "Help ADV",
+            "Espaces Grands Comptes",
+            "GISS",
+            "Omniview",
+            "E-learning",
+            "Book-Re",
+            "Focus",
+            "P.F.S Infos",
+            "Calendrier livraison",
+            "Portail fournisseurs Oradis");
 
-        $alts = array($applications[0] => "Générateur de signature",
-            $applications[1] => "Helpdesk Référentiel",
-            $applications[2] => "Help ADV",
-            $applications[3] => "Espaces Grands Comptes");
+        $urls = array($applications[0] => "adminisidore.png",
+            $applications[1] => "logo_signature.gif",
+            $applications[2] => "referentiel.png",
+            $applications[3] => "HELP-ADV2.png",
+            $applications[4] => "espacegrandcompte.png",
+            $applications[5] => "giss.jpg",
+            $applications[6] => "omniview.jpg",
+            $applications[7] => "elearning.png",
+            $applications[8] => "bookre.png",
+            $applications[9] => "logo_srm.png",
+            $applications[10] => "icone pfs info.png",
+            $applications[11] => "calendrier livraison.png",
+            $applications[12] => "portail_frs.jpg"
+            );
+
+        $alts = array($applications[0] => "Administration isidore",
+            $applications[1] => "Générateur de signature",
+            $applications[2] => "Helpdesk Référentiel",
+            $applications[3] => "Help ADV",
+            $applications[4] => "Espaces Grands Comptes",
+            $applications[5] => "Espace GISS",
+            $applications[6] => "Omniview",
+            $applications[7] => "E-learning",
+            $applications[8] => "Book RE / DR",
+            $applications[9] => "Focus",
+            $applications[10] => "P.F.S. Infos",
+            $applications[11] => "Calendrier livraison",
+            $applications[12] => "Portail fournisseur Oradis",
+            );
 
         for ($i = 0; $i < count($applications) ; $i++) {
             $image = new Image("download/front/applications", $alts[$applications[$i]]);
