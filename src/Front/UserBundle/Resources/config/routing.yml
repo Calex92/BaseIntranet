@@ -17,3 +17,7 @@ user_profile_edit:
 user_change_password:
     path:    /profile/change-password
     defaults: { _controller: FrontUserBundle:ChangePassword:changePassword }
+
+fos_user_resetting_check_email:
+    path:    /check-email
+    defaults: { _controller: FrontUserBundle:Resetting:checkEmail }

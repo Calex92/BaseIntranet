@@ -3,8 +3,12 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
+    <h2>Réinitialisation du mot de passe</h2>
     {{ parent() }}
-<p>
-{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
-</p>
+    <p>
+        {{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime, '%email%': user.email})|nl2br }}
+    </p>
+    <div class="alert alert-info"> Il n'est possible de recevoir ce mail qu'une fois toutes les 24h pour éviter le
+        spam.
+    </div>
 {% endblock %}
