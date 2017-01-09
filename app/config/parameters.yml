@@ -5,8 +5,10 @@ parameters:
     database_name: intranet
     database_user: root
     database_password: null
+
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
+    mailer_host: 192.168.41.5
+    mailer_user: alexandre.castelain@outlook.com
     mailer_password: null
+
     secret: c65b25fe6679b15da0478d165f6afbbca7cea1a8
