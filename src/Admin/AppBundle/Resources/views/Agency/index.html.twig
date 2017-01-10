@@ -1,0 +1,62 @@
+{% extends("AdminAppBundle::layout.html.twig") %}
+
+{% block title %}
+    Liste agences - {{ parent() }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-md-12 main-content">
+        <h2 class="col-md-12">Liste des agences</h2>
+        <div class="col-md-12">
+            {{ parent() }}
+        </div>
+        <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_agency_manager_add") }}">Créer
+            agence</a>
+        <table class="table table-striped table-bordered table-hover dataTable">
+            <thead>
+            <tr>
+                <th data-priority="2">Code</th>
+                <th data-priority="3">Nom</th>
+                <th data-priority="3">Email</th>
+                <th data-priority="5">Contact</th>
+                <th data-priority="6">Ville</th>
+                <th data-priority="4">Active?</th>
+                <th data-priority="1">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for agency in agencies %}
+                {# @var agency \Front\AppBundle\Entity\Agency#}
+                <tr>
+                    <td>{{ agency.code }}</td>
+                    <td>{{ agency.name }}</td>
+                    <td>{{ agency.email }}</td>
+                    <td> {% if agency.contact is defined %}
+                            {% if agency.contact.phone is defined %}
+                                {{ agency.contact.phone }}
+                            {% elseif agency.contact.mobilePhone is defined %}
+                                {{ agency.contact.mobilePhone }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>{{ agency.town }}</td>
+                    <td class="text-center">
+                        {% if agency.active %}
+                            <span class="glyphicon glyphicon-ok icon-success"></span>
+                        {% else %}
+                            <span class="glyphicon glyphicon-remove icon-danger"></span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ path("admin_agency_manager_update", { 'id': agency.id }) }}"
+                           title="Modifier"><i
+                                    class="glyphicon glyphicon-cog"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

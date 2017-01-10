@@ -1,3 +1,17 @@
 admin_app_homepage:
     path:     /
     defaults: { _controller: AdminUserManagerBundle:User:index }
+
+admin_agency_manager_homepage:
+    path:    /agencies
+    defaults: { _controller: AdminAppBundle:Agency:index }
+
+admin_agency_manager_add:
+    path:    /agency/add
+    defaults: { _controller: AdminAppBundle:Agency:add }
+
+admin_agency_manager_update:
+    path:    /agency/{id}
+    defaults: { _controller: AdminAppBundle:Agency:update }
+    requirements:
+        id:    \d*
