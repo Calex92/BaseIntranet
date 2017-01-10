@@ -4,6 +4,8 @@ namespace Front\AppBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Region
@@ -170,6 +172,32 @@ class Region
     public function setAgencies($agencies)
     {
         $this->agencies = $agencies;
+    }
+
+    /**
+     * This function prevent the user to disable the region when there's at least one agency in his list
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     */
+    public function isContentValid(ExecutionContextInterface $context)
+    {
+        $isStillActiveAgencies = false;
+        foreach ($this->getAgencies() as $agency) {
+            /** @var Agency $agency */
+            if ($agency->getActive()) {
+                $isStillActiveAgencies = true;
+                break;
+            }
+        }
+
+        if ($isStillActiveAgencies && !$this->getActive()) {
+            // The constraint is violated
+            $context
+                ->buildViolation('Impossible de désactiver cette region, elle contient encore des agences actives.')// message
+                ->atPath('active')// attribut de l'objet qui est violé
+                ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
+            ;
+        }
     }
 }
 

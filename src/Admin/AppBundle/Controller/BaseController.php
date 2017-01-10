@@ -34,6 +34,13 @@ class BaseController extends Controller
 
         array_push($menus, $menu);
 
+        $menu = array("route" => "admin_region_manager_homepage",
+            "name" => "Régions",
+            "active" => in_array($route,
+                array('admin_region_manager_homepage', 'admin_region_manager_add', 'admin_region_manager_update')) ? "active" : "");
+
+        array_push($menus, $menu);
+
 
 
         foreach ($menus as $key => &$val) {

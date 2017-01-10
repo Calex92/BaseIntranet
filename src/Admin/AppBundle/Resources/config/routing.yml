@@ -15,3 +15,17 @@ admin_agency_manager_update:
     defaults: { _controller: AdminAppBundle:Agency:update }
     requirements:
         id:    \d*
+
+admin_region_manager_homepage:
+    path:    /regions
+    defaults: { _controller: AdminAppBundle:Region:index }
+
+admin_region_manager_add:
+    path:    /region/add
+    defaults: { _controller: AdminAppBundle:Region:add }
+
+admin_regiony_manager_update:
+    path:    /region/{id}
+    defaults: { _controller: AdminAppBundle:Region:update }
+    requirements:
+        id:    \d*

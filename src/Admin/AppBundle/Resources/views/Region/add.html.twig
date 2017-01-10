@@ -1,0 +1,27 @@
+{% extends("AdminAppBundle::layout.html.twig") %}
+
+{% block title %}
+    Création région - {{ parent() }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-md-12 main-content">
+        <h2 class="col-md-12">Création région</h2>
+        <div class="col-md-12">
+            {{ parent() }}
+        </div>
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+
+            {{ include('@AdminApp/Form/regionType.html.twig') }}
+
+        {{ form_rest(form) }}
+
+        <div>
+            <input type="submit" class="btn btn-default pull-right" value="Créer"/>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

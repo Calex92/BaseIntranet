@@ -9,7 +9,10 @@
 namespace Admin\AppBundle\Form;
 
 
+use Front\AppBundle\Entity\Region;
 use Front\AppBundle\Form\ContactType;
+use Front\AppBundle\Repository\RegionRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -57,6 +60,17 @@ class AgencyType extends AbstractType
             ))
             ->add("longitude", TextType::class, array(
                 "label"     => "Longitude"
+            ))
+            ->add("region", EntityType::class, array(
+                "class"       => "Front\\AppBundle\\Entity\\Region",
+                "choice_label"  => function (Region $region) {
+                    return $region->getCode()." - ".$region->getName();
+                },
+                "choice_value"  => "id",
+                "label"         => "Region",
+                "query_builder" => function (RegionRepository $repository) {
+                    return $repository->getActiveQueryBuilder();
+                },
             ));
     }
 
