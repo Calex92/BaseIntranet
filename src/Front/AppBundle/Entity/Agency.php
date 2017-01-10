@@ -13,8 +13,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\AgencyRepository")
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(
- *     fields={"code", "name"},
- *     message="Ce champ est déjà utilisé par une autre agence"
+ *     fields={"code"},
+ *     message="Ce code est déjà utilisé par une autre agence"
+ * )
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="Ce nom est déjà utilisé par une autre agence"
  * )
  */
 class Agency

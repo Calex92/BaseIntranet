@@ -1,46 +1,44 @@
 {% extends("AdminAppBundle::layout.html.twig") %}
 
 {% block title %}
-    Liste régions - {{ parent() }}
+    Liste zones - {{ parent() }}
 {% endblock %}
 
 
 {% block content %}
     <div class="col-md-12 main-content">
-        <h2 class="col-md-12">Liste des régions</h2>
+        <h2 class="col-md-12">Liste des zones</h2>
         <div class="col-md-12">
             {{ parent() }}
         </div>
-        <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_region_manager_add") }}">Créer
-            région</a>
+        <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_zone_manager_add") }}">Créer
+            une zone</a>
         <table class="table table-striped table-bordered table-hover dataTable">
             <thead>
             <tr>
                 <th data-priority="2">Code</th>
                 <th data-priority="3">Nom</th>
-                <th data-priority="6">Zone</th>
-                <th data-priority="6">Nombre d'agence</th>
+                <th data-priority="6">Nombre de régions</th>
                 <th data-priority="4">Active?</th>
                 <th data-priority="1">Actions</th>
             </tr>
             </thead>
             <tbody>
-            {% for region in regions %}
-                {# @var region \Front\AppBundle\Entity\Region#}
+            {% for zone in zones %}
+                {# @var zone \Front\AppBundle\Entity\Zone#}
                 <tr>
-                    <td>{{ region.code }}</td>
-                    <td>{{ region.name }}</td>
-                    <td>{{ region.zone.code }} - {{ region.zone.name }}</td>
-                    <td>{{ region.agencies.count }}</td>
+                    <td>{{ zone.code }}</td>
+                    <td>{{ zone.name }}</td>
+                    <td>{{ zone.regions.count }}</td>
                     <td class="text-center">
-                        {% if region.active %}
+                        {% if zone.active %}
                             <span class="glyphicon glyphicon-ok icon-success"></span>
                         {% else %}
                             <span class="glyphicon glyphicon-remove icon-danger"></span>
                         {% endif %}
                     </td>
                     <td class="text-center">
-                        <a href="{{ path("admin_region_manager_update", { 'id': region.id }) }}"
+                        <a href="{{ path("admin_zone_manager_update", { 'id': zone.id }) }}"
                            title="Modifier"><i
                                     class="glyphicon glyphicon-cog"></i></a>
                     </td>

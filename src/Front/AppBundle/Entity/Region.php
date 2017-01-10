@@ -4,6 +4,7 @@ namespace Front\AppBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,6 +13,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="base_region")
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\RegionRepository")
+ * @UniqueEntity(
+ *     fields={"code"},
+ *     message="Ce code est déjà utilisé par une autre région"
+ * )
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="Ce nom est déjà utilisé par une autre région"
+ * )
  */
 class Region
 {
@@ -181,22 +190,24 @@ class Region
      */
     public function isContentValid(ExecutionContextInterface $context)
     {
-        $isStillActiveAgencies = false;
-        foreach ($this->getAgencies() as $agency) {
-            /** @var Agency $agency */
-            if ($agency->getActive()) {
-                $isStillActiveAgencies = true;
-                break;
+        if ($this->getAgencies() != NULL) {
+            $isStillActiveAgencies = false;
+            foreach ($this->getAgencies() as $agency) {
+                /** @var Agency $agency */
+                if ($agency->getActive()) {
+                    $isStillActiveAgencies = true;
+                    break;
+                }
             }
-        }
 
-        if ($isStillActiveAgencies && !$this->getActive()) {
-            // The constraint is violated
-            $context
-                ->buildViolation('Impossible de désactiver cette region, elle contient encore des agences actives.')// message
-                ->atPath('active')// attribut de l'objet qui est violé
-                ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
-            ;
+            if ($isStillActiveAgencies && !$this->getActive()) {
+                // The constraint is violated
+                $context
+                    ->buildViolation('Impossible de désactiver cette region, elle contient encore des agences actives.')// message
+                    ->atPath('active')// The attribute that is violated
+                    ->addViolation()
+                ;
+            }
         }
     }
 }

@@ -2,13 +2,6 @@
     <div class="col-md-6">
         <h4 class="margin-left-15">Informations générales</h4>
         <div class="form-group">
-            {{ form_label(form.zone, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
-            <div class="col-sm-8">
-                {{ form_widget(form.zone, {"attr": {'class' : "form-control"}}) }}
-            </div>
-            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.zone}) }}
-        </div>
-        <div class="form-group">
             {{ form_label(form.code, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
             <div class="col-sm-8">
                 {{ form_widget(form.code, {"attr": {'class' : "form-control"}}) }}
@@ -27,7 +20,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-4 control-label">Region active?</label>
+            <label class="col-sm-4 control-label">Zone active?</label>
             <div class="col-sm-8">
                 {{ form_widget(form.active, {"attr": {'class' : "form-control"}}) }}
             </div>

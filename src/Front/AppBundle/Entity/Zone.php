@@ -4,12 +4,23 @@ namespace Front\AppBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Zone
  *
  * @ORM\Table(name="base_zone")
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\ZoneRepository")
+ * @UniqueEntity(
+ *     fields="code",
+ *     message="Ce code est déjà utilisé par une autre zone"
+ * )
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="Ce nom est déjà utilisé par une autre zone"
+ * )
  */
 class Zone
 {
@@ -49,6 +60,14 @@ class Zone
      * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\Region", mappedBy="zone")
      */
     private $regions;
+
+    /**
+     * Zone constructor.
+     */
+    public function __construct()
+    {
+        $this->active = true;
+    }
 
 
     /**
@@ -149,6 +168,32 @@ class Zone
         $this->regions = $regions;
     }
 
+    /**
+     * This function prevent the user to disable the region when there's at least one agency in his list
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     */
+    public function isContentValid(ExecutionContextInterface $context)
+    {
+        if ($this->getRegions() != NULL) {
+            $isStillActiveRegions = false;
+            foreach ($this->getRegions() as $region) {
+                /** @var Region $region */
+                if ($region->getActive()) {
+                    $isStillActiveRegions = true;
+                    break;
+                }
+            }
 
+            if ($isStillActiveRegions && !$this->getActive()) {
+                // The constraint is violated
+                $context
+                    ->buildViolation('Impossible de désactiver cette zone, elle contient encore des régions actives.')
+                    ->atPath('active') // The attribute that is violated
+                    ->addViolation()
+                ;
+            }
+        }
+    }
 }
 
