@@ -120,6 +120,12 @@ class Agency
     private $user_agencies;
 
     /**
+     * @var Region
+     * @ORM\ManyToOne(targetEntity="Front\AppBundle\Entity\Region", inversedBy="agencies")
+     */
+    private $region;
+
+    /**
      * Agency constructor.
      */
     public function __construct()
@@ -420,5 +426,23 @@ class Agency
     public function setCreationDateAtPersist() {
         $this->setCreationDate(new \DateTime());
     }
+
+    /**
+     * @return Region
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param Region $region
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+    }
+
+
 }
 

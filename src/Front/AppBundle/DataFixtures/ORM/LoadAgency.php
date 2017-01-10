@@ -13,6 +13,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Front\AppBundle\Entity\Agency;
+use Front\AppBundle\Entity\Region;
 
 class LoadAgency extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -92,6 +93,38 @@ class LoadAgency extends AbstractFixture implements OrderedFixtureInterface
             "Cambrais",
             "Bordeaux");
 
+        $names = array("Bourgogne",
+            "Nord Picardie",
+            "Normandie",
+            "Agence Commerciale 66",
+            "Bretagne Est",
+            "Ile de France",
+            "Pays de Loire",
+            "Bretagne Ouest",
+            "SAV Ouest",
+            "Centre Fimatec",
+            "DEFA",
+            "Grand Est",
+            "Centre Auvergne",
+            "Rhone Alpes",
+            "Sud",
+            "LEPERCQ",
+            "SAFIR",
+            "CRD",
+            "Centre Loire",
+            "Sud Ouest",
+            "Grand Toulouse",
+            "Quincaillerie",
+            "BEARING");
+
+        $regions = array("0",
+            "7",
+            "4",
+            "2",
+            "2",
+            "5",
+            "15");
+
         for ($i = 0; $i < count($agencies) ; $i++) {
             $agency = new Agency();
             $agency->setActive($actives[$agencies[$i]]);
@@ -106,6 +139,9 @@ class LoadAgency extends AbstractFixture implements OrderedFixtureInterface
             $agency->setPostalCode($postalCodes[$i]);
             $agency->setTown($towns[$i]);
 
+            /** @var Region $region */
+            $region = $this->getReference("region".$names[$regions[$i]]);
+            $agency->setRegion($region);
 
             $this->addReference("agency".$agencies[$i], $agency);
             $manager->persist($agency);
@@ -115,6 +151,6 @@ class LoadAgency extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 2;
+        return 5;
     }
 }
