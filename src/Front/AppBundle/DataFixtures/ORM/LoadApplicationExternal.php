@@ -49,7 +49,7 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
             "help_adv/index.php",
             "ggc/index.php",
             "espace_giss/",
-            "http://vanina/omniview/auth/login",
+            "http://isidore/omniview/auth/login",
             "http://192.168.41.16/oregesfi/?key=Uj4_OiezB",
             "histo_book/index.php?page_inc=reporting",
             "/srm",

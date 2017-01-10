@@ -8,7 +8,12 @@ class ApplicationsController extends Controller
 {
     public function indexAction()
     {
-        $applications = $this->get("frontapp.application_getter")->getAllApplication($this->getUser());
+        try {
+            $applications = $this->get("frontapp.application_getter")->getAllApplication($this->getUser());
+        } catch (\Exception $e) {
+            $applications = array();
+            $this->addFlash("danger", "Votre login ne correspond à aucun utilisateur sur l'ancien Isidore");
+        }
 
         return $this->render('FrontAppBundle:Applications:index.html.twig', array("applications" => $applications));
     }
