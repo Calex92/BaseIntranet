@@ -56,19 +56,55 @@ class LoadAgency extends AbstractFixture implements OrderedFixtureInterface
             $agencies[1] => "bearing.express@orexad.com",
             $agencies[2] => "negoce.mtcmecanord@orexad.com",
             $agencies[3] => "",
-            $agencies[4] => "",
-            $agencies[5] => "",
+            $agencies[4] => "waregem@orexad.com",
+            $agencies[5] => "dunkerque@orexad.com",
             $agencies[6] => "contact@albaut-villette.fr");
 
+        $latitudes = array("25.35",
+            "26.56",
+            "27.56",
+            "25.25",
+            "21.36",
+            "23.65",
+            "25.36");
+
+        $longitudes = array("45.35",
+            "46.56",
+            "47.56",
+            "45.25",
+            "41.36",
+            "43.65",
+            "45.36");
+
+        $postalCodes = array("26000",
+            "74000",
+            "25300",
+            "7700",
+            "2500",
+            "56524",
+            "45578");
+
+        $towns = array("Bondues",
+            "Paris",
+            "Dijon",
+            "Marseille",
+            "Lille",
+            "Cambrais",
+            "Bordeaux");
 
         for ($i = 0; $i < count($agencies) ; $i++) {
             $agency = new Agency();
             $agency->setActive($actives[$agencies[$i]]);
-            $agency->setAdress($adresses[$agencies[$i]]);
+            $agency->setAddress($adresses[$agencies[$i]]);
             $agency->setCode($codes[$agencies[$i]]);
             $agency->setName($agencies[$i]);
             $agency->setCreationDate($creationDates[$agencies[$i]]);
             $agency->setEmail($emails[$agencies[$i]]);
+            $agency->setCountry("France");
+            $agency->setLatitude($latitudes[$i]);
+            $agency->setLongitude($longitudes[$i]);
+            $agency->setPostalCode($postalCodes[$i]);
+            $agency->setTown($towns[$i]);
 
 
             $this->addReference("agency".$agencies[$i], $agency);
