@@ -4,6 +4,7 @@ namespace Admin\UserManagerBundle\Controller;
 
 use Admin\UserManagerBundle\Form\UserAdminEditType;
 use Admin\UserManagerBundle\Form\UserType;
+use Front\AppBundle\Entity\Contact;
 use Front\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -103,5 +104,41 @@ class UserController extends Controller
         }
 
         return new Response("Impossible de renvoyer un résultat");
+    }
+
+    public function loadAction(Request $request) {
+        if ($request->isMethod("POST")) {
+            $em = $this->get("doctrine.orm.default_entity_manager");
+            foreach (simplexml_load_string($request->request->get("csvData")) as $line) {
+
+                if ($line->prenom != "" &&
+                    $line->email != "" &&
+                    $line->nom != "" &&
+                    $line->password != "" &&
+                    $line->login != "") {
+
+                    $user = new User();
+                    $contact = new Contact();
+
+                    $user->setUsername($line->login);
+                    $user->setFirstname($line->prenom);
+                    $user->setSurname($line->nom);
+                    $user->setPlainPassword($line->password);
+                    $user->setEmail($line->email);
+                    $user->setEnabled($line->actif);
+                    $user->setUpdatedAt(new \DateTime());
+
+                    $user->setContact($contact);
+
+                    $user->setRoles(array('Role_User'));
+
+                    $em->persist($user);
+                }
+            }
+            $em->flush();
+
+        }
+
+        return $this->render("@AdminUserManager/User/load.html.twig");
     }
 }

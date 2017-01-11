@@ -6,6 +6,10 @@ admin_user_manager_create:
     path:     /user/add
     defaults: { _controller: AdminUserManagerBundle:User:create }
 
+admin_user_manager_load:
+    path:    /user/load
+    defaults: { _controller: AdminUserManagerBundle:User:load }
+
 admin_user_manager_update:
     path:     /user/{idUser}
     requirements:

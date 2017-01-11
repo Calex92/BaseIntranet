@@ -1,0 +1,15 @@
+{% extends("AdminAppBundle::layout.html.twig") %}
+
+{% block title %}
+    Charger utilisateurs - {{ parent() }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="main-content">
+        <form method="post">
+            <textarea name="csvData" title="Valeurs à importer"></textarea>
+            <input type="submit" value="Charger ces données" class="btn btn-default">
+        </form>
+    </div>
+{% endblock %}
