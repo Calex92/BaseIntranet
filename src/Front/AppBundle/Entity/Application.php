@@ -2,6 +2,8 @@
 
 namespace Front\AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -49,11 +51,11 @@ class Application
     private $image;
 
     /**
-     * @var Profile
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\Profile", mappedBy="application")
      */
-    private $profile;
+    private $profiles;
 
     /**
      * Get id
@@ -126,21 +128,23 @@ class Application
     }
 
     /**
-     * @return Profile
+     * @return ArrayCollection
      */
-    public function getProfile()
+    public function getProfiles()
     {
-        return $this->profile;
+        return $this->profiles;
     }
 
     /**
-     * @param Profile $profile
+     * @param Collection $profiles
      */
-    public function setProfile($profile)
+    public function setProfiles($profiles)
     {
-        $this->profile = $profile;
+        $this->profiles = $profiles;
     }
 
-
+    public function __toString() {
+        return $this->id."";
+    }
 }
 

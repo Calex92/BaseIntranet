@@ -2,6 +2,7 @@
 
 namespace Front\AppBundle\Controller;
 
+use Front\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ApplicationsController extends Controller

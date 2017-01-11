@@ -2,8 +2,10 @@
 
 namespace Front\AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Front\UserBundle\Entity\User;
 
 /**
  * Profile
@@ -23,9 +25,16 @@ class Profile
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="Front\UserBundle\Entity\User", inversedBy="profiles")
+     * @ORM\ManyToMany(targetEntity="Front\UserBundle\Entity\User", inversedBy="profiles", cascade={"persist"})
      * @ORM\JoinTable(name="base_profile_user")
      */
     private $users;
@@ -33,18 +42,26 @@ class Profile
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Group", inversedBy="profiles")
-     * @ORM\JoinTable(name="base_profile_group")
+     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Group", mappedBy="profiles", cascade={"persist"})
      */
     private $groups;
 
     /**
      * @var Application
      *
-     * @ORM\ManyToOne(targetEntity="Front\AppBundle\Entity\Application", inversedBy="profile")
+     * @ORM\ManyToOne(targetEntity="Front\AppBundle\Entity\Application", inversedBy="profiles", cascade={"persist"})
      *
      */
     private $application;
+
+    /**
+     * Profile constructor.
+     */
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->groups = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -104,6 +121,34 @@ class Profile
         $this->application = $application;
     }
 
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function addUser(User $user) {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+        }
+        return $this;
+    }
+
+    public function addGroup(Group $group) {
+        if (!$this->groups->contains($group)) {
+            $this->groups->add($group);
+        }
+        return $this;
+    }
 }
 

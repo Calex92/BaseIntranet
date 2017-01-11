@@ -2,10 +2,13 @@
 
 namespace Front\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Front\AppBundle\Entity\Agency;
+use Front\AppBundle\Entity\Group;
+use Front\AppBundle\Entity\Profile;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Front\AppBundle\Entity\UserAgency;
@@ -75,7 +78,6 @@ class User extends BaseUser
      */
     private $user_agencies;
 
-
     /**
      * @ORM\Column(name="lastPasswordChange", type="date", nullable=true)
      */
@@ -89,11 +91,11 @@ class User extends BaseUser
     private $updatedAt;
 
     /**
-     * @var Collection
+     * @var Group
      *
-     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Group", mappedBy="users")
+     * @ORM\ManyToOne(targetEntity="Front\AppBundle\Entity\Group", inversedBy="users")
      */
-    protected $groups;
+    protected $group;
 
     /**
      * @var Collection
@@ -273,19 +275,19 @@ class User extends BaseUser
     }
 
     /**
-     * @return Collection
+     * @return Group
      */
-    public function getGroups()
+    public function getGroup()
     {
-        return $this->groups;
+        return $this->group;
     }
 
     /**
-     * @param Collection $groups
+     * @param Group $group
      */
-    public function setGroups($groups)
+    public function setGroup($group)
     {
-        $this->groups = $groups;
+        $this->group = $group;
     }
 
     /**
@@ -304,6 +306,10 @@ class User extends BaseUser
         $this->profiles = $profiles;
     }
 
-
+    public function getProfilesApplication() {
+        return new ArrayCollection(
+            array_unique(array_merge($this->getProfiles()->toArray(), $this->group->getProfiles()->toArray()), SORT_REGULAR)
+        );
+    }
 }
 

@@ -10,6 +10,8 @@ namespace Front\AppBundle\Services;
 
 
 use Doctrine\ORM\EntityManager;
+use Front\AppBundle\Entity\Application;
+use Front\AppBundle\Entity\Profile;
 use Front\UserBundle\Entity\User;
 
 class ApplicationGetter
@@ -30,19 +32,19 @@ class ApplicationGetter
      * @return array
      */
     public function getAllApplication(User $user) {
+        $externalApplications = $this->getExternalApplication($user);
+        $internalApplications = $this->getInternalApplication($user);
 
-        $jsonContent = (file_get_contents("http://vanina/external_application.php?login=".$user->getUsername()."&password=".$this->getCryptedKey()));
-        //This is used to convert into UTF8
-        $jsonContent = mb_convert_encoding($jsonContent, 'UTF-8',
-            mb_detect_encoding($jsonContent, 'UTF-8, ISO-8859-1', true));
+        $applications = array_merge($internalApplications, $externalApplications);
 
-        /* For each external apps, I get the unique Id to do the DB request */
-        $codes = array();
-        foreach ((array) json_decode($jsonContent) as $externalApp) {
-            $codes[] = $externalApp->uniqueId;
-        }
+        //sort alphabetically
+        uasort($applications, function($a, $b) {
+            /** @var $a Application */
+            /** @var $b Application */
+            return strcmp($a->getName(), $b->getName());
+        });
 
-        return $this->entityManager->getRepository("FrontAppBundle:Application")->getUserApplication($codes);
+        return $applications;
     }
 
     public function getCryptedKey() {
@@ -55,5 +57,40 @@ class ApplicationGetter
         $length = 20;
         $today = date("m.y.d"); // e.g. "03.10.01"
         return substr(hash('md5', $key . $today), 0, $length); // Hash it
+    }
+
+    /**
+     * Get the application from Isidore and transform them into application we can use
+     * @param User $user
+     * @return array
+     */
+    private function getExternalApplication(User $user) {
+        $jsonContent = (file_get_contents("http://vanina/external_application.php?login=".$user->getUsername()."&password=".$this->getCryptedKey()));
+        //This is used to convert into UTF8
+        $jsonContent = mb_convert_encoding($jsonContent, 'UTF-8',
+            mb_detect_encoding($jsonContent, 'UTF-8, ISO-8859-1', true));
+
+        /* For each external apps, I get the unique Id to do the DB request */
+        $codes = array();
+        foreach ((array) json_decode($jsonContent) as $externalApp) {
+            $codes[] = $externalApp->uniqueId;
+        }
+
+        return $this->entityManager->getRepository("FrontAppBundle:ApplicationExternal")->getUserApplication($codes);
+    }
+
+    /**
+     * Get the applications from the app
+     * @param User $user
+     * @return array
+     */
+    private function getInternalApplication(User $user) {
+        $internalApplications = array();
+
+        foreach ($user->getProfilesApplication() as $profileApplication) {
+            /** @var Profile $profileApplication */
+            $internalApplications[] = $profileApplication->getApplication();
+        }
+         return array_unique($internalApplications);
     }
 }

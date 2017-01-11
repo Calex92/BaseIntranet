@@ -2,8 +2,10 @@
 
 namespace Front\AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Front\UserBundle\Entity\User;
 
 /**
  * Groups
@@ -22,11 +24,17 @@ class Group
      */
     private $id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
 
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="Front\UserBundle\Entity\User", inversedBy="groups")
+     * @ORM\OneToMany(targetEntity="Front\UserBundle\Entity\User", mappedBy="group")
      * @ORM\JoinTable(name="base_group_user")
      */
     private $users;
@@ -34,9 +42,20 @@ class Group
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Profile", mappedBy="groups")
+     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Profile", inversedBy="groups", cascade={"persist"})
+     * @ORM\JoinTable(name="base_group_profile")
      */
     private $profiles;
+
+    /**
+     * Group constructor.
+     */
+    public function __construct()
+    {
+        $this->users =      new ArrayCollection();
+        $this->profiles =   new ArrayCollection();
+    }
+
 
     /**
      * Get id
@@ -80,6 +99,39 @@ class Group
         $this->profiles = $profiles;
     }
 
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function addUser(User $user) {
+        if (!$this->users->contains($user)){
+            $user->setGroup($this);
+            $this->users->add($user);
+        }
+
+        return $this;
+    }
+
+    public function addProfile(Profile $profile) {
+        if (!$this->users->contains($profile)) {
+            $profile->addGroup($this);
+            $this->profiles->add($profile);
+        }
+
+        return $this;
+    }
 
 }
 

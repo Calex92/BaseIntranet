@@ -64,6 +64,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             $user->setEmail($emails[$users[$i]]);
             $user->setPlainPassword($passwords[$users[$i]]);
             $user->setRoles(array('Role_User'));
+            $user->setLastPasswordChange(new \DateTime());
 
             $user->setUpdatedAt(new \DateTime());
 
