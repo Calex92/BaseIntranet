@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Front\AppBundle\Entity\Agency;
 use Front\AppBundle\Entity\Group;
-use Front\AppBundle\Entity\Profile;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Front\AppBundle\Entity\UserAgency;

@@ -10,7 +10,6 @@ namespace Front\AppBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;
-use Front\AppBundle\Entity\Application;
 
 class ApplicationRepository extends EntityRepository
 {
