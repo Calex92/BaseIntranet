@@ -1,0 +1,30 @@
+{% extends("@AdminApp/layout.html.twig") %}
+
+{% block title %}
+    Mise à jour région - {{ parent() }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-md-12 main-content">
+        <p class="alert alert-warning">
+            Vous éditez une région déjà existante, attention à vos actions!.
+        </p>
+        <h2 class="col-md-12">Modifier une région</h2>
+        <div class="col-md-12">
+            {{ parent() }}
+        </div>
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+
+        {{ include('@AdminApp/Form/regionType.html.twig') }}
+
+        {{ form_rest(form) }}
+
+        <div>
+            <input type="submit" class="btn btn-default pull-right" value="Modifier"/>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

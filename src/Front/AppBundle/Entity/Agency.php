@@ -3,12 +3,23 @@
 namespace Front\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Agency
  *
  * @ORM\Table(name="base_agency")
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\AgencyRepository")
+ * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(
+ *     fields={"code"},
+ *     message="Ce code est déjà utilisé par une autre agence"
+ * )
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="Ce nom est déjà utilisé par une autre agence"
+ * )
  */
 class Agency
 {
@@ -50,16 +61,60 @@ class Agency
     private $creationDate;
 
     /**
+     * @var double
+     *
+     * @ORM\Column(name="latitude", type="float")
+     */
+    private $latitude;
+
+    /**
+     * @var double
+     *
+     * @ORM\Column(name="longitude", type="float")
+     */
+    private $longitude;
+
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Contact", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid()
+     */
+    private $contact;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="adress", type="text", nullable=true)
+     * @ORM\Column(name="address", type="text", nullable=true)
      */
-    private $adress;
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="country", type="text", nullable=true)
+     */
+    private $country;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="postalCode", type="text", nullable=true)
+     */
+    private $postalCode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="town", type="text", nullable=true)
+     */
+    private $town;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @Assert\Email()
      */
     private $email;
 
@@ -67,7 +122,21 @@ class Agency
      * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\UserAgency", mappedBy="agency")
      */
     private $user_agencies;
-    
+
+    /**
+     * @var Region
+     * @ORM\ManyToOne(targetEntity="Front\AppBundle\Entity\Region", inversedBy="agencies")
+     */
+    private $region;
+
+    /**
+     * Agency constructor.
+     */
+    public function __construct()
+    {
+        $this->active = true;
+    }
+
 
     /**
      * Get id
@@ -212,27 +281,27 @@ class Agency
     }
 
     /**
-     * Set adress
+     * Set address
      *
-     * @param string $adress
+     * @param string $address
      *
      * @return Agency
      */
-    public function setAdress($adress)
+    public function setAddress($address)
     {
-        $this->adress = $adress;
+        $this->address = $address;
 
         return $this;
     }
 
     /**
-     * Get adress
+     * Get address
      *
      * @return string
      */
-    public function getAdress()
+    public function getAddress()
     {
-        return $this->adress;
+        return $this->address;
     }
 
     /**
@@ -258,5 +327,126 @@ class Agency
     {
         return $this->email;
     }
+
+    /**
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * @param float $latitude
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * @param float $longitude
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
+
+    /**
+     * @param mixed $contact
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * @param string $postalCode
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTown()
+    {
+        return $this->town;
+    }
+
+    /**
+     * @param string $town
+     */
+    public function setTown($town)
+    {
+        $this->town = $town;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setCreationDateAtPersist() {
+        $this->setCreationDate(new \DateTime());
+    }
+
+    /**
+     * @return Region
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param Region $region
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+    }
+
+
 }
 

@@ -43,14 +43,11 @@ class CatalogController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $catalog->setCreator($this->getUser());
-            $catalog->setCreationDate(new \DateTime());
 
             $em->persist($catalog);
             $em->flush();
 
-            /** @var Session $session */
-            $session = $request->getSession();
-            $session->getFlashBag()->add("success", "Le catalogue a bien été ajouté");
+            $this->addFlash("success", "Le catalogue a bien été ajouté");
             return $this->redirectToRoute("domain_manager_catalog_index");
         }
 
@@ -65,9 +62,6 @@ class CatalogController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
-            $catalog->setCreator($this->getUser());
-            $catalog->setCreationDate(new \DateTime());
 
             $em->flush();
 
