@@ -1,0 +1,104 @@
+<div class="well well-block-info">
+    <div class="col-md-6">
+        <h4 class="margin-left-15">Informations générales</h4>
+        <div class="form-group">
+            {{ form_label(form.region, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.region, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.region}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.code, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.code, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            <div class="col-sm-11">
+                {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.code}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.name, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.name, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            <div class="col-sm-11">
+                {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.name}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.email, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.email, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            <div class="col-sm-11">
+                {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.name}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Agence active?</label>
+            <div class="col-sm-8">
+                {{ form_widget(form.active, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.active}) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        {{ include('FrontAppBundle:Form:contactType.html.twig') }}
+    </div>
+</div>
+
+<div class="well well-block-info">
+    <h4 class="margin-left-15">Localisation</h4>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            {{ form_label(form.country, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.country, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.country}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.postalCode, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.postalCode, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.postalCode}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.town, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.town, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.town}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.address, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.address, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.address}) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            {{ form_label(form.latitude, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.latitude, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.latitude}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.longitude, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.longitude, {"attr": {'class' : "form-control"}}) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.longitude}) }}
+        </div>
+    </div>
+</div>

@@ -45,13 +45,13 @@ class AgencyRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $query = $qb
             ->select(["agency"])
-            ->from('FrontAppBundle:Agency', "agency");
+            ->from('FrontAppBundle:Agency', "agency")
+            ->where("agency.active = :active")
+            ->setParameter("active", true);
 
         if (count($subQuery) > 0) {
-            $query->where($qb->expr()->notIn("agency.id", ":subQuery"))
-                ->setParameter("subQuery", $subQuery)
-                ->andWhere("agency.active = :active")
-                ->setParameter("active", true);
+            $query->andWhere($qb->expr()->notIn("agency.id", ":subQuery"))
+                ->setParameter("subQuery", $subQuery);
         }
 
         return $query->getQuery()->getResult();

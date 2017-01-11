@@ -1,3 +1,48 @@
 admin_app_homepage:
     path:     /
     defaults: { _controller: AdminUserManagerBundle:User:index }
+
+
+admin_agency_manager_homepage:
+    path:    /agencies
+    defaults: { _controller: AdminAppBundle:Agency:index }
+
+admin_agency_manager_add:
+    path:    /agency/add
+    defaults: { _controller: AdminAppBundle:Agency:add }
+
+admin_agency_manager_update:
+    path:    /agency/{id}
+    defaults: { _controller: AdminAppBundle:Agency:update }
+    requirements:
+        id:    \d*
+
+
+admin_region_manager_homepage:
+    path:    /regions
+    defaults: { _controller: AdminAppBundle:Region:index }
+
+admin_region_manager_add:
+    path:    /region/add
+    defaults: { _controller: AdminAppBundle:Region:add }
+
+admin_region_manager_update:
+    path:    /region/{id}
+    defaults: { _controller: AdminAppBundle:Region:update }
+    requirements:
+        id:    \d*
+
+
+admin_zone_manager_homepage:
+    path:    /zones
+    defaults: { _controller: AdminAppBundle:Zone:index }
+
+admin_zone_manager_add:
+    path:    /zone/add
+    defaults: { _controller: AdminAppBundle:Zone:add }
+
+admin_zone_manager_update:
+    path:    /zone/{id}
+    defaults: { _controller: AdminAppBundle:Zone:update }
+    requirements:
+        id:    \d*

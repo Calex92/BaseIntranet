@@ -27,11 +27,28 @@ class BaseController extends Controller
 
         array_push($menus, $menu);
 
-        $menu = array("route" => "domain_manager_news_list_view",
-            "name" => "News",
-            "active" => "");
+        $menu = array("route" => "admin_agency_manager_homepage",
+            "name" => "Agences",
+            "active" => in_array($route,
+                array('admin_agency_manager_homepage', 'admin_agency_manager_add', 'admin_agency_manager_update')) ? "active" : "");
 
         array_push($menus, $menu);
+
+        $menu = array("route" => "admin_region_manager_homepage",
+            "name" => "Régions",
+            "active" => in_array($route,
+                array('admin_region_manager_homepage', 'admin_region_manager_add', 'admin_region_manager_update')) ? "active" : "");
+
+        array_push($menus, $menu);
+
+        $menu = array("route" => "admin_zone_manager_homepage",
+            "name" => "Zones",
+            "active" => in_array($route,
+                array('admin_zone_manager_homepage', 'admin_zone_manager_add', 'admin_zone_manager_update')) ? "active" : "");
+
+        array_push($menus, $menu);
+
+
 
         foreach ($menus as $key => &$val) {
             if ($val['route'] == $route) {

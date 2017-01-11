@@ -12,6 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * Catalog
  * @ORM\Table(name="domain_catalog")
  * @ORM\Entity(repositoryClass="Front\DomainBundle\Repository\CatalogRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable()
  */
 class Catalog
@@ -349,6 +350,11 @@ class Catalog
         $this->visible = $visible;
     }
 
-
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setCreationDateAtPersist() {
+        $this->setCreationDate(new \DateTime());
+    }
 }
 
