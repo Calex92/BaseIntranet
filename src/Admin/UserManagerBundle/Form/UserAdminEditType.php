@@ -8,7 +8,6 @@
 
 namespace Admin\UserManagerBundle\Form;
 
-use Front\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

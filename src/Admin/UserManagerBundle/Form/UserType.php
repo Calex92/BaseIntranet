@@ -3,6 +3,7 @@
 namespace Admin\UserManagerBundle\Form;
 
 use Front\AppBundle\Form\ContactType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -32,6 +33,14 @@ class UserType extends AbstractType
             'second_options' => array('label' => 'form.password_confirmation'),
             'invalid_message' => 'fos_user.password.mismatch'))
                 ->add('contact', ContactType::class)
+                ->add("group", EntityType::class, array(
+                    "label"     => "Groupe",
+                    "expanded"  => false,
+                    "multiple"  => false,
+                    "class"     => "Front\AppBundle\Entity\Group",
+                    "choice_label" => "name",
+                    "placeholder"   => "Sélectionnez un groupe"
+                ));
     ;
     }
 
