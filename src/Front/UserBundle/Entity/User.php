@@ -2,6 +2,7 @@
 
 namespace Front\UserBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Front\AppBundle\Entity\Agency;
@@ -86,6 +87,20 @@ class User extends BaseUser
      * @var \DateTime
      */
     private $updatedAt;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Group", mappedBy="users")
+     */
+    protected $groups;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Profile", mappedBy="users")
+     */
+    private $profiles;
 
     /**
      * Get id
@@ -255,6 +270,38 @@ class User extends BaseUser
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @param Collection $groups
+     */
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getProfiles()
+    {
+        return $this->profiles;
+    }
+
+    /**
+     * @param Collection $profiles
+     */
+    public function setProfiles($profiles)
+    {
+        $this->profiles = $profiles;
     }
 
 

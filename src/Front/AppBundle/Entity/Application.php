@@ -49,6 +49,13 @@ class Application
     private $image;
 
     /**
+     * @var Profile
+     *
+     * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\Profile", mappedBy="application")
+     */
+    private $profile;
+
+    /**
      * Get id
      *
      * @return int
@@ -117,5 +124,23 @@ class Application
     public function isExternal() {
         return false;
     }
+
+    /**
+     * @return Profile
+     */
+    public function getProfile()
+    {
+        return $this->profile;
+    }
+
+    /**
+     * @param Profile $profile
+     */
+    public function setProfile($profile)
+    {
+        $this->profile = $profile;
+    }
+
+
 }
 
