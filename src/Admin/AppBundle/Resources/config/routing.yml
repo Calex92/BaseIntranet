@@ -46,3 +46,18 @@ admin_zone_manager_update:
     defaults: { _controller: AdminAppBundle:Zone:update }
     requirements:
         id:    \d*
+
+
+admin_group_manager_homepage:
+    path:    /groups
+    defaults: { _controller: AdminAppBundle:Group:index }
+
+admin_group_manager_add:
+    path:    /group/add
+    defaults: { _controller: AdminAppBundle:Group:add }
+
+admin_group_manager_update:
+    path:    /group/{id}
+    defaults: { _controller: AdminAppBundle:Group:update }
+    requirements:
+        id:    \d*

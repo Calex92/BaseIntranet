@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Front\UserBundle\Entity\User;
 
 /**
- * Groups
+ * Group
  *
  * @ORM\Table(name="base_group")
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\GroupRepository")

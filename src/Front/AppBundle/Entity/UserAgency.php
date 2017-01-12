@@ -28,6 +28,8 @@ class UserAgency
     private $id;
 
     /**
+     * @var boolean
+     *
      * @ORM\Column(name="state", type="boolean")
      */
     private $principal;
@@ -75,7 +77,7 @@ class UserAgency
     }
 
     /**
-     * @return mixed
+     * @return boolean
      */
     public function getPrincipal()
     {
@@ -83,12 +85,13 @@ class UserAgency
     }
 
     /**
-     * @param mixed $principal
+     * @param boolean $principal
      */
     public function setPrincipal($principal)
     {
         $this->principal = $principal;
     }
+
 
     /**
      * @return mixed
@@ -107,7 +110,7 @@ class UserAgency
     }
 
     /**
-     * @return mixed
+     * @return Agency
      */
     public function getAgency()
     {
@@ -115,9 +118,9 @@ class UserAgency
     }
 
     /**
-     * @param mixed $agency
+     * @param Agency $agency
      */
-    public function setAgency($agency)
+    public function setAgency(Agency $agency)
     {
         $this->agency = $agency;
     }

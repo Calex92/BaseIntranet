@@ -15,9 +15,10 @@ class BaseController extends Controller
 
         array_push($menus, $menu);
 
-        $menu = array("route" => "domain_manager_news_list_view",
+        $menu = array("route" => "admin_group_manager_homepage",
             "name" => "Groupes",
-            "active" => "");
+            "active" => in_array($route,
+                array('admin_group_manager_homepage', 'admin_group_manager_add', 'admin_group_manager_update'))? "active": "");
 
         array_push($menus, $menu);
 

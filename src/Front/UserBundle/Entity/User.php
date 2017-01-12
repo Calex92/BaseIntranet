@@ -137,6 +137,18 @@ class User extends BaseUser
         }
         return $agencies;
     }
+
+    /**
+     * @return UserAgency
+     */
+    public function getAgencyPrincipal() {
+        foreach ($this->user_agencies as $user_agency) {
+            /** @var UserAgency $user_agency */
+            if($user_agency->getPrincipal())
+                return $user_agency;
+        }
+        return new UserAgency($this, new Agency());
+    }
     /**
      * Set name
      *
