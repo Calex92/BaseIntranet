@@ -61,3 +61,17 @@ admin_group_manager_update:
     defaults: { _controller: AdminAppBundle:Group:update }
     requirements:
         id:    \d*
+
+admin_application_manager_homepage:
+    path:    /applications
+    defaults: { _controller: AdminAppBundle:Application:index }
+
+admin_application_manager_add:
+    path:    /application/add
+    defaults: { _controller: AdminAppBundle:Application:add }
+
+admin_application_manager_update:
+    path:    /application/{id}
+    defaults: { _controller: AdminAppBundle:Application:update }
+    requirements:
+        id:    \d*

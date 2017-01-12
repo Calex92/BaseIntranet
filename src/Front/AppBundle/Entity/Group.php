@@ -137,6 +137,11 @@ class Group
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     /**
      * This function prevent the save in DB if the entity is not in a correct state
      * @Assert\Callback

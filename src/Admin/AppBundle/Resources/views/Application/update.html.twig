@@ -1,0 +1,53 @@
+{% extends("@AdminApp/layout.html.twig") %}
+
+{% block title %}
+    Mise à jour application - {{ parent() }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-md-12 main-content">
+        <p class="alert alert-warning">
+            Vous éditez une application déjà existante, attention à vos actions!.
+        </p>
+        <h2 class="col-md-12">Modifier une application</h2>
+        <div class="col-md-12">
+            {{ parent() }}
+        </div>
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+
+        {{ include('@AdminApp/Form/applicationType.html.twig') }}
+
+        {{ form_rest(form) }}
+
+        <div>
+            <input type="submit" class="btn btn-default pull-right" value="Modifier"/>
+        </div>
+
+        {{ form_end(form) }}
+        <div class="clearfix"> </div>
+        <div class="well well-block-info margin-top-20">
+            <h4 class="margin-left-15">Profils de l'application</h4>
+
+            <table class="table table-striped table-bordered table-hover dataTable">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Groupes utilisant ce profil</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# @var application \Front\AppBundle\Entity\Application #}
+                {% for profile in application.profiles if not application.external %}
+                    {# @var profile \Front\AppBundle\Entity\Profile #}
+                    <tr>
+                        <td>{{ profile.name }}</td>
+                        <td>{{ profile.groups.toArray|join(", ") }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

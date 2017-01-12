@@ -22,9 +22,10 @@ class BaseController extends Controller
 
         array_push($menus, $menu);
 
-        $menu = array("route" => "domain_manager_news_list_view",
+        $menu = array("route" => "admin_application_manager_homepage",
             "name" => "Applications",
-            "active" => "");
+            "active" => in_array($route,
+                array('admin_application_manager_homepage', 'admin_application_manager_add', 'admin_application_manager_update')) ? "active" : "");
 
         array_push($menus, $menu);
 

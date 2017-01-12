@@ -55,6 +55,14 @@ class Profile
     private $application;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Right", mappedBy="profiles", cascade={"persist"})
+     *
+     */
+    private $rights;
+
+    /**
      * Profile constructor.
      */
     public function __construct()
@@ -147,6 +155,29 @@ class Profile
     public function addGroup(Group $group) {
         if (!$this->groups->contains($group)) {
             $this->groups->add($group);
+        }
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRights()
+    {
+        return $this->rights;
+    }
+
+    /**
+     * @param ArrayCollection $rights
+     */
+    public function setRights($rights)
+    {
+        $this->rights = $rights;
+    }
+
+    public function addRight(Right $right) {
+        if (!$this->rights->contains($right)) {
+            $this->rights->add($right);
         }
         return $this;
     }

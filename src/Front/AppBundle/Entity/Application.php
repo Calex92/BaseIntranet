@@ -58,6 +58,13 @@ class Application
     private $profiles;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\Right", mappedBy="application")
+     */
+    private $rights;
+
+    /**
      * Get id
      *
      * @return int
@@ -145,6 +152,30 @@ class Application
 
     public function __toString() {
         return $this->id."";
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRights()
+    {
+        return $this->rights;
+    }
+
+    /**
+     * @param ArrayCollection $rights
+     */
+    public function setRights($rights)
+    {
+        $this->rights = $rights;
+    }
+
+    public function addRight(Right $right) {
+        if (!$this->rights->contains($right)) {
+            $right->setApplication($this);
+            $this->rights->add($right);
+        }
+        return $this;
     }
 }
 
