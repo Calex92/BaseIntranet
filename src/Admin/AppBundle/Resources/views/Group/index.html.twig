@@ -11,27 +11,33 @@
         <div class="col-md-12">
             {{ parent() }}
         </div>
-        <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_group_manager_add") }}">Créer
-            groupe</a>
+        {% if canUpdate %}
+            <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_group_manager_add") }}">Créer
+                groupe</a>
+        {% endif %}
         <table class="table table-striped table-bordered table-hover dataTable">
             <thead>
             <tr>
                 <th data-priority="3">Nom</th>
                 <th data-priority="6">Nombre d'utilisateurs</th>
-                <th data-priority="1">Actions</th>
+                {% if canUpdate %}
+                    <th data-priority="1">Actions</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
             {% for group in groups %}
-                {# @var region \Front\AppBundle\Entity\Region#}
+                {# @var group \Front\AppBundle\Entity\Group #}
                 <tr>
                     <td>{{ group.name }}</td>
-                    <td>{{ group.users.count }}</td>
-                    <td class="text-center">
-                        <a href="{{ path("admin_group_manager_update", { 'id': group.id }) }}"
-                           title="Modifier"><i
-                                    class="glyphicon glyphicon-cog"></i></a>
-                    </td>
+                    <td>{{ group.users|length }}</td>
+                    {% if canUpdate %}
+                        <td class="text-center">
+                            <a href="{{ path("admin_group_manager_update", { 'id': group.id }) }}"
+                               title="Modifier"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

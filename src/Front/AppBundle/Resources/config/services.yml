@@ -13,3 +13,6 @@ services:
     frontapp.application_getter:
         class: Front\AppBundle\Services\ApplicationGetter
         arguments: ["@doctrine.orm.entity_manager"]
+
+    frontapp.right_checker:
+        class: Front\AppBundle\Services\RightChecker

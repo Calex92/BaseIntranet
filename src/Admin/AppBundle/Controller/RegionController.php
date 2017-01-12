@@ -9,6 +9,7 @@
 namespace Admin\AppBundle\Controller;
 
 
+use Admin\AppBundle\Enum\RightsEnum;
 use Admin\AppBundle\Form\RegionType;
 use Front\AppBundle\Entity\Region;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +21,9 @@ class RegionController extends Controller
         $regions = $this->get("doctrine")->getRepository("FrontAppBundle:Region")->findAll();
 
         return $this->render("AdminAppBundle:Region:index.html.twig", array(
-            "regions" => $regions
+            "regions" => $regions,
+            "canUpdate" => $this->get("frontapp.right_checker")
+                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_REGION)
         ));
     }
 

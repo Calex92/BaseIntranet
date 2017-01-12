@@ -9,6 +9,7 @@
 namespace Admin\AppBundle\Controller;
 
 
+use Admin\AppBundle\Enum\RightsEnum;
 use Admin\AppBundle\Form\ApplicationType;
 use Front\AppBundle\Entity\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,11 +17,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ApplicationController extends Controller
 {
+
     public function indexAction() {
         $applications = $this->get("doctrine")->getRepository("FrontAppBundle:Application")->findAll();
 
         return $this->render("AdminAppBundle:Application:index.html.twig", array(
-            "applications" => $applications
+            "applications" => $applications,
+            "canUpdate" => $this->get("frontapp.right_checker")
+                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_APPLICATION)
         ));
     }
 

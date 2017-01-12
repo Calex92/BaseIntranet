@@ -36,7 +36,8 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
                 "SeeRegion",
                 "UpdateRegion",
                 "SeeZone",
-                "UpdateZone"),
+                "UpdateZone",
+                "ConnectAsUser"),
             array(
                 "Achat",
                 "GISS",
@@ -57,7 +58,8 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
                 "Voir régions",
                 "Update régions",
                 "Voir zone",
-                "Update zone"
+                "Update zone",
+                "Se connecter en tant que"
             ),
             array(
                 "Créateur domaine achat",

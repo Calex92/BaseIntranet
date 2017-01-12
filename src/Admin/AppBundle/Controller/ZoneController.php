@@ -9,6 +9,7 @@
 namespace Admin\AppBundle\Controller;
 
 
+use Admin\AppBundle\Enum\RightsEnum;
 use Admin\AppBundle\Form\ZoneType;
 use Front\AppBundle\Entity\Zone;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +21,9 @@ class ZoneController extends Controller
         $zones = $this->get("doctrine")->getRepository("FrontAppBundle:Zone")->findAll();
 
         return $this->render("AdminAppBundle:Zone:index.html.twig", array(
-            "zones" => $zones
+            "zones" => $zones,
+            "canUpdate" => $this->get("frontapp.right_checker")
+                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_ZONE)
         ));
     }
 

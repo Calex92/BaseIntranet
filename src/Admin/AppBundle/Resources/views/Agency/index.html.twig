@@ -11,8 +11,9 @@
         <div class="col-md-12">
             {{ parent() }}
         </div>
-        <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_agency_manager_add") }}">Créer
-            agence</a>
+        {% if canUpdate %}
+        <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_agency_manager_add") }}">Créer agence</a>
+        {% endif %}
         <table class="table table-striped table-bordered table-hover dataTable">
             <thead>
             <tr>
@@ -22,12 +23,14 @@
                 <th data-priority="5">Contact</th>
                 <th data-priority="6">Region</th>
                 <th data-priority="4">Active?</th>
-                <th data-priority="1">Actions</th>
+                {% if canUpdate %}
+                    <th data-priority="1">Actions</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
             {% for agency in agencies %}
-                {# @var agency \Front\AppBundle\Entity\Agency#}
+                {# @var agency \Front\AppBundle\Entity\Agency #}
                 <tr>
                     <td>{{ agency.code }}</td>
                     <td>{{ agency.name }}</td>
@@ -48,11 +51,12 @@
                             <span class="glyphicon glyphicon-remove icon-danger"></span>
                         {% endif %}
                     </td>
-                    <td class="text-center">
-                        <a href="{{ path("admin_agency_manager_update", { 'id': agency.id }) }}"
-                           title="Modifier"><i
-                                    class="glyphicon glyphicon-cog"></i></a>
+                    {% if canUpdate %}
+                        <td class="text-center">
+                            <a href="{{ path("admin_agency_manager_update", { 'id': agency.id }) }}"
+                               title="Modifier"><i class="glyphicon glyphicon-cog"></i></a>
                     </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

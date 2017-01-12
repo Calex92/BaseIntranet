@@ -9,6 +9,7 @@
 namespace Admin\AppBundle\Controller;
 
 
+use Admin\AppBundle\Enum\RightsEnum;
 use Admin\AppBundle\Form\GroupType;
 use Front\AppBundle\Entity\Group;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +21,9 @@ class GroupController extends Controller
         $groups = $this->get("doctrine")->getRepository("FrontAppBundle:Group")->findAll();
 
         return $this->render("AdminAppBundle:Group:index.html.twig", array(
-            "groups" => $groups
+            "groups" => $groups,
+            "canUpdate" => $this->get("frontapp.right_checker")
+                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_GROUP)
         ));
     }
 

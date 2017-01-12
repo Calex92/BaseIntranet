@@ -84,7 +84,7 @@ class ApplicationGetter
      * @param User $user
      * @return array
      */
-    private function getInternalApplication(User $user) {
+    public function getInternalApplication(User $user) {
         $internalApplications = array();
 
         foreach ($user->getProfilesApplication() as $profileApplication) {

@@ -11,7 +11,7 @@ class ApplicationsController extends Controller
         try {
             $applications = $this->get("frontapp.application_getter")->getAllApplication($this->getUser());
         } catch (\Exception $e) {
-            $applications = array();
+            $applications = $this->get("frontapp.application_getter")->getInternalApplication($this->getUser());
             $this->addFlash("danger", "Votre login ne correspond à aucun utilisateur sur l'ancien Isidore");
         }
 

@@ -9,6 +9,7 @@
 namespace Admin\AppBundle\Controller;
 
 
+use Admin\AppBundle\Enum\RightsEnum;
 use Admin\AppBundle\Form\AgencyType;
 use Front\AppBundle\Entity\Agency;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +21,9 @@ class AgencyController extends Controller
         $agencies = $this->get("doctrine")->getRepository("FrontAppBundle:Agency")->findAll();
 
         return $this->render("AdminAppBundle:Agency:index.html.twig", array(
-            "agencies" => $agencies
+            "agencies"  => $agencies,
+            "canUpdate" => $this->get("frontapp.right_checker")
+                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_AGENCY)
         ));
     }
 

@@ -2,6 +2,8 @@
 
 namespace Admin\UserManagerBundle\Controller;
 
+use Admin\AppBundle\Controller\BaseController;
+use Admin\AppBundle\Enum\RightsEnum;
 use Admin\UserManagerBundle\Form\UserAdminEditType;
 use Admin\UserManagerBundle\Form\UserType;
 use Front\AppBundle\Entity\Contact;
@@ -19,8 +21,13 @@ class UserController extends Controller
         $userManager = $this->get("fos_user.user_manager");
         $users = $userManager->findUsers();
 
-        return $this->render('AdminUserManagerBundle:User:index.html.twig',
-            array("users" => $users));
+        return $this->render('AdminUserManagerBundle:User:index.html.twig', array(
+            "users" => $users,
+            "canUpdate"     => $this->get("frontapp.right_checker")
+                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_USER),
+            "canConnectAs"  => $this->get("frontapp.right_checker")
+                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::CONNECT_AS_USER)
+        ));
     }
 
     public function createAction(Request $request) {

@@ -328,10 +328,10 @@ class User extends BaseUser
     }
 
     /**
-     * @param $idApplication
+     * @param $application_name
      * @return ArrayCollection
      */
-    public function getRights($idApplication) {
+    public function getRights($application_name) {
         $profiles = $this->getProfilesApplication();
         $profileFromApp = new ArrayCollection();
 
@@ -340,7 +340,7 @@ class User extends BaseUser
         */
         foreach ($profiles as $profile) {
             /** @var Profile $profile */
-            if ($profile->getApplication()->getId() == $idApplication) {
+            if ($profile->getApplication()->getName() == $application_name) {
                 if ($profile->isLastConnectionProfile()) {
                     return $profile->getRights();
                 }

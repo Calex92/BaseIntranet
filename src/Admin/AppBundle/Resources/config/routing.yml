@@ -1,6 +1,6 @@
 admin_app_homepage:
     path:     /
-    defaults: { _controller: AdminUserManagerBundle:User:index }
+    defaults: { _controller: AdminAppBundle:Base:index }
 
 
 admin_agency_manager_homepage:
