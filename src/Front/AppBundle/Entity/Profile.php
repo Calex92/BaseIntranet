@@ -63,12 +63,21 @@ class Profile
     private $rights;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_last_connection_profile", type="boolean")
+     */
+    private $isLastConnectionProfile;
+
+    /**
      * Profile constructor.
      */
     public function __construct()
     {
-        $this->users = new ArrayCollection();
-        $this->groups = new ArrayCollection();
+        $this->users    = new ArrayCollection();
+        $this->groups   = new ArrayCollection();
+        $this->rights   = new ArrayCollection();
+        $this->isLastConnectionProfile = false;
     }
 
     /**
@@ -177,9 +186,26 @@ class Profile
 
     public function addRight(Right $right) {
         if (!$this->rights->contains($right)) {
+            $right->addProfile($this);
             $this->rights->add($right);
         }
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLastConnectionProfile()
+    {
+        return $this->isLastConnectionProfile;
+    }
+
+    /**
+     * @param bool $isLastConnectionProfile
+     */
+    public function setIsLastConnectionProfile($isLastConnectionProfile)
+    {
+        $this->isLastConnectionProfile = $isLastConnectionProfile;
     }
 }
 

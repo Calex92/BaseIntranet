@@ -14,6 +14,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Front\AppBundle\Entity\Application;
 use Front\AppBundle\Entity\Profile;
+use Front\AppBundle\Entity\Right;
 use Front\UserBundle\Entity\User;
 
 class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
@@ -28,7 +29,39 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
     {
         $profiles = array(
             array("Viewer", "Creator"),
-            array("Admin", "RH", "GISS"));
+            array("Admin", "GISS", "Informatique"));
+
+        $rights = array(
+            array("SeeUsers",
+                "UpdateUsers",
+                "SeeGroups",
+                "UpdateGroups",
+                "SeeApplications",
+                "UpdateApplications",
+                "SeeAgencies",
+                "UpdateAgencies",
+                "SeeRegion",
+                "UpdateRegion",
+                "SeeZone",
+                "UpdateZone"),
+            array(
+                "Achat",
+                "GISS",
+                "Informatique"
+            )
+        );
+
+        $rightsByProfile = array(
+            array(
+                array(0, 2, 4, 6, 8, 10),
+                array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+            ),
+            array(
+                array(0, 1, 2),
+                array(1),
+                array(2)
+            )
+        );
 
         $applications = array ("Administration Isidore 2", "Gestion du portail web");
         $users = array("pfirmin", "gloncke", "tbarrez", "acallens", "asergent", "acastelain");
@@ -36,8 +69,8 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
             "Viewer" => array(0),
             "Creator" => array(1),
             "Admin" => array(),
-            "RH" => array(),
-            "GISS" => array()
+            "GISS" => array(),
+            "Informatique" => array()
         );
 
         for ($i = 0; $i < count($applications) ; $i++) {
@@ -52,6 +85,13 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
                     /** @var User $user */
                     $user = $this->getReference("user".$users[$userElement]);
                     $profile->addUser($user);
+                }
+
+                foreach ($rightsByProfile[$i][$j] as $rightElement) {
+                    /** @var Right $right */
+                    $right = $this->getReference("right".$rights[$i][$rightElement]);
+                    $right->setApplication($application);
+                    $profile->addRight($right);
                 }
 
                 $this->addReference("profile".$profile->getName(), $profile);

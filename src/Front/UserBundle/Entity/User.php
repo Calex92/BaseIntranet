@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Front\AppBundle\Entity\Agency;
 use Front\AppBundle\Entity\Group;
+use Front\AppBundle\Entity\Profile;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Front\AppBundle\Entity\UserAgency;
@@ -317,10 +318,42 @@ class User extends BaseUser
         $this->profiles = $profiles;
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getProfilesApplication() {
         return new ArrayCollection(
             array_unique(array_merge($this->getProfiles()->toArray(), $this->group->getProfiles()->toArray()), SORT_REGULAR)
         );
+    }
+
+    /**
+     * @param $idApplication
+     * @return ArrayCollection
+     */
+    public function getRights($idApplication) {
+        $profiles = $this->getProfilesApplication();
+        $profileFromApp = new ArrayCollection();
+
+        /* Go through the user's profile and return the one he was connected with last time
+            If there's no previous connection, just take the first one of the list
+        */
+        foreach ($profiles as $profile) {
+            /** @var Profile $profile */
+            if ($profile->getApplication()->getId() == $idApplication) {
+                if ($profile->isLastConnectionProfile()) {
+                    return $profile->getRights();
+                }
+                $profileFromApp->add($profile);
+            }
+        }
+        foreach ($profileFromApp as $profile) {
+            /** @var Profile $profile */
+            return $profile->getRights();
+        }
+
+        /* If there's no right from this app, return an empty array */
+        return new ArrayCollection();
     }
 }
 

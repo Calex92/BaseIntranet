@@ -50,6 +50,14 @@ class Right
      */
     private $profiles;
 
+    /**
+     * Right constructor.
+     */
+    public function __construct()
+    {
+        $this->profiles = new ArrayCollection();
+    }
+
 
     /**
      * Get id
@@ -143,7 +151,6 @@ class Right
 
     public function addProfile(Profile $profile) {
         if (!$this->profiles->contains($profile)) {
-            $profile->addRight($this);
             $this->profiles->add($profile);
         }
         return $this;
