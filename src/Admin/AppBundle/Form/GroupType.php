@@ -9,6 +9,8 @@
 namespace Admin\AppBundle\Form;
 
 
+use Front\AppBundle\Entity\Profile;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +23,21 @@ class GroupType extends AbstractType
         $builder
             ->add("name", TextType::class, array(
                 "label"     => "Nom du groupe"
+            ))
+            ->add("profiles", EntityType::class, array(
+                "label"      => "Profils",
+                "class"      => "Front\\AppBundle\\Entity\\Profile",
+                "placeholder"=> " ",
+                "choice_label"  => function (Profile $profile) {
+                    return $profile->getName();
+                },
+                "group_by"   => function(Profile $val) {
+                    return $val->getApplication()->getName();
+                },
+                "attr"      => array(
+                    'class'             => 'chosen-select',
+                    'data-placeholder'   => 'Sélectionnez un profil à ajouter...'),
+                "multiple"  => true
             ));
     }
 

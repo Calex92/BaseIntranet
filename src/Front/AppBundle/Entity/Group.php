@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Front\UserBundle\Entity\User;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Group
@@ -52,8 +54,8 @@ class Group
      */
     public function __construct()
     {
-        $this->users =      new ArrayCollection();
-        $this->profiles =   new ArrayCollection();
+        $this->users = new ArrayCollection();
+        $this->profiles = new ArrayCollection();
     }
 
 
@@ -115,8 +117,9 @@ class Group
         $this->name = $name;
     }
 
-    public function addUser(User $user) {
-        if (!$this->users->contains($user)){
+    public function addUser(User $user)
+    {
+        if (!$this->users->contains($user)) {
             $user->setGroup($this);
             $this->users->add($user);
         }
@@ -124,7 +127,8 @@ class Group
         return $this;
     }
 
-    public function addProfile(Profile $profile) {
+    public function addProfile(Profile $profile)
+    {
         if (!$this->users->contains($profile)) {
             $profile->addGroup($this);
             $this->profiles->add($profile);
@@ -133,5 +137,33 @@ class Group
         return $this;
     }
 
+    /**
+     * This function prevent the save in DB if the entity is not in a correct state
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     */
+    public function isEntityCorrect(ExecutionContextInterface $context)
+    {
+        $applicationNames  = new ArrayCollection();
+        $applicationDouble = new ArrayCollection();
+        foreach ($this->getProfiles() as $profile) {
+            /** @var Profile $profile */
+            $applicationName = $profile->getApplication()->getName();
+            if (!$applicationNames->contains($applicationName)) {
+                $applicationNames->add($applicationName);
+            }
+            else {
+                $applicationDouble->add($applicationName);
+            }
+        }
+
+        if ($applicationDouble->count() > 0) {
+            // The constraint is violated
+            $context
+                ->buildViolation('Impossible de donner plusieurs profils à une même application ('.implode(", ", $applicationDouble->toArray()).')')
+                ->atPath('profiles')// The attribute that is violated
+                ->addViolation();
+        }
+    }
 }
 

@@ -20,3 +20,7 @@ function notify(title, message, type, icon) {
         });
     });
 }
+
+$(function() {
+    $(".chosen-select").chosen();
+});
