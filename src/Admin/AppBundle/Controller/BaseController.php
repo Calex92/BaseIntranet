@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BaseController extends Controller
 {
-    const APPLICATION_NAME = "Administration Isidore 2";
     public function topMenuAction($route)
     {
         $menus = $this->get('admin.menu_getter')->getMenus($this->getUser(), $route);

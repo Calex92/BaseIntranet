@@ -11,3 +11,6 @@ parameters:
     mailer_user: alexandre.castelain@orexad.com
 
     secret: c65b25fe6679b15da0478d165f6afbbca7cea1a8
+
+    application.id.administration: 1
+    application.id.domain: 2

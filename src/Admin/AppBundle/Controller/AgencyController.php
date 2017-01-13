@@ -23,7 +23,7 @@ class AgencyController extends Controller
         return $this->render("AdminAppBundle:Agency:index.html.twig", array(
             "agencies"  => $agencies,
             "canUpdate" => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_AGENCY)
+                ->userCanSee($this->getUser(), $this->getParameter("application.id.administration"), RightsEnum::UPDATE_AGENCY)
         ));
     }
 

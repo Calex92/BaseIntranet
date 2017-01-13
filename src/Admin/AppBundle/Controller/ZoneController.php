@@ -23,7 +23,7 @@ class ZoneController extends Controller
         return $this->render("AdminAppBundle:Zone:index.html.twig", array(
             "zones" => $zones,
             "canUpdate" => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_ZONE)
+                ->userCanSee($this->getUser(), $this->getParameter("application.id.administration"), RightsEnum::UPDATE_ZONE)
         ));
     }
 

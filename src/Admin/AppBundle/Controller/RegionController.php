@@ -23,7 +23,7 @@ class RegionController extends Controller
         return $this->render("AdminAppBundle:Region:index.html.twig", array(
             "regions" => $regions,
             "canUpdate" => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_REGION)
+                ->userCanSee($this->getUser(), $this->getParameter("application.id.administration"), RightsEnum::UPDATE_REGION)
         ));
     }
 

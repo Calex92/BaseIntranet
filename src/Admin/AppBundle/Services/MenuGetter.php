@@ -9,7 +9,6 @@
 namespace Admin\AppBundle\Services;
 
 
-use Admin\AppBundle\Controller\BaseController;
 use Admin\AppBundle\Enum\RightsEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Front\AppBundle\Entity\Right;
@@ -17,11 +16,23 @@ use Front\UserBundle\Entity\User;
 
 class MenuGetter
 {
+    private $application_id;
+
+    /**
+     * MenuGetter constructor.
+     * @param $application_id
+     */
+    public function __construct($application_id)
+    {
+        $this->application_id = $application_id;
+    }
+
+
     public function getMenus(User $user, $currentRoute) {
         $menus = array();
         // First we get the rights name for the current Application
         $rightsName = new ArrayCollection();
-        foreach ($user->getRights(BaseController::APPLICATION_NAME) as $right) {
+        foreach ($user->getRights($this->application_id) as $right) {
             /** @var Right $right */
             $rightsName->add($right->getName());
         }

@@ -2,7 +2,6 @@
 
 namespace Admin\UserManagerBundle\Controller;
 
-use Admin\AppBundle\Controller\BaseController;
 use Admin\AppBundle\Enum\RightsEnum;
 use Admin\UserManagerBundle\Form\UserAdminEditType;
 use Admin\UserManagerBundle\Form\UserType;
@@ -24,9 +23,9 @@ class UserController extends Controller
         return $this->render('AdminUserManagerBundle:User:index.html.twig', array(
             "users" => $users,
             "canUpdate"     => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_USER),
+                ->userCanSee($this->getUser(), $this->getParameter("application.id.domain"), RightsEnum::UPDATE_USER),
             "canConnectAs"  => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::CONNECT_AS_USER)
+                ->userCanSee($this->getUser(), $this->getParameter("application.id.domain"), RightsEnum::CONNECT_AS_USER)
         ));
     }
 

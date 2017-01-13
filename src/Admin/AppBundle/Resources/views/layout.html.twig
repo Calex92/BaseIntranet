@@ -29,7 +29,8 @@
 
 
 {% block profileSwitcher %}
-    {% set application = "1" %}
+    {# applicationAdministration is a global variable set in config.yml #}
+    {% set application = applicationAdministration %}
     {{ parent() }}
 {% endblock %}
 

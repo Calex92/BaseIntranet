@@ -21,8 +21,8 @@ class RightChecker
      * @param $rightName
      * @return boolean
      */
-    public function userCanSee(User $user, $application_name, $rightName) {
-       foreach ($user->getRights($application_name) as $right) {
+    public function userCanSee(User $user, $application_id, $rightName) {
+       foreach ($user->getRights($application_id) as $right) {
            /** @var Right $right */
            if ($right->getName() == $rightName)
                return true;

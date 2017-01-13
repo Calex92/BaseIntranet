@@ -23,7 +23,7 @@ class GroupController extends Controller
         return $this->render("AdminAppBundle:Group:index.html.twig", array(
             "groups" => $groups,
             "canUpdate" => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), BaseController::APPLICATION_NAME, RightsEnum::UPDATE_GROUP)
+                ->userCanSee($this->getUser(), $this->getParameter("application.id.administration"), RightsEnum::UPDATE_GROUP)
         ));
     }
 
