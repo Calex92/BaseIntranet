@@ -10,6 +10,11 @@
     <div class="separation-bar separation-bar-domain-manager"></div>
 {% endblock %}
 
+{% block profileSwitcher %}
+    {% set application = "2" %}
+    {{ parent() }}
+{% endblock %}
+
 
 {% block menus %}
     {{ render(controller("FrontDomainBundle:App:topMenu", {"route" : app.request.attributes.get('_route')})) }}

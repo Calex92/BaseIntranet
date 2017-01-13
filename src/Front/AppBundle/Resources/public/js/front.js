@@ -23,4 +23,14 @@ function notify(title, message, type, icon) {
 
 $(function() {
     $(".chosen-select").chosen();
+
+    $('.dropdown-submenu>a').unbind('click').click(function(e){
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    $(".dropdown-submenu").hover(function () {
+        $(this).children(".dropdown-menu").toggle();
+    });
 });

@@ -70,7 +70,7 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
             "Viewer" => array(0),
             "Creator" => array(1),
             "Admin" => array(),
-            "GISS" => array(),
+            "GISS" => array(5),
             "Informatique" => array()
         );
 

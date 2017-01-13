@@ -30,11 +30,13 @@
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/bootstrap-theme.3.3.6.min.css') }}">#}
 
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/animate.min.css') }}">
-        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/bootstrap-dropdownhover.min.css') }}">
+        <link type="text/css" rel="stylesheet"
+              href="{{ asset('bundles/frontapp/css/bootstrap-dropdownhover.min.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/PNotify/css/pnotify.custom.min.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/frontStyle.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/bootstrap-toggle2.2.2.css') }}">
-        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/libraries/chosen_v1.6.2/chosen.css') }}">
+        <link type="text/css" rel="stylesheet"
+              href="{{ asset('bundles/frontapp/libraries/chosen_v1.6.2/chosen.css') }}">
     {% endblock %}
 </head>
 
@@ -46,18 +48,19 @@
         <div class="container">
             <div class="pull-left">
                 {% block imageBanner %}
-                <a href="{{ path("front_homepage") }}">
-                    <img src="{{ asset('bundles/frontapp/img/logo.jpg') }}" alt="Logo Isidore" title="Accueil"/>
-                </a>
+                    <a href="{{ path("front_homepage") }}">
+                        <img src="{{ asset('bundles/frontapp/img/logo.jpg') }}" alt="Logo Isidore" title="Accueil"/>
+                    </a>
                 {% endblock %}
             </div>
             <div class="navbar-right pull-right">
                 {% block menusRight %}
-                <ul class="nav pull-left">
-                    <li class="dropdown pull-right">
-                        <a class="dropdown-toggle transparent" role="button" data-toggle="dropdown" data-hover="dropdown">
-                            {# I need to add the "<!-- -->" because instead, it adds a "-" on the image on the
-                                hover with the mouse #}
+                    <ul class="nav pull-left">
+                        <li class="dropdown pull-right">
+                            <a class="dropdown-toggle transparent" role="button" data-toggle="dropdown"
+                               data-hover="dropdown">
+                                {# I need to add the "<!-- -->" because instead, it adds a "-" on the image on the
+                                    hover with the mouse #}
                                 {% if app.user is not null and app.user.imageName != "" %}
                                     <img class="img img-circle img-profile-picture"
                                          src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="profile"/>
@@ -65,54 +68,74 @@
                                     <img class="img img-circle img-profile-picture"
                                          src="{{ asset("uploads/avatar/basic_avatar.png") }}" alt="profile"/>
                                 {% endif %}
-                            {% if numberNotification > 0 %}
-                                <span class="badge badge-profile-picture badge-alert">{{ numberNotification }}</span>
-                            {% endif %}
-                            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                <span class="badge badge-connected-as badge-info">!</span>
-                            {% endif %}
+                                {% if numberNotification > 0 %}
+                                    <span class="badge badge-profile-picture badge-alert">{{ numberNotification }}</span>
+                                {% endif %}
+                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                    <span class="badge badge-connected-as badge-info">!</span>
+                                {% endif %}
                             </a>
-                        <ul class="dropdown-menu closer">
-                            <li>
-                                <a href="{{ path("application_index") }}">
-                                    <i class="glyphicon glyphicon-home"></i>
-                                    Accueil
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ path("user_profile_show") }}">
-                                    <i class="glyphicon glyphicon-user"></i>
-                                    Profil
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="{{ path("user_notifications") }}">
-                                    {% if numberNotification %}
-                                    <span class="badge pull-right badge-alert">{{ numberNotification }}</span>
-                                    {% endif %}
-                                    <i class="glyphicon glyphicon-bell"></i>
-                                    Notifications
-                                </a>
-                            </li>
-                            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                <li class="divider"></li>
+                            <ul class="dropdown-menu multi-level closer">
                                 <li>
-                                    <a href="{{ path('admin_user_manager_homepage', {'_switch_user': '_exit'}) }}">
-                                        <span class="badge pull-right badge-info">!</span>
-                                        <i class="glyphicon glyphicon-new-window"></i>
-                                        Quitter ce profil temporaire
+                                    <a href="{{ path("application_index") }}">
+                                        <i class="glyphicon glyphicon-home"></i>
+                                        Accueil
                                     </a>
                                 </li>
-                            {% endif %}
-                            <li class="divider"></li>
-                            <li><a href="{{ path('fos_user_security_logout') }}">
-                                    <i class="glyphicon glyphicon-off"></i>
-                                    Déconnexion
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                                <li>
+                                    <a href="{{ path("user_profile_show") }}">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                        Profil
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path("user_notifications") }}">
+                                        {% if numberNotification %}
+                                            <span class="badge pull-right badge-alert">{{ numberNotification }}</span>
+                                        {% endif %}
+                                        <i class="glyphicon glyphicon-bell"></i>
+                                        Notifications
+                                    </a>
+                                </li>
+                                {% set application = "0" %}
+                                {% block profileSwitcher %}
+                                    {% if getProfileByApplicationName( application )|length > 1 %}
+                                        <li class="divider"></li>
+                                        <li class="dropdown-submenu">
+                                            <a href="#">
+                                                <i class="glyphicon glyphicon-arrow-left"></i>
+                                                Profils de cette application
+
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                {% for profile in getProfileByApplicationName(application) %}
+                                                    {# @var profile \Front\AppBundle\Entity\Profile #}
+                                                    <li>{{ profile.name }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                {% endblock %}
+                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ path('admin_user_manager_homepage', {'_switch_user': '_exit'}) }}">
+                                            <span class="badge pull-right badge-info">!</span>
+                                            <i class="glyphicon glyphicon-new-window"></i>
+                                            Quitter ce profil temporaire
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                <li class="divider"></li>
+                                <li><a href="{{ path('fos_user_security_logout') }}">
+                                        <i class="glyphicon glyphicon-off"></i>
+                                        Déconnexion
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 {% endblock %}
                 <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
                     <span class="sr-only">Toggle navigation</span>
@@ -152,8 +175,10 @@
     <script type="text/javascript" src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/PNotify/js/pnotify.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset("bundles/frontapp/js/front.js") }}"></script>
-    <script type="text/javascript" src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script type="text/javascript" src="{{ asset('bundles/frontapp/libraries/chosen_v1.6.2/chosen.jquery.js') }}"></script>
+    <script type="text/javascript"
+            src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/frontapp/libraries/chosen_v1.6.2/chosen.jquery.js') }}"></script>
 {% endblock %}
 
 </body>
