@@ -34,7 +34,7 @@ class MenuGetter
         $rightsName = new ArrayCollection();
         foreach ($user->getRights($this->application_id) as $right) {
             /** @var Right $right */
-            $rightsName->add($right->getName());
+            $rightsName->add($right->getId());
         }
 
         //Then, for each menu item, we see if the right is Ok with it

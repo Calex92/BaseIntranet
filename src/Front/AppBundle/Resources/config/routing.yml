@@ -30,3 +30,10 @@ front_help:
     path:    /help
     defaults:
         _controller: FrontAppBundle:Help:index
+
+front_change_profile:
+    path:    /change_profile/{id}
+    defaults:
+        _controller: FrontAppBundle:ProfilePrefered:changeProfile
+    requirements:
+        id: \d+

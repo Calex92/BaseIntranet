@@ -9,6 +9,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Front\AppBundle\Entity\Agency;
 use Front\AppBundle\Entity\Group;
 use Front\AppBundle\Entity\Profile;
+use Front\AppBundle\Entity\ProfilePrefered;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Front\AppBundle\Entity\UserAgency;
@@ -104,6 +105,12 @@ class User extends BaseUser
      */
     private $profiles;
 
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\ProfilePrefered", mappedBy="user")
+     */
+    private $profilesPrefered;
     /**
      * Get id
      *
@@ -332,28 +339,51 @@ class User extends BaseUser
      * @return ArrayCollection
      */
     public function getRights($application_id) {
-        $profiles = $this->getProfilesApplication();
-        $profileFromApp = new ArrayCollection();
-
         /* Go through the user's profile and return the one he was connected with last time
             If there's no previous connection, just take the first one of the list
         */
-        foreach ($profiles as $profile) {
-            /** @var Profile $profile */
-            if ($profile->getApplication()->getId() == $application_id) {
-                if ($profile->isLastConnectionProfile()) {
-                    return $profile->getRights();
-                }
-                $profileFromApp->add($profile);
+        foreach ($this->getProfilesPrefered() as $profilePrefered) {
+            /** @var ProfilePrefered $profilePrefered */
+            if ($profilePrefered->getApplication()->getId() == $application_id) {
+                return $profilePrefered->getProfile()->getRights();
             }
         }
-        foreach ($profileFromApp as $profile) {
+
+        /* If there's no prefered profile atm, send the first profile of the list (from the correct application of course) */
+        foreach ($this->getProfilesApplication() as $profile) {
             /** @var Profile $profile */
-            return $profile->getRights();
+            if ($profile->getApplication()->getId() == $application_id) {
+                /** @var Profile $profile */
+                return $profile->getRights();
+            }
         }
 
         /* If there's no right from this app, return an empty array */
         return new ArrayCollection();
+    }
+
+    /**
+     * Return the prefered profile by application
+     * @param $idApplication
+     * @return ProfilePrefered
+     */
+    public function getProfilePrefered($idApplication) {
+        foreach ($this->getProfilesPrefered() as $profilePrefered) {
+            /** @var ProfilePrefered $profilePrefered */
+            if ($profilePrefered->getApplication()->getId() == $idApplication) {
+                return $profilePrefered;
+            }
+        }
+        return new ProfilePrefered();
+    }
+
+    /**
+     * Return each profiles prefered
+     * @return Collection
+     */
+    public function getProfilesPrefered()
+    {
+        return $this->profilesPrefered;
     }
 }
 

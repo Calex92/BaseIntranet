@@ -108,9 +108,19 @@
 
                                             </a>
                                             <ul class="dropdown-menu" role="menu">
+                                                {# @var preferedProfile \Front\AppBundle\Entity\ProfilePrefered #}
+                                                {% set preferedProfile =  app.user.profilePrefered(application) %}
                                                 {% for profile in getProfileByApplicationName(application) %}
                                                     {# @var profile \Front\AppBundle\Entity\Profile #}
-                                                    <li>{{ profile.name }}</li>
+                                                    <li>
+
+                                                        <a href="{{ path("front_change_profile", { "id" : profile.id }) }}" class="glyphicon-whitespaces-inherit">
+                                                            {{ profile.name }}
+                                                            {% if profile.id == preferedProfile.profile.id %}
+                                                                <i class="glyphicon glyphicon-ok pull-right"></i>
+                                                            {% endif %}
+                                                        </a>
+                                                    </li>
                                                 {% endfor %}
                                             </ul>
                                         </li>

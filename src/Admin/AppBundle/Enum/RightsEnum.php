@@ -11,17 +11,18 @@ namespace Admin\AppBundle\Enum;
 
 class RightsEnum
 {
-    const SEE_USER      = "SeeUsers";
-    const UPDATE_USER   = "UpdateUsers";
-    const CONNECT_AS_USER       = "ConnectAsUser";
-    const SEE_GROUP     = "SeeGroups";
-    const UPDATE_GROUP  = "UpdateGroups";
-    const SEE_APPLICATION       = "SeeApplications";
-    const UPDATE_APPLICATION    = "UpdateApplications";
-    const SEE_AGENCY            = "SeeAgencies";
-    const UPDATE_AGENCY         = "UpdateAgencies";
-    const SEE_REGION    = "SeeRegion";
-    const UPDATE_REGION = "UpdateRegion";
-    const SEE_ZONE      = "SeeZone";
-    const UPDATE_ZONE   = "UpdateZone";
+    /* The value is the ID of the right in DB */
+    const SEE_USER      = 1;
+    const UPDATE_USER   = 2;
+    const CONNECT_AS_USER       = 13;
+    const SEE_GROUP     = 3;
+    const UPDATE_GROUP  = 4;
+    const SEE_APPLICATION       = 5;
+    const UPDATE_APPLICATION    = 6;
+    const SEE_AGENCY            = 7;
+    const UPDATE_AGENCY         = 8;
+    const SEE_REGION    = 9;
+    const UPDATE_REGION = 10;
+    const SEE_ZONE      = 11;
+    const UPDATE_ZONE   = 12;
 }

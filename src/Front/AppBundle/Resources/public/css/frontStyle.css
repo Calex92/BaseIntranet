@@ -42,9 +42,9 @@ ul.nav.navbar-nav li a:link {
 .navbar .navbar-collapse .navbar-left > li:last-child { padding-left: 22px; }
 .navbar .navbar-collapse .navbar-right > li:last-child { padding-right: 22px; }
 
-#nav-collapse2 { position: absolute; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 0px; width: 100%;}
+#nav-collapse2 { position: absolute; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 0; width: 100%;}
 #nav-collapse4 { position: absolute; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 342px; width: 100%; }
-#nav-collapse3 { position: absolute; z-index: 2; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 0px; width: 100%; }
+#nav-collapse3 { position: absolute; z-index: 2; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 0; width: 100%; }
 
 .navbar.navbar-default .nav-collapse { background-color: #35AE8D; }
 .navbar.navbar-inverse .nav-collapse { background-color: #222; }
@@ -134,6 +134,9 @@ ul.nav.navbar-nav li a:link {
     right: 100%;
 }
 
+.glyphicon-whitespaces-inherit {
+    white-space: inherit ! important;
+}
 
 /* ----------------------------------------------------------------------------------
                                     Side bars
