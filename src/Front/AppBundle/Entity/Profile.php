@@ -34,8 +34,8 @@ class Profile
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="Front\UserBundle\Entity\User", inversedBy="profiles", cascade={"persist"})
-     * @ORM\JoinTable(name="base_profile_user")
+     * @ORM\ManyToMany(targetEntity="Front\UserBundle\Entity\User", mappedBy="profiles", cascade={"persist"})
+     *
      */
     private $users;
 

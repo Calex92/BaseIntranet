@@ -1,90 +1,92 @@
-<div class="margin-bottom-15 margin-top-15">
-    <div class="col-md-4 col-sm-6">
-        <div class="form-group">
-            <label for="user_admin_edit_agencies" class="col-sm-4 control-label"
-                   style="margin-top: 10px;">Agences</label>
-            <div class="col-sm-8">
-                <select id="user_admin_edit_agencies" class="form-control">
-                    {% for agency in agencies %}
-                        <option value="{{ agency.id }}">{{ agency.code }} - {{ agency.name }}</option>
-                    {% endfor %}
-                </select>
+<div class="well well-block-info margin-top-15">
+    <h4 class="col-sm-12">Agences</h4>
+    <div class="margin-bottom-15 margin-top-15">
+        <div class="col-md-4 col-sm-6">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <select id="user_admin_edit_agencies" class="form-control" title="Agences disponibles">
+                        {% for agency in agencies %}
+                            <option value="{{ agency.id }}">{{ agency.code }} - {{ agency.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
         </div>
+        <div class="col-md-4 col-sm-3">
+            <a href="#" id="add_agency" class="btn btn-default margin-left-15 canBeDisabled">Ajouter une agence</a>
+            <img src="{{ asset('download/front/general/ajax/ajax-loader.gif') }}"
+                 title="Veuillez patienter" class="ajax-loader hidden">
+        </div>
     </div>
-    <div class="col-md-4 col-sm-3">
-        <a href="#" id="add_agency" class="btn btn-default margin-left-15 canBeDisabled">Ajouter une agence</a>
-        <img src="{{ asset('download/front/general/ajax/ajax-loader.gif') }}"
-             title="Veuillez patienter" class="ajax-loader hidden">
-    </div>
-</div>
-<input type="hidden" id="id_user" value="{{ user.id }}">
-<table class="table table-striped table-bordered table-hover" id="userAgencyTable">
-    <thead>
-    <tr>
-        <th>Code</th>
-        <th>Nom</th>
-        <th>Principale</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    {# This is used to add the infos in the table with AJAX#}
-    <tr id="templateAgency" class="hidden">
-        <td class="hidden agency_id" id="agency__idAgency__"></td>
-        <td class="hidden user_agency_id" id="user_agency__idUser_Agency__"></td>
-        <td class="agency_code">__codeAgency__</td>
-        <td class="agency_name">__nameAgency__</td>
-        <td class="text-center">__principale__</td>
-        <td class="text-center">
-            <a href="#" data-value="__idUser_Agency__" class="set_principal_agency __isPrincipalHidden__ canBeDisabled"
-               title="Définir en tant qu'agence principale">{#
+    <input type="hidden" id="id_user" value="{{ user.id }}">
+    <table class="table table-striped table-bordered table-hover dataTable" id="userAgencyTable">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Principale</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {# This is used to add the infos in the table with AJAX#}
+        <tr id="templateAgency" class="hidden">
+            <td class="hidden agency_id" id="agency__idAgency__"></td>
+            <td class="hidden user_agency_id" id="user_agency__idUser_Agency__"></td>
+            <td class="agency_code">__codeAgency__</td>
+            <td class="agency_name">__nameAgency__</td>
+            <td class="text-center">__principale__</td>
+            <td class="text-center">
+                <a href="#" data-value="__idUser_Agency__"
+                   class="set_principal_agency __isPrincipalHidden__ canBeDisabled"
+                   title="Définir en tant qu'agence principale">{#
                                          #}<span class="glyphicon glyphicon-hand-down"></span>{#
                                    #}</a>
-            <a href="#" data-value="__idUser_Agency__" class="remove_agency __isPrincipalHidden__ canBeDisabled"
-               title="Retirer cette agence">
-                <span class="glyphicon glyphicon-remove"></span>
-            </a>
-        </td>
-    </tr>
-    {# This is the end of the template #}
-
-    {% for userAgency in user.userAgencies %}
-        <tr>
-            <td class="hidden agency_id" id="agency{{ userAgency.agency.id }}"></td>
-            <td class="hidden user_agency_id" id="user_agency{{ userAgency.id }}"></td>
-            <td class="agency_code">{{ userAgency.agency.code }}</td>
-            <td class="agency_name">{{ userAgency.agency.name }}</td>
-            <td class="text-center">
-                {% if not userAgency.principal %}
-                    {% set hidden = "hidden" %}
-                {% else %}
-                    {% set hidden = "" %}
-                {% endif %}
-                <span class="glyphicon glyphicon-ok {{ hidden }}"></span>
-
-            </td>
-
-            <td class="text-center">
-                {% if userAgency.principal %}
-                    {% set hidden = "hidden" %}
-                {% else %}
-                    {% set hidden = "" %}
-                {% endif %}
-                {# This is used to set this agency as the principal. Only one can be the principal atm #}
-                <a href="#" data-value="{{ userAgency.id }}"
-                   class="set_principal_agency {{ hidden }}"
-                   title="Définir en tant qu'agence principale">{#
-                  #}<span class="glyphicon glyphicon-hand-down"></span>{#
-              #}</a>
-                {# this is used to delete the agency from the list#}
-                <a href="#" data-value="{{ userAgency.id }}"
-                   class="remove_agency {{ hidden }}"
+                <a href="#" data-value="__idUser_Agency__" class="remove_agency __isPrincipalHidden__ canBeDisabled"
                    title="Retirer cette agence">
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
             </td>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        {# This is the end of the template #}
+
+        {% for userAgency in user.userAgencies %}
+            <tr>
+                <td class="hidden agency_id" id="agency{{ userAgency.agency.id }}"></td>
+                <td class="hidden user_agency_id" id="user_agency{{ userAgency.id }}"></td>
+                <td class="agency_code">{{ userAgency.agency.code }}</td>
+                <td class="agency_name">{{ userAgency.agency.name }}</td>
+                <td class="text-center">
+                    {% if not userAgency.principal %}
+                        {% set hidden = "hidden" %}
+                    {% else %}
+                        {% set hidden = "" %}
+                    {% endif %}
+                    <span class="glyphicon glyphicon-ok {{ hidden }}"></span>
+
+                </td>
+
+                <td class="text-center">
+                    {% if userAgency.principal %}
+                        {% set hidden = "hidden" %}
+                    {% else %}
+                        {% set hidden = "" %}
+                    {% endif %}
+                    {# This is used to set this agency as the principal. Only one can be the principal atm #}
+                    <a href="#" data-value="{{ userAgency.id }}"
+                       class="set_principal_agency {{ hidden }}"
+                       title="Définir en tant qu'agence principale">{#
+                  #}<span class="glyphicon glyphicon-hand-down"></span>{#
+              #}</a>
+                    {# this is used to delete the agency from the list#}
+                    <a href="#" data-value="{{ userAgency.id }}"
+                       class="remove_agency {{ hidden }}"
+                       title="Retirer cette agence">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

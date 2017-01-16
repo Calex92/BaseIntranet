@@ -101,7 +101,8 @@ class User extends BaseUser
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Profile", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Profile", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinTable(name="base_user_profile")
      */
     private $profiles;
 

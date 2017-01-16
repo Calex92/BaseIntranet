@@ -58,7 +58,6 @@ class Group
         $this->profiles = new ArrayCollection();
     }
 
-
     /**
      * Get id
      *

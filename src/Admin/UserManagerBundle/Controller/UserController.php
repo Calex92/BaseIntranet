@@ -5,7 +5,9 @@ namespace Admin\UserManagerBundle\Controller;
 use Admin\AppBundle\Enum\RightsEnum;
 use Admin\UserManagerBundle\Form\UserAdminEditType;
 use Admin\UserManagerBundle\Form\UserType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Front\AppBundle\Entity\Contact;
+use Front\AppBundle\Entity\Group;
 use Front\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -65,8 +67,8 @@ class UserController extends Controller
         //The validation is checked in the entity User.
         if ($request->isMethod("POST") && $form->handleRequest($request)->isValid()) {
             $userManager->updateUser($user);
-            $this->get('session')->getFlashBag()
-                ->add("success", "L'utilisateur " . $user->getSurname() . " " . $user->getFirstname() . " a bien été modifié");
+
+            $this->addFlash("success", "L'utilisateur " . $user->getSurname() . " " . $user->getFirstname() . " a bien été modifié");
 
             return $this->redirectToRoute("admin_user_manager_homepage");
         }
@@ -114,7 +116,7 @@ class UserController extends Controller
 
     public function loadAction(Request $request) {
         if ($request->isMethod("POST")) {
-            $em = $this->get("doctrine.orm.default_entity_manager");
+            $em = $this->getDoctrine()->getManager();
             foreach (simplexml_load_string($request->request->get("csvData")) as $line) {
 
                 if ($line->prenom != "" &&
@@ -133,6 +135,8 @@ class UserController extends Controller
                     $user->setEmail($line->email);
                     $user->setEnabled($line->actif);
                     $user->setUpdatedAt(new \DateTime());
+                    $user->setProfiles(new ArrayCollection());
+                    $user->setGroup(new Group());
 
                     $user->setContact($contact);
 

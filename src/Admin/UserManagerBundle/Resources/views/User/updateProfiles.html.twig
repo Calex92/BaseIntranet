@@ -1,0 +1,77 @@
+<div class="well well-block-info margin-top-15">
+    <h4 class="col-sm-12">Profils</h4>
+    <div class="form-group">
+        {{ form_label(form.profiles, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.profiles) }}
+        </div>
+        {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.profiles}) }}
+    </div>
+    <p class="alert alert-info">
+        Veuillez bien noter qu'ajouter un profil d'application à un utilisateur n'est pas
+        la bonne méthode et ne doit etre utilisé qu'en cas exceptionnel. <br/>
+        Si l'utilisateur n'a pas accès à une application importante, vérifiez qu'il appartienne au bon groupe
+    </p>
+    <h4 class="col-sm-12">Profils et droits via son groupe</h4>
+    <div>
+        <table class="table table-striped table-bordered table-hover dataTable" id="userAgencyTable">
+            <thead>
+            <tr>
+                <th class="col-md-2">Application</th>
+                <th class="col-md-2">Nom du profil</th>
+                <th>Droits</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for profile in user.group.profiles %}
+                {# @var profile \Front\AppBundle\Entity\Profile #}
+                <tr>
+                    <td>{{ profile.application.name }}</td>
+                    <td>{{ profile.name }}</td>
+                    <td>
+                        {% for right in profile.rights %}
+                            {# @var right \Front\AppBundle\Entity\Right#}
+                            {{ right.name }}
+
+                            {% if not loop.last %}
+                                ,
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <h4 class="col-sm-12">Profils et droits spécifiques</h4>
+    <div>
+        <table class="table table-striped table-bordered table-hover dataTable" id="userAgencyTable">
+            <thead>
+            <tr>
+                <th class="col-md-2">Application</th>
+                <th class="col-md-2">Nom du profil</th>
+                <th>Droits</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for profile in user.profiles %}
+                {# @var profile \Front\AppBundle\Entity\Profile #}
+                <tr>
+                    <td>{{ profile.application.name }}</td>
+                    <td>{{ profile.name }}</td>
+                    <td>
+                        {% for right in profile.rights %}
+                            {# @var right \Front\AppBundle\Entity\Right#}
+                            {{ right.name }}
+
+                            {% if not loop.last %}
+                                ,
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

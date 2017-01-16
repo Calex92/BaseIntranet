@@ -1,4 +1,4 @@
-<div>
+<div class="margin-top-15">
     <h4>Informations générales</h4>
     <div class="form-group">
         {{ form_label(form.username, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
@@ -32,7 +32,7 @@
         {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.email}) }}
     </div>
 
-{% if form.plainPassword.first is defined %}
+    {% if form.plainPassword.first is defined %}
         <div class="form-group">
             {{ form_label(form.plainPassword.first, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
             <div class="col-sm-8">
@@ -47,7 +47,7 @@
             </div>
             {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.plainPassword.second}) }}
         </div>
-{% endif %}
+    {% endif %}
 </div>
 
 <div class="form-group">
