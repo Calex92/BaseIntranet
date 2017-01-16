@@ -3,6 +3,7 @@
 namespace Front\AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Front\AppBundle\Entity\Application;
 
 /**
  * RightsRepository
@@ -12,4 +13,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class RightRepository extends EntityRepository
 {
+    public function getQbByApplication(Application $application) {
+        return $this->createQueryBuilder("right_repository")
+            ->leftJoin("right_repository.application", "application")
+            ->where("application.id = :idApplication")
+            ->setParameter("idApplication", $application->getId());
+    }
 }

@@ -30,11 +30,14 @@
         <div class="well well-block-info margin-top-20">
             <h4 class="margin-left-15">Profils de l'application</h4>
 
+            <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_profile_manager_add", { "id" : application.id }) }}">Créer
+                profil</a>
             <table class="table table-striped table-bordered table-hover dataTable">
                 <thead>
                 <tr>
                     <th>Nom</th>
                     <th>Groupes utilisant ce profil</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,6 +47,17 @@
                     <tr>
                         <td>{{ profile.name }}</td>
                         <td>{{ profile.groups.toArray|join(", ") }}</td>
+                        <td class="text-center">
+                            <a href="{{ path("admin_profile_manager_remove", { 'id': profile.id }) }}"
+                               title="Supprimer">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+                            <a href="{{ path("admin_profile_manager_update", { 'id': profile.id }) }}"
+                               title="Modifier">
+                                <i class="glyphicon glyphicon-cog"></i>
+                            </a>
+
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

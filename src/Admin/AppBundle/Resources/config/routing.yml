@@ -62,6 +62,7 @@ admin_group_manager_update:
     requirements:
         id:    \d*
 
+
 admin_application_manager_homepage:
     path:    /applications
     defaults: { _controller: AdminAppBundle:Application:index }
@@ -73,5 +74,24 @@ admin_application_manager_add:
 admin_application_manager_update:
     path:    /application/{id}
     defaults: { _controller: AdminAppBundle:Application:update }
+    requirements:
+        id:    \d*
+
+
+admin_profile_manager_add:
+    path:    /application/profile/add/{id}
+    defaults: { _controller: AdminAppBundle:Profile:add }
+    requirements:
+        id:    \d*
+
+admin_profile_manager_update:
+    path:    /application/profile/{id}
+    defaults: { _controller: AdminAppBundle:Profile:update }
+    requirements:
+        id:    \d*
+
+admin_profile_manager_remove:
+    path:    /application/profile/remove/{id}
+    defaults: { _controller: AdminAppBundle:Profile:remove }
     requirements:
         id:    \d*

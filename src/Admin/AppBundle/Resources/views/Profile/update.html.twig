@@ -1,0 +1,31 @@
+{% extends("@AdminApp/layout.html.twig") %}
+
+{% block title %}
+    Mise à jour profil - {{ parent() }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-md-12 main-content">
+        <p class="alert alert-warning">
+            Vous éditez un profil déjà existant, attention à vos actions!.
+        </p>
+        <h2 class="col-md-12">Modifier un profil</h2>
+        <div class="col-md-12">
+            {{ parent() }}
+        </div>
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+
+        {{ include('@AdminApp/Form/profileType.html.twig') }}
+
+        {{ form_rest(form) }}
+
+        <div>
+            <a href="{{ path("admin_application_manager_update", { "id" : profile.application.id } ) }}" class="btn btn-default pull-right margin-left-15">Retour à l'application</a>
+            <input type="submit" class="btn btn-primary pull-right" value="Modifier"/>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

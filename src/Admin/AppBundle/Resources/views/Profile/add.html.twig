@@ -1,0 +1,28 @@
+{% extends("AdminAppBundle::layout.html.twig") %}
+
+{% block title %}
+    Création profil - {{ parent() }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-md-12 main-content">
+        <h2 class="col-md-12">Création profil</h2>
+        <div class="col-md-12">
+            {{ parent() }}
+        </div>
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+
+            {{ include('@AdminApp/Form/profileType.html.twig') }}
+
+        {{ form_rest(form) }}
+
+        <div>
+            <a href="{{ path("admin_application_manager_update", { "id" : profile.application.id } ) }}" class="btn btn-default pull-right margin-left-15">Retour à l'application</a>
+            <input type="submit" class="btn btn-primary pull-right" value="Créer"/>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
