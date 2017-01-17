@@ -51,7 +51,7 @@ class FrontAppTwigExtension extends \Twig_Extension
         return $notifications;
     }
 
-    public function getProfileByApplicationName($applicationId) {
+    public function getProfileByApplicationName($applicationCode) {
         if (null === $token = $this->tokenStorage->getToken()) {
             return array();
         }
@@ -60,7 +60,7 @@ class FrontAppTwigExtension extends \Twig_Extension
         $profilesFromApp = new ArrayCollection();
         foreach ($profiles as $profile) {
             /** @var Profile $profile */
-            if ($profile->getApplication()->getId() == $applicationId) {
+            if ($profile->getApplication()->getCode() == $applicationCode) {
                 $profilesFromApp->add($profile);
             }
         }

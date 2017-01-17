@@ -24,13 +24,6 @@ class ApplicationExternal extends Application
     private $destinationRoute;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="unique_identifier", type="integer")
-     */
-    private $uniqueIdentifier;
-
-    /**
      * @return string
      */
     public function getDestinationRoute()
@@ -50,21 +43,5 @@ class ApplicationExternal extends Application
     public function isExternal()
     {
         return true;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUniqueIdentifier()
-    {
-        return $this->uniqueIdentifier;
-    }
-
-    /**
-     * @param int $uniqueIdentifier
-     */
-    public function setUniqueIdentifier($uniqueIdentifier)
-    {
-        $this->uniqueIdentifier = $uniqueIdentifier;
     }
 }

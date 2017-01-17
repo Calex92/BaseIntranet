@@ -29,6 +29,7 @@ class LoadApplication extends AbstractFixture implements OrderedFixtureInterface
             $application = new Application();
             $application->setName($applications[$i]);
             $application->setLocation($locations[$applications[$i]]);
+            $application->setCode($i);
 
             $application->setImageName($images[$i]);
 

@@ -23,6 +23,6 @@ class ApplicationsController extends Controller
         $application = $this->getDoctrine()->getRepository("FrontAppBundle:ApplicationExternal")->find($applicationId);
         $key = $this->get("frontapp.application_getter")->getCryptedKey();
 
-        return $this->redirect("http://vanina/external_access.php?login=acastelain&application=".$application->getUniqueIdentifier()."&password=$key");
+        return $this->redirect("http://vanina/external_access.php?login=acastelain&application=".$application->getCode()."&password=$key");
     }
 }

@@ -15,7 +15,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Front\AppBundle\Entity\Application;
 use Front\AppBundle\Entity\Profile;
 use Front\AppBundle\Entity\Right;
-use Front\UserBundle\Entity\User;
 
 class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -65,14 +64,6 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
         );
 
         $applications = array ("Administration Isidore 2", "Gestion du portail web");
-        $users = array("pfirmin", "gloncke", "tbarrez", "acallens", "asergent", "acastelain");
-        $userProfile = array(
-            "Viewer" => array(0),
-            "Creator" => array(1),
-            "Admin" => array(),
-            "GISS" => array(5),
-            "Informatique" => array()
-        );
 
         for ($i = 0; $i < count($applications) ; $i++) {
             for ($j = 0; $j < count($profiles[$i]) ; $j++) {
@@ -81,12 +72,6 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
                 /** @var Application $application */
                 $application = $this->getReference("application".$applications[$i]);
                 $profile->setApplication($application);
-
-                foreach ($userProfile[$profiles[$i][$j]] as $userElement) {
-                    /** @var User $user */
-                    $user = $this->getReference("user".$users[$userElement]);
-                    $profile->addUser($user);
-                }
 
                 foreach ($rightsByProfile[$i][$j] as $rightElement) {
                     /** @var Right $right */
@@ -110,6 +95,6 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 55;
+        return 51;
     }
 }

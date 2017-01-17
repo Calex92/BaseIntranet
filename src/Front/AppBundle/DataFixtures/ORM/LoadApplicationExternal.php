@@ -78,10 +78,9 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
             $application->setName($applications[$i]);
             $application->setLocation($locations[0]);
             $application->setDestinationRoute($destinationRoute[$i]);
+            $application->setCode($i+10);
 
             $application->setImageName($images[$i]);
-
-            $application->setUniqueIdentifier($i);
 
             $this->addReference("application-external".$applications[$i], $application);
             $manager->persist($application);

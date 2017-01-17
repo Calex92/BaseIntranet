@@ -99,6 +99,6 @@ class LoadCatalog extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 52;
+        return 53;
     }
 }

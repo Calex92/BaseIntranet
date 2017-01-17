@@ -24,7 +24,7 @@ class ApplicationController extends Controller
         return $this->render("AdminAppBundle:Application:index.html.twig", array(
             "applications" => $applications,
             "canUpdate" => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), $this->getParameter("application.id.administration"), RightsEnum::UPDATE_APPLICATION)
+                ->userCanSee($this->getUser(), $this->getParameter("application.code.administration"), RightsEnum::UPDATE_APPLICATION)
         ));
     }
 

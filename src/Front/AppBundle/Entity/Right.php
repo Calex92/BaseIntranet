@@ -4,12 +4,14 @@ namespace Front\AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Rights
  *
- * @ORM\Table(name="base_right")
+ * @ORM\Table(name="base_right", uniqueConstraints={@UniqueConstraint(name="right_unique", columns={"application_id", "code"})})
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\RightRepository")
+ *
  */
 class Right
 {
@@ -28,6 +30,13 @@ class Right
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="code", type="integer")
+     */
+    private $code;
 
     /**
      * @var string
@@ -155,5 +164,23 @@ class Right
         }
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param int $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+
 }
 

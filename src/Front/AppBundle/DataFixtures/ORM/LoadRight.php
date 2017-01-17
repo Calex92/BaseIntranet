@@ -68,11 +68,35 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
             )
         );
 
+        $codes = array(
+            array(
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+            ),
+            array(
+                0,
+                1,
+                2
+            )
+        );
+
         for ($i = 0; $i < count($rights); $i++) {
             for ($j = 0; $j < count($rights[$i]); $j++) {
                 $right = new Right();
                 $right->setName($rights[$i][$j]);
                 $right->setDescription($descriptions[$i][$j]);
+                $right->setCode($codes[$i][$j]);
 
                 $this->addReference("right".$right->getName(), $right);
                 $manager->persist($right);

@@ -61,6 +61,6 @@ class LoadNotification extends AbstractFixture implements OrderedFixtureInterfac
      */
     public function getOrder()
     {
-        return 52;
+        return 53;
     }
 }

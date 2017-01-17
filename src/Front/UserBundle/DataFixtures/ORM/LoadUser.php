@@ -9,9 +9,11 @@
 namespace Front\UserBundle\DataFixtures\ORM;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Front\AppBundle\Entity\Profile;
 use Front\UserBundle\Entity\User;
 
 class LoadUser extends AbstractFixture implements OrderedFixtureInterface
@@ -55,7 +57,14 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             $users[4] => "popo",
             $users[5] => "popo");
 
-        for ($i = 0; $i < count($users) ; $i++) {
+        $profilesUser = array($users[0] => array("Viewer"),
+            $users[1] => array("Creator"),
+            $users[2] => array(),
+            $users[3] => array(),
+            $users[4] => array(),
+            $users[5] => array("GISS", "Viewer"));
+
+        for ($i = 0; $i < count($users); $i++) {
             $user = new User();
             $user->setUsername($users[$i]);
             $user->setSurname($surnames[$users[$i]]);
@@ -68,12 +77,22 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
 
             $user->setUpdatedAt(new \DateTime());
 
-            if ($this->hasReference("user-contact".$users[$i])) {
-                $contact = $this->getReference("user-contact".$users[$i]);
+            if ($this->hasReference("user-contact" . $users[$i])) {
+                $contact = $this->getReference("user-contact" . $users[$i]);
                 $user->setContact($contact);
             }
 
-            $this->addReference("user".$users[$i], $user);
+            foreach ($profilesUser[$users[$i]] as $profile) {
+                /** @var Profile $profileDb */
+                $profileDb = $this->getReference("profile" . $profile);
+                if ($user->getProfiles()->count() > 0) {
+                    $user->setProfiles(new ArrayCollection(array_merge(array($profileDb), $user->getProfiles()->toArray())));
+                } else {
+                    $user->setProfiles(new ArrayCollection(array($profileDb)));
+                }
+            }
+
+            $this->addReference("user" . $users[$i], $user);
             $manager->persist($user);
         }
         $manager->flush();
@@ -81,6 +100,6 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 51;
+        return 52;
     }
 }

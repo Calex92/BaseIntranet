@@ -75,6 +75,13 @@ class Application
     private $rights;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", name="code", unique=true)
+     */
+    private $code;
+
+    /**
      * Get id
      *
      * @return int
@@ -204,6 +211,20 @@ class Application
         $this->imageFile = $imageFile;
     }
 
+    /**
+     * @return int
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
 
+    /**
+     * @param int $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
 }
 

@@ -20,7 +20,7 @@ class ApplicationExternalRepository extends EntityRepository
     public function getUserApplication(array $externalAppsCode) {
         $qb = $this->createQueryBuilder("application_external_repository");
 
-        $qb->where($qb->expr()->in("application_external_repository.uniqueIdentifier", $externalAppsCode));
+        $qb->where($qb->expr()->in("application_external_repository.code", $externalAppsCode));
 
          return $qb->getQuery()->getResult();
     }

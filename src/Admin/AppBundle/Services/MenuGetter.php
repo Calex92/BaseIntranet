@@ -16,15 +16,15 @@ use Front\UserBundle\Entity\User;
 
 class MenuGetter
 {
-    private $application_id;
+    private $application_code;
 
     /**
      * MenuGetter constructor.
-     * @param $application_id
+     * @param $application_code
      */
-    public function __construct($application_id)
+    public function __construct($application_code)
     {
-        $this->application_id = $application_id;
+        $this->application_code = $application_code;
     }
 
 
@@ -32,9 +32,9 @@ class MenuGetter
         $menus = array();
         // First we get the rights name for the current Application
         $rightsName = new ArrayCollection();
-        foreach ($user->getRights($this->application_id) as $right) {
+        foreach ($user->getRights($this->application_code) as $right) {
             /** @var Right $right */
-            $rightsName->add($right->getId());
+            $rightsName->add($right->getCode());
         }
 
         //Then, for each menu item, we see if the right is Ok with it

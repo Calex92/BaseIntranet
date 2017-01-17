@@ -112,6 +112,18 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\ProfilePrefered", mappedBy="user")
      */
     private $profilesPrefered;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->profiles = new ArrayCollection();
+        $this->profilesPrefered = new ArrayCollection();
+    }
+
+
     /**
      * Get id
      *
@@ -336,16 +348,16 @@ class User extends BaseUser
     }
 
     /**
-     * @param $application_id
+     * @param $application_code
      * @return ArrayCollection
      */
-    public function getRights($application_id) {
+    public function getRights($application_code) {
         /* Go through the user's profile and return the one he was connected with last time
             If there's no previous connection, just take the first one of the list
         */
         foreach ($this->getProfilesPrefered() as $profilePrefered) {
             /** @var ProfilePrefered $profilePrefered */
-            if ($profilePrefered->getApplication()->getId() == $application_id) {
+            if ($profilePrefered->getApplication()->getCode() == $application_code) {
                 return $profilePrefered->getProfile()->getRights();
             }
         }
@@ -353,7 +365,7 @@ class User extends BaseUser
         /* If there's no prefered profile atm, send the first profile of the list (from the correct application of course) */
         foreach ($this->getProfilesApplication() as $profile) {
             /** @var Profile $profile */
-            if ($profile->getApplication()->getId() == $application_id) {
+            if ($profile->getApplication()->getCode() == $application_code) {
                 /** @var Profile $profile */
                 return $profile->getRights();
             }
@@ -365,13 +377,13 @@ class User extends BaseUser
 
     /**
      * Return the prefered profile by application
-     * @param $idApplication
+     * @param $application_code
      * @return ProfilePrefered
      */
-    public function getProfilePrefered($idApplication) {
+    public function getProfilePrefered($application_code) {
         foreach ($this->getProfilesPrefered() as $profilePrefered) {
             /** @var ProfilePrefered $profilePrefered */
-            if ($profilePrefered->getApplication()->getId() == $idApplication) {
+            if ($profilePrefered->getApplication()->getCode() == $application_code) {
                 return $profilePrefered;
             }
         }
