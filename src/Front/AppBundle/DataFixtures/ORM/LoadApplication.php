@@ -13,7 +13,6 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Front\AppBundle\Entity\Application;
-use Front\AppBundle\Entity\Image;
 
 class LoadApplication extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -24,13 +23,14 @@ class LoadApplication extends AbstractFixture implements OrderedFixtureInterface
         $locations = array($applications[0] => "admin_app_homepage",
                     $applications[1] => "domain_manager_index");
 
+        $images = array ("adminisidore 2.png", "gestion portail web.png");
+
         for ($i = 0; $i < count($applications) ; $i++) {
             $application = new Application();
             $application->setName($applications[$i]);
             $application->setLocation($locations[$applications[$i]]);
-            /** @var Image $image */
-            $image = $this->getReference("image-application".$applications[$i]);
-            $application->setImage($image);
+
+            $application->setImageName($images[$i]);
 
             $this->addReference("application".$applications[$i], $application);
             $manager->persist($application);

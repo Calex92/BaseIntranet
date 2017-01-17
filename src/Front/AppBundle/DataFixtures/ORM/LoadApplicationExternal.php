@@ -13,7 +13,6 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Front\AppBundle\Entity\ApplicationExternal;
-use Front\AppBundle\Entity\Image;
 
 class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -59,14 +58,28 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
             "osi/index.php",
             "/help_plateforme");
 
+        $images = array ("adminisidore.png", "logo_signature.gif",
+            "referentiel.png",
+            "HElp-ADV2.png",
+            "espacegrandcompte.png",
+            "GISS.jpg",
+            "omniview.jpg",
+            "elearning.png",
+            "bookre.png",
+            "logo_srm.png",
+            "icone pfs info.png",
+            "calendrier livraison.png",
+            "portail_frs.jpg",
+            "helpdesk.png",
+            "help bearing.png");
+
         for ($i = 0; $i < count($applications) ; $i++) {
             $application = new ApplicationExternal();
             $application->setName($applications[$i]);
             $application->setLocation($locations[0]);
             $application->setDestinationRoute($destinationRoute[$i]);
-            /** @var Image $image */
-            $image = $this->getReference("image-application-external".$applications[$i]);
-            $application->setImage($image);
+
+            $application->setImageName($images[$i]);
 
             $application->setUniqueIdentifier($i);
 

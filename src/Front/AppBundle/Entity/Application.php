@@ -5,7 +5,9 @@ namespace Front\AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Application
@@ -15,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Front\AppBundle\Repository\ApplicationRepository")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"Application" = "Application", "ApplicationExternal" = "ApplicationExternal"})
+ * @Vich\Uploadable()
  */
 class Application
 {
@@ -43,12 +46,19 @@ class Application
 
 
     /**
-     * @var Image
+     * @Vich\UploadableField(mapping="application_image", fileNameProperty="imageName")
      *
-     * @ORM\OneToOne(targetEntity="Front\AppBundle\Entity\Image", cascade={"persist", "remove"})
-     * @Assert\Valid()
+     * @var File
+     * @Assert\File(mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif"})
      */
-    private $image;
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $imageName;
 
     /**
      * @var ArrayCollection
@@ -99,19 +109,19 @@ class Application
     }
 
     /**
-     * @return image
+     * @return string
      */
-    public function getImage()
+    public function getImageName()
     {
-        return $this->image;
+        return $this->imageName;
     }
 
     /**
-     * @param image $image
+     * @param string $imageName
      */
-    public function setImage($image)
+    public function setImageName($imageName)
     {
-        $this->image = $image;
+        $this->imageName = $imageName;
     }
 
     /**
@@ -177,5 +187,23 @@ class Application
         }
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param mixed $imageFile
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+    }
+
+
 }
 

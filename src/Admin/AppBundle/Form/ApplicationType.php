@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ApplicationType extends AbstractType
 {
@@ -20,7 +21,14 @@ class ApplicationType extends AbstractType
         $builder
             ->add("name", TextType::class, array(
                 "label"     => "Nom de l'application"
-            ));
+            ))
+            ->add("location", TextType::class, array(
+                "label"     => "Route de l'application"
+            ))
+            ->add("imageFile", VichImageType::class, array(
+                "label" => "Image de l'application",
+                "required" => false)
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -14,3 +14,5 @@ parameters:
 
     application.id.administration: 1
     application.id.domain: 2
+
+    application_name: isidore2
