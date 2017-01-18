@@ -40,8 +40,21 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
                 "ConnectAsUser"),
             array(
                 "Achat",
+                "E-business",
+                "Finances",
                 "GISS",
-                "Informatique"
+                "Juridique",
+                "Logistique",
+                "Marketing",
+                "Organisation",
+                "Perf'Co",
+                "Qualité",
+                "R.H.",
+                "Réseau",
+                "Grands Comptes",
+                "Informatique",
+                "Gestion catalogue",
+                "Admin"
             )
         );
 
@@ -63,8 +76,22 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
             ),
             array(
                 "Créateur domaine achat",
+                "Créateur domaine E-business",
+                "Créateur domaine finances",
                 "Créateur domaine GISS",
-                "Créateur domaine informatique"
+                "Créateur domaine juridique",
+                "Créateur domaine logistique",
+                "Créateur domaine marketing",
+                "Créateur domaine organisation",
+                "Créateur domaine perf'co",
+                "Créateur domaine qualité",
+                "Créateur domaine r.h.",
+                "Créateur domaine réseau",
+                "Créateur domaine grands comptes",
+                "Créateur domaine informatique",
+                "Gestion des catalogues",
+                "Administrateur",
+
             )
         );
 
@@ -83,9 +110,22 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
                 "ROLE_ADMIN_ZONE_UPDATE",
                 "ROLE_ADMIN_USER_ALLOWED_TO_SWITCH"),
             array(
-                "ROLE_DOMAIN_ACHAT",
-                "ROLE_DOMAIN_GISS",
-                "ROLE_DOMAIN_INFORMATIQUE"
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_NEWS_DOCUMENT",
+                "ROLE_DOMAIN_CATALOG",
+                "ROLE_DOMAIN_ADMIN"
             )
         );
 
@@ -108,7 +148,21 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
             array(
                 0,
                 1,
-                2
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
             )
         );
 

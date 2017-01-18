@@ -24,9 +24,10 @@ security:
         ROLE_ADMIN_ZONE_UPDATE: ROLE_ADMIN_ZONE_VIEW
 
         # Application "Gestion du portail web"
-        ROLE_DOMAIN_ACHAT: ROLE_USER
-        ROLE_DOMAIN_GISS: ROLE_USER
-        ROLE_DOMAIN_INFORMATIQUE: ROLE_USER
+        ROLE_DOMAIN_BASE: [ROLE_USER, ROLE_DOMAIN_MANAGER]
+        ROLE_DOMAIN_NEWS_DOCUMENT: ROLE_DOMAIN_BASE
+        ROLE_DOMAIN_CATALOG: ROLE_DOMAIN_BASE
+        ROLE_DOMAIN_ADMIN: [ROLE_DOMAIN_NEWS_DOCUMENT, ROLE_DOMAIN_CATALOG]
 
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers

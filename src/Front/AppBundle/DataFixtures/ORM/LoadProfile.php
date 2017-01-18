@@ -47,7 +47,8 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
             array(
                 "Achat",
                 "GISS",
-                "Informatique"
+                "Informatique",
+                "Admin"
             )
         );
 
@@ -59,7 +60,7 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
             array(
                 array(0, 1, 2),
                 array(1),
-                array(2)
+                array(3)
             )
         );
 
