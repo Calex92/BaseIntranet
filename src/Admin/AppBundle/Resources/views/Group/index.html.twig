@@ -11,7 +11,7 @@
         <div class="col-md-12">
             {{ parent() }}
         </div>
-        {% if canUpdate %}
+        {% if is_granted('ROLE_ADMIN_GROUP_UPDATE') %}
             <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_group_manager_add") }}">Créer
                 groupe</a>
         {% endif %}
@@ -20,7 +20,7 @@
             <tr>
                 <th data-priority="3">Nom</th>
                 <th data-priority="6">Nombre d'utilisateurs</th>
-                {% if canUpdate %}
+                {% if is_granted('ROLE_ADMIN_GROUP_UPDATE') %}
                     <th data-priority="1">Actions</th>
                 {% endif %}
             </tr>
@@ -31,7 +31,7 @@
                 <tr>
                     <td>{{ group.name }}</td>
                     <td>{{ group.users|length }}</td>
-                    {% if canUpdate %}
+                    {% if is_granted('ROLE_ADMIN_GROUP_UPDATE') %}
                         <td class="text-center">
                             <a href="{{ path("admin_group_manager_update", { 'id': group.id }) }}"
                                title="Modifier"><i

@@ -10,6 +10,7 @@ use Front\AppBundle\Entity\Agency;
 use Front\AppBundle\Entity\Group;
 use Front\AppBundle\Entity\Profile;
 use Front\AppBundle\Entity\ProfilePrefered;
+use Front\AppBundle\Entity\Right;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Front\AppBundle\Entity\UserAgency;
@@ -397,6 +398,25 @@ class User extends BaseUser
     public function getProfilesPrefered()
     {
         return $this->profilesPrefered;
+    }
+
+    public function getRoles()
+    {
+        $rightsRolesToReturn    = new ArrayCollection();
+        //First, we get the rights of each application
+        foreach ($this->getProfilesApplication() as $profile) {
+            /** @var Right $rights */
+            $rights = $this->getRights($profile->getApplication()->getCode());
+
+            foreach ($rights as $right) {
+                /** @var Right $right */
+                if (!$rightsRolesToReturn->contains($right->getRole())) {
+                    /** @var Right $right */
+                    $rightsRolesToReturn->add($right->getRole());
+                }
+            }
+        }
+        return $rightsRolesToReturn->toArray();
     }
 }
 

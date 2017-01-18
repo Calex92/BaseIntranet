@@ -9,25 +9,32 @@
 namespace Admin\AppBundle\Controller;
 
 
-use Admin\AppBundle\Enum\RightsEnum;
 use Admin\AppBundle\Form\GroupType;
 use Front\AppBundle\Entity\Group;
 use Front\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class GroupController extends Controller
 {
+    /**
+     * @Security("has_role('ROLE_ADMIN_GROUP_VIEW')")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction() {
         $groups = $this->get("doctrine")->getRepository("FrontAppBundle:Group")->findAll();
 
         return $this->render("AdminAppBundle:Group:index.html.twig", array(
-            "groups" => $groups,
-            "canUpdate" => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), $this->getParameter("application.code.administration"), RightsEnum::UPDATE_GROUP)
+            "groups" => $groups
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN_GROUP_UPDATE')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function addAction(Request $request) {
         $group = new Group();
         $form = $this->get("form.factory")->create(GroupType::class, $group);
@@ -46,6 +53,12 @@ class GroupController extends Controller
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN_GROUP_UPDATE')")
+     * @param Request $request
+     * @param Group $group
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function updateAction(Request $request, Group $group) {
         $form = $this->get("form.factory")->create(GroupType::class, $group);
 

@@ -5,4 +5,4 @@ services:
 
     admin.menu_getter:
         class: Admin\AppBundle\Services\MenuGetter
-        arguments: ["%application.code.administration%"]
+        arguments: ["@security.authorization_checker"]

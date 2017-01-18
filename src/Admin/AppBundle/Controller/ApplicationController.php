@@ -9,25 +9,31 @@
 namespace Admin\AppBundle\Controller;
 
 
-use Admin\AppBundle\Enum\RightsEnum;
 use Admin\AppBundle\Form\ApplicationType;
 use Front\AppBundle\Entity\Application;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class ApplicationController extends Controller
 {
-
+    /**
+     * @Security("has_role('ROLE_ADMIN_APPLICATION_VIEW')")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction() {
         $applications = $this->get("doctrine")->getRepository("FrontAppBundle:Application")->findAll();
 
         return $this->render("AdminAppBundle:Application:index.html.twig", array(
-            "applications" => $applications,
-            "canUpdate" => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), $this->getParameter("application.code.administration"), RightsEnum::UPDATE_APPLICATION)
+            "applications" => $applications
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN_APPLICATION_UPDATE')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function addAction(Request $request) {
         $application = new Application();
         $form = $this->get("form.factory")->create(ApplicationType::class, $application);
@@ -46,6 +52,12 @@ class ApplicationController extends Controller
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN_APPLICATION_UPDATE')")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function updateAction(Request $request, $id) {
         $application = $this->get("doctrine")->getRepository("FrontAppBundle:Application")->find($id);
         $form = $this->get("form.factory")->create(ApplicationType::class, $application);

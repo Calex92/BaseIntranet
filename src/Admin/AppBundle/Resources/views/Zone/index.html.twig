@@ -11,7 +11,7 @@
         <div class="col-md-12">
             {{ parent() }}
         </div>
-        {% if canUpdate %}
+        {% if is_granted('ROLE_ADMIN_ZONE_UPDATE') %}
             <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_zone_manager_add") }}">Créer
                 une zone</a>
         {% endif %}
@@ -22,14 +22,14 @@
                 <th data-priority="3">Nom</th>
                 <th data-priority="6">Nombre de régions</th>
                 <th data-priority="4">Active?</th>
-                {% if canUpdate %}
+                {% if is_granted('ROLE_ADMIN_ZONE_UPDATE') %}
                     <th data-priority="1">Actions</th>
                 {% endif %}
             </tr>
             </thead>
             <tbody>
             {% for zone in zones %}
-                {# @var zone \Front\AppBundle\Entity\Zone#}
+                {# @var zone \Front\AppBundle\Entity\Zone #}
                 <tr>
                     <td>{{ zone.code }}</td>
                     <td>{{ zone.name }}</td>
@@ -41,7 +41,7 @@
                             <span class="glyphicon glyphicon-remove icon-danger"></span>
                         {% endif %}
                     </td>
-                    {% if canUpdate %}
+                    {% if is_granted('ROLE_ADMIN_ZONE_UPDATE') %}
                         <td class="text-center">
                             <a href="{{ path("admin_zone_manager_update", { 'id': zone.id }) }}"
                                title="Modifier"><i

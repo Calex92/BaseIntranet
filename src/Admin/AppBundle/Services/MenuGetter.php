@@ -9,36 +9,32 @@
 namespace Admin\AppBundle\Services;
 
 
-use Admin\AppBundle\Enum\RightsEnum;
-use Doctrine\Common\Collections\ArrayCollection;
-use Front\AppBundle\Entity\Right;
-use Front\UserBundle\Entity\User;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 class MenuGetter
 {
-    private $application_code;
+    /**
+     * @var AuthorizationChecker
+     */
+    private $authorization_checker;
+
 
     /**
      * MenuGetter constructor.
-     * @param $application_code
+     * @param $authorization_checker
+     * @internal param $application_code
      */
-    public function __construct($application_code)
+    public function __construct(AuthorizationChecker $authorization_checker)
     {
-        $this->application_code = $application_code;
+        $this->authorization_checker = $authorization_checker;
     }
 
 
-    public function getMenus(User $user, $currentRoute) {
+    public function getMenus($currentRoute) {
         $menus = array();
-        // First we get the rights name for the current Application
-        $rightsName = new ArrayCollection();
-        foreach ($user->getRights($this->application_code) as $right) {
-            /** @var Right $right */
-            $rightsName->add($right->getCode());
-        }
 
         //Then, for each menu item, we see if the right is Ok with it
-        if ($rightsName->contains(RightsEnum::SEE_USER) || $rightsName->contains(RightsEnum::UPDATE_USER)) {
+        if ($this->authorization_checker->isGranted('ROLE_ADMIN_USER_VIEW')) {
             $menu = array("route" => "admin_user_manager_homepage",
                 "name" => "Utilisateurs",
                 "active" => in_array($currentRoute,
@@ -48,7 +44,7 @@ class MenuGetter
         }
 
         //"SeeGroup", "UpdateGroup"
-        if ($rightsName->contains(RightsEnum::SEE_GROUP) || $rightsName->contains(RightsEnum::UPDATE_GROUP)) {
+        if ($this->authorization_checker->isGranted('ROLE_ADMIN_GROUP_VIEW')) {
             $menu = array("route" => "admin_group_manager_homepage",
                 "name" => "Groupes",
                 "active" => in_array($currentRoute,
@@ -58,7 +54,7 @@ class MenuGetter
         }
 
         //"SeeApp", "UpdateApp"
-        if ($rightsName->contains(RightsEnum::SEE_APPLICATION) || $rightsName->contains(RightsEnum::UPDATE_APPLICATION)) {
+        if ($this->authorization_checker->isGranted('ROLE_ADMIN_APPLICATION_VIEW')) {
             $menu = array("route" => "admin_application_manager_homepage",
                 "name" => "Applications",
                 "active" => in_array($currentRoute,
@@ -67,7 +63,7 @@ class MenuGetter
             array_push($menus, $menu);
         }
 
-        if ($rightsName->contains(RightsEnum::SEE_AGENCY) || $rightsName->contains(RightsEnum::UPDATE_AGENCY)) {
+        if ($this->authorization_checker->isGranted('ROLE_ADMIN_AGENCY_VIEW')) {
             $menu = array("route" => "admin_agency_manager_homepage",
                 "name" => "Agences",
                 "active" => in_array($currentRoute,
@@ -76,7 +72,7 @@ class MenuGetter
             array_push($menus, $menu);
         }
 
-        if ($rightsName->contains(RightsEnum::SEE_REGION) || $rightsName->contains(RightsEnum::UPDATE_REGION)) {
+        if ($this->authorization_checker->isGranted('ROLE_ADMIN_REGION_VIEW')) {
             $menu = array("route" => "admin_region_manager_homepage",
                 "name" => "Régions",
                 "active" => in_array($currentRoute,
@@ -85,7 +81,7 @@ class MenuGetter
             array_push($menus, $menu);
         }
 
-        if ($rightsName->contains(RightsEnum::SEE_ZONE) || $rightsName->contains(RightsEnum::UPDATE_ZONE)) {
+        if ($this->authorization_checker->isGranted('ROLE_ADMIN_ZONE_VIEW')) {
             $menu = array("route" => "admin_zone_manager_homepage",
                 "name" => "Zones",
                 "active" => in_array($currentRoute,

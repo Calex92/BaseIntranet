@@ -12,12 +12,14 @@ namespace Front\AppBundle\Controller;
 use Doctrine\ORM\NoResultException;
 use Front\AppBundle\Entity\Profile;
 use Front\AppBundle\Entity\ProfilePrefered;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ProfilePreferedController extends Controller
 {
     /**
      * This method remove the old ProfilesPrefered from the same app of the user and create a new one with the new profile given in parameter
+     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
      * @param Profile $profile
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */

@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Front\AppBundle\Entity\Contact;
 use Front\AppBundle\Entity\Group;
 use Front\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,6 +18,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
+    /**
+     * @Security("has_role('ROLE_ADMIN_USER_VIEW')")
+     * @return Response
+     */
     public function indexAction()
     {
         $userManager = $this->get("fos_user.user_manager");
@@ -31,6 +36,10 @@ class UserController extends Controller
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN_USER_UPDATE')")
+     * @return Response
+     */
     public function createAction(Request $request) {
         //We create a new user to fill the form with the user manager
         $userManager = $this->get('fos_user.user_manager');
@@ -48,6 +57,10 @@ class UserController extends Controller
             array('form' => $form->createView()));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN_USER_UPDATE')")
+     * @return Response
+     */
     public function updateAction(Request $request, $idUser)
     {
         $userManager = $this->get('fos_user.user_manager');
@@ -79,7 +92,11 @@ class UserController extends Controller
             "agencies" => $agenciesForUser));
     }
 
-
+    /**
+     * @Security("has_role('ROLE_ADMIN_USER_UPDATE')")
+     * @param Request $request
+     * @return Response
+     */
     public function updateAgencyAjaxAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $userAgencyRepository = $this->getDoctrine()->getManager()->getRepository('FrontAppBundle:UserAgency');

@@ -9,24 +9,31 @@
 namespace Admin\AppBundle\Controller;
 
 
-use Admin\AppBundle\Enum\RightsEnum;
 use Admin\AppBundle\Form\AgencyType;
 use Front\AppBundle\Entity\Agency;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class AgencyController extends Controller
 {
+    /**
+     * @Security("has_role('ROLE_ADMIN_AGENCY_VIEW')")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction() {
         $agencies = $this->get("doctrine")->getRepository("FrontAppBundle:Agency")->findAll();
 
         return $this->render("AdminAppBundle:Agency:index.html.twig", array(
-            "agencies"  => $agencies,
-            "canUpdate" => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), $this->getParameter("application.code.administration"), RightsEnum::UPDATE_AGENCY)
+            "agencies"  => $agencies
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN_AGENCY_UPDATE')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function addAction(Request $request) {
         $agency = new Agency();
         $form = $this->get("form.factory")->create(AgencyType::class, $agency);
@@ -45,6 +52,12 @@ class AgencyController extends Controller
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN_AGENCY_UPDATE')")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function updateAction(Request $request, $id) {
         $agency = $this->get("doctrine")->getRepository("FrontAppBundle:Agency")->find($id);
         $form = $this->get("form.factory")->create(AgencyType::class, $agency);

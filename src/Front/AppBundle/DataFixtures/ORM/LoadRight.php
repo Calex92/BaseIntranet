@@ -68,6 +68,27 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
             )
         );
 
+        $roles = array(
+            array("ROLE_ADMIN_USER_VIEW",
+                "ROLE_ADMIN_USER_UPDATE",
+                "ROLE_ADMIN_GROUP_VIEW",
+                "ROLE_ADMIN_GROUP_UPDATE",
+                "ROLE_ADMIN_APPLICATION_VIEW",
+                "ROLE_ADMIN_APPLICATION_UPDATE",
+                "ROLE_ADMIN_AGENCY_VIEW",
+                "ROLE_ADMIN_AGENCY_UPDATE",
+                "ROLE_ADMIN_REGION_VIEW",
+                "ROLE_ADMIN_REGION_UPDATE",
+                "ROLE_ADMIN_ZONE_VIEW",
+                "ROLE_ADMIN_ZONE_UPDATE",
+                "ROLE_ADMIN_USER_ALLOWED_TO_SWITCH"),
+            array(
+                "ROLE_DOMAIN_ACHAT",
+                "ROLE_DOMAIN_GISS",
+                "ROLE_DOMAIN_INFORMATIQUE"
+            )
+        );
+
         $codes = array(
             array(
                 0,
@@ -97,6 +118,7 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
                 $right->setName($rights[$i][$j]);
                 $right->setDescription($descriptions[$i][$j]);
                 $right->setCode($codes[$i][$j]);
+                $right->setRole($roles[$i][$j]);
 
                 $this->addReference("right".$right->getName(), $right);
                 $manager->persist($right);

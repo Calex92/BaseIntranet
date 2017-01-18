@@ -2,10 +2,15 @@
 
 namespace Front\AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ApplicationsController extends Controller
 {
+    /**
+     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         try {
@@ -18,6 +23,11 @@ class ApplicationsController extends Controller
         return $this->render('FrontAppBundle:Applications:index.html.twig', array("applications" => $applications));
     }
 
+    /**
+     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')
+     * @param $applicationId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function externalAccessAction($applicationId)
     {
         $application = $this->getDoctrine()->getRepository("FrontAppBundle:ApplicationExternal")->find($applicationId);

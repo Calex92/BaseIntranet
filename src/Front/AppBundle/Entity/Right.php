@@ -53,6 +53,12 @@ class Right
     private $application;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=255, unique=true)
+     */
+    private $role;
+    /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Profile", inversedBy="rights")
      * @ORM\JoinTable(name="base_right_profile")
@@ -179,6 +185,22 @@ class Right
     public function setCode($code)
     {
         $this->code = $code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 
 

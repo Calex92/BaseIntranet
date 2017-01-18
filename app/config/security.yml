@@ -6,9 +6,28 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_USER:        ROLE_ALLOWED_TO_SWITCH
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_USER:        IS_AUTHENTICATED_REMEMBERED # This is used in the admin to switch between users
+
+        # Application "Administration Isidore 2"
+        ROLE_ADMIN_USER_VIEW: [ROLE_USER, ROLE_ADMIN]
+        ROLE_ADMIN_USER_UPDATE: ROLE_ADMIN_USER_VIEW
+        ROLE_ADMIN_USER_ALLOWED_TO_SWITCH: [ROLE_ADMIN_USER_VIEW, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN_GROUP_VIEW: [ROLE_USER, ROLE_ADMIN]
+        ROLE_ADMIN_GROUP_UPDATE: ROLE_ADMIN_GROUP_VIEW
+        ROLE_ADMIN_APPLICATION_VIEW: [ROLE_USER, ROLE_ADMIN]
+        ROLE_ADMIN_APPLICATION_UPDATE: ROLE_ADMIN_APPLICATION_VIEW
+        ROLE_ADMIN_AGENCY_VIEW: [ROLE_USER, ROLE_ADMIN]
+        ROLE_ADMIN_AGENCY_UPDATE: ROLE_ADMIN_AGENCY_VIEW
+        ROLE_ADMIN_REGION_VIEW: [ROLE_USER, ROLE_ADMIN]
+        ROLE_ADMIN_REGION_UPDATE: ROLE_ADMIN_REGION_VIEW
+        ROLE_ADMIN_ZONE_VIEW: [ROLE_USER, ROLE_ADMIN]
+        ROLE_ADMIN_ZONE_UPDATE: ROLE_ADMIN_ZONE_VIEW
+
+        # Application "Gestion du portail web"
+        ROLE_DOMAIN_ACHAT: ROLE_USER
+        ROLE_DOMAIN_GISS: ROLE_USER
+        ROLE_DOMAIN_INFORMATIQUE: ROLE_USER
+
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
@@ -42,4 +61,4 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_USER }
+        - { path: ^/admin/, role: ROLE_ADMIN }

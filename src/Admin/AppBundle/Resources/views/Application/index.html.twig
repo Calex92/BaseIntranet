@@ -11,7 +11,7 @@
         <div class="col-md-12">
             {{ parent() }}
         </div>
-        {% if canUpdate %}
+        {% if is_granted('ROLE_ADMIN_APPLICATION_UPDATE') %}
             <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_application_manager_add") }}">Créer
                 application</a>
         {% endif %}
@@ -20,14 +20,14 @@
             <tr>
                 <th data-priority="3">Nom</th>
                 <th data-priority="6">Nouvelle application?</th>
-                {% if canUpdate %}
+                {% if is_granted('ROLE_ADMIN_APPLICATION_UPDATE') %}
                     <th data-priority="1">Actions</th>
                 {% endif %}
             </tr>
             </thead>
             <tbody>
             {% for application in applications %}
-                {# @var application \Front\AppBundle\Entity\Application#}
+                {# @var application \Front\AppBundle\Entity\Application #}
                 <tr>
                     <td>{{ application.name }}</td>
                     <td class="text-center">
@@ -37,7 +37,7 @@
                             <span class="glyphicon glyphicon-ok icon-success"></span>
                         {% endif %}
                     </td>
-                    {% if canUpdate %}
+                    {% if is_granted('ROLE_ADMIN_APPLICATION_UPDATE') %}
                         <td class="text-center">
                             <a href="{{ path("admin_application_manager_update", { 'id': application.id }) }}"
                                title="Modifier"><i

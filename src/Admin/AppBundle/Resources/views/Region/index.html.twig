@@ -11,7 +11,7 @@
         <div class="col-md-12">
             {{ parent() }}
         </div>
-        {% if canUpdate %}
+        {% if is_granted('ROLE_ADMIN_REGION_UPDATE') %}
             <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_region_manager_add") }}">Créer
                 région</a>
         {% endif %}
@@ -23,7 +23,7 @@
                 <th data-priority="6">Zone</th>
                 <th data-priority="6">Nombre d'agence</th>
                 <th data-priority="4">Active?</th>
-                {% if canUpdate %}
+                {% if is_granted('ROLE_ADMIN_REGION_UPDATE') %}
                     <th data-priority="1">Actions</th>
                 {% endif %}
             </tr>
@@ -43,7 +43,7 @@
                             <span class="glyphicon glyphicon-remove icon-danger"></span>
                         {% endif %}
                     </td>
-                    {% if canUpdate %}
+                    {% if is_granted('ROLE_ADMIN_REGION_UPDATE') %}
                         <td class="text-center">
                             <a href="{{ path("admin_region_manager_update", { 'id': region.id }) }}"
                                title="Modifier"><i
