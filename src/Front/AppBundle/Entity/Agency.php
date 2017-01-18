@@ -361,7 +361,7 @@ class Agency
     }
 
     /**
-     * @return mixed
+     * @return Contact
      */
     public function getContact()
     {
