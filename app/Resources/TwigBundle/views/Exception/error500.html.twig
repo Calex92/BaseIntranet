@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block mainContent %}
+    <div class="container">
+        <div class="row">
+            <div class="main-content">
+                <h2>Une erreur est survenue : erreur {{ status_code }}</h2>
+                <p>
+                    Une erreur critique interne est survenue lorsque vous avez tenté de consulter cette page.
+                </p>
+                <p>
+                    Merci de prévenir <b>au plus vite OI</b> en précisant ce que vous étiez occupés de faire juste avant l'erreur ainsi que l'application utilisée.<br/>
+                    Si possible, merci aussi de préciser le navigateur utilisé (Internet Explorer, Google Chrome,
+                    Mozilla Firefox, Microsoft Edge, ...) ainsi que votre système d'exploitation (Windows xp, 7, 8, 10).
+                </p>
+                <p>Veuillez nous excuser pour le dérangement occasionné.</p>
+                <p>Informations complémentaires : {{ status_code }} {{ status_text }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

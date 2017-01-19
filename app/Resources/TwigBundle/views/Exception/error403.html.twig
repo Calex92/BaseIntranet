@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block mainContent %}
+    <div class="container">
+        <div class="row">
+            <div class="main-content">
+                <h2>Accès refusé : erreur {{ status_code }}</h2>
+                <p>
+                    La page à laquelle vous tentez d'accéder vous est inacessible.
+                    Vérifiez que vous êtes connecté avec le bon profil, au besoin changez-le dans le menu situé en haut à droite.
+                </p>
+                <p>
+                    Si vous êtes correctement identifié, merci de prévenir OI en précisant ce que vous étiez occupés de faire juste avant le refus.<br/>
+                    Si possible, merci aussi de préciser le navigateur utilisé (Internet Explorer, Google Chrome,
+                    Mozilla Firefox, Microsoft Edge, ...) ainsi que votre système d'exploitation (Windows xp, 7, 8, 10).
+                </p>
+                <p>Informations complémentaires : {{ status_code }} {{ status_text }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
