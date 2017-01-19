@@ -58,8 +58,8 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
                 array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
             ),
             array(
-                array(0, 1, 2),
-                array(1),
+                array(0, 1, 2, 3),
+                array(2),
                 array(3)
             )
         );

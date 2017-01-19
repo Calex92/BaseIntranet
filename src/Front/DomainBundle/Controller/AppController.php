@@ -22,7 +22,6 @@ class AppController extends Controller
 
     public function topMenuAction($route) {
         $menus = array();
-
         if ($this->get("security.authorization_checker")->isGranted("ROLE_DOMAIN_NEWS_DOCUMENT")) {
             $menus[] = array("route" => "domain_manager_news_index",
                 "name" => "News",

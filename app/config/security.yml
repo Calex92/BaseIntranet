@@ -1,7 +1,7 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
-
+    always_authenticate_before_granting: true
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
@@ -63,3 +63,4 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/domain_manager/, role: ROLE_DOMAIN_BASE }

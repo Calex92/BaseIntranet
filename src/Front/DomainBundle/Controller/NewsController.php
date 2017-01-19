@@ -4,6 +4,7 @@ namespace Front\DomainBundle\Controller;
 
 use Front\DomainBundle\Entity\News;
 use Front\DomainBundle\Form\Type\NewsType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -36,6 +37,12 @@ class NewsController extends Controller
         return $this->render('FrontDomainBundle:News:view.html.twig', array("news" => $news));
     }
 
+    /**
+     * @Security("has_role('ROLE_DOMAIN_NEWS_DOCUMENT')")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function modifyAction(Request $request, $id) {
         $news = $this->getDoctrine()->getRepository("FrontDomainBundle:News")->find($id);
         $form = $this->get("form.factory")->create(NewsType::class, $news);
@@ -60,6 +67,12 @@ class NewsController extends Controller
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_DOMAIN_NEWS_DOCUMENT')")
+     * @param $domain
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction($domain, $page) {
         $nbPerPage  = 20;
         $domains    = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildren("FrontDomainBundle:News");
@@ -79,6 +92,11 @@ class NewsController extends Controller
             "page"      => $page));
     }
 
+    /**
+     * @Security("has_role('ROLE_DOMAIN_NEWS_DOCUMENT')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function addAction(Request $request) {
         $news = new News();
         $form = $this->get("form.factory")->create(NewsType::class, $news);

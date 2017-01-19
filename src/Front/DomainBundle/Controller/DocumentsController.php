@@ -4,6 +4,7 @@ namespace Front\DomainBundle\Controller;
 
 use Front\DomainBundle\Entity\Document;
 use Front\DomainBundle\Form\Type\DocumentType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -19,6 +20,12 @@ class DocumentsController extends Controller
             "documents" => $documents));
     }
 
+    /**
+     * @Security("has_role('ROLE_DOMAIN_NEWS_DOCUMENT')")
+     * @param $domain
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction($domain, $page) {
         $nbPerPage  = 20;
         $domains    = $this->getDoctrine()->getRepository("FrontDomainBundle:Domain")->getActiveWithChildren("FrontDomainBundle:Document");
@@ -38,6 +45,11 @@ class DocumentsController extends Controller
             "page"      => $page));
     }
 
+    /**
+     * @Security("has_role('ROLE_DOMAIN_NEWS_DOCUMENT')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function addAction(Request $request) {
         $document = new Document();
         $form = $this->get("form.factory")->create(DocumentType::class, $document);
@@ -62,6 +74,12 @@ class DocumentsController extends Controller
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_DOMAIN_NEWS_DOCUMENT')")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function modifyAction(Request $request, $id) {
         $document = $this->getDoctrine()->getRepository("FrontDomainBundle:Document")->find($id);
         $form = $this->get("form.factory")->create(DocumentType::class, $document);
@@ -85,5 +103,4 @@ class DocumentsController extends Controller
             'document' => $document
         ));
     }
-
 }

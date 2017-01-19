@@ -11,12 +11,18 @@ namespace Front\DomainBundle\Controller;
 
 use Front\DomainBundle\Entity\Catalog;
 use Front\DomainBundle\Form\Type\CatalogType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class CatalogController extends Controller
 {
+    /**
+     * @Security("has_role('ROLE_DOMAIN_CATALOG')")
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction($page) {
         $nbPerPage  = 20;
         $catalogs   = $this->getDoctrine()->getRepository("FrontDomainBundle:Catalog")->getPaginator($page, $nbPerPage);
@@ -35,6 +41,11 @@ class CatalogController extends Controller
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_DOMAIN_CATALOG')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function addAction(Request $request) {
         $catalog = new Catalog();
         $form = $this->get("form.factory")->create(CatalogType::class, $catalog);
@@ -56,6 +67,12 @@ class CatalogController extends Controller
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_DOMAIN_CATALOG')")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function modifyAction(Request $request, $id) {
         $catalog = $this->getDoctrine()->getRepository("FrontDomainBundle:Catalog")->find($id);
         $form = $this->get("form.factory")->create(CatalogType::class, $catalog);
@@ -85,7 +102,6 @@ class CatalogController extends Controller
      */
     public function viewAction($isLeft) {
         $catalogs = $this->getDoctrine()->getRepository("FrontDomainBundle:Catalog")->getFromSide($isLeft);
-
 
         return $this->render("@FrontDomain/Catalog/view.html.twig", array("catalogs" => $catalogs));
     }
