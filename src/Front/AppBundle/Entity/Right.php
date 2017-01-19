@@ -60,8 +60,8 @@ class Right
     private $role;
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Profile", inversedBy="rights")
-     * @ORM\JoinTable(name="base_right_profile")
+     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Profile", mappedBy="rights")
+     *
      */
     private $profiles;
 

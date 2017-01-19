@@ -57,7 +57,8 @@ class Profile
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Right", mappedBy="profiles", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Right", inversedBy="profiles", cascade={"persist"})
+     * @ORM\JoinTable(name="base_profile_right")
      *
      */
     private $rights;
