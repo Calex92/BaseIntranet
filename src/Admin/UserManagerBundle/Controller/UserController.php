@@ -2,7 +2,6 @@
 
 namespace Admin\UserManagerBundle\Controller;
 
-use Admin\AppBundle\Enum\RightsEnum;
 use Admin\UserManagerBundle\Form\UserAdminEditType;
 use Admin\UserManagerBundle\Form\UserType;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -28,11 +27,7 @@ class UserController extends Controller
         $users = $userManager->findUsers();
 
         return $this->render('AdminUserManagerBundle:User:index.html.twig', array(
-            "users" => $users,
-            "canUpdate"     => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), $this->getParameter("application.code.administration"), RightsEnum::UPDATE_USER),
-            "canConnectAs"  => $this->get("frontapp.right_checker")
-                ->userCanSee($this->getUser(), $this->getParameter("application.code.administration"), RightsEnum::CONNECT_AS_USER)
+            "users" => $users
         ));
     }
 

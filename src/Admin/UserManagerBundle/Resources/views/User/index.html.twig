@@ -11,7 +11,7 @@
             {{ parent() }}
         </div>
         <h2 class="col-md-7 text-nowrap">Liste des utilisateurs</h2>
-        {% if canUpdate %}
+        {% if is_granted('ROLE_ADMIN_USER_UPDATE') %}
             <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_user_manager_create") }}">Créer
                 utilisateur</a>
             <a class="col-md-3 btn btn-default pull-right" href="{{ path("admin_user_manager_load") }}">Charger les
@@ -25,7 +25,7 @@
                 <th data-priority="4">Nom de famille</th>
                 <th data-priority="3">Adresse mail</th>
                 <th>Numéro de tél</th>
-                {% if canUpdate or canConnectAs %}
+                {% if is_granted('ROLE_ADMIN_USER_UPDATE') or is_granted('ROLE_ADMIN_USER_ALLOWED_TO_SWITCH') %}
                     <th data-priority="1">Actions</th>
                 {% endif %}
             </tr>
@@ -46,9 +46,9 @@
                             {% endif %}
                         {% endif %}
                     </td>
-                    {% if canUpdate or canConnectAs %}
+                    {% if is_granted('ROLE_ADMIN_USER_UPDATE') or is_granted('ROLE_ADMIN_USER_ALLOWED_TO_SWITCH') %}
                         <td class="text-center">
-                            {% if canConnectAs %}
+                            {% if is_granted('ROLE_ADMIN_USER_ALLOWED_TO_SWITCH') %}
                                 {# If the user is logged as someone else, his only possibility is to switch back to its profile before connecting as
                                 someone else. I can't do another way because it's built like that.
                                 I have also to put everything on a single line either is adds an underline #}
@@ -62,7 +62,7 @@
                                                 class="glyphicon glyphicon-new-window"></i></a>
                                 {% endif %}
                             {% endif %}
-                            {% if canUpdate %}
+                            {% if is_granted('ROLE_ADMIN_USER_UPDATE') %}
                                 <a href="{{ path('admin_user_manager_update', {'idUser': user.id }) }}"
                                    title="Modifier"><i
                                             class="glyphicon glyphicon-cog"></i></a>

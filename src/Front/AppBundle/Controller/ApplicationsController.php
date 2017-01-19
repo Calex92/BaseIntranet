@@ -19,7 +19,7 @@ class ApplicationsController extends Controller
             $applications = $this->get("frontapp.application_getter")->getInternalApplication($this->getUser());
             $this->addFlash("danger", "Votre login ne correspond à aucun utilisateur sur l'ancien Isidore");
         }
-
+dump($this->getUser()->getProfiles());
         return $this->render('FrontAppBundle:Applications:index.html.twig', array("applications" => $applications));
     }
 
