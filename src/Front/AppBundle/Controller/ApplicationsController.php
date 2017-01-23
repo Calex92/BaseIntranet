@@ -29,7 +29,7 @@ class ApplicationsController extends Controller
     }
 
     /**
-     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')
+     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
      * @param $applicationId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
