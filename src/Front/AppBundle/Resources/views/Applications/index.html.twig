@@ -14,35 +14,62 @@
                     </div>
                 {% endfor %}
             {% endfor %}
+            <div>
+                <div class="col-lg-12">
+                    <h3 class="page-header">Voici les applications auxquelles vous avez accès :</h3>
+                </div>
 
-            <div class="col-lg-12">
-                <h3 class="page-header">Voici l'ensemble des applications auxquelles vous avez accès :</h3>
+                {% for application in applications %}
+                    {# @var application \Front\AppBundle\Entity\Application #}
+                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 thumb">
+                        {% if application.isExternal %}
+                        <a class="thumbnail application"
+                           href="{{ path(application.location, {'applicationId': application.id }) }}">
+                            {% else %}
+                            <a class="thumbnail application" href="{{ path(application.location) }}">
+                                {% endif %}
+                                <div class="application-img-frame">
+                                    <img class="img-responsive"
+                                         src="{{ vich_uploader_asset(application, 'imageFile') }}"
+                                         alt="{{ application.name }}">
+                                </div>
+                                <h4>
+                                    {{ application.name }}
+                                </h4>
+
+                                {% if application.isExternal %}
+                            </a>
+                            {% else %}
+                        </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
 
-            {% for application in applications %}
-                {# @var application \Front\AppBundle\Entity\Application #}
-                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 thumb">
-                    {% if application.isExternal %}
-                        <a class="thumbnail application"
-                            href="{{ path(application.location, {'applicationId': application.id }) }}">
-                    {% else %}
-                        <a class="thumbnail application" href="{{ path(application.location) }}">
-                    {% endif %}
-                            <div class="application-img-frame">
-                                <img class="img-responsive"
-                                     src="{{ vich_uploader_asset(application, 'imageFile') }}" alt="{{ application.name }}">
-                            </div>
-                            <h4>
-                                {{ application.name }}
-                            </h4>
+            {% if applicationsNotAccessible|length > 0 %}
+                <div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h3 class="page-header">Voici les applications auxquelles vous n'avez pas accès :</h3>
+                    </div>
 
-                    {% if application.isExternal %}
-                        </a>
-                    {% else %}
-                        </a>
-                    {% endif %}
+                    {% for application in applicationsNotAccessible %}
+                        {# @var application \Front\AppBundle\Entity\Application #}
+                        <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 thumb">
+                            <a class="thumbnail application" href="{{ path('front_help') }}#se_connecter">
+                                <div class="overlay">?</div>
+                                <div class="application-img-frame">
+                                    <img class="img-responsive"
+                                         src="{{ vich_uploader_asset(application, 'imageFile') }}"
+                                         alt="{{ application.name }}">
+                                </div>
+                                <h4>
+                                    {{ application.name }}
+                                </h4>
+                            </a>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

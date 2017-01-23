@@ -93,4 +93,10 @@ class ApplicationGetter
         }
          return array_unique($internalApplications);
     }
+
+    public function getApplicationNotAccessible(array $applicationAccessible) {
+        $applications = $this->entityManager->getRepository("FrontAppBundle:Application")->findAll();
+
+        return array_diff($applications, $applicationAccessible);
+    }
 }

@@ -20,7 +20,12 @@ class ApplicationsController extends Controller
             $this->addFlash("danger", "Votre login ne correspond à aucun utilisateur sur l'ancien Isidore");
         }
 
-        return $this->render('FrontAppBundle:Applications:index.html.twig', array("applications" => $applications));
+        $applicationsNotAccessible = $this->get("frontapp.application_getter")->getApplicationNotAccessible($applications);
+
+        return $this->render('FrontAppBundle:Applications:index.html.twig', array(
+            "applications" => $applications,
+            "applicationsNotAccessible" => $applicationsNotAccessible
+        ));
     }
 
     /**
