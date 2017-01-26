@@ -50,10 +50,12 @@
                 <td>{{ document.beginPublicationDate | date('d/m/Y') }}</td>
                 <td>{{ document.fileNameShown }}</td>
                 <td class="text-center">
-                    <a href="{{ path('domain_manager_document_modify', {'id': document.id }) }}"
-                       title="Modifier le document">
-                        <i class="glyphicon glyphicon-cog"></i>
-                    </a>
+                    {% if is_granted(document.domain.role) or is_granted("ROLE_DOMAIN_ADMIN") %}
+                        <a href="{{ path('domain_manager_document_modify', {'id': document.id }) }}"
+                           title="Modifier le document">
+                            <i class="glyphicon glyphicon-cog"></i>
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

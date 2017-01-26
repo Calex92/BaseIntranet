@@ -223,7 +223,7 @@ class User extends BaseUser
     {
         return $this->contact;
     }
-    
+
     public function setContact($contact)
     {
         $this->contact = $contact;
@@ -407,12 +407,13 @@ class User extends BaseUser
         foreach ($this->getProfilesApplication() as $profile) {
             /** @var Right $rights */
             $rights = $this->getRights($profile->getApplication()->getCode());
-
+            //For each right, we get the roles
             foreach ($rights as $right) {
                 /** @var Right $right */
-                if (!$rightsRolesToReturn->contains($right->getRole())) {
-                    /** @var Right $right */
-                    $rightsRolesToReturn->add($right->getRole());
+                foreach ($right->getRoles() as $role) {
+                    if (!$rightsRolesToReturn->contains($role)) {
+                        $rightsRolesToReturn->add($role);
+                    }
                 }
             }
         }

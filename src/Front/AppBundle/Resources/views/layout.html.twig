@@ -16,7 +16,7 @@
                         <li class="{% if app.request.attributes.get('_route') == 'domain_manager_documents_view' %}active{% endif %}">
                             <a href="{{ path("domain_manager_documents_view") }}">Documents références</a>
                         </li>
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                             <li class="{% if app.request.attributes.get('_route') == 'application_index' %}active{% endif %}">
                                 <a href="{{ path("application_index") }}">Applications</a>
                             </li>
@@ -24,7 +24,7 @@
                         <li class="{% if app.request.attributes.get('_route') == 'front_help' %}active{% endif %}">
                             <a href="{{ path("front_help") }}">Aide</a>
                         </li>
-                        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") and
+                        {% if not is_granted("IS_AUTHENTICATED_FULLY") and
                                     app.request.attributes.get('_route') != 'fos_user_security_login'%}
                             {# This is only visible for the mobile/table size #}
                             <li class="hidden visible-xs">
@@ -34,7 +34,7 @@
                     </ul>
                 {% endblock %}
                 {% block menusRight %}
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                         {{ parent() }}
                     {% elseif app.request.attributes.get('_route') != 'fos_user_security_login' %}
                         <ul class="nav navbar-nav navbar-right hidden-xs">

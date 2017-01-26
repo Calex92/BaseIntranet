@@ -99,7 +99,7 @@ class NewsController extends Controller
      */
     public function addAction(Request $request) {
         $news = new News();
-        $form = $this->get("form.factory")->create(NewsType::class, $news);
+        $form = $this->get("form.factory")->create(NewsType::class, $news, array("user" => $this->getUser()));
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();

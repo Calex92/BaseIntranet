@@ -9,6 +9,7 @@ parameters:
     mailer_transport: smtp
     mailer_host: 192.168.41.5
     mailer_user: alexandre.castelain@orexad.com
+    mailer_password: null
 
     secret: c65b25fe6679b15da0478d165f6afbbca7cea1a8
 

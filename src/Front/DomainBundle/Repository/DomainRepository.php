@@ -3,6 +3,7 @@
 namespace Front\DomainBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Front\UserBundle\Entity\User;
 
 /**
  * newsDomainRepository
@@ -12,11 +13,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class DomainRepository extends EntityRepository
 {
-    public function getActiveQueryBuilder()
+    public function getActiveQueryBuilder(User $user)
     {
         $qb = $this->createQueryBuilder('domain_repository');
-        return $qb
+        $qb = $qb
             ->where($qb->expr()->eq("domain_repository.active", true));
+
+        if (in_array("ROLE_DOMAIN_ADMIN", $user->getRoles())) {
+            $qb->andWhere($qb->expr()->in('domain_repository.role', $user->getRoles()));
+        }
+
+        return $qb;
     }
 
     /**

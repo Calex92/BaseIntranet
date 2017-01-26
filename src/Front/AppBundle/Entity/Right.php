@@ -53,11 +53,11 @@ class Right
     private $application;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="role", type="string", length=255)
+     * @ORM\Column(name="roles", type="array", length=1000)
      */
-    private $role;
+    private $roles;
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Profile", mappedBy="rights")
@@ -188,19 +188,19 @@ class Right
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getRole()
+    public function getRoles()
     {
-        return $this->role;
+        return $this->roles;
     }
 
     /**
-     * @param string $role
+     * @param array $roles
      */
-    public function setRole($role)
+    public function setRole($roles)
     {
-        $this->role = $role;
+        $this->roles = $roles;
     }
 
 

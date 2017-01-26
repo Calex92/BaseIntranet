@@ -41,6 +41,7 @@
         </thead>
         <tbody>
         {% for new in news %}
+        {# @var new \Front\DomainBundle\Entity\News #}
             <tr>
                 <td>{{ new.title }}</td>
                 <td>{{ new.domain.label }}</td>
@@ -48,9 +49,11 @@
                 <td>{{ new.beginPublicationDate | date('d/m/Y') }}</td>
                 <td>{% if new.endPublicationDate %} {{ new.endPublicationDate | date('d/m/Y') }} {% endif %}</td>
                 <td class="text-center">
+                    {% if is_granted(new.domain.role) or is_granted("ROLE_DOMAIN_ADMIN") %}
                         <a href="{{ path('domain_manager_news_modify', {'id': new.id }) }}"
                            title="Modifier la news"><i
                                     class="glyphicon glyphicon-cog"></i></a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

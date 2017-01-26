@@ -24,6 +24,7 @@ class NewsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $options["user"];
         $builder->add('title', TextType::class,
                 array("label" => "Titre"))
             ->add('text', TextareaType::class,
@@ -39,8 +40,8 @@ class NewsType extends AbstractType
                     "choice_label"  => "label",
                     "choice_value"  => "id",
                     "label"         => "Domaine",
-                    "query_builder" => function (DomainRepository $repository) {
-                        return $repository->getActiveQueryBuilder();
+                    "query_builder" => function (DomainRepository $repository) use ($user){
+                        return $repository->getActiveQueryBuilder($user);
                     },))
             ->add('externalVideo', CollectionType::class, array(
                 "entry_type"    => TextType::class,
@@ -59,6 +60,8 @@ class NewsType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Front\DomainBundle\Entity\News'));
+        $resolver->setDefaults(array(
+            'data_class' => 'Front\DomainBundle\Entity\News',
+            'user'       => null));
     }
 }

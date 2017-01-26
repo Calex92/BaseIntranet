@@ -21,7 +21,8 @@ class DomainType extends AbstractType
     {
         $builder
             ->add("label", TextType::class, array(
-                "label"     => "Nom du domaine"
+                "label"     => "Nom du domaine",
+                "attr"      => array("placeholder"  => "Nom du domaine")
             ))
             ->add("active", CheckboxType::class, array(
                 "label"     => " ",
@@ -29,13 +30,17 @@ class DomainType extends AbstractType
                 "attr"      => array("data-toggle"   => "toggle",
                     "data-off"      => "Inactif",
                     "data-on"       => "Actif")
+            ))
+            ->add("role", TextType::class, array(
+                "label"     => "Role associé",
+                "attr"      => array("placeholder"  => "ROLE_DOMAIN_NOM_DU_DOMAINE")
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            "data_class" => "Front\DomainBundle\Entity\Domain"
+            "data_class" => "Front\\DomainBundle\\Entity\\Domain"
         ));
     }
 }

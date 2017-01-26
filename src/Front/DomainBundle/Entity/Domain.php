@@ -52,6 +52,12 @@ class Domain
     private $domainElements;
 
     /**
+     * @var string
+     * @ORM\Column(name="role", type="string", length=255)
+     */
+    private $role;
+
+    /**
      * Domain constructor.
      */
     public function __construct()
@@ -173,6 +179,24 @@ class Domain
             }
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+
+
 
     /**
      * This is used to get the latest documents (1 month ago)

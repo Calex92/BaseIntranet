@@ -22,6 +22,7 @@ class DocumentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $options["user"];
         $builder->add('title', TextType::class,
                 array("label"       => "Titre"))
             ->add('domain', EntityType::class,
@@ -29,8 +30,8 @@ class DocumentType extends AbstractType
                     "choice_label"  => "label",
                     "choice_value"  => "id",
                     "label"         => "Domaine",
-                    "query_builder" => function (DomainRepository $repository) {
-                        return $repository->getActiveQueryBuilder();
+                    "query_builder" => function (DomainRepository $repository) use ($user){
+                        return $repository->getActiveQueryBuilder($user);
                     },))
             ->add("fileNameShown", TextType::class,
                 array("label"   => "Nom du fichier"))
@@ -45,6 +46,8 @@ class DocumentType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => "Front\DomainBundle\Entity\Document"));
+        $resolver->setDefaults(array(
+            'data_class' => "Front\DomainBundle\Entity\Document",
+            "user"       => null));
     }
 }

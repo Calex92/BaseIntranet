@@ -52,7 +52,7 @@ class DocumentsController extends Controller
      */
     public function addAction(Request $request) {
         $document = new Document();
-        $form = $this->get("form.factory")->create(DocumentType::class, $document);
+        $form = $this->get("form.factory")->create(DocumentType::class, $document, array("user" => $this->getUser()));
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();

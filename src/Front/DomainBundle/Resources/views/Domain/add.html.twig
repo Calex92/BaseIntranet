@@ -9,6 +9,15 @@
     </a>
 
     <h2 class="col-md-12">Créer un domaine</h2>
+    <div class="clearfix"></div>
+    <div class="alert alert-danger">
+        Attention, veuillez bien noter que si vous ajoutez un nouveau domaine, il faut créer le droit correspondant
+        en base de données lié à cette application. <br/>
+        Si vous ne le faites pas, les utilisateurs n'y auront pas accès.<br/>
+        Un droit de type domaine aura toujours deux roles: ROLE_DOMAIN_NEWS_DOCUMENT ainsi que le role que vous indiquez ici.<br/>
+        Le premier sert à donner l'accès à l'application et le second permet de charger la liste des domaines accessibles.
+    </div>
+
     {% include ("@FrontDomain/Form/domainType.html.twig") %}
     <input type="submit" class="btn btn-default pull-right" value="Ajouter"/>
     {{ form_end(form) }}

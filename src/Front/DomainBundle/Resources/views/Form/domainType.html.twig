@@ -7,7 +7,7 @@
         <div class="form-group">
             {{ form_label(form.label, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
             <div class="col-sm-8">
-                {{ form_widget(form.label, {"attr": {'class' : "form-control"}}) }}
+                {{ form_widget(form.label) }}
             </div>
             {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.label}) }}
         </div>
@@ -17,6 +17,13 @@
                 {{ form_widget(form.active) }}
             </div>
             {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.active}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.role, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.role) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.role}) }}
         </div>
     </div>
 </div>

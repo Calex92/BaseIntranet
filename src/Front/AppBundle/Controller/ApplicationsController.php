@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ApplicationsController extends Controller
 {
     /**
-     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     * @Security("has_role('IS_AUTHENTICATED_FULLY')")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
@@ -29,7 +29,7 @@ class ApplicationsController extends Controller
     }
 
     /**
-     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     * @Security("has_role('IS_AUTHENTICATED_FULLY')")
      * @param $applicationId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
