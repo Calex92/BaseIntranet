@@ -81,7 +81,7 @@ class LoadCatalog extends AbstractFixture implements OrderedFixtureInterface
             $catalog->setFileNameShown($fileNameShown[$i]);
             $catalog->setImageName($imageName[$i]);
             $catalog->setBeginPublicationDate($beginPublication[$i]);
-            $catalog->setIsPositionLeft($isLeft[$i]);
+            $catalog->setPositionLeft($isLeft[$i]);
             $catalog->setVisible(true);
 
             $catalog->setCreationDate(new \DateTime());

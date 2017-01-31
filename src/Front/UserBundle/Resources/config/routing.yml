@@ -1,23 +1,14 @@
-front_user_homepage:
-    path:     /
-    defaults: { _controller: FrontUserBundle:Default:index }
-
 fos_user_security_login:
     path:    /login
     defaults: { _controller: FrontUserBundle:Security:login }
-
-user_profile_show:
-     path:    /profile
-     defaults: { _controller: FrontUserBundle:Profile:show }
-
-user_profile_edit:
-     path:    /profile/edit
-     defaults: { _controller: FrontUserBundle:Profile:edit }
+    methods: ["GET", "POST"]
 
 user_change_password:
     path:    /profile/change-password
     defaults: { _controller: FrontUserBundle:ChangePassword:changePassword }
+    methods: ["GET", "POST"]
 
 fos_user_resetting_check_email:
     path:    /check-email
     defaults: { _controller: FrontUserBundle:Resetting:checkEmail }
+    methods: ["GET", "POST"]

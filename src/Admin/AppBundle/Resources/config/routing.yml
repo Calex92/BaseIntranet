@@ -1,49 +1,59 @@
 admin_app_homepage:
     path:     /
     defaults: { _controller: AdminAppBundle:Base:index }
+    methods: ["GET"]
 
 
 admin_agency_manager_homepage:
     path:    /agencies
     defaults: { _controller: AdminAppBundle:Agency:index }
+    methods: ["GET"]
 
 admin_agency_manager_add:
     path:    /agency/add
     defaults: { _controller: AdminAppBundle:Agency:add }
+    methods: ["GET", "POST"]
 
 admin_agency_manager_update:
     path:    /agency/{id}
     defaults: { _controller: AdminAppBundle:Agency:update }
     requirements:
         id:    \d*
+    methods: ["GET", "POST"]
 
 
 admin_region_manager_homepage:
     path:    /regions
     defaults: { _controller: AdminAppBundle:Region:index }
+    methods: ["GET"]
 
 admin_region_manager_add:
     path:    /region/add
     defaults: { _controller: AdminAppBundle:Region:add }
+    methods: ["GET", "POST"]
 
 admin_region_manager_update:
     path:    /region/{id}
     defaults: { _controller: AdminAppBundle:Region:update }
     requirements:
         id:    \d*
+    methods: ["GET", "POST"]
 
 
 admin_zone_manager_homepage:
     path:    /zones
     defaults: { _controller: AdminAppBundle:Zone:index }
+    methods: ["GET"]
 
 admin_zone_manager_add:
     path:    /zone/add
     defaults: { _controller: AdminAppBundle:Zone:add }
+    methods: ["GET", "POST"]
 
 admin_zone_manager_update:
     path:    /zone/{id}
     defaults: { _controller: AdminAppBundle:Zone:update }
+    methods: ["GET", "POST"]
     requirements:
         id:    \d*
 
@@ -51,14 +61,17 @@ admin_zone_manager_update:
 admin_group_manager_homepage:
     path:    /groups
     defaults: { _controller: AdminAppBundle:Group:index }
+    methods: ["GET"]
 
 admin_group_manager_add:
     path:    /group/add
     defaults: { _controller: AdminAppBundle:Group:add }
+    methods: ["GET", "POST"]
 
 admin_group_manager_update:
     path:    /group/{id}
     defaults: { _controller: AdminAppBundle:Group:update }
+    methods: ["GET", "POST"]
     requirements:
         id:    \d*
 
@@ -66,14 +79,17 @@ admin_group_manager_update:
 admin_application_manager_homepage:
     path:    /applications
     defaults: { _controller: AdminAppBundle:Application:index }
+    methods: ["GET"]
 
 admin_application_manager_add:
     path:    /application/add
     defaults: { _controller: AdminAppBundle:Application:add }
+    methods: ["GET", "POST"]
 
 admin_application_manager_update:
     path:    /application/{id}
     defaults: { _controller: AdminAppBundle:Application:update }
+    methods: ["GET", "POST"]
     requirements:
         id:    \d*
 
@@ -83,10 +99,12 @@ admin_profile_manager_add:
     defaults: { _controller: AdminAppBundle:Profile:add }
     requirements:
         id:    \d*
+    methods: ["GET", "POST"]
 
 admin_profile_manager_update:
     path:    /application/profile/{id}
     defaults: { _controller: AdminAppBundle:Profile:update }
+    methods: ["GET", "POST"]
     requirements:
         id:    \d*
 
@@ -95,3 +113,4 @@ admin_profile_manager_remove:
     defaults: { _controller: AdminAppBundle:Profile:remove }
     requirements:
         id:    \d*
+    methods: ["DELETE"]

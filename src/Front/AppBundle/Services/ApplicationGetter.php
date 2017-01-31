@@ -38,9 +38,7 @@ class ApplicationGetter
         $applications = array_merge($internalApplications, $externalApplications);
 
         //sort alphabetically
-        uasort($applications, function($a, $b) {
-            /** @var $a Application */
-            /** @var $b Application */
+        uasort($applications, function(Application $a,Application $b) {
             return strcmp($a->getName(), $b->getName());
         });
 

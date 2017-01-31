@@ -8,36 +8,29 @@
 
                 {% block menus %}
                     <ul class="nav navbar-nav">
-                        <li class="{% if app.request.attributes.get('_route') == 'domain_manager_news_list_view' or
+                        <li class="{{ (app.request.attributes.get('_route') == 'domain_manager_news_list_view' or
                         app.request.attributes.get('_route') == 'front_homepage' or
-                        app.request.attributes.get('_route') == 'domain_manager_news_view' %}active{% endif %}">
+                        app.request.attributes.get('_route') == 'domain_manager_news_view') ? "active": ""}}">
                             <a href="{{ path("domain_manager_news_list_view", {"domain" : "all"}) }}">News</a>
                         </li>
-                        <li class="{% if app.request.attributes.get('_route') == 'domain_manager_documents_view' %}active{% endif %}">
+                        <li class="{{ app.request.attributes.get('_route') == 'domain_manager_documents_view'? "active" : ""}}">
                             <a href="{{ path("domain_manager_documents_view") }}">Documents références</a>
                         </li>
                         {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-                            <li class="{% if app.request.attributes.get('_route') == 'application_index' %}active{% endif %}">
+                            <li class="{{ app.request.attributes.get('_route') == 'application_index' ? "active": ""}}">
                                 <a href="{{ path("application_index") }}">Applications</a>
                             </li>
                         {% endif %}
-                        <li class="{% if app.request.attributes.get('_route') == 'front_help' %}active{% endif %}">
+                        <li class="{{ app.request.attributes.get('_route') == 'front_help' ? "active" : "" }}">
                             <a href="{{ path("front_help") }}">Aide</a>
                         </li>
-                        {% if not is_granted("IS_AUTHENTICATED_FULLY") and
-                                    app.request.attributes.get('_route') != 'fos_user_security_login'%}
-                            {# This is only visible for the mobile/table size #}
-                            <li class="hidden visible-xs">
-                                <a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a>
-                            </li>
-                        {% endif %}
                     </ul>
                 {% endblock %}
                 {% block menusRight %}
                     {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                         {{ parent() }}
                     {% elseif app.request.attributes.get('_route') != 'fos_user_security_login' %}
-                        <ul class="nav navbar-nav navbar-right hidden-xs">
+                        <ul class="nav navbar-nav navbar-right">
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a></li>
                         </ul>
                     {% endif %}
@@ -47,26 +40,22 @@
     {# The left menu is only displayed for news and application, when he's not here, for the small browsers (exemple: phone),
             need to display the content in full screen #}
     {# The main content need to be displayed in full screen when there's no left/right bars #}
-    {% if app.request.attributes.get('_route') == 'domain_manager_news_list_view' or
-            app.request.attributes.get('_route') == 'domain_manager_news_view'  %}
-        {% set sizeLeftBar = "col-sm-4" %}
-        {% set sizeContent ="col-sm-8 col-xs-12" %}
-    {% else %}
-        {% set sizeLeftBar = "hidden-xs hidden-sm" %}
-        {% set sizeContent = "col-sm-12 col-xs-12 col-md-8" %}
-    {% endif %}
 
     <div class="container">
         <div class="row">
 
-            <div class="col-md-2 side-bar {{ sizeLeftBar }} left-menu">
+            <div class="col-md-2 side-bar
+                {{ (app.request.attributes.get('_route') == 'domain_manager_news_list_view'
+                or app.request.attributes.get('_route') == 'domain_manager_news_view') ? "col-sm-4" : "hidden-xs hidden-sm" }}
+            left-menu">
                 {% block leftMenu %}
                     <div class="hidden-xs hidden-sm">{{ render (controller("FrontDomainBundle:Catalog:view", { 'isLeft' : true})) }}</div>
                 {% endblock %}
             </div>
 
             {# The content of the page is in this div #}
-            <div class="{{ sizeContent }}">
+            <div class="{{ (app.request.attributes.get('_route') == 'domain_manager_news_list_view'
+                or app.request.attributes.get('_route') == 'domain_manager_news_view') ? "col-sm-8 col-xs-12" : "col-sm-12 col-xs-12 col-md-8" }}">
                 {% block content %}
                     {% for key, messages in app.session.flashbag.all() %}
                         {% for message in messages %}

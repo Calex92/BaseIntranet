@@ -9,7 +9,7 @@
 namespace Admin\AppBundle\Controller;
 
 
-use Admin\AppBundle\Form\ProfileType;
+use Admin\AppBundle\Form\Type\ProfileType;
 use Front\AppBundle\Entity\Application;
 use Front\AppBundle\Entity\Profile;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

@@ -6,10 +6,10 @@
  * Time: 14:11
  */
 
-namespace Front\UserBundle\Form;
+namespace Front\UserBundle\Form\Type;
 
 
-use Front\AppBundle\Form\ContactType;
+use Front\AppBundle\Form\Type\ContactType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -1,20 +1,24 @@
 admin_user_manager_homepage:
     path:     /users
     defaults: { _controller: AdminUserManagerBundle:User:index }
+    methods: ["GET"]
 
 admin_user_manager_create:
     path:     /user/add
     defaults: { _controller: AdminUserManagerBundle:User:create }
+    methods: ["GET", "POST"]
 
 admin_user_manager_load:
     path:    /user/load
     defaults: { _controller: AdminUserManagerBundle:User:load }
+    methods: ["GET", "POST"]
 
 admin_user_manager_update:
     path:     /user/{idUser}
     requirements:
         id: \d+
     defaults: { _controller: AdminUserManagerBundle:User:update }
+    methods: ["GET", "POST"]
 
 admin_user_agency_update:
     path:    /user/ajax/agency/update
@@ -22,4 +26,4 @@ admin_user_agency_update:
     options:
         expose: true
     condition: "request.isXmlHttpRequest()"
-    methods: [POST]
+    methods: ["POST"]

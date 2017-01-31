@@ -1,8 +1,8 @@
 <?php
 
-namespace Admin\UserManagerBundle\Form;
+namespace Admin\UserManagerBundle\Form\Type;
 
-use Front\AppBundle\Form\ContactType;
+use Front\AppBundle\Form\Type\ContactType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

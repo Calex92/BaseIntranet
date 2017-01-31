@@ -6,11 +6,11 @@
  * Time: 11:05
  */
 
-namespace Admin\AppBundle\Form;
+namespace Admin\AppBundle\Form\Type;
 
 
 use Front\AppBundle\Entity\Region;
-use Front\AppBundle\Form\ContactType;
+use Front\AppBundle\Form\Type\ContactType;
 use Front\AppBundle\Repository\RegionRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

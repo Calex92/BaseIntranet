@@ -35,7 +35,7 @@
     </div>
 {% endblock %}
 
-        {% block javascripts %}
-            {{ parent() }}
-            <script src="{{ asset("bundles/adminusermanager/js/adminUser.js") }}"></script>
-        {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/adminusermanager/js/adminUser.js") }}"></script>
+{% endblock %}

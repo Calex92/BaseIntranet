@@ -22,12 +22,7 @@
             <tbody>
             {% for notification in notifications %}
                 {# @var notification \Front\AppBundle\Entity\Notification#}
-                {% if notification.seen %}
-                    {% set isSeen = "" %}
-                {% else %}
-                    {% set isSeen = "is-not-read" %}
-                {% endif %}
-                <tr class="{{ isSeen }}">
+                <tr class="{{ notification.seen? "": "is-not-read" }}">
                     <td>
                         <a href="{{ path("user_notifications_view", {"id" : notification.id}) }}">{{ notification.title }}</a>
                     </td>
@@ -39,7 +34,7 @@
         <ul class="pagination pull-right">
             {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
             {% for p in range(1, nbPages) %}
-                <li{% if p == page %} class="active"{% endif %}>
+                <li class="{{ p == page ? "active": ""}}">
                     <a href="{{ path('user_notifications', {'page': p}) }}">{{ p }}</a>
                 </li>
             {% endfor %}

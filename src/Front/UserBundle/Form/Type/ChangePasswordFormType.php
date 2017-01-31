@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Front\UserBundle\Form;
+namespace Front\UserBundle\Form\Type;
 
 use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\FormBuilderInterface;

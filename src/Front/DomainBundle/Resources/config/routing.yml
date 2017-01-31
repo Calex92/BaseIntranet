@@ -2,6 +2,7 @@ domain_manager_news_view:
     path:    /news/view/{id}
     defaults:
         _controller: FrontDomainBundle:News:view
+    methods: ["GET"]
 
 domain_manager_news_list_view:
     path:     /news/{domain}/{page}
@@ -11,27 +12,32 @@ domain_manager_news_list_view:
         domain:      "all"
     requirements:
         page:    \d*
+    methods: ["GET"]
 
 domain_manager_documents_view:
     path:    /documents/{domain}
     defaults:
         _controller: FrontDomainBundle:Documents:view
         domain: "all"
+    methods: ["GET"]
 
 domain_manager_index:
     path:    /domain_manager
     defaults:
         _controller: FrontDomainBundle:App:index
+    methods: ["GET"]
 
 domain_manager_news_add:
     path:    /domain_manager/news/add
     defaults:
         _controller: FrontDomainBundle:News:add
+    methods: ["GET", "POST"]
 
 domain_manager_news_modify:
     path:    /domain_manager/news/modify/{id}
     defaults:
         _controller: FrontDomainBundle:News:modify
+    methods: ["GET", "POST"]
 
 domain_manager_news_index:
     path:    /domain_manager/news/{domain}/{page}
@@ -41,16 +47,19 @@ domain_manager_news_index:
         domain:      "all"
     requirements:
             page:    \d*
+    methods: ["GET"]
 
 domain_manager_document_add:
-   path:    /domain_manager/document/add
-   defaults:
+    path:    /domain_manager/document/add
+    defaults:
        _controller: FrontDomainBundle:Documents:add
+    methods: ["GET", "POST"]
 
 domain_manager_document_modify:
     path:    /domain_manager/document/modify/{id}
     defaults:
         _controller: FrontDomainBundle:Documents:modify
+    methods: ["GET", "POST"]
 
 domain_manager_document_index:
     path:    /domain_manager/document/{domain}/{page}
@@ -60,34 +69,41 @@ domain_manager_document_index:
         domain:      "all"
     requirements:
             page:    \d*
+    methods: ["GET"]
 
 domain_manager_catalog_add:
     path:    /domain_manager/catalog/add
     defaults:
         _controller: FrontDomainBundle:Catalog:add
+    methods: ["GET", "POST"]
 
 domain_manager_catalog_modify:
     path:    /domain_manager/catalog/modify/{id}
     defaults:
         _controller: FrontDomainBundle:Catalog:modify
+    methods: ["GET", "POST"]
 
 domain_manager_catalog_index:
     path:    /domain_manager/catalog/{page}
     defaults:
         _controller: FrontDomainBundle:Catalog:index
         page:        1
+    methods: ["GET"]
 
 domain_manager_domain_index:
     path:    /domain_manager/domain
     defaults:
         _controller: FrontDomainBundle:Domain:index
+    methods: ["GET"]
 
 domain_manager_domain_add:
     path:    /domain_manager/domain/add
     defaults:
         _controller: FrontDomainBundle:Domain:add
+    methods: ["GET", "POST"]
 
 domain_manager_domain_modify:
     path:    /domain_manager/domain/modify/{id}
     defaults:
         _controller: FrontDomainBundle:Domain:modify
+    methods: ["GET", "POST"]

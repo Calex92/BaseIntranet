@@ -25,9 +25,7 @@
                 <th data-priority="4">Nom de famille</th>
                 <th data-priority="3">Adresse mail</th>
                 <th>Numéro de tél</th>
-                {% if is_granted('ROLE_ADMIN_USER_UPDATE') or is_granted('ROLE_ADMIN_USER_ALLOWED_TO_SWITCH') %}
-                    <th data-priority="1">Actions</th>
-                {% endif %}
+                <th data-priority="1">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -38,37 +36,31 @@
                     <td>{{ user.firstname }}</td>
                     <td>{{ user.surname }}</td>
                     <td>{{ user.email }}</td>
-                    <td> {% if user.contact is defined %}
-                            {% if user.contact.phone is defined %}
-                                {{ user.contact.phone }}
-                            {% elseif user.contact.mobilePhone is defined %}
-                                {{ user.contact.mobilePhone }}
+                    <td>
+                        {{ user.contact.phone is defined ?
+                        user.contact.phone : user.contact.mobilePhone }}
+                    </td>
+                    <td class="text-center">
+                        {% if is_granted('ROLE_ADMIN_USER_ALLOWED_TO_SWITCH') %}
+                            {# If the user is logged as someone else, his only possibility is to switch back to its profile before connecting as
+                            someone else. I can't do another way because it's built like that.
+                            I have also to put everything on a single line either is adds an underline #}
+                            {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                <a href="{{ path('front_homepage', {'_switch_user': user.username }) }}"
+                                   title="Se connecter en tant que {{ user.username }}"><i
+                                            class="glyphicon glyphicon-log-in"></i></a>
+                            {% else %}
+                                <a href="{{ path('admin_user_manager_homepage', {'_switch_user': '_exit'}) }}"
+                                   title="Se déconnecter du profil temporaire"><i
+                                            class="glyphicon glyphicon-new-window"></i></a>
                             {% endif %}
                         {% endif %}
+                        {% if is_granted('ROLE_ADMIN_USER_UPDATE') %}
+                            <a href="{{ path('admin_user_manager_update', {'idUser': user.id }) }}"
+                               title="Modifier"><i
+                                        class="glyphicon glyphicon-cog"></i></a>
+                        {% endif %}
                     </td>
-                    {% if is_granted('ROLE_ADMIN_USER_UPDATE') or is_granted('ROLE_ADMIN_USER_ALLOWED_TO_SWITCH') %}
-                        <td class="text-center">
-                            {% if is_granted('ROLE_ADMIN_USER_ALLOWED_TO_SWITCH') %}
-                                {# If the user is logged as someone else, his only possibility is to switch back to its profile before connecting as
-                                someone else. I can't do another way because it's built like that.
-                                I have also to put everything on a single line either is adds an underline #}
-                                {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                    <a href="{{ path('front_homepage', {'_switch_user': user.username }) }}"
-                                       title="Se connecter en tant que {{ user.username }}"><i
-                                                class="glyphicon glyphicon-log-in"></i></a>
-                                {% else %}
-                                    <a href="{{ path('admin_user_manager_homepage', {'_switch_user': '_exit'}) }}"
-                                       title="Se déconnecter du profil temporaire"><i
-                                                class="glyphicon glyphicon-new-window"></i></a>
-                                {% endif %}
-                            {% endif %}
-                            {% if is_granted('ROLE_ADMIN_USER_UPDATE') %}
-                                <a href="{{ path('admin_user_manager_update', {'idUser': user.id }) }}"
-                                   title="Modifier"><i
-                                            class="glyphicon glyphicon-cog"></i></a>
-                            {% endif %}
-                        </td>
-                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

@@ -22,26 +22,17 @@
                 {% for application in applications %}
                     {# @var application \Front\AppBundle\Entity\Application #}
                     <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 thumb">
-                        {% if application.isExternal %}
                         <a class="thumbnail application"
                            href="{{ path(application.location, {'applicationId': application.id }) }}">
-                            {% else %}
-                            <a class="thumbnail application" href="{{ path(application.location) }}">
-                                {% endif %}
-                                <div class="application-img-frame">
-                                    <img class="img-responsive"
-                                         src="{{ vich_uploader_asset(application, 'imageFile') }}"
-                                         alt="{{ application.name }}">
-                                </div>
-                                <h4>
-                                    {{ application.name }}
-                                </h4>
-
-                                {% if application.isExternal %}
-                            </a>
-                            {% else %}
+                            <div class="application-img-frame">
+                                <img class="img-responsive"
+                                     src="{{ vich_uploader_asset(application, 'imageFile') }}"
+                                     alt="{{ application.name }}">
+                            </div>
+                            <h4>
+                                {{ application.name }}
+                            </h4>
                         </a>
-                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

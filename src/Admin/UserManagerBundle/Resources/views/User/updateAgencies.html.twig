@@ -57,33 +57,24 @@
                 <td class="agency_code">{{ userAgency.agency.code }}</td>
                 <td class="agency_name">{{ userAgency.agency.name }}</td>
                 <td class="text-center">
-                    {% if not userAgency.principal %}
-                        {% set hidden = "hidden" %}
-                    {% else %}
-                        {% set hidden = "" %}
-                    {% endif %}
-                    <span class="glyphicon glyphicon-ok {{ hidden }}"></span>
-
+                    <span class="glyphicon glyphicon-ok {{ userAgency.principal? "" : "hidden" }}"></span>
                 </td>
 
                 <td class="text-center">
-                    {% if userAgency.principal %}
-                        {% set hidden = "hidden" %}
-                    {% else %}
-                        {% set hidden = "" %}
-                    {% endif %}
                     {# This is used to set this agency as the principal. Only one can be the principal atm #}
+                    {% spaceless %}
                     <a href="#" data-value="{{ userAgency.id }}"
-                       class="set_principal_agency {{ hidden }}"
-                       title="Définir en tant qu'agence principale">{#
-                  #}<span class="glyphicon glyphicon-hand-down"></span>{#
-              #}</a>
+                       class="set_principal_agency {{ userAgency.principal? "hidden" : "" }}"
+                       title="Définir en tant qu'agence principale">
+                  <span class="glyphicon glyphicon-hand-down"></span>
+              </a>
                     {# this is used to delete the agency from the list#}
                     <a href="#" data-value="{{ userAgency.id }}"
-                       class="remove_agency {{ hidden }}"
+                       class="remove_agency {{ userAgency.principal? "hidden" : "" }}"
                        title="Retirer cette agence">
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>
+                    {% endspaceless %}
                 </td>
             </tr>
         {% endfor %}

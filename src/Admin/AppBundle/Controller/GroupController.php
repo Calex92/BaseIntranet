@@ -9,7 +9,7 @@
 namespace Admin\AppBundle\Controller;
 
 
-use Admin\AppBundle\Form\GroupType;
+use Admin\AppBundle\Form\Type\GroupType;
 use Front\AppBundle\Entity\Group;
 use Front\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;

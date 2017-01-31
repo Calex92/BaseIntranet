@@ -47,7 +47,7 @@ class DocumentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => "Front\DomainBundle\Entity\Document",
+            'data_class' => "Front\\DomainBundle\\Entity\\Document",
             "user"       => null));
     }
 }

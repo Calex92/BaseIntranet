@@ -9,7 +9,7 @@
 namespace Admin\AppBundle\Controller;
 
 
-use Admin\AppBundle\Form\ZoneType;
+use Admin\AppBundle\Form\Type\ZoneType;
 use Front\AppBundle\Entity\Zone;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

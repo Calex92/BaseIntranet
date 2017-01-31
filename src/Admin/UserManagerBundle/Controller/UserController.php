@@ -2,8 +2,8 @@
 
 namespace Admin\UserManagerBundle\Controller;
 
-use Admin\UserManagerBundle\Form\UserAdminEditType;
-use Admin\UserManagerBundle\Form\UserType;
+use Admin\UserManagerBundle\Form\Type\UserAdminEditType;
+use Admin\UserManagerBundle\Form\Type\UserType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Front\AppBundle\Entity\Contact;
 use Front\AppBundle\Entity\Group;
@@ -100,16 +100,13 @@ class UserController extends Controller
             try {
                 switch ($request->get('type')) {
                     case "add":
-                        $idAgency = $request->get('idAgency');
-                        $userAgencyRepository->addUserAgency($idUser, $idAgency);
+                        $userAgencyRepository->addUserAgency($idUser, $request->get('idAgency'));
                         break;
                     case "remove":
-                        $idUserAgency = $request->get('idUserAgency');
-                        $userAgencyRepository->removeUserAgency($idUserAgency);
+                        $userAgencyRepository->removeUserAgency($request->get('idUserAgency'));
                         break;
                     case "setPrincipal":
-                        $idUserAgency = $request->get('idUserAgency');
-                        $userAgencyRepository->setAsPrincipal($idUserAgency);
+                        $userAgencyRepository->setAsPrincipal($request->get('idUserAgency'));
                         break;
                     default:
                         return new JsonResponse("Cette requête a généré un résultat inatendu. 
@@ -119,10 +116,8 @@ class UserController extends Controller
             catch (Exception $e) {
                 return new JsonResponse($e->getMessage(), 515);
             }
-            $jsonGenerator = $this->get("admin_user_manager_json_generator.agencies_for_ajax");
-            return new JsonResponse($jsonGenerator->generateJsonForAjaxAgencies($idUser));
+            return new JsonResponse($this->get("admin_user_manager_json_generator.agencies_for_ajax")->generateJsonForAjaxAgencies($idUser));
         }
-
         return new Response("Impossible de renvoyer un résultat");
     }
 
@@ -131,36 +126,36 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             foreach (simplexml_load_string($request->request->get("csvData")) as $line) {
 
-                if ($line->prenom != "" &&
-                    $line->email != "" &&
-                    $line->nom != "" &&
-                    $line->password != "" &&
-                    $line->login != "") {
-
+                if ($this->isEligible($line)) {
                     $user = new User();
                     $contact = new Contact();
 
-                    $user->setUsername($line->login);
-                    $user->setFirstname($line->prenom);
-                    $user->setSurname($line->nom);
-                    $user->setPlainPassword($line->password);
-                    $user->setEmail($line->email);
-                    $user->setEnabled($line->actif);
-                    $user->setUpdatedAt(new \DateTime());
-                    $user->setProfiles(new ArrayCollection());
-                    $user->setGroup(new Group());
-
-                    $user->setContact($contact);
-
-                    $user->setRoles(array('Role_User'));
+                    $user->setUsername($line->login)
+                        ->setFirstname($line->prenom)
+                        ->setSurname($line->nom)
+                        ->setPlainPassword($line->password)
+                        ->setEmail($line->email)
+                        ->setEnabled($line->actif);
+                    $user->setUpdatedAt(new \DateTime())
+                        ->setProfiles(new ArrayCollection())
+                        ->setGroup(new Group())
+                        ->setContact($contact)
+                        ->setRoles(array('Role_User'));
 
                     $em->persist($user);
                 }
             }
             $em->flush();
-
+            return $this->redirectToRoute("admin_user_manager_homepage");
         }
-
         return $this->render("@AdminUserManager/User/load.html.twig");
+    }
+
+    private function isEligible($userTab) {
+        return $userTab->prenom != "" &&
+            $userTab->email != "" &&
+            $userTab->nom != "" &&
+            $userTab->password != "" &&
+            $userTab->login != "";
     }
 }

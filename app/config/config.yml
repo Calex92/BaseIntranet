@@ -8,7 +8,6 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
-    secret: "secret_token"
 
 framework:
     #esi:             ~
@@ -30,6 +29,7 @@ framework:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
         save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+        name: "%my.cookie.name%"
     fragments:       ~
     http_method_override: true
     assets: ~
@@ -43,12 +43,14 @@ twig:
             - 'bootstrap_3_layout.html.twig'
             - 'VichUploaderBundle:Form:fields.html.twig'
     globals:
+        serverName: "%server.name%"
         applicationAdministration: "%application.code.administration%"
         applicationDomain:         "%application.code.domain%"
 
 # Doctrine Configuration
 doctrine:
     dbal:
+        server_version: 5.7.9
         driver:   pdo_mysql
         host:     "%database_host%"
         port:     "%database_port%"
@@ -87,7 +89,7 @@ fos_user:
     user_class: Front\UserBundle\Entity\User
     profile:
         form:
-            type: Front\UserBundle\Form\ProfileFormType
+            type: Front\UserBundle\Form\Type\ProfileFormType
     resetting:
         email:
             from_email:

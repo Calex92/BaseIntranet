@@ -216,7 +216,7 @@ class Catalog
     /**
      * @param bool $isPositionLeft
      */
-    public function setIsPositionLeft($isPositionLeft)
+    public function setPositionLeft($isPositionLeft)
     {
         $this->isPositionLeft = $isPositionLeft;
     }

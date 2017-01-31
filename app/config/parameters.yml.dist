@@ -20,3 +20,6 @@ parameters:
     application.code.domain: 1
 
     application_name: isidore2
+
+    server.name: Vanina intranet
+    my.cookie.name: intranetApplication

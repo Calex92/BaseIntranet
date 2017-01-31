@@ -32,10 +32,7 @@
                         {% for right in profile.rights %}
                             {# @var right \Front\AppBundle\Entity\Right#}
                             {{ right.name }}
-
-                            {% if not loop.last %}
-                                ,
-                            {% endif %}
+                            {{ loop.last? ", ":"" }}
                         {% endfor %}
                     </td>
                 </tr>
@@ -64,9 +61,7 @@
                             {# @var right \Front\AppBundle\Entity\Right#}
                             {{ right.name }}
 
-                            {% if not loop.last %}
-                                ,
-                            {% endif %}
+                            {{ loop.last? ", ":"" }}
                         {% endfor %}
                     </td>
                 </tr>

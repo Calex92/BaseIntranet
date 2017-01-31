@@ -5,6 +5,6 @@ parameters:
 
 services:
     app.form.registration:
-        class: Front\UserBundle\Form\ProfileFormType
+        class: Front\UserBundle\Form\Type\ProfileFormType
         tags:
             - { name: form.type, alias: app_user_profile }

@@ -14,14 +14,9 @@
         <select title="Domaines" class="form-control" onchange="location = this.options[this.selectedIndex].value;">
             <option value="{{ path("domain_manager_news_index", {'domain': "all"}) }}">Tous les domaines</option>
             {% for domain in domains %}
-                {% if app.request.attributes.get('_route_params')['domain'] == domain.labelSimplified %}
-                    {% set isSelected = "selected" %}
-                {% else %}
-                    {% set isSelected = "" %}
-                {% endif %}
-
                 {# @var domain \Front\DomainBundle\Entity\Domain#}
-                <option value="{{ path("domain_manager_news_index", {'domain': domain.labelSimplified}) }}" {{ isSelected }}>{{ domain.label }}</option>
+                <option value="{{ path("domain_manager_news_index", {'domain': domain.labelSimplified}) }}"
+                        {{ app.request.attributes.get('_route_params')['domain'] == domain.labelSimplified  ? "selected": ""}}>{{ domain.label }}</option>
             {% endfor %}
         </select>
     </div>
@@ -47,7 +42,7 @@
                 <td>{{ new.domain.label }}</td>
                 <td>{{ new.creator.firstname|slice(0,1) }}. {{ new.creator.surname }}</td>
                 <td>{{ new.beginPublicationDate | date('d/m/Y') }}</td>
-                <td>{% if new.endPublicationDate %} {{ new.endPublicationDate | date('d/m/Y') }} {% endif %}</td>
+                <td>{{  new.endPublicationDate ? "" : new.endPublicationDate | date('d/m/Y') }}</td>
                 <td class="text-center">
                     {% if is_granted(new.domain.role) or is_granted("ROLE_DOMAIN_ADMIN") %}
                         <a href="{{ path('domain_manager_news_modify', {'id': new.id }) }}"
@@ -62,7 +57,7 @@
     <ul class="pagination pull-right">
         {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
         {% for p in range(1, nbPages) %}
-            <li{% if p == page %} class="active"{% endif %}>
+            <li class="{{ p == page ? "active": ""}}">
                 <a href="{{ path('domain_manager_news_index', {'page': p}) }}">{{ p }}</a>
             </li>
         {% endfor %}

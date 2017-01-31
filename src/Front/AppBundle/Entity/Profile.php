@@ -204,7 +204,7 @@ class Profile
     /**
      * @param bool $isLastConnectionProfile
      */
-    public function setIsLastConnectionProfile($isLastConnectionProfile)
+    public function setLastConnectionProfile($isLastConnectionProfile)
     {
         $this->isLastConnectionProfile = $isLastConnectionProfile;
     }

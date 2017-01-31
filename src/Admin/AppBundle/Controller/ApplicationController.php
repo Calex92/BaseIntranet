@@ -9,7 +9,7 @@
 namespace Admin\AppBundle\Controller;
 
 
-use Admin\AppBundle\Form\ApplicationType;
+use Admin\AppBundle\Form\Type\ApplicationType;
 use Front\AppBundle\Entity\Application;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

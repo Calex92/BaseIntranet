@@ -2,10 +2,10 @@
     <li class="{% if app.request.attributes.get('_route') == 'domain_manager_news_list_view' or
     app.request.attributes.get('_route') == 'user_profile_show' or
     app.request.attributes.get('_route') == 'fos_user_profile_show' %}active{% endif %}">
-        <a href="{{ path("user_profile_show") }}">Profil</a>
+        <a href="{{ path("fos_user_profile_show") }}">Profil</a>
     </li>
     <li class="{% if app.request.attributes.get('_route') == 'user_profile_edit' %}active{% endif %}">
-        <a href="{{ path("user_profile_edit") }}">Modifier</a>
+        <a href="{{ path("fos_user_profile_edit") }}">Modifier</a>
     </li>
     <li class="{% if app.request.attributes.get('_route') == 'user_change_password' %}active{% endif %}">
         <a href="{{ path("fos_user_change_password") }}">Paramètres</a>

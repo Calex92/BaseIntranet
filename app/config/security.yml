@@ -51,7 +51,7 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 success_handler: front_userbundle.password_checker
             remember_me:
-                secret: '%secret'
+                secret: '%secret%'
             logout:
                 path:    /logout
                 target:  /

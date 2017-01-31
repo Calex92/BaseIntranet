@@ -35,21 +35,11 @@
                     <td>{{ agency.code }}</td>
                     <td>{{ agency.name }}</td>
                     <td>{{ agency.email }}</td>
-                    <td> {% if agency.contact is defined %}
-                            {% if agency.contact.phone is defined %}
-                                {{ agency.contact.phone }}
-                            {% elseif agency.contact.mobilePhone is defined %}
-                                {{ agency.contact.mobilePhone }}
-                            {% endif %}
-                        {% endif %}
+                    <td>{{ agency.contact.phone is defined ? agency.contact.phone : agency.contact.mobilePhone }}
                     </td>
                     <td>{{ agency.region.code }} - {{ agency.region.name }}</td>
                     <td class="text-center">
-                        {% if agency.active %}
-                            <span class="glyphicon glyphicon-ok icon-success"></span>
-                        {% else %}
-                            <span class="glyphicon glyphicon-remove icon-danger"></span>
-                        {% endif %}
+                        <span class="glyphicon {{ agency.active? "glyphicon-ok icon-success" : "glyphicon-remove icon-danger" }}"></span>
                     </td>
                     {% if is_granted('ROLE_ADMIN_AGENCY_UPDATE') %}
                         <td class="text-center">
@@ -61,6 +51,5 @@
             {% endfor %}
             </tbody>
         </table>
-
     </div>
 {% endblock %}

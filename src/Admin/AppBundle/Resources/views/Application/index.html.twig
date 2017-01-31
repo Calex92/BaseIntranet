@@ -31,11 +31,7 @@
                 <tr>
                     <td>{{ application.name }}</td>
                     <td class="text-center">
-                        {% if application.external %}
-                            <span class="glyphicon glyphicon-remove icon-danger"></span>
-                        {% else %}
-                            <span class="glyphicon glyphicon-ok icon-success"></span>
-                        {% endif %}
+                        <span class="glyphicon {{ application.external? "glyphicon-remove icon-danger" : "glyphicon-ok icon-success" }}"></span>
                     </td>
                     {% if is_granted('ROLE_ADMIN_APPLICATION_UPDATE') %}
                         <td class="text-center">

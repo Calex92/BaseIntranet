@@ -227,6 +227,7 @@ class User extends BaseUser
     public function setContact($contact)
     {
         $this->contact = $contact;
+        return $this;
     }
 
     /**
@@ -301,10 +302,12 @@ class User extends BaseUser
 
     /**
      * @param \DateTime $updatedAt
+     * @return $this
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+        return $this;
     }
 
     /**
@@ -317,10 +320,12 @@ class User extends BaseUser
 
     /**
      * @param Group $group
+     * @return $this
      */
     public function setGroup($group)
     {
         $this->group = $group;
+        return $this;
     }
 
     /**
@@ -333,10 +338,12 @@ class User extends BaseUser
 
     /**
      * @param Collection $profiles
+     * @return $this
      */
     public function setProfiles($profiles)
     {
         $this->profiles = $profiles;
+        return $this;
     }
 
     /**

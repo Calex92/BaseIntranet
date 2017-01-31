@@ -2,30 +2,25 @@
 /**
  * Created by PhpStorm.
  * User: acastelain
- * Date: 10/01/2017
- * Time: 11:05
+ * Date: 31/08/2016
+ * Time: 14:24
  */
 
-namespace Admin\AppBundle\Form;
-
+namespace Admin\UserManagerBundle\Form\Type;
 
 use Front\AppBundle\Entity\Profile;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GroupType extends AbstractType
+class UserAdminEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add("name", TextType::class, array(
-                "label"     => "Nom du groupe"
-            ))
+        $builder->remove("plainPassword")
             ->add("profiles", EntityType::class, array(
-                "label"      => "Profils",
+                "label"      => "Profils spécifiques",
                 "class"      => "Front\\AppBundle\\Entity\\Profile",
                 "placeholder"=> " ",
                 "choice_label"  => function (Profile $profile) {
@@ -37,13 +32,18 @@ class GroupType extends AbstractType
                 "attr"      => array(
                     'class'             => 'chosen-select',
                     'data-placeholder'   => 'Sélectionnez un profil à ajouter...'),
-                "multiple"  => true
+                "multiple"  => true,
+                "required"  => false
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array("data_class" => 'Front\AppBundle\Entity\Group'));
+        $resolver->setDefaults(array("data_class" => 'Front\UserBundle\Entity\User'));
     }
 
+    public function getParent()
+    {
+        return UserType::class;
+    }
 }

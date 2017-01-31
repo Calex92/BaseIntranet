@@ -1,28 +1,20 @@
 <div class="list-group small">
     <a href="{{ path(from) }}" class="list-group-item col-xs-6 col-sm-12
-         {% if app.request.attributes.get('_route_params')['domain'] == "all" %}active{% endif %}">
+         {{ app.request.attributes.get('_route_params')['domain'] == "all"? "active": ""}}">
         <span class="list-group-item-heading">Tous les domaines</span>
     </a>
     {% for domain in domains %}
         {# @var domain \Front\AppBundle\Entity\Domain #}
 
-        {% if app.request.attributes.get('_route_params')['domain'] == domain.labelSimplified %}
-            {% set isActive = "active" %}
-        {% else %}
-            {% set isActive = "" %}
-        {% endif %}
-
         {# If I don't add this, when we're on the first page (/) and we click on a specific domain, the adress isn't correct #}
-        {% if from == "front_homepage" %}
-            {% set from = "domain_manager_news_list_view" %}
-        {% endif %}
+        {% set from = (from == "front_homepage") ? ("domain_manager_news_list_view"): from %}
 
         <a href="{{ path(from, {"domain" : domain.labelSimplified}) }}"
-           class="list-group-item col-xs-6 col-sm-12 {{ isActive }}">
+           class="list-group-item col-xs-6 col-sm-12 {{ app.request.attributes.get('_route_params')['domain'] == domain.labelSimplified? "active" : "" }}">
             {% if "news" in from %}
-                <span class="badge">{% if domain.recentNews|length > 0 %}{{ domain.recentNews|length }} {% endif %}</span>
+                <span class="badge">{{ domain.recentNews|length > 0 ? domain.recentNews|length }}</span>
             {% elseif "document" in from %}
-                <span class="badge">{% if domain.recentDocuments|length > 0 %}{{ domain.recentDocuments|length }} {% endif %}</span>
+                <span class="badge">{{ domain.recentDocuments|length > 0 ? domain.recentDocuments|length }}</span>
             {% endif %}
             {{ domain.label }}
         </a>

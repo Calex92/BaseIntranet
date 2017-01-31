@@ -2,11 +2,13 @@ application_index:
     path:    /applications
     defaults:
         _controller: FrontAppBundle:Applications:index
+    methods: ["GET"]
 
 application_external_access:
     path:    /applications/external_access/{applicationId}
     defaults:
         _controller: FrontAppBundle:Applications:externalAccess
+    methods: ["GET"]
 
 front_homepage:
     path:     /
@@ -14,22 +16,26 @@ front_homepage:
         _controller: FrontDomainBundle:News:viewList
         domain: "all"
         page : 1
+    methods: ["GET"]
 
 user_notifications:
     path:    /notifications/{page}
     defaults:
         _controller: FrontAppBundle:Notification:index
         page : 1
+    methods: ["GET"]
 
 user_notifications_view:
     path:    /notification/{id}
     defaults:
         _controller: FrontAppBundle:Notification:view
+    methods: ["GET", "PATCH"]
 
 front_help:
     path:    /help
     defaults:
         _controller: FrontAppBundle:Help:index
+    methods: ["GET"]
 
 front_change_profile:
     path:    /change_profile/{id}
@@ -37,3 +43,4 @@ front_change_profile:
         _controller: FrontAppBundle:ProfilePrefered:changeProfile
     requirements:
         id: \d+
+    methods: ["GET", "PATCH"]
