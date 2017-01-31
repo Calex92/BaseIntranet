@@ -16,9 +16,9 @@ parameters:
 
     secret: c65b25fe6679b15da0478d165f6afbbca7cea1a8
 
-    application.code.administration: 0
-    application.code.domain: 1
-    application.code.helpreferentiel: 2
+    application.code.administration: 1
+    application.code.domain: 2
+    application.code.helpreferentiel: 3
     application.code.helpinfo: 23
 
     application_name: isidore2

@@ -26,7 +26,7 @@ class LoadApplication extends AbstractFixture implements OrderedFixtureInterface
 
         $codes = array(1, 2, 3);
 
-        $images = array ("adminisidore 2.png", "gestion portail web.png", "referentiel.png");
+        $images = array ("adminisidore 2.png", "gestion portail web.png", "referentiel 2.png");
 
         for ($i = 0; $i < count($applications) ; $i++) {
             $application = new Application();

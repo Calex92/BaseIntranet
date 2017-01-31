@@ -55,6 +55,9 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
                 "Informatique",
                 "Gestion catalogue",
                 "Admin"
+            ),
+            array(
+                "CanExport"
             )
         );
 
@@ -90,8 +93,10 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
                 "Créateur domaine grands comptes",
                 "Créateur domaine informatique",
                 "Gestion des catalogues",
-                "Administrateur",
-
+                "Administrateur"
+            ),
+            array(
+                "Possibilité d'export"
             )
         );
 
@@ -126,6 +131,9 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
                 array("ROLE_DOMAIN_NEWS_DOCUMENT", "ROLE_DOMAIN_INFORMATIQUE"),
                 array("ROLE_DOMAIN_CATALOG"),
                 array("ROLE_DOMAIN_ADMIN")
+            ),
+            array(
+                array("ROLE_REFERENTIEL_EXPORT")
             )
         );
 
@@ -163,6 +171,9 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
                 14,
                 15,
                 16
+            ),
+            array(
+                0
             )
         );
 

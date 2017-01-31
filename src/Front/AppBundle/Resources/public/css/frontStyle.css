@@ -112,7 +112,7 @@ ul.nav.navbar-nav li a:link {
 /*mult-level*/
 @media screen and (min-width: 768px) {
     .navbar .navbar-collapse li li a:hover{
-        background-color: #35AE8D;
+        background-color: rgba(34, 41, 41, 0.42);
         color:#ffffff;
     }
     .navbar .navbar-collapse li li a:active{
