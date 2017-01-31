@@ -35,10 +35,11 @@
         <h4>Informations professionnelles</h4>
         {% if user.userAgencies|length > 0 %}
             <div>
-                {{ (user.userAgencies|length <= 1) ? "Votre agence :" : "Vos agences :" %}
+                {{ (user.userAgencies|length <= 1) ? "Votre agence : " : "Vos agences : " }}
                 <ul>
                     {% for agency in user.agencies %}
-                        <li>{{ agency.code }} - {{ agency.name }}</li>
+                        {# @var agency \Front\AppBundle\Entity\Agency #}
+                        <li>{{ agency.code }} - {{ agency.name }} {{ agency.code == user.agencyPrincipal.agency.code ? "(principale)" }}</li>
                     {% endfor %}
                 </ul>
             </div>
