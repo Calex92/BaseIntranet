@@ -14,14 +14,8 @@ class ApplicationsController extends Controller
      */
     public function indexAction()
     {
-        try {
-            $applications = $this->get("frontapp.application_getter")->getAllApplication($this->getUser());
-        } catch (\Exception $e) {
-            $applications = $this->get("frontapp.application_getter")->getInternalApplication($this->getUser());
-            $this->addFlash("danger", "Votre login ne correspond à aucun utilisateur sur l'ancien Isidore");
-        }
-
-        $applicationsNotAccessible = $this->get("frontapp.application_getter")->getApplicationNotAccessible($applications);
+        $applications               = $this->get("frontapp.application_getter")->getApplicationAccessible($this->getUser());
+        $applicationsNotAccessible  = $this->get("frontapp.application_getter")->getApplicationNotAccessible($applications);
 
         return $this->render('FrontAppBundle:Applications:index.html.twig', array(
             "applications" => $applications,

@@ -13,25 +13,32 @@ use Doctrine\ORM\EntityManager;
 use Front\AppBundle\Entity\Application;
 use Front\AppBundle\Entity\Profile;
 use Front\UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 
 class ApplicationGetter
 {
     private $entityManager;
+    private $flashBag;
+    private $helpInfoCode;
 
     /**
      * ApplicationGetter constructor.
      * @param EntityManager $entityManager
+     * @param FlashBag $flashBag
+     * @param $helpInfoCode
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, FlashBag $flashBag, $helpInfoCode)
     {
         $this->entityManager = $entityManager;
+        $this->flashBag      = $flashBag;
+        $this->helpInfoCode  = $helpInfoCode;
     }
 
     /**
      * @param User $user
      * @return array
      */
-    public function getAllApplication(User $user) {
+    private function getAllApplication(User $user) {
         $externalApplications = $this->getExternalApplication($user);
         $internalApplications = $this->getInternalApplication($user);
 
@@ -42,6 +49,29 @@ class ApplicationGetter
             return strcmp($a->getName(), $b->getName());
         });
 
+        return $applications;
+    }
+
+    /**
+     * Get the applications the user can access
+     * @param User $user
+     * @return Application[]
+     */
+    public function getApplicationAccessible(User $user) {
+        /* If the user doesn't have any agency (so no principal agency), he can't access the applications to prevent any bug */
+        if ($user->getAgencyPrincipal()->getId() === NULL) {
+            $applications = $this->entityManager->getRepository("FrontAppBundle:Application")->findBy(array("code" => $this->helpInfoCode));
+            $this->flashBag->add("danger", "Vous n'êtes affecté à aucune agence, veuillez créer une demande sur le Help informatique pour régler ce problème.");
+        }
+        else {
+            /* If there's a bug with the connexion to the old Isidore, we let the access to the current applications */
+            try {
+                $applications = $this->getAllApplication($user);
+            } catch (\Exception $e) {
+                $applications = $this->getInternalApplication($user);
+                $this->flashBag->add("danger", "Votre login ne correspond à aucun utilisateur sur l'ancien Isidore");
+            }
+        }
         return $applications;
     }
 
@@ -82,7 +112,7 @@ class ApplicationGetter
      * @param User $user
      * @return array
      */
-    public function getInternalApplication(User $user) {
+    private function getInternalApplication(User $user) {
         $internalApplications = array();
 
         foreach ($user->getProfilesApplication() as $profileApplication) {

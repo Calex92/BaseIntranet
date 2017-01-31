@@ -12,7 +12,7 @@ services:
 
     frontapp.application_getter:
         class: Front\AppBundle\Services\ApplicationGetter
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager", "@session.flash_bag", "%application.code.helpinfo%"]
 
     frontapp.right_checker:
         class: Front\AppBundle\Services\RightChecker
