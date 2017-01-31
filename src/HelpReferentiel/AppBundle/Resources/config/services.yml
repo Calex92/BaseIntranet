@@ -1,0 +1,8 @@
+services:
+#    help_referentiel_app.example:
+#        class: HelpReferentiel\AppBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    help_referentiel_app.menu_getter:
+        class: HelpReferentiel\AppBundle\Services\MenuGetter
+        arguments: ["@security.authorization_checker"]

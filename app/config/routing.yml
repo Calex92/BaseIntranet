@@ -1,3 +1,7 @@
+help_referentiel_app:
+    resource: "@HelpReferentielAppBundle/Resources/config/routing.yml"
+    prefix:   /help_referentiel
+
 front_domain:
     resource: "@FrontDomainBundle/Resources/config/routing.yml"
     prefix:   /

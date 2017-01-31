@@ -46,6 +46,7 @@ twig:
         serverName: "%server.name%"
         applicationAdministration: "%application.code.administration%"
         applicationDomain:         "%application.code.domain%"
+        applicationHelpReferentiel: "%application.code.helpreferentiel%"
 
 # Doctrine Configuration
 doctrine:

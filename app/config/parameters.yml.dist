@@ -18,6 +18,7 @@ parameters:
 
     application.code.administration: 0
     application.code.domain: 1
+    application.code.helpreferentiel: 2
     application.code.helpinfo: 23
 
     application_name: isidore2
