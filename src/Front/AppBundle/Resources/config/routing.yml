@@ -4,6 +4,14 @@ application_index:
         _controller: FrontAppBundle:Applications:index
     methods: ["GET"]
 
+application_get:
+    path:    /application/{id}
+    defaults:
+        _controller: FrontAppBundle:Applications:get
+    methods: ["GET", "PATCH"]
+    requirements:
+            id: \d+
+
 application_external_access:
     path:    /applications/external_access/{applicationId}
     defaults:

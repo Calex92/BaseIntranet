@@ -2,6 +2,7 @@
 
 namespace Front\AppBundle\Controller;
 
+use Front\AppBundle\Entity\Application;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -26,6 +27,11 @@ class ApplicationsController extends Controller
             "applications" => $applications,
             "applicationsNotAccessible" => $applicationsNotAccessible
         ));
+    }
+
+    public function getAction(Application $application) {
+        $this->get("frontapp.application_connection_statistics")->logAccess($application, $this->getUser());
+        return $this->redirectToRoute($application->getLocation(), array("applicationId" => $application->getId()));
     }
 
     /**

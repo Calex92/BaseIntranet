@@ -16,3 +16,7 @@ services:
 
     frontapp.right_checker:
         class: Front\AppBundle\Services\RightChecker
+
+    frontapp.application_connection_statistics:
+        class: Front\AppBundle\Services\ApplicationConnectionLogger
+        arguments: ["@doctrine.orm.entity_manager"]

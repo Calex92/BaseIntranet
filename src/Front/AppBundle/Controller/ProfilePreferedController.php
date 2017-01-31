@@ -43,6 +43,7 @@ class ProfilePreferedController extends Controller
         }
         //Save it in DB
         $em->flush();
+        $this->get("frontapp.application_connection_statistics")->logAccess($profile->getApplication(), $this->getUser());
         //Redirect to the route of the app
         return $this->redirectToRoute($profile->getApplication()->getLocation());
     }
