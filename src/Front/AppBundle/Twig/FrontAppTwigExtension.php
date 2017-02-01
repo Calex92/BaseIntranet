@@ -12,6 +12,7 @@ namespace Front\AppBundle\Twig;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Front\AppBundle\Entity\Profile;
+use Front\AppBundle\Services\MenuGetter;
 use Front\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -20,22 +21,30 @@ class FrontAppTwigExtension extends \Twig_Extension
     /** @var  EntityManager */
     private $entityManager;
     private $tokenStorage;
+    /** @var  MenuGetter */
+    private $menuGetter;
 
     /**
      * FrontAppExtension constructor.
-     * @param $entityManager
+     * @param EntityManager $entityManager
      * @param TokenStorageInterface $tokenStorage
+     * @param MenuGetter $menuGetter
      */
-    public function __construct(EntityManager $entityManager, TokenStorageInterface $tokenStorage)
-    {
+    public function __construct(
+        EntityManager $entityManager,
+        TokenStorageInterface $tokenStorage,
+        MenuGetter $menuGetter
+    ) {
         $this->entityManager    = $entityManager;
         $this->tokenStorage     = $tokenStorage;
+        $this->menuGetter       = $menuGetter;
     }
 
     public function getFunctions() {
         return array(
             new \Twig_SimpleFunction("userUnreadMessage", array($this, "userUnreadMessage")),
-            new \Twig_SimpleFunction("getProfileByApplicationName", array($this, "getProfileByApplicationName"))
+            new \Twig_SimpleFunction("getProfileByApplicationName", array($this, "getProfileByApplicationName")),
+            new \Twig_SimpleFunction("getMenusFrontApp", array($this, "getMenusFrontApp")),
         );
     }
 
@@ -65,6 +74,10 @@ class FrontAppTwigExtension extends \Twig_Extension
             }
         }
         return $profilesFromApp->toArray();
+    }
+
+    public function getMenusFrontApp ($currentRoute) {
+        return $this->menuGetter->getMenus($currentRoute);
     }
 
     public function getName()

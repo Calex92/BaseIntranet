@@ -6,7 +6,7 @@ services:
     frontapp.twig_extension:
         class: Front\AppBundle\Twig\FrontAppTwigExtension
         public: false
-        arguments: ['@doctrine.orm.entity_manager', '@security.token_storage']
+        arguments: ['@doctrine.orm.entity_manager', '@security.token_storage', '@front_app.menu_getter']
         tags:
             - { name: twig.extension }
 
@@ -20,3 +20,7 @@ services:
     frontapp.application_connection_statistics:
         class: Front\AppBundle\Services\ApplicationConnectionLogger
         arguments: ["@doctrine.orm.entity_manager"]
+
+    front_app.menu_getter:
+        class: Front\AppBundle\Services\MenuGetter
+        arguments: ["@security.authorization_checker"]

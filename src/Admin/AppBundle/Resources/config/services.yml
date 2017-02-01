@@ -6,3 +6,10 @@ services:
     admin.menu_getter:
         class: Admin\AppBundle\Services\MenuGetter
         arguments: ["@security.authorization_checker"]
+
+    admin_app.twig_extension:
+        class: Admin\AppBundle\Twig\AdminAppTwigExtension
+        public: false
+        arguments: ['@admin.menu_getter']
+        tags:
+            - { name: twig.extension }

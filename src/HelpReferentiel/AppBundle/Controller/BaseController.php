@@ -6,13 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BaseController extends Controller
 {
-    public function topMenuAction($route)
-    {
-        $menus = $this->get('help_referentiel_app.menu_getter')->getMenus($route);
-
-        return $this->render('@AdminApp/Base/topMenu.html.twig', array("menus" => $menus));
-    }
-
     public function indexAction() {
         $menus = $this->get("help_referentiel_app.menu_getter")->getMenus("");
 

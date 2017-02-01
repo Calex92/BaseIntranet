@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block menus %}
-    {{ render(controller("HelpReferentielAppBundle:Base:topMenu", {"route" : app.request.attributes.get('_route')})) }}
+    {{ include("@FrontApp/Main/topMenu.html.twig", {"menus" : getMenusHelpReferentielApp(app.request.attributes.get('_route')) }) }}
 {% endblock %}
 
 {% block mainContent %}

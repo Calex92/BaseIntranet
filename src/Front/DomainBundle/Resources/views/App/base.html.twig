@@ -18,7 +18,7 @@
 
 
 {% block menus %}
-    {{ render(controller("FrontDomainBundle:App:topMenu", {"route" : app.request.attributes.get('_route')})) }}
+    {{ include("@FrontApp/Main/topMenu.html.twig", {"menus" : getMenusFrontDomain(app.request.attributes.get('_route')) }) }}
 {% endblock %}
 
 {% block mainContent %}

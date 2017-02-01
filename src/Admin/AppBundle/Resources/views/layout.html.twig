@@ -39,7 +39,7 @@
 {% endblock %}
 
 {% block menus %}
-    {{ render(controller("AdminAppBundle:Base:topMenu", {"route" : app.request.attributes.get('_route')})) }}
+    {{ include("@FrontApp/Main/topMenu.html.twig", {"menus" : getMenusAdminApp(app.request.attributes.get('_route')) }) }}
 {% endblock %}
 
 {% block mainContent %}

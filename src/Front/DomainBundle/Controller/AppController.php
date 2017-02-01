@@ -27,14 +27,4 @@ class AppController extends Controller
 
         return $this->redirectToRoute($menus[0]["route"]);
     }
-
-    public function documentAction() {
-
-    }
-
-    public function topMenuAction($route) {
-        $menus = $this->get("front_domain.menu_getter")->getMenus($route);
-
-        return $this->render('@AdminApp/Base/topMenu.html.twig', array("menus" => $menus));
-    }
 }

@@ -2,6 +2,13 @@ services:
 #    front_domain.example:
 #        class: Front\DomainBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
-     front_domain.menu_getter:
-         class: Front\DomainBundle\Services\MenuGetter
-         arguments: ["@security.authorization_checker"]
+    front_domain.menu_getter:
+        class: Front\DomainBundle\Services\MenuGetter
+        arguments: ["@security.authorization_checker"]
+
+    front_domain.twig_extension:
+        class: Front\DomainBundle\Twig\FrontDomainTwigExtension
+        public: false
+        arguments: ['@front_domain.menu_getter']
+        tags:
+            - { name: twig.extension }

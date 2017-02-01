@@ -1,40 +1,26 @@
 {% extends("::base.html.twig") %}
 
 
-    {% block stylesheets %}
-        {{ parent() }}
-        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/connection.css') }}">
-    {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/frontapp/css/connection.css') }}">
+{% endblock %}
 
-                {% block menus %}
-                    <ul class="nav navbar-nav">
-                        <li class="{{ (app.request.attributes.get('_route') == 'domain_manager_news_list_view' or
-                        app.request.attributes.get('_route') == 'front_homepage' or
-                        app.request.attributes.get('_route') == 'domain_manager_news_view') ? "active": ""}}">
-                            <a href="{{ path("domain_manager_news_list_view", {"domain" : "all"}) }}">News</a>
-                        </li>
-                        <li class="{{ app.request.attributes.get('_route') == 'domain_manager_documents_view'? "active" : ""}}">
-                            <a href="{{ path("domain_manager_documents_view") }}">Documents références</a>
-                        </li>
-                        {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-                            <li class="{{ app.request.attributes.get('_route') == 'application_index' ? "active": ""}}">
-                                <a href="{{ path("application_index") }}">Applications</a>
-                            </li>
-                        {% endif %}
-                        <li class="{{ app.request.attributes.get('_route') == 'front_help' ? "active" : "" }}">
-                            <a href="{{ path("front_help") }}">Aide</a>
-                        </li>
-                    </ul>
-                {% endblock %}
-                {% block menusRight %}
-                    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-                        {{ parent() }}
-                    {% elseif app.request.attributes.get('_route') != 'fos_user_security_login' %}
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a></li>
-                        </ul>
-                    {% endif %}
-                {% endblock %}
+{% block menus %}
+    <ul class="nav navbar-nav">
+        {{ include("@FrontApp/Main/topMenu.html.twig", {"menus" : getMenusFrontApp(app.request.attributes.get('_route')) }) }}
+    </ul>
+{% endblock %}
+
+{% block menusRight %}
+    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+        {{ parent() }}
+    {% elseif app.request.attributes.get('_route') != 'fos_user_security_login' %}
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a></li>
+        </ul>
+    {% endif %}
+{% endblock %}
 
 {% block mainContent %}
     {# The left menu is only displayed for news and application, when he's not here, for the small browsers (exemple: phone),
@@ -78,9 +64,9 @@
     {# Display the login pannel when it's called by clicking the button "Connection", no need to display it in the /login page#}
     {% if app.request.attributes.get('_route') != 'fos_user_security_login' %}
         <div class="modal fade hidden-not-important" id="login-modal" tabindex="-1" role="dialog"
-            aria-hidden="true">
-        {{ render(controller("FOSUserBundle:Security:login", {'isLongTemplate': false })) }}
-    </div>
+             aria-hidden="true">
+            {{ render(controller("FOSUserBundle:Security:login", {'isLongTemplate': false })) }}
+        </div>
     {% endif %}
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalit?s du bootstrap Twitter #}
     {{ parent() }}
