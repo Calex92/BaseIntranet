@@ -12,6 +12,7 @@ namespace Front\AppBundle\Services;
 use Doctrine\ORM\EntityManager;
 use Front\AppBundle\Entity\Application;
 use Front\AppBundle\Entity\ApplicationConnectionStatistics;
+use Front\AppBundle\Entity\Profile;
 use Front\UserBundle\Entity\User;
 
 class ApplicationConnectionLogger
@@ -30,11 +31,10 @@ class ApplicationConnectionLogger
     public function logAccess(Application $application, User $user) {
         $applicationConnectionStatistic = new ApplicationConnectionStatistics();
         $browserInfo        = get_browser(null, true);
-        $profileNamePrefered    = $user->getProfilePrefered($application->getCode())->getProfile()->getName();
         $applicationConnectionStatistic->setApplication($application)
             ->setUser($user)
             ->setDate(new \DateTime())
-            ->setProfileName(($profileNamePrefered != null) ? $profileNamePrefered : "Aucun profil défini pour une application externe")
+            ->setProfileName($this->getProfileFromApplication($application, $user))
             ->setBrowser($this->getBrowserName($_SERVER["HTTP_USER_AGENT"])." ".$browserInfo["version"])
             ->setIpAdress($_SERVER['REMOTE_ADDR'])
             ->setOperatigSystem($this->getOS($_SERVER["HTTP_USER_AGENT"])." / ".$browserInfo["platform_description"]);
@@ -89,5 +89,21 @@ class ApplicationConnectionLogger
             }
         }
         return $os_platform;
+    }
+
+    private function getProfileFromApplication(Application $application, User $user) {
+        $profileNamePreferedFromProfilePrefered = $user->getProfilePrefered($application->getCode())->getProfile()->getName();
+        if ($profileNamePreferedFromProfilePrefered != null) {
+            return $profileNamePreferedFromProfilePrefered;
+        }
+
+        $profilesFromApplication = $user->getProfilesApplication();
+        foreach ($profilesFromApplication as $profile) {
+            /** @var Profile $profile */
+            if ($profile->getApplication()->getId() == $application->getId()) {
+                return $profile->getName();
+            }
+        }
+        return "Aucun profil défini pour une application externe";
     }
 }
