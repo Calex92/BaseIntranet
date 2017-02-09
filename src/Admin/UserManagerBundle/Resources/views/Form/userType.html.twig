@@ -59,3 +59,13 @@
         {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.group}) }}
     </div>
 {% endif %}
+
+{% if form.enabled is defined %}
+    <div class="form-group">
+        <label class="col-sm-4 control-label control-label" for="user_admin_edit_enabled">Etat</label>
+        <div class="col-sm-8">
+            {{ form_widget(form.enabled) }}
+        </div>
+        {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.enabled}) }}
+    </div>
+{% endif %}
