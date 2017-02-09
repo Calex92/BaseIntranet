@@ -45,7 +45,7 @@ class NewsController extends Controller
      */
     public function modifyAction(Request $request, $id) {
         $news = $this->getDoctrine()->getRepository("FrontDomainBundle:News")->find($id);
-        $form = $this->get("form.factory")->create(NewsType::class, $news);
+        $form = $this->get("form.factory")->create(NewsType::class, $news, array("user" => $this->getUser()));
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();

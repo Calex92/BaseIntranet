@@ -82,7 +82,7 @@ class DocumentsController extends Controller
      */
     public function modifyAction(Request $request, $id) {
         $document = $this->getDoctrine()->getRepository("FrontDomainBundle:Document")->find($id);
-        $form = $this->get("form.factory")->create(DocumentType::class, $document);
+        $form = $this->get("form.factory")->create(DocumentType::class, $document, array("user" => $this->getUser()));
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();

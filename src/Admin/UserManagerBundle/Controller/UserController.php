@@ -33,6 +33,7 @@ class UserController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN_USER_UPDATE')")
+     * @param Request $request
      * @return Response
      */
     public function createAction(Request $request) {
@@ -54,6 +55,8 @@ class UserController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN_USER_UPDATE')")
+     * @param Request $request
+     * @param $idUser
      * @return Response
      */
     public function updateAction(Request $request, $idUser)

@@ -54,7 +54,7 @@ class MenuGetter
             $menus[] = array("route" => "domain_manager_domain_index",
                 "name" => "Domaines",
                 "active" => in_array($currentRoute,
-                    array('domain_manager_domain_index')) ? "active" : "");
+                    array('domain_manager_domain_index', 'domain_manager_domain_add', 'domain_manager_domain_modify')) ? "active" : "");
         }
 
         return $menus;

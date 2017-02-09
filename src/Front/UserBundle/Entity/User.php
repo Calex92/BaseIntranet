@@ -426,5 +426,13 @@ class User extends BaseUser
         }
         return $rightsRolesToReturn->toArray();
     }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateDate() {
+        $this->updatedAt = new \DateTime();
+    }
 }
 

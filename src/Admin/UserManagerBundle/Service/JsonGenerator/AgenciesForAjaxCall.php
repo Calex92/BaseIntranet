@@ -32,7 +32,6 @@ class AgenciesForAjaxCall
      * This function is used to generate the JSON sent back to the AJAX call when we manage the agencies
      * from one user. For every modification (add,update,remove) the response is the same: the list updated.
      *
-     * @param EntityManager $em
      * @param integer $idUser The id of the user we've just updated
      * @return string The Json generated for the response
      */
