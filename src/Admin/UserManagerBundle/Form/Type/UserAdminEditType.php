@@ -11,7 +11,6 @@ namespace Admin\UserManagerBundle\Form\Type;
 use Front\AppBundle\Entity\Profile;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,6 +19,7 @@ class UserAdminEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->remove("plainPassword")
+            ->remove("mainAgency")
             ->add("profiles", EntityType::class, array(
                 "label"      => "Profils spécifiques",
                 "class"      => "Front\\AppBundle\\Entity\\Profile",
@@ -36,13 +36,7 @@ class UserAdminEditType extends AbstractType
                 "multiple"  => true,
                 "required"  => false
             ))
-            ->add("enabled", CheckboxType::class, array(
-                "label"     => " ",
-                "required"  => false,
-                "attr"      => array("data-toggle"   => "toggle",
-                    "data-off"      => "Inactif",
-                    "data-on"       => "Actif")
-            ));
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

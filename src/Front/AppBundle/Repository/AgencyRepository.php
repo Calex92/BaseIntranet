@@ -11,12 +11,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class AgencyRepository extends EntityRepository
 {
+    /**
+     * @return array[Agency]
+     */
     public function getAgencies() {
-        return $this->createQueryBuilder('agency_repository')
-            ->where('agency_repository.active = :active')
-            ->setParameter('active', true)
+        return $this->getAgenciesQueryBuilder()
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getAgenciesQueryBuilder() {
+        return $this->createQueryBuilder('agency_repository')
+            ->where('agency_repository.active = :active')
+            ->setParameter('active', true);
     }
 
     /**

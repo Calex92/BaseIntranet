@@ -76,7 +76,7 @@ class User extends BaseUser
     private $imageName;
 
     /**
-     * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\UserAgency", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\UserAgency", mappedBy="user", cascade={"persist"})
      */
     private $user_agencies;
 

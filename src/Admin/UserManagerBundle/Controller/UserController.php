@@ -39,11 +39,13 @@ class UserController extends Controller
     public function createAction(Request $request) {
         //We create a new user to fill the form with the user manager
         $userManager = $this->get('fos_user.user_manager');
+        /** @var User $user */
         $user = $userManager->createUser();
 
         $form = $this->createForm(UserType::class, $user);
 
         if ($request->isMethod("POST") && $form->handleRequest($request)->isValid() && $form->isValid()) {
+            $user->addAgency($form->get("mainAgency")->getData(), true);
             $userManager->updateUser($user);
             $this->get("session")->getFlashBag()->add('success', "L'utilisateur a bien été créé");
             return $this->redirectToRoute("admin_user_manager_homepage");

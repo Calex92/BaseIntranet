@@ -50,15 +50,6 @@
     {% endif %}
 </div>
 
-{% if form.group is defined %}
-    <div class="form-group">
-        {{ form_label(form.group, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.group, {"attr": {'class' : "form-control"}}) }}
-        </div>
-        {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.group}) }}
-    </div>
-{% endif %}
 
 {% if form.enabled is defined %}
     <div class="form-group">

@@ -1,0 +1,22 @@
+<div class="margin-top-15">
+    <h4>Informations complémentaires</h4>
+    {% if form.mainAgency is defined %}
+        <div class="form-group">
+            {{ form_label(form.mainAgency, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.mainAgency) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.mainAgency}) }}
+        </div>
+    {% endif %}
+
+    {% if form.group is defined %}
+        <div class="form-group">
+            {{ form_label(form.group, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.group) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.group}) }}
+        </div>
+    {% endif %}
+</div>
