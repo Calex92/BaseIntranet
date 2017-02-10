@@ -113,4 +113,4 @@ admin_profile_manager_remove:
     defaults: { _controller: AdminAppBundle:Profile:remove }
     requirements:
         id:    \d*
-    methods: ["DELETE"]
+    methods: ["GET", "DELETE"]
