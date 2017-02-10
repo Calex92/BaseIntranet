@@ -22,7 +22,7 @@ function notify(title, message, type, icon) {
 }
 
 $(function() {
-    $(".chosen-select").chosen();
+    $(".chosen-select").chosen({no_results_text: "Aucun résultat pour"});
 
     $('.dropdown-submenu>a').unbind('click').click(function(e){
         $(this).next('ul').toggle();
