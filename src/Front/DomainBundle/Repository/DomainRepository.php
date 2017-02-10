@@ -19,7 +19,7 @@ class DomainRepository extends EntityRepository
         $qb = $qb
             ->where($qb->expr()->eq("domain_repository.active", true));
 
-        if (in_array("ROLE_DOMAIN_ADMIN", $user->getRoles())) {
+        if (!in_array("ROLE_DOMAIN_ADMIN", $user->getRoles())) {
             $qb->andWhere($qb->expr()->in('domain_repository.role', $user->getRoles()));
         }
 
