@@ -31,7 +31,7 @@ class DocumentType extends AbstractType
                     "choice_value"  => "id",
                     "label"         => "Domaine",
                     "query_builder" => function (DomainRepository $repository) use ($user){
-                        return $repository->getActiveQueryBuilder($user);
+                        return $repository->getActiveQueryBuilderForUser($user);
                     },))
             ->add("fileNameShown", TextType::class,
                 array("label"   => "Nom du fichier"))

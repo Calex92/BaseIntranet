@@ -2,3 +2,9 @@ services:
     admin_user_manager_json_generator.agencies_for_ajax:
         class: Admin\UserManagerBundle\Service\JsonGenerator\AgenciesForAjaxCall
         arguments: [ "@doctrine.orm.entity_manager"]
+
+    admin_user_manager.user_admin_edit_type:
+        class: Admin\UserManagerBundle\Form\Type\UserAdminEditType
+        arguments: [ "%profile.code.newsdocument%" ]
+        tags:
+            - { name: form.type }

@@ -1,0 +1,12 @@
+<div class="well well-block-info margin-top-15">
+    <h4 class="col-sm-12">Paramétrages supplémentaire spécifiques</h4>
+    {% if form.domainManaged is defined %}
+        <div class="form-group">
+            {{ form_label(form.domainManaged, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+            <div class="col-sm-8">
+                {{ form_widget(form.domainManaged) }}
+            </div>
+            {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.domainManaged}) }}
+        </div>
+    {% endif %}
+</div>

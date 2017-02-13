@@ -32,9 +32,9 @@ class LoadGroup extends AbstractFixture implements OrderedFixtureInterface
             array(1, 2)
         );
 
-        $profiles =  array("Viewer", "Creator", "Admin", "GISS", "Informatique", "Admin référentiel");
+        $profiles =  array("Viewer", "Creator", "Admin", "News and Document Creator", "Admin référentiel");
         $profileGroup = array(
-            array(1, 2, 5),
+            array(1, 2, 4),
             array(0, 3)
         );
 

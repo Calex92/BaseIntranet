@@ -23,5 +23,9 @@ parameters:
 
     application_name: isidore2
 
+    profile.code.newsdocument:
+        admin: 10
+        simpleUser: 11
+
     server.name: Vanina intranet
     my.cookie.name: intranetApplication

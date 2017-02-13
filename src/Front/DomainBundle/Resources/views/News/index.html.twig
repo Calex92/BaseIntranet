@@ -20,9 +20,13 @@
             {% endfor %}
         </select>
     </div>
-    <a class="col-md-3 margin-top-20 btn btn-default pull-right" href="{{ path("domain_manager_news_add") }}">
-        Créer une news
-    </a>
+    {% if app.user.domainManaged is not null%}
+        <a class="col-md-3 margin-top-20 btn btn-default pull-right" href="{{ path("domain_manager_news_add") }}">
+            Créer une news
+        </a>
+    {% else %}
+        <p class="pull-right alert alert-danger col-md-3">Vous n'avez aucun domaine affecté.</p>
+    {% endif %}
     <table class="table table-striped table-bordered table-hover dataTable">
         <thead>
         <tr>
@@ -44,7 +48,7 @@
                 <td>{{ new.beginPublicationDate | date('d/m/Y') }}</td>
                 <td>{{ new.endPublicationDate is empty ? "" : new.endPublicationDate | date('d/m/Y') }}</td>
                 <td class="text-center">
-                    {% if is_granted(new.domain.role) or is_granted("ROLE_DOMAIN_ADMIN") %}
+                    {% if (app.user.domainManaged is not null and new.domain.id == app.user.domainManaged.id) or is_granted("ROLE_DOMAIN_ADMIN") %}
                         <a href="{{ path('domain_manager_news_modify', {'id': new.id }) }}"
                            title="Modifier la news"><i
                                     class="glyphicon glyphicon-cog"></i></a>

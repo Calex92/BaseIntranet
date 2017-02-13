@@ -11,6 +11,7 @@ use Front\AppBundle\Entity\Group;
 use Front\AppBundle\Entity\Profile;
 use Front\AppBundle\Entity\ProfilePrefered;
 use Front\AppBundle\Entity\Right;
+use Front\DomainBundle\Entity\Domain;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Front\AppBundle\Entity\UserAgency;
@@ -100,7 +101,7 @@ class User extends BaseUser
     protected $group;
 
     /**
-     * @var Collection
+     * @var Collection[Profile]
      *
      * @ORM\ManyToMany(targetEntity="Front\AppBundle\Entity\Profile", inversedBy="users", cascade={"persist"})
      * @ORM\JoinTable(name="base_user_profile")
@@ -113,6 +114,13 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Front\AppBundle\Entity\ProfilePrefered", mappedBy="user")
      */
     private $profilesPrefered;
+
+    /**
+     * @var Domain
+     *
+     * @ORM\ManyToOne(targetEntity="Front\DomainBundle\Entity\Domain")
+     */
+    private $domainManaged;
 
     /**
      * User constructor.
@@ -337,6 +345,19 @@ class User extends BaseUser
     }
 
     /**
+     * @param integer $code
+     * @return Profile|mixed|null
+     */
+    public function getProfileApplication($code) {
+        foreach ($this->getProfilesApplication() as $profile) {
+            /** @var Profile $profile */
+            if($profile->getCode() == $code)
+                return $profile;
+        }
+        return null;
+    }
+
+    /**
      * @param Collection $profiles
      * @return $this
      */
@@ -434,5 +455,22 @@ class User extends BaseUser
     public function updateDate() {
         $this->updatedAt = new \DateTime();
     }
+
+    /**
+     * @return Domain
+     */
+    public function getDomainManaged()
+    {
+        return $this->domainManaged;
+    }
+
+    /**
+     * @param Domain $domainManaged
+     */
+    public function setDomainManaged($domainManaged)
+    {
+        $this->domainManaged = $domainManaged;
+    }
+
 }
 

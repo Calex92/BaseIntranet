@@ -31,6 +31,10 @@
 
         {{ include("@AdminUserManager/User/updateProfiles.html.twig", {"user" : user}) }}
 
+        {% if form.domainManaged is defined %}
+            {{ include('@AdminUserManager/User/updateExtraFields.html.twig') }}
+        {% endif %}
+
         {{ form_rest(form) }}
         <input type="submit" class="btn btn-default pull-right" value="Modifier"/>
         <div class="clearfix"></div>

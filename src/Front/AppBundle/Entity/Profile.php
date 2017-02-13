@@ -25,6 +25,13 @@ class Profile
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="code", type="integer", unique=true)
+     */
+    private $code;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -64,13 +71,6 @@ class Profile
     private $rights;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_last_connection_profile", type="boolean")
-     */
-    private $isLastConnectionProfile;
-
-    /**
      * Profile constructor.
      */
     public function __construct()
@@ -78,7 +78,6 @@ class Profile
         $this->users    = new ArrayCollection();
         $this->groups   = new ArrayCollection();
         $this->rights   = new ArrayCollection();
-        $this->isLastConnectionProfile = false;
     }
 
     /**
@@ -194,19 +193,21 @@ class Profile
     }
 
     /**
-     * @return bool
+     * @return int
      */
-    public function isLastConnectionProfile()
+    public function getCode()
     {
-        return $this->isLastConnectionProfile;
+        return $this->code;
     }
 
     /**
-     * @param bool $isLastConnectionProfile
+     * @param int $code
      */
-    public function setLastConnectionProfile($isLastConnectionProfile)
+    public function setCode($code)
     {
-        $this->isLastConnectionProfile = $isLastConnectionProfile;
+        $this->code = $code;
     }
+
+
 }
 

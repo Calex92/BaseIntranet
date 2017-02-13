@@ -23,6 +23,11 @@ class ApplicationsController extends Controller
         ));
     }
 
+    /**
+     * @Security("has_role('IS_AUTHENTICATED_FULLY')")
+     * @param Application $application
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function getAction(Application $application) {
         $this->get("frontapp.application_connection_statistics")->logAccess($application, $this->getUser());
         return $this->redirectToRoute($application->getLocation(), array("applicationId" => $application->getId()));

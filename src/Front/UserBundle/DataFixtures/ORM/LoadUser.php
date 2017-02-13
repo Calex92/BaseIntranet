@@ -62,7 +62,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             $users[2] => array(),
             $users[3] => array(),
             $users[4] => array(),
-            $users[5] => array("GISS", "Viewer"));
+            $users[5] => array("News and Document Creator", "Viewer"));
 
         for ($i = 0; $i < count($users); $i++) {
             $user = new User();

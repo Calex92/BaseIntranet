@@ -13,16 +13,33 @@ use Front\UserBundle\Entity\User;
  */
 class DomainRepository extends EntityRepository
 {
-    public function getActiveQueryBuilder(User $user)
+    /**
+     * Send back the domains the user can manage
+     * @param User $user
+     * @return \Doctrine\ORM\QueryBuilder
+     * @throws \Exception
+     */
+    public function getActiveQueryBuilderForUser(User $user)
     {
+        $qb = $this->getActiveQueryBuilder();
+
+        //We check that the user can access this datas by his role but if it's the admin, we don't need to block
+        if (in_array("ROLE_DOMAIN_NEWS_DOCUMENT", $user->getRoles())) {
+            if (!in_array("ROLE_DOMAIN_ADMIN", $user->getRoles()))
+                $qb->andWhere("domain_repository.id = :domainId")
+                ->setParameter("domainId", $user->getDomainManaged()->getId());
+        }
+        else {
+            throw new \Exception("This user can't access this datas");
+        }
+
+        return $qb;
+    }
+
+    public function getActiveQueryBuilder() {
         $qb = $this->createQueryBuilder('domain_repository');
         $qb = $qb
             ->where($qb->expr()->eq("domain_repository.active", true));
-
-        if (!in_array("ROLE_DOMAIN_ADMIN", $user->getRoles())) {
-            $qb->andWhere($qb->expr()->in('domain_repository.role', $user->getRoles()));
-        }
-
         return $qb;
     }
 

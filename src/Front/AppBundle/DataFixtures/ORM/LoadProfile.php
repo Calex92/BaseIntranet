@@ -28,7 +28,7 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
     {
         $profiles = array(
             array("Viewer", "Creator"),
-            array("Admin", "GISS", "Informatique"),
+            array("Admin", "News and Document Creator"),
             array("Admin référentiel"));
 
         $rights = array(
@@ -46,11 +46,9 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
                 "UpdateZone",
                 "ConnectAsUser"),
             array(
-                "Achat",
-                "GISS",
-                "Informatique",
-                "Admin",
-                "Gestion catalogue"
+                "News creation",
+                "Gestion catalogue",
+                "Admin"
             ),
             array(
                 "CanExport"
@@ -63,9 +61,8 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
                 array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
             ),
             array(
-                array(0, 1, 2, 3, 4),
-                array(1),
-                array(2)
+                array(0, 1, 2),
+                array(0)
             ),
             array(
                 array(0)
@@ -78,6 +75,7 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
             for ($j = 0; $j < count($profiles[$i]) ; $j++) {
                 $profile = new Profile();
                 $profile->setName($profiles[$i][$j]);
+                $profile->setCode(intval($i.$j));
                 /** @var Application $application */
                 $application = $this->getReference("application".$applications[$i]);
                 $profile->setApplication($application);

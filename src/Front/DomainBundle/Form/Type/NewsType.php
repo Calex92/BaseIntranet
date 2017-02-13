@@ -42,7 +42,7 @@ class NewsType extends AbstractType
                     "choice_value"  => "id",
                     "label"         => "Domaine",
                     "query_builder" => function (DomainRepository $repository) use ($user){
-                        return $repository->getActiveQueryBuilder($user);
+                        return $repository->getActiveQueryBuilderForUser($user);
                     },))
             ->add('externalVideo', CollectionType::class, array(
                 "entry_type"    => TextType::class,

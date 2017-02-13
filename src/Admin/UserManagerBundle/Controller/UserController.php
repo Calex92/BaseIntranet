@@ -74,7 +74,7 @@ class UserController extends Controller
             return $this->redirectToRoute("admin_user_manager_homepage");
         }
 
-        $form = $this->createForm(UserAdminEditType::class, $user);
+        $form = $this->createForm(UserAdminEditType::class, $user, array("user" => $user));
         $agenciesForUser = $this->getDoctrine()->getRepository("FrontAppBundle:Agency")->getAgenciesNotUser($user->getId());
 
         //The validation is checked in the entity User.
