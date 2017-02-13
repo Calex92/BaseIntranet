@@ -82,6 +82,37 @@ class Application
     private $code;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="text", name="description")
+     */
+    private $description;
+
+    /**
+     * Application constructor.
+     */
+    public function __construct()
+    {
+        $this->description = "Aucune description fournie";
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param $description
+     */
+    public function setApplicationDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
      * Get id
      *
      * @return int

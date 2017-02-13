@@ -26,7 +26,7 @@ class LoadApplicationExternal extends AbstractFixture implements OrderedFixtureI
     {
         $applications = array ("Administration Isidore",
             "Générateur de signature",
-            "Help référenciel",
+            "Help référentiel",
             "Help ADV",
             "Espaces Grands Comptes",
             "GISS",
