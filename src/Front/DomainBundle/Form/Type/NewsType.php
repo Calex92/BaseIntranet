@@ -10,11 +10,11 @@ namespace Front\DomainBundle\Form\Type;
 
 
 use Front\DomainBundle\Repository\DomainRepository;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,8 +27,9 @@ class NewsType extends AbstractType
         $user = $options["user"];
         $builder->add('title', TextType::class,
                 array("label" => "Titre"))
-            ->add('text', TextareaType::class,
-                array("label" => "Corps du texte"))
+            ->add('text', CKEditorType::class,
+                array("label" => "Corps du texte",
+                    "config_name" => "my_basic_config"))
             ->add('beginPublicationDate', DateType::class,
                 array("label" => "Début de parution", "widget" => "single_text", 'format' => 'dd-MM-yyyy', 'placeholder' => 'jj-mm-yyyy'))
             ->add('endPublicationDate', DateType::class,

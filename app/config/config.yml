@@ -141,7 +141,7 @@ vich_uploader:
 
 ivory_ck_editor:
     configs:
-        my_config:
+        my_basic_config:
             toolbar: [ [ "Source", "-", "Cut", "Copy", 'Paste','PasteText','PasteFromWord','-','Undo','Redo' ],
              [ 'Link','Unlink','Anchor' ],
              [ 'Bold','Italic','Underline','Strike', 'Blockquote','Subscript','Superscript' ], "/",

@@ -27,7 +27,7 @@
                 {% endif %}
                 <h2>{{ news.title }}</h2>
                 <p class="text-justify margin-left-15 margin-right-15">
-                    {{ news.text }}
+                    {{ news.text|raw }}
                 </p>
             </div>
             <div class="row">

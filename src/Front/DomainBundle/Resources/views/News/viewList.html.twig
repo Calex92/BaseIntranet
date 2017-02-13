@@ -26,7 +26,11 @@
                 {% endif %}
                     <label>{{ new.domain.label }}</label>
                     <h3>{{ new.title }}</h3>
-                    <p class="text-justify">{{ new.text|length > 300 ? new.text|slice(0, 300) ~ '...' : new.text  }}</p>
+                    <p class="text-justify">
+                        {# When I add the "..." next to the slice, the method doesn't work anymore #}
+                        {{ new.text|length > 300 ? new.text|striptags|slice(0, 300)|raw : new.text|striptags|raw }}
+                        {{ new.text|length > 300 ? "..." }}
+                    </p>
                     <p class="text-center">
                         <span>{{ new.creator.firstname|slice(0,1) }}. {{ new.creator.surname }}</span>
                         <span >{{ new.beginPublicationDate | date('d/m/Y') }}</span>

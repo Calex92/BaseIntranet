@@ -32,7 +32,7 @@ class ApplicationType extends AbstractType
             )
             ->add("description", CKEditorType::class, array(
                 "label" => "Description",
-                "config_name" => "my_config"
+                "config_name" => "my_basic_config"
             ));
     }
 

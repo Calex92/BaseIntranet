@@ -42,7 +42,7 @@
                 <td>{{ new.domain.label }}</td>
                 <td>{{ new.creator.firstname|slice(0,1) }}. {{ new.creator.surname }}</td>
                 <td>{{ new.beginPublicationDate | date('d/m/Y') }}</td>
-                <td>{{  new.endPublicationDate ? "" : new.endPublicationDate | date('d/m/Y') }}</td>
+                <td>{{ new.endPublicationDate is empty ? "" : new.endPublicationDate | date('d/m/Y') }}</td>
                 <td class="text-center">
                     {% if is_granted(new.domain.role) or is_granted("ROLE_DOMAIN_ADMIN") %}
                         <a href="{{ path('domain_manager_news_modify', {'id': new.id }) }}"
