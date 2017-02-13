@@ -165,7 +165,7 @@
                                              alt="{{ application.name }}">
                                         <div>
                                             <h3 id="application{{ application.code }}">{{ application.name }}</h3>
-                                            <div>{{ application.description }}</div>
+                                            <div>{{ application.description|raw }}</div>
                                         </div>
                                     </div>
                                 {% endfor %}

@@ -8,8 +8,8 @@
 
 namespace Admin\AppBundle\Form\Type;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,8 +30,9 @@ class ApplicationType extends AbstractType
                 "label" => "Image de l'application",
                 "required" => false)
             )
-            ->add("description", TextareaType::class, array(
-                "label" => "Description"
+            ->add("description", CKEditorType::class, array(
+                "label" => "Description",
+                "config_name" => "my_config"
             ));
     }
 

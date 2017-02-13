@@ -1,30 +1,30 @@
 <div class="well well-block-info">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <h4 class="margin-left-15">Informations générales</h4>
         <div class="form-group">
-            {{ form_label(form.name, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
-            <div class="col-sm-8">
+            {{ form_label(form.name, null, {'label_attr' : {"class" : "col-sm-2 control-label"}} ) }}
+            <div class="col-sm-10">
                 {{ form_widget(form.name, {"attr": {'class' : "form-control"}}) }}
             </div>
             {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.name}) }}
         </div>
         <div class="form-group">
-            {{ form_label(form.location, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
-            <div class="col-sm-8">
+            {{ form_label(form.location, null, {'label_attr' : {"class" : "col-sm-2 control-label"}} ) }}
+            <div class="col-sm-10">
                 {{ form_widget(form.location, {"attr": {'class' : "form-control"}}) }}
             </div>
             {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.location}) }}
         </div>
         <div class="form-group">
-            {{ form_label(form.imageFile, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
-            <div class="col-sm-8">
+            {{ form_label(form.imageFile, null, {'label_attr' : {"class" : "col-sm-2 control-label"}} ) }}
+            <div class="col-sm-10">
                 {{ form_widget(form.imageFile, {"attr": {'class' : "form-control"}}) }}
             </div>
             {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.imageFile}) }}
         </div>
         <div class="form-group">
-            {{ form_label(form.description, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
-            <div class="col-sm-8">
+            {{ form_label(form.description, null, {'label_attr' : {"class" : "col-sm-2 control-label"}} ) }}
+            <div class="col-sm-10">
                 {{ form_widget(form.description, {"attr": {'class' : "form-control"}}) }}
             </div>
             {{ include ('@FrontApp/Form/errorForm.html.twig', {'formValue' : form.description}) }}

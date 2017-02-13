@@ -138,3 +138,12 @@ vich_uploader:
             uri_prefix:            /../isidore2/web/download/front/applications
             upload_destination:    '%kernel.root_dir%/../web/download/front/applications'
             namer:                 vich_uploader.namer_origname
+
+ivory_ck_editor:
+    configs:
+        my_config:
+            toolbar: [ [ "Source", "-", "Cut", "Copy", 'Paste','PasteText','PasteFromWord','-','Undo','Redo' ],
+             [ 'Link','Unlink','Anchor' ],
+             [ 'Bold','Italic','Underline','Strike', 'Blockquote','Subscript','Superscript' ], "/",
+             [ 'NumberedList','BulletedList','-','Outdent','Indent','-','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
+             [ 'Styles', 'Format','Font','FontSize', '-', 'TextColor','BGColor' ], [ 'Maximize' ]]

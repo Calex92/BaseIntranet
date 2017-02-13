@@ -107,7 +107,7 @@ class Application
     /**
      * @param $description
      */
-    public function setApplicationDescription($description)
+    public function setDescription($description)
     {
         $this->description = $description;
     }
