@@ -91,11 +91,9 @@ fos_user:
     profile:
         form:
             type: Front\UserBundle\Form\Type\ProfileFormType
-    resetting:
-        email:
-            from_email:
-                address:    isidore@orexad.com
-                sender_name:    Isidore2
+    from_email:
+        address:    isidore@orexad.com
+        sender_name:    Isidore2
 
 
 vich_uploader:
