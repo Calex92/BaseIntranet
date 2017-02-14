@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    public function getUserByProfileQueryBuilder($codeProfile) {
+        $qb = $this->createQueryBuilder("user");
+        return $qb->leftJoin("user.profiles", "profiles")
+            ->leftJoin("user.group", "group")
+            ->leftJoin("group.profiles", "group_profiles")
+            ->where($qb->expr()->in("profiles.code", $codeProfile))
+            ->orWhere($qb->expr()->in("group_profiles.code", $codeProfile))
+            ->orderBy("user.surname", "ASC");
+    }
 }

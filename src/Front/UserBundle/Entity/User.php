@@ -118,7 +118,7 @@ class User extends BaseUser
     /**
      * @var Domain
      *
-     * @ORM\ManyToOne(targetEntity="Front\DomainBundle\Entity\Domain")
+     * @ORM\ManyToOne(targetEntity="Front\DomainBundle\Entity\Domain", inversedBy="users")
      */
     private $domainManaged;
 

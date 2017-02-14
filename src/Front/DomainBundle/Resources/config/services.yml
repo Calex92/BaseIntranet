@@ -12,3 +12,9 @@ services:
         arguments: ['@front_domain.menu_getter']
         tags:
             - { name: twig.extension }
+
+    front_domain.domain_type:
+            class: Front\DomainBundle\Form\Type\DomainType
+            arguments: [ "%profile.code.newsdocument%" ]
+            tags:
+                - { name: form.type }

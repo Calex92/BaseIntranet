@@ -9,6 +9,10 @@
 namespace Front\DomainBundle\Form\Type;
 
 
+use Front\DomainBundle\Entity\Domain;
+use Front\UserBundle\Entity\User;
+use Front\UserBundle\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,8 +21,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DomainType extends AbstractType
 {
+    private $codeProfile;
+
+    /**
+     * DomainType constructor.
+     * @param $codeProfile
+     */
+    public function __construct($codeProfile)
+    {
+        $this->codeProfile = $codeProfile;
+    }
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Domain $domain */
+        $domain      = $builder->getData();
+        $codeProfile = $this->codeProfile;
+
         $builder
             ->add("label", TextType::class, array(
                 "label"     => "Nom du domaine",
@@ -30,11 +50,39 @@ class DomainType extends AbstractType
                 "attr"      => array("data-toggle"   => "toggle",
                     "data-off"      => "Inactif",
                     "data-on"       => "Actif")
-            ))
-            ->add("role", TextType::class, array(
-                "label"     => "Role associé",
-                "attr"      => array("placeholder"  => "ROLE_DOMAIN_NOM_DU_DOMAINE")
             ));
+
+        if ($domain->getActive()) {
+            $builder->add("users", EntityType::class, array(
+                "label" => "Utilisateurs gestionnaires",
+                "attr" =>
+                    array("data-placeholder" => "Sélectionnez un ou plusieurs utilisateurs",
+                        "class" => "chosen-select"),
+                "class" => "Front\\UserBundle\\Entity\\User",
+                "multiple" => true,
+                "query_builder" => function (UserRepository $userRepository) use ($codeProfile) {
+                    //We get only the users that can manage the news
+                    return $userRepository->getUserByProfileQueryBuilder($codeProfile);
+                },
+                "choice_label" => function (User $user) {
+                    return $user->getSurname() . " " . $user->getFirstname();
+                },
+                "choice_attr" => function (User $user) use ($domain) {
+                    //If they already manage a domain, we can't let them in the list but if they manage this domain,
+                    // we don't need to disable them
+                    if ($user->getDomainManaged() != null) {
+                        if ($domain->getId() == $user->getDomainManaged()->getId()) {
+                            return ['selected' => "selected"];
+                        } else {
+                            return ['disabled' => "disabled"];
+                        }
+                    } else {
+                        return [];
+                    }
+
+                }
+            ));
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

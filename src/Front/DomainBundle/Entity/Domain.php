@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="domain")
@@ -50,6 +52,13 @@ class Domain
      * @ORM\OneToMany(targetEntity="Front\DomainBundle\Entity\DomainElement", mappedBy="domain")
      */
     private $domainElements;
+
+    /**
+     * @var Collection[User]
+     *
+     * @ORM\OneToMany(targetEntity="Front\UserBundle\Entity\User", mappedBy="domainManaged")
+     */
+    private $users;
 
     /**
      * Domain constructor.
@@ -187,6 +196,35 @@ class Domain
                 return $domainElement instanceof Document;
             }
         );
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param Collection $users
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
+    }
+
+    /**
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     */
+    public function checkUsersDomainActive(ExecutionContextInterface $context) {
+        if (!$this->getActive() && count($this->users) > 0) {
+            $context
+                ->buildViolation('Impossible de désactiver un domaine qui a des utilisateurs gestionnaires') // message
+                ->atPath('active')
+                ->addViolation();
+        }
     }
 }
 
