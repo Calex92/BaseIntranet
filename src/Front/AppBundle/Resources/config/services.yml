@@ -24,3 +24,12 @@ services:
     front_app.menu_getter:
         class: Front\AppBundle\Services\MenuGetter
         arguments: ["@security.authorization_checker"]
+
+    front_app.beta.html_adder:
+        class: Front\AppBundle\Services\Beta\BetaHtmlAdder
+
+    front_app.beta.listener:
+        class: Front\AppBundle\Services\Beta\BetaListener
+        arguments: [ "@front_app.beta.html_adder", "%environment%"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response,  method: processBeta }

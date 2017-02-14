@@ -27,5 +27,8 @@ parameters:
         admin: 10
         simpleUser: 11
 
+    #Set to local, dev, recette or prod
+    environment: local
+
     server.name: Vanina intranet
     my.cookie.name: intranetApplication
