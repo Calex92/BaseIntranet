@@ -12,13 +12,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
-    public function getUserByProfileQueryBuilder($codeProfile) {
+
+    /**
+     * Returns the query builder for the users that have a specific Right (found by code)
+     * @param $codeRights
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findByRightsCodeQueryBuilder($codeRights) {
         $qb = $this->createQueryBuilder("user");
         return $qb->leftJoin("user.profiles", "profiles")
             ->leftJoin("user.group", "group")
             ->leftJoin("group.profiles", "group_profiles")
-            ->where($qb->expr()->in("profiles.code", $codeProfile))
-            ->orWhere($qb->expr()->in("group_profiles.code", $codeProfile))
-            ->orderBy("user.surname", "ASC");
+            ->leftJoin("group_profiles.rights", "group_rights")
+            ->leftJoin("profiles.rights", "rights")
+            ->where($qb->expr()->in("rights.code", $codeRights))
+            ->orWhere($qb->expr()->in("group_rights.code", $codeRights))
+            ->orderBy("user.surname", "ASC")
+            ->groupBy("user.id");
     }
 }

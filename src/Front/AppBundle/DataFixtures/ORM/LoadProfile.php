@@ -75,7 +75,6 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
             for ($j = 0; $j < count($profiles[$i]) ; $j++) {
                 $profile = new Profile();
                 $profile->setName($profiles[$i][$j]);
-                $profile->setCode(intval($i.$j));
                 /** @var Application $application */
                 $application = $this->getReference("application".$applications[$i]);
                 $profile->setApplication($application);

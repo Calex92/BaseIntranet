@@ -19,15 +19,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserAdminEditType extends AbstractType
 {
     /** @var array */
-    private $profilesThatCanManageNews;
+    private $rightThatCanManageNews;
 
     /**
      * UserAdminEditType constructor.
-     * @param $profilesThatCanManageNews
+     * @param $rightThatCanManageNews
      */
-    public function __construct(array $profilesThatCanManageNews)
+    public function __construct(array $rightThatCanManageNews)
     {
-        $this->profilesThatCanManageNews = $profilesThatCanManageNews;
+        $this->rightThatCanManageNews = $rightThatCanManageNews;
     }
 
 
@@ -55,8 +55,8 @@ class UserAdminEditType extends AbstractType
             ));
 
         //If the user manage a domain, we need to add the "domain" part in the form
-        foreach ($this->profilesThatCanManageNews as $codeProfile) {
-            if ($user->getProfileApplication($codeProfile) != null) {
+        foreach ($this->rightThatCanManageNews as $codeRight) {
+            if ($user->getRight($codeRight) != null) {
                 $builder->add("domainManaged", EntityType::class, array(
                     "label"     => "Domaine géré",
                     "class"     => "Front\\DomainBundle\\Entity\\Domain",

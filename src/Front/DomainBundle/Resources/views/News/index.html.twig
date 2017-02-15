@@ -20,7 +20,7 @@
             {% endfor %}
         </select>
     </div>
-    {% if app.user.domainManaged is not null%}
+    {% if app.user.domainManaged is not null or is_granted('ROLE_DOMAIN_ADMIN') %}
         <a class="col-md-3 margin-top-20 btn btn-default pull-right" href="{{ path("domain_manager_news_add") }}">
             Créer une news
         </a>

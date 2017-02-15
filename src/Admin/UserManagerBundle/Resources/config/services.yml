@@ -5,6 +5,6 @@ services:
 
     admin_user_manager.user_admin_edit_type:
         class: Admin\UserManagerBundle\Form\Type\UserAdminEditType
-        arguments: [ "%profile.code.newsdocument%" ]
+        arguments: [ "%right.code.newsdocument%" ]
         tags:
             - { name: form.type }

@@ -25,13 +25,6 @@ class Profile
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="code", type="integer", unique=true)
-     */
-    private $code;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -191,23 +184,5 @@ class Profile
         }
         return $this;
     }
-
-    /**
-     * @return int
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * @param int $code
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-
 }
 

@@ -62,7 +62,7 @@ class DomainType extends AbstractType
                 "multiple" => true,
                 "query_builder" => function (UserRepository $userRepository) use ($codeProfile) {
                     //We get only the users that can manage the news
-                    return $userRepository->getUserByProfileQueryBuilder($codeProfile);
+                    return $userRepository->findByRightsCodeQueryBuilder($codeProfile);
                 },
                 "choice_label" => function (User $user) {
                     return $user->getSurname() . " " . $user->getFirstname();

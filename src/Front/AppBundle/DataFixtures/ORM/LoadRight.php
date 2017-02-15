@@ -65,20 +65,7 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
                 "Se connecter en tant que"
             ),
             array(
-                "Créateur domaine achat",
-                "Créateur domaine E-business",
-                "Créateur domaine finances",
-                "Créateur domaine GISS",
-                "Créateur domaine juridique",
-                "Créateur domaine logistique",
-                "Créateur domaine marketing",
-                "Créateur domaine organisation",
-                "Créateur domaine perf'co",
-                "Créateur domaine qualité",
-                "Créateur domaine r.h.",
-                "Créateur domaine réseau",
-                "Créateur domaine grands comptes",
-                "Créateur domaine informatique",
+                "Gestionnaire d'un domaine",
                 "Gestion des catalogues",
                 "Administrateur"
             ),
@@ -111,52 +98,12 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
             )
         );
 
-        $codes = array(
-            array(
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12
-            ),
-            array(
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15,
-                16
-            ),
-            array(
-                0
-            )
-        );
-
         for ($i = 0; $i < count($rights); $i++) {
             for ($j = 0; $j < count($rights[$i]); $j++) {
                 $right = new Right();
                 $right->setName($rights[$i][$j]);
                 $right->setDescription($descriptions[$i][$j]);
-                $right->setCode($codes[$i][$j]);
+                $right->setCode(intval($i.$j));
                 $right->setRole($roles[$i][$j]);
 
                 $this->addReference("right".$right->getName(), $right);

@@ -348,11 +348,13 @@ class User extends BaseUser
      * @param integer $code
      * @return Profile|mixed|null
      */
-    public function getProfileApplication($code) {
+    public function getRight($code) {
         foreach ($this->getProfilesApplication() as $profile) {
             /** @var Profile $profile */
-            if($profile->getCode() == $code)
-                return $profile;
+            foreach ($profile->getRights() as $right) {
+                if($right->getCode() == $code)
+                    return $right;
+            }
         }
         return null;
     }

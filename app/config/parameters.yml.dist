@@ -22,10 +22,10 @@ parameters:
     application.code.helpinfo: 23
 
     application_name: isidore2
-
-    profile.code.newsdocument:
-        admin: 10
-        simpleUser: 11
+    #Set the code of the right that can create the news and documents
+    right.code.newsdocument:
+        domainManager: 10
+        admin: 12
 
     #Set to local, dev, recette or prod
     environment: local
