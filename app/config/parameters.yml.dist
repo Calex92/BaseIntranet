@@ -23,9 +23,9 @@ parameters:
 
     application_name: isidore2
     #Set the code of the right that can create the news and documents
-    right.code.newsdocument:
-        domainManager: 10
-        admin: 12
+    roles.code.newsdocument:
+        domainManager: ROLE_DOMAIN_NEWS_DOCUMENT
+        admin: ROLE_DOMAIN_ADMIN
 
     #Set to local, dev, recette or prod
     environment: local

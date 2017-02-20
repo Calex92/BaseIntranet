@@ -345,14 +345,15 @@ class User extends BaseUser
     }
 
     /**
-     * @param integer $code
+     * @param integer $role
      * @return Profile|mixed|null
      */
-    public function getRight($code) {
+    public function getRight($role) {
         foreach ($this->getProfilesApplication() as $profile) {
             /** @var Profile $profile */
             foreach ($profile->getRights() as $right) {
-                if($right->getCode() == $code)
+                /** @var Right $right */
+                if(in_array($role, $right->getRoles()))
                     return $right;
             }
         }

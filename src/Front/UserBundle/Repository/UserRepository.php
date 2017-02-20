@@ -15,18 +15,18 @@ class UserRepository extends EntityRepository
 
     /**
      * Returns the query builder for the users that have a specific Right (found by code)
-     * @param $codeRights
+     * @param $roleRight
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function findByRightsCodeQueryBuilder($codeRights) {
+    public function findByRightsCodeQueryBuilder($roleRight) {
         $qb = $this->createQueryBuilder("user");
         return $qb->leftJoin("user.profiles", "profiles")
             ->leftJoin("user.group", "group")
             ->leftJoin("group.profiles", "group_profiles")
             ->leftJoin("group_profiles.rights", "group_rights")
             ->leftJoin("profiles.rights", "rights")
-            ->where($qb->expr()->in("rights.code", $codeRights))
-            ->orWhere($qb->expr()->in("group_rights.code", $codeRights))
+            ->where($qb->expr()->in("rights.roles", $roleRight))
+            ->orWhere($qb->expr()->in("group_rights.roles", $roleRight))
             ->orderBy("user.surname", "ASC")
             ->groupBy("user.id");
     }

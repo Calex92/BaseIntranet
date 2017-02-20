@@ -21,15 +21,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DomainType extends AbstractType
 {
-    private $codeProfile;
+    private $rolesProfile;
 
     /**
      * DomainType constructor.
-     * @param $codeProfile
+     * @param $rolesProfile
      */
-    public function __construct($codeProfile)
+    public function __construct($rolesProfile)
     {
-        $this->codeProfile = $codeProfile;
+        $this->rolesProfile = $rolesProfile;
     }
 
 
@@ -37,7 +37,7 @@ class DomainType extends AbstractType
     {
         /** @var Domain $domain */
         $domain      = $builder->getData();
-        $codeProfile = $this->codeProfile;
+        $rolesProfile = $this->rolesProfile;
 
         $builder
             ->add("label", TextType::class, array(
@@ -60,9 +60,9 @@ class DomainType extends AbstractType
                         "class" => "chosen-select"),
                 "class" => "Front\\UserBundle\\Entity\\User",
                 "multiple" => true,
-                "query_builder" => function (UserRepository $userRepository) use ($codeProfile) {
+                "query_builder" => function (UserRepository $userRepository) use ($rolesProfile) {
                     //We get only the users that can manage the news
-                    return $userRepository->findByRightsCodeQueryBuilder($codeProfile);
+                    return $userRepository->findByRightsCodeQueryBuilder($rolesProfile);
                 },
                 "choice_label" => function (User $user) {
                     return $user->getSurname() . " " . $user->getFirstname();
