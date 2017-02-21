@@ -41,4 +41,10 @@ class NotificationController extends Controller
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute($notification->getRoute(), $notification->getParams());
     }
+
+    public function newUserAction() {
+        return $this->render("@FrontApp/Notification/newUser.html.twig", array(
+            "user" => $this->getUser()
+        ));
+    }
 }

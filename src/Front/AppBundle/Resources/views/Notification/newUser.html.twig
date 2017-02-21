@@ -1,0 +1,22 @@
+{% extends "FrontAppBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="main-content">
+        {{ parent() }}
+        <h2>Bienvenue sur Isidore {{ user.firstname }}!</h2>
+        <p>
+            En espérant que vous y trouverez toutes les infos utiles et nécessaire à votre travail.
+            <br/>
+            Pour vous y aider, nous avons mis en place un système d'aide, situé dans la barre de navigation.
+            <br/>
+            Vous pouvez aussi consulter toutes les applications auxquelles vous avez accès dans l'onglet "applications".
+            Toutes les applications auxquelles vous n'avez pas accès sont elles aussi disponibles, pour en savoir plus à
+            propos de celles-ci, il vous suffit de cliquer dessus.
+            <br/>
+            <br/>
+            En espérant que les outils mis à disposition vous seront utiles, <br/>
+            Cordialement, <br/>
+            Le service informatique
+        </p>
+    </div>
+{% endblock %}

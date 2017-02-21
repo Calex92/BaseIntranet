@@ -7,6 +7,7 @@ use Admin\UserManagerBundle\Form\Type\UserType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Front\AppBundle\Entity\Contact;
 use Front\AppBundle\Entity\Group;
+use Front\AppBundle\Entity\Notification;
 use Front\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,6 +40,7 @@ class UserController extends Controller
     public function createAction(Request $request) {
         //We create a new user to fill the form with the user manager
         $userManager = $this->get('fos_user.user_manager');
+        $entityManager = $this->getDoctrine()->getManager();
         /** @var User $user */
         $user = $userManager->createUser();
 
@@ -47,6 +49,11 @@ class UserController extends Controller
         if ($request->isMethod("POST") && $form->handleRequest($request)->isValid() && $form->isValid()) {
             $user->addAgency($form->get("mainAgency")->getData(), true);
             $userManager->updateUser($user);
+
+            $notification = new Notification("Bienvenue sur Isidore", "front_app.user_notification_welcome", $user);
+            $entityManager->persist($notification);
+            $entityManager->flush();
+
             $this->get("session")->getFlashBag()->add('success', "L'utilisateur a bien été créé");
             return $this->redirectToRoute("admin_user_manager_homepage");
         }

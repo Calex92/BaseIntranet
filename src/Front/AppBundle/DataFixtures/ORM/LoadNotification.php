@@ -37,16 +37,11 @@ class LoadNotification extends AbstractFixture implements OrderedFixtureInterfac
 
         for ($i = 0; $i < count($users); $i++) {
             for ($j = 0; $j < count($routes); $j++) {
-                $notification = new Notification();
-                $notification->setTitle($titles[$j]);
-                $notification->setRoute($routes[$j]);
-                $notification->setParams($params[$j]);
-                $notification->setSeen($seen[$j]);
-                $notification->setCreationDate($creationDates[$j]);
-
                 /** @var User $user */
                 $user = $this->getReference("user".$users[$i]);
-                $notification->setUser($user);
+                $notification = new Notification($titles[$j], $routes[$j], $user, $params[$j]);
+                $notification->setSeen($seen[$j]);
+                $notification->setCreationDate($creationDates[$j]);
 
                 $manager->persist($notification);
             }

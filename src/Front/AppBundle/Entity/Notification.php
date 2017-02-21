@@ -63,6 +63,23 @@ class Notification
      */
     private $user;
 
+    /**
+     * Notification constructor.
+     * @param string $title
+     * @param string $route
+     * @param array $params
+     * @param $user
+     */
+    public function __construct($title, $route, $user, array $params = array())
+    {
+        $this->title = $title;
+        $this->route = $route;
+        $this->params = $params;
+        $this->creationDate = new \DateTime();
+        $this->seen = false;
+        $this->user = $user;
+    }
+
 
     /**
      * Get id

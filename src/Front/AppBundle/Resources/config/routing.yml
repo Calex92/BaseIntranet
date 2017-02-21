@@ -39,6 +39,12 @@ user_notifications_view:
         _controller: FrontAppBundle:Notification:view
     methods: ["GET", "PATCH"]
 
+front_app.user_notification_welcome:
+    path:    /welcome
+    defaults:
+        _controller: FrontAppBundle:Notification:newUser
+    methods: ["GET"]
+
 front_help:
     path:    /help
     defaults:
