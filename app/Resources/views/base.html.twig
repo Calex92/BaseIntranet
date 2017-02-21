@@ -96,7 +96,7 @@
                                                     <li>
                                                         <a href="{{ path("front_change_profile", { "id" : profile.id }) }}" class="glyphicon-whitespaces-inherit">
                                                             {{ profile.name }}
-                                                            <i class="{{ profile.id == preferedProfile.profile.id ? "glyphicon glyphicon-ok pull-right": "" }}"></i>
+                                                            <i class="{{ profile.id == preferedProfile.id ? "glyphicon glyphicon-ok pull-right": "" }}"></i>
                                                         </a>
                                                     </li>
                                                 {% endfor %}

@@ -410,16 +410,23 @@ class User extends BaseUser
     /**
      * Return the prefered profile by application
      * @param $application_code
-     * @return ProfilePrefered
+     * @return Profile
      */
     public function getProfilePrefered($application_code) {
         foreach ($this->getProfilesPrefered() as $profilePrefered) {
             /** @var ProfilePrefered $profilePrefered */
             if ($profilePrefered->getApplication()->getCode() == $application_code) {
-                return $profilePrefered;
+                return $profilePrefered->getProfile();
             }
         }
-        return new ProfilePrefered();
+
+        foreach ($this->getProfilesApplication() as $profile) {
+            /** @var Profile $profile */
+            if ($profile->getApplication()->getCode() == $application_code) {
+                return $profile;
+            }
+        }
+        throw new \LogicException("Impossible d'atteindre ce code");
     }
 
     /**
