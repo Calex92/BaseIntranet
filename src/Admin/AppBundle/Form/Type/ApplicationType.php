@@ -21,17 +21,21 @@ class ApplicationType extends AbstractType
     {
         $builder
             ->add("name", TextType::class, array(
-                "label"     => "Nom de l'application"
+                "label" => "admin.app.application.name",
+                "translation_domain"     => "Admin"
             ))
             ->add("location", TextType::class, array(
-                "label"     => "Route de l'application"
+                "label"     => "admin.app.application.route",
+                "translation_domain"     => "Admin"
             ))
             ->add("imageFile", VichImageType::class, array(
-                "label" => "Image de l'application",
+                "label" => "admin.app.application.image",
+                "translation_domain"     => "Admin",
                 "required" => false)
             )
             ->add("description", CKEditorType::class, array(
-                "label" => "Description",
+                "label" => "admin.app.application.description",
+                "translation_domain"     => "Admin",
                 "config_name" => "my_basic_config"
             ));
     }

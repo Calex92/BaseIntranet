@@ -21,10 +21,12 @@ class NewsFileType extends AbstractType
     {
         $builder
             ->add('title', TextType::class,
-                array("label" => "Titre"))
+                array("label" => "front.domain.news_file.title",
+                    "translation_domain"    => "Front"))
             ->add('file', FileType::class,
                 array("required" => false,
-                    "label" => "Document"));
+                    "label" => "front.domain.news_file.document",
+                    "translation_domain"    => "Front"));
     }
 
     public function configureOptions(OptionsResolver $resolver)

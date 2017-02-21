@@ -24,28 +24,34 @@ class CatalogType extends AbstractType
     {
         $builder
             ->add("title", TextType::class, array(
-                "label"     => "Titre"
+                "label"     => "front.domain.catalog.title",
+                "translation_domain"    => "Front"
             ))
             ->add("imageFile", VichImageType::class, array(
-                "label"     => "Image",
+                "label"     => "front.domain.catalog.image",
+                "translation_domain"    => "Front",
                 "attr"      => array('accept' => 'image/jpeg,image/png'),
                 "required"  => false
             ))
             ->add("fileNameShown", TextType::class, array(
-                "label"     => "Nom du fichier téléchargé"
+                "label"     => "front.domain.catalog.filename",
+                "translation_domain"    => "Front"
             ))
             ->add("file", VichFileType::class, array(
-                "label"     => "Fichier",
+                "label"     => "front.domain.catalog.file",
+                "translation_domain"    => "Front",
                 "required"  => false
             ))
             ->add("beginPublicationDate", DateType::class, array(
-                "label"     => "Début de publication",
+                "label"     => "front.domain.catalog.begin_publication",
+                "translation_domain"    => "Front",
                 "widget"    => "single_text",
                 'format'    => 'dd-MM-yyyy',
                 'placeholder' => 'jj-mm-yyyy'
             ))
             ->add("isPositionLeft", CheckboxType::class, array(
-                "label"     => " ",
+                "label"     => "front.domain.catalog.is_position_left",
+                "translation_domain" => "Front",
                 "required"  => false,
                 "attr"      => array('class' => 'datepicker',
                             'data-toggle'   => 'toggle',
@@ -53,7 +59,8 @@ class CatalogType extends AbstractType
                             'data-on'       => 'Gauche')
             ))
             ->add("visible", CheckboxType::class, array(
-                "label"     => " ",
+                "label"     => "front.domain.catalog.active",
+                "translation_domain"    => "Front",
                 "required"  => false,
                 "attr"      => array("class" => "datepicker",
                                 "data-toggle"   => "toggle",

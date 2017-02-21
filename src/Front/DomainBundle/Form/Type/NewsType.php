@@ -26,21 +26,35 @@ class NewsType extends AbstractType
     {
         $user = $options["user"];
         $builder->add('title', TextType::class,
-                array("label" => "Titre"))
+                array("label" => "front.domain.news.title",
+                    "translation_domain"    => "Front"))
             ->add('text', CKEditorType::class,
-                array("label" => "Corps du texte",
+                array("label" => "front.domain.news.text",
+                    "translation_domain"    => "Front",
                     "config_name" => "my_basic_config"))
             ->add('beginPublicationDate', DateType::class,
-                array("label" => "Début de parution", "widget" => "single_text", 'format' => 'dd-MM-yyyy', 'placeholder' => 'jj-mm-yyyy'))
+                array("label" => "front.domain.news.begin_publication",
+                    "translation_domain"    => "Front",
+                    "widget" => "single_text",
+                    'format' => 'dd-MM-yyyy',
+                    'placeholder' => 'jj-mm-yyyy'))
             ->add('endPublicationDate', DateType::class,
-                array("label" => "Fin de parution", "required" => false, "widget" => "single_text", 'format' => 'dd-MM-yyyy', 'placeholder' => 'jj-mm-yyyy'))
+                array("label" => "front.domain.news.end_publication",
+                    "translation_domain"    => "Front",
+                    "required" => false,
+                    "widget" => "single_text",
+                    'format' => 'dd-MM-yyyy',
+                    'placeholder' => 'jj-mm-yyyy'))
             ->add('imageFile', VichImageType::class,
-                array("label" => "Image de couverture", "required" => false))
+                array("label" => "front.domain.news.image_cover",
+                    "translation_domain"    => "Front",
+                    "required" => false))
             ->add('domain', EntityType::class,
                 array("class"       => "Front\\DomainBundle\\Entity\\Domain",
                     "choice_label"  => "label",
                     "choice_value"  => "id",
-                    "label"         => "Domaine",
+                    "label"         => "front.domain.news.domain",
+                    "translation_domain"    => "Front",
                     "query_builder" => function (DomainRepository $repository) use ($user){
                         return $repository->getActiveQueryBuilderForUser($user);
                     },))
@@ -48,14 +62,16 @@ class NewsType extends AbstractType
                 "entry_type"    => TextType::class,
                 "allow_add"     => true,
                 "allow_delete"  => true,
-                "label"         => "Vidéos Youtube (prendre le lien \"embed\")"
+                "label"         => "front.domain.news.external_video",
+                "translation_domain"    => "Front"
             ))
             ->add('files', CollectionType::class, array(
                 "entry_type"    => NewsFileType::class,
                 "allow_add"     => true,
                 "by_reference"  => false,
                 "allow_delete"  => true,
-                "label"         => "Pièces jointes"
+                "label"         => "front.domain.news.attachment",
+                "translation_domain"    => "Front"
             ));
     }
 

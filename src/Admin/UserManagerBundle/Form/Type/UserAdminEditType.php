@@ -38,7 +38,8 @@ class UserAdminEditType extends AbstractType
         $builder->remove("plainPassword")
             ->remove("mainAgency")
             ->add("profiles", EntityType::class, array(
-                "label"      => "Profils spécifiques",
+                "label"      => "admin.user_manager.user_edit.specific_profiles",
+                "translation_domain"    => "Admin",
                 "class"      => "Front\\AppBundle\\Entity\\Profile",
                 "placeholder"=> " ",
                 "choice_label"  => function (Profile $profile) {
@@ -58,7 +59,8 @@ class UserAdminEditType extends AbstractType
         foreach ($this->rightThatCanManageNews as $codeRight) {
             if ($user->getRight($codeRight) != null) {
                 $builder->add("domainManaged", EntityType::class, array(
-                    "label"     => "Domaine géré",
+                    "label"     => "admin.user_manager.user_edit.domain_managed",
+                    "translation_domain"    => "Admin",
                     "class"     => "Front\\DomainBundle\\Entity\\Domain",
                     "choice_label"  => "label",
                     "query_builder" => function(DomainRepository $domainRepository) {

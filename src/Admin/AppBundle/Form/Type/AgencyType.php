@@ -26,40 +26,50 @@ class AgencyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add("code", IntegerType::class, array(
-                "label"     => "Code"
+                "label"     => "admin.app.agency.code",
+                "translation_domain" => "Admin"
             ))
             ->add("name", TextType::class, array(
-                "label"     => "Nom de l'agence"
+                "label"     => "admin.app.agency.name",
+                "translation_domain" => "Admin"
             ))
             ->add("email", EmailType::class, array(
-                "label"     => "Adresse email"
+                "label"     => "admin.app.agency.email",
+                "translation_domain" => "Admin"
             ))
             ->add("contact", ContactType::class)
             ->add("active", CheckboxType::class, array(
-                "label"     => " ",
+                "label"     => "admin.app.agency.active",
+                "translation_domain" => "Admin",
                 "required"  => false,
-                "attr"      => array('class' => 'datepicker',
+                "attr"      => array(
                     'data-toggle'   => 'toggle',
                     'data-off'      => 'Inactive',
                     'data-on'       => 'Active')
             ))
             ->add("address", TextType::class, array(
-                "label"     => "Adresse"
+                "label"     => "admin.app.agency.address",
+                "translation_domain" => "Admin"
             ))
             ->add("postalCode", TextType::class, array(
-                "label"     => "Code postal"
+                "label"     => "admin.app.agency.postalCode",
+                "translation_domain" => "Admin"
             ))
             ->add("town", TextType::class, array(
-                "label"     => "Ville"
+                "label"     => "admin.app.agency.town",
+                "translation_domain" => "Admin"
             ))
             ->add("country", TextType::class, array(
-                "label"     => "Pays"
+                "label"     => "admin.app.agency.country",
+                "translation_domain" => "Admin"
             ))
             ->add("latitude", TextType::class, array(
-                "label"     => "Latitude"
+                "label"     => "admin.app.agency.latitude",
+                "translation_domain" => "Admin"
             ))
             ->add("longitude", TextType::class, array(
-                "label"     => "Longitude"
+                "label"     => "admin.app.agency.longitude",
+                "translation_domain" => "Admin"
             ))
             ->add("region", EntityType::class, array(
                 "class"       => "Front\\AppBundle\\Entity\\Region",
@@ -67,7 +77,8 @@ class AgencyType extends AbstractType
                     return $region->getCode()." - ".$region->getName();
                 },
                 "choice_value"  => "id",
-                "label"         => "Region",
+                "label"         => "admin.app.agency.region",
+                "translation_domain" => "Admin",
                 "query_builder" => function (RegionRepository $repository) {
                     return $repository->getActiveQueryBuilder();
                 },

@@ -24,21 +24,26 @@ class DocumentType extends AbstractType
     {
         $user = $options["user"];
         $builder->add('title', TextType::class,
-                array("label"       => "Titre"))
+                array("label"       => "front.domain.document.title",
+                    "translation_domain"    => "Front"))
             ->add('domain', EntityType::class,
                 array("class"       => "Front\\DomainBundle\\Entity\\Domain",
                     "choice_label"  => "label",
                     "choice_value"  => "id",
-                    "label"         => "Domaine",
+                    "label"         => "front.domain.document.domain",
+                    "translation_domain"    => "Front",
                     "query_builder" => function (DomainRepository $repository) use ($user){
                         return $repository->getActiveQueryBuilderForUser($user);
                     },))
             ->add("fileNameShown", TextType::class,
-                array("label"   => "Nom du fichier"))
+                array("label"   => "front.domain.document.filename_shown",
+                    "translation_domain"    => "Front"))
             ->add("file", VichFileType::class,
-                array("label"   => "Fichier joint"))
+                array("label"   => "front.domain.document.file",
+                    "translation_domain"    => "Front"))
             ->add('beginPublicationDate', DateType::class,
-                array("label" => "Début de parution",
+                array("label" => "front.domain.document.begin_publication",
+                    "translation_domain"    => "Front",
                     "widget" => "single_text",
                     'format' => 'dd-MM-yyyy',
                     'placeholder' => 'jj-mm-yyyy'));

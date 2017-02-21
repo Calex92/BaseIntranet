@@ -1,0 +1,42 @@
+admin:
+    app:
+        application:
+            name:     Nom
+            route:    Route
+            image:    Image
+            description: Description
+        agency:
+            code:     Code
+            name:     Nom de l'agence
+            email:    Adresse mail
+            address:  Adresse
+            postalCode:  Code postal
+            town:     Ville
+            country:  Pays
+            latitude: Latitude
+            longitude:   Longitude
+            region:   Region
+            active:   " " #This one is empty cause it's a checkbox
+        group:
+            name:     Nom du groupe
+            profiles:   Profils
+        profile:
+            name:     Nom du profil
+            rights:   Droits
+        region:
+            code:     Code
+            name:     Nom de la région
+            active:   " " #This one is empty cause it's a checkbox
+            zone:     Zone
+        zone:
+            code:     Code
+            name:     Nom de la zone
+            active:   " " #This one is empty cause it's a checkbox
+    user_manager:
+        user:
+            group:    Groupe
+            main_agency: Agence principale
+            active:   " " #This one is empty cause it's a checkbox
+        user_edit:
+            specific_profiles:  Profils spécifiques
+            domain_managed:     Domaine géré

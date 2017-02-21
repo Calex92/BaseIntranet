@@ -37,7 +37,8 @@ class UserType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch'))
             ->add('contact', ContactType::class)
             ->add("group", EntityType::class, array(
-                "label" => "Groupe",
+                "label" => "admin.user_manager.user.group",
+                "translation_domain"    => "Admin",
                 "expanded" => false,
                 "multiple" => false,
                 "class" => "Front\\AppBundle\\Entity\\Group",
@@ -48,7 +49,8 @@ class UserType extends AbstractType
             ))
             ->add("mainAgency", EntityType::class, array(
                 "mapped" => false,
-                "label" => "Agence principale",
+                "label" => "admin.user_manager.user.main_agency",
+                "translation_domain" => "Admin",
                 "multiple" => false,
                 "expanded" => false,
                 "class" => "Front\\AppBundle\\Entity\\Agency",
@@ -63,7 +65,8 @@ class UserType extends AbstractType
                     'class' => 'chosen-select'),
             ))
             ->add("enabled", CheckboxType::class, array(
-                "label" => " ",
+                "label" => "admin.user_manager.user.active",
+                "translation_domain"    => "Admin",
                 "required" => false,
                 "attr" => array("data-toggle" => "toggle",
                     "data-off" => "Inactif",

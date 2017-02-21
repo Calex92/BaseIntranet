@@ -135,6 +135,7 @@ class Agency
     public function __construct()
     {
         $this->active = true;
+        $this->contact = new Contact();
     }
 
 

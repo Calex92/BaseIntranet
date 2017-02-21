@@ -1,0 +1,38 @@
+front:
+    app:
+        contact:
+            phone:   Téléphone
+            mobile:  Portable
+            fax:     Fax
+    domain:
+        catalog:
+            title:   Titre
+            image:   Image
+            filename:  Nom du fichier téléchargé
+            file:    Fichier
+            begin_publication:  Début de publication
+            is_position_left:   " " #This one is empty cause it's a checkbox
+            active:  " " #This one is empty cause it's a checkbox
+        document:
+            title:   Titre
+            domain:  Domaine
+            filename_shown:    Nome du fichier
+            file:    Fichier joint
+            begin_publication: Début de parution
+        domain:
+            name:    Nom du domaine
+            active:  " " #This one is empty cause it's a checkbox
+            users:   Utilisateurs gestionnaires
+        news_file:
+            title:   Titre
+            document:   Document
+        news:
+            title:   Titre
+            text:    Corps du texte
+            begin_publication: Début de parution
+            end_publication:   Fin de parution
+            image_cover:       Image de couverture
+            domain:  Domaine
+            external_video:    Vidéos Youtube (prendre le lien "embed")
+            attachment:        Pièces jointes
+

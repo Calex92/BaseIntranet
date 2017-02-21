@@ -22,10 +22,12 @@ class GroupType extends AbstractType
     {
         $builder
             ->add("name", TextType::class, array(
-                "label"     => "Nom du groupe"
+                "label"     => "admin.app.group.name",
+                "translation_domain" => "Admin"
             ))
             ->add("profiles", EntityType::class, array(
-                "label"      => "Profils",
+                "label"      => "admin.app.group.profiles",
+                "translation_domain" => "Admin",
                 "class"      => "Front\\AppBundle\\Entity\\Profile",
                 "placeholder"=> " ",
                 "choice_label"  => function (Profile $profile) {

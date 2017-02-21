@@ -20,13 +20,16 @@ class ZoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add("code", IntegerType::class, array(
-                "label"     => "Code"
+                "label"     => "admin.app.zone.code",
+                "translation_domain"    => "Admin"
             ))
             ->add("name", TextType::class, array(
-                "label"     => "Nom de l'agence"
+                "label"     => "admin.app.zone.name",
+                "translation_domain"    => "Admin"
             ))
             ->add("active", CheckboxType::class, array(
-                "label"     => " ",
+                "label"     => "admin.app.zone.active",
+                "translation_domain"    => "Admin",
                 "required"  => false,
                 "attr"      => array('data-toggle'   => 'toggle',
                     'data-off'      => 'Inactive',

@@ -25,10 +25,12 @@ class ProfileType extends AbstractType
         /** @var Application $application */
         $application = $options["application"];
         $builder->add("name", TextType::class, array(
-                "label"     => "Nom du profil"
+                "label"     => "admin.app.profile.name",
+                "translation_domain" => "Admin"
             ))
             ->add("rights", EntityType::class, array(
-                "label"      => "Droits",
+                "label"      => "admin.app.profile.rights",
+                "translation_domain" => "Admin",
                 "class"      => "Front\\AppBundle\\Entity\\Right",
                 "query_builder" => function(RightRepository $rightRepository) use ($application){
                     return $rightRepository->getQbByApplication($application);

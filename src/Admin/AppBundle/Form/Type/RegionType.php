@@ -24,13 +24,16 @@ class RegionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add("code", IntegerType::class, array(
-                "label"     => "Code"
+                "label"     => "admin.app.region.code",
+                "translation_domain"    => "Admin"
             ))
             ->add("name", TextType::class, array(
-                "label"     => "Nom de l'agence"
+                "label"     => "admin.app.region.name",
+                "translation_domain"    => "Admin"
             ))
             ->add("active", CheckboxType::class, array(
-                "label"     => " ",
+                "label"     => "admin.app.region.active",
+                "translation_domain"    => "Admin",
                 "required"  => false,
                 "attr"      => array('class' => 'datepicker',
                     'data-toggle'   => 'toggle',
@@ -43,7 +46,8 @@ class RegionType extends AbstractType
                     return $zone->getCode()." - ".$zone->getName();
                 },
                 "choice_value"  => "id",
-                "label"         => "Zone",
+                "label"         => "admin.app.region.zone",
+                "translation_domain"    => "Admin",
                 "query_builder" => function (ZoneRepository $repository) {
                     return $repository->getActiveQueryBuilder();
                 },

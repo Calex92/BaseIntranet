@@ -41,11 +41,13 @@ class DomainType extends AbstractType
 
         $builder
             ->add("label", TextType::class, array(
-                "label"     => "Nom du domaine",
+                "label"     => "front.domain.domain.name",
+                "translation_domain"    => "Front",
                 "attr"      => array("placeholder"  => "Nom du domaine")
             ))
             ->add("active", CheckboxType::class, array(
-                "label"     => " ",
+                "label"     => "front.domain.domain.active",
+                "translation_domain"    => "Front",
                 "required"  => false,
                 "attr"      => array("data-toggle"   => "toggle",
                     "data-off"      => "Inactif",
@@ -54,7 +56,8 @@ class DomainType extends AbstractType
 
         if ($domain->getActive()) {
             $builder->add("users", EntityType::class, array(
-                "label" => "Utilisateurs gestionnaires",
+                "label" => "front.domain.domain.users",
+                "translation_domain"    => "Front",
                 "attr" =>
                     array("data-placeholder" => "Sélectionnez un ou plusieurs utilisateurs",
                         "class" => "chosen-select"),
