@@ -90,7 +90,7 @@
                                             </a>
                                             <ul class="dropdown-menu" role="menu">
                                                 {# @var preferedProfile \Front\AppBundle\Entity\ProfilePrefered #}
-                                                {% set preferedProfile =  app.user.profilePrefered(application) %}
+                                                {% set preferedProfile =  app.user.profileToUse(application) %}
                                                 {% for profile in getProfileByApplicationName(application) %}
                                                     {# @var profile \Front\AppBundle\Entity\Profile #}
                                                     <li>

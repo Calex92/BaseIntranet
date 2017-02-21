@@ -384,42 +384,25 @@ class User extends BaseUser
      * @return ArrayCollection
      */
     public function getRights($application_code) {
-        /* Go through the user's profile and return the one he was connected with last time
-            If there's no previous connection, just take the first one of the list
-        */
-        foreach ($this->getProfilesPrefered() as $profilePrefered) {
-            /** @var ProfilePrefered $profilePrefered */
-            if ($profilePrefered->getApplication()->getCode() == $application_code) {
-                return $profilePrefered->getProfile()->getRights();
-            }
-        }
-
-        /* If there's no prefered profile atm, send the first profile of the list (from the correct application of course) */
-        foreach ($this->getProfilesApplication() as $profile) {
-            /** @var Profile $profile */
-            if ($profile->getApplication()->getCode() == $application_code) {
-                /** @var Profile $profile */
-                return $profile->getRights();
-            }
-        }
-
-        /* If there's no right from this app, return an empty array */
-        return new ArrayCollection();
+        return $this->getProfileToUse($application_code)->getRights();
     }
 
     /**
-     * Return the prefered profile by application
+     * Return the profile to use by application
      * @param $application_code
      * @return Profile
      */
-    public function getProfilePrefered($application_code) {
+    public function getProfileToUse($application_code) {
+        // I check if there's a prefered profile
         foreach ($this->getProfilesPrefered() as $profilePrefered) {
+            //If there's a prefered profile, we use it
             /** @var ProfilePrefered $profilePrefered */
             if ($profilePrefered->getApplication()->getCode() == $application_code) {
                 return $profilePrefered->getProfile();
             }
         }
 
+        // If there's no prefered profile, we use the first profile we have
         foreach ($this->getProfilesApplication() as $profile) {
             /** @var Profile $profile */
             if ($profile->getApplication()->getCode() == $application_code) {
