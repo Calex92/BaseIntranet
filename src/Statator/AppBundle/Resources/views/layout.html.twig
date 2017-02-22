@@ -1,0 +1,42 @@
+{% extends("::base.html.twig") %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/statatorapp/css/style.css') }}">
+{% endblock %}
+
+{% block imageBanner %}
+    <a href="{{ path("help_referentiel_app_homepage") }}">
+        <img src="{{ asset('download/admin/img/statator.png') }}" alt="Statistiques" title="Accueil"/>
+    </a>
+{% endblock %}
+
+{% block profileSwitcher %}
+    {# applicationHelpReferentiel is a global variable set in config.yml #}
+    {% set application = applicationStatator %}
+    {{ parent() }}
+{% endblock %}
+
+{% block separationBar %}
+    <div class="separation-bar separation-bar-statator"></div>
+{% endblock %}
+
+{% block menus %}
+    {{ include("@FrontApp/Main/topMenu.html.twig", {"menus" : getMenusStatatorApp(app.request.attributes.get('_route')) }) }}
+{% endblock %}
+
+{% block mainContent %}
+    <div class="container">
+        <div class="row">
+            {% block content %}
+                {% for key, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ key }} margin-top-15">
+                            {{ message|trans({}, 'FOSUserBundle') }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

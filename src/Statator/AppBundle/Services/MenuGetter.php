@@ -35,36 +35,24 @@ class MenuGetter
         $menus = array();
 
         //Then, for each menu item, we see if the right is Ok with it
-        $menu = array("route" => "help_referentiel_app_request_index",
-            "name" => "Mes demandes",
+        $menu = array("route" => "statator_app_graph_index",
+            "name" => "Généralités",
             "active" => in_array($currentRoute,
-                array('help_referentiel_app_request_index')) ? "active" : "");
+                array('statator_app_graph_index')) ? "active" : "");
 
         array_push($menus, $menu);
 
-        $menu = array("name" => "Créer une demande",
+        $menu = array("name" => "Applications",
             "active" => in_array($currentRoute,
-                array('admin_user_manager_update', 'admin_user_manager_homepage', 'admin_user_manager_create')) ? "active" : "",
+                array('statator_app_homepage', 'statator_app_homepage', 'statator_app_homepage')) ? "active" : "",
             "children" =>
                 array(
-                    array("route" => "help_referentiel_app_request_index",
-                        "name" => "Saisir une demande de maintenance"),
-                    array("route" => "help_referentiel_app_request_index",
-                        "name" => "Saisir une demande de création multiple"),
-                    array("route" => "help_referentiel_app_request_index",
-                        "name" => "Saisir une demande de création unitaire")));
-
-        array_push($menus, $menu);
-
-        $menu = array("name" => "Export",
-            "active" => in_array($currentRoute,
-                array('admin_user_manager_update', 'admin_user_manager_homepage', 'admin_user_manager_create')) ? "active" : "",
-            "children" =>
-                array(
-                    array("route" => "help_referentiel_app_request_index",
-                        "name" => "Exporter les fiches de maintenance"),
-                    array("route" => "help_referentiel_app_request_index",
-                        "name" => "Exporter les fiches de création de produit")));
+                    array("route" => "statator_app_homepage",
+                        "name" => "Administation"),
+                    array("route" => "statator_app_homepage",
+                        "name" => "News"),
+                    array("route" => "statator_app_homepage",
+                        "name" => "Helpdesk référentiel")));
 
         array_push($menus, $menu);
 

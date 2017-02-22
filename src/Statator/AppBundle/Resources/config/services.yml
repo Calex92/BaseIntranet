@@ -6,3 +6,10 @@ services:
     statator_app.menu_getter:
             class: Statator\AppBundle\Services\MenuGetter
             arguments: ["@security.authorization_checker"]
+
+    statator_app.twig_extension:
+            class: Statator\AppBundle\Twig\StatatorAppTwigExtension
+            public: false
+            arguments: ['@statator_app.menu_getter']
+            tags:
+                - { name: twig.extension }

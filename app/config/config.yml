@@ -44,9 +44,10 @@ twig:
             - 'VichUploaderBundle:Form:fields.html.twig'
     globals:
         serverName: "%server.name%"
-        applicationAdministration: "%application.code.administration%"
-        applicationDomain:         "%application.code.domain%"
+        applicationAdministration:  "%application.code.administration%"
+        applicationDomain:          "%application.code.domain%"
         applicationHelpReferentiel: "%application.code.helpreferentiel%"
+        applicationStatator:        "%application.code.statator%"
 
 # Doctrine Configuration
 doctrine:

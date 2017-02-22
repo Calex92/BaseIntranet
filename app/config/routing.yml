@@ -1,6 +1,6 @@
 statator_app:
     resource: "@StatatorAppBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /stats
 
 help_referentiel_app:
     resource: "@HelpReferentielAppBundle/Resources/config/routing.yml"

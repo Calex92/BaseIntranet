@@ -1,3 +1,7 @@
 statator_app_homepage:
     path:     /
-    defaults: { _controller: StatatorAppBundle:Default:index }
+    defaults: { _controller: StatatorAppBundle:Base:index }
+
+statator_app_graph_index:
+    path:    /general
+    defaults: { _controller: StatatorAppBundle:Graph:index}

@@ -4,7 +4,7 @@ namespace Statator\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class BaseController extends Controller
 {
     public function indexAction() {
         $menus = $this->get("statator_app.menu_getter")->getMenus("");
