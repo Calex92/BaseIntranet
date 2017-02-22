@@ -45,6 +45,9 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
             ),
             array(
                 "CanExport"
+            ),
+            array(
+                "CanSeeStats"
             )
         );
 
@@ -71,6 +74,9 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
             ),
             array(
                 "Possibilité d'export"
+            ),
+            array(
+                "Possiblité de voir les statistiques"
             )
         );
 
@@ -95,6 +101,9 @@ class LoadRight extends AbstractFixture implements OrderedFixtureInterface
             ),
             array(
                 array("ROLE_REFERENTIEL_EXPORT")
+            ),
+            array(
+                array("ROLE_STATATOR_ADMIN")
             )
         );
 

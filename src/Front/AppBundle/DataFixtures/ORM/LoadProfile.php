@@ -29,7 +29,8 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
         $profiles = array(
             array("Viewer", "Creator"),
             array("Admin", "News and Document Creator"),
-            array("Admin référentiel"));
+            array("Admin référentiel"),
+            array("Admin statator"));
 
         $rights = array(
             array("SeeUsers",
@@ -52,6 +53,9 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
             ),
             array(
                 "CanExport"
+            ),
+            array(
+                "CanSeeStats"
             )
         );
 
@@ -66,10 +70,13 @@ class LoadProfile extends AbstractFixture implements OrderedFixtureInterface
             ),
             array(
                 array(0)
+            ),
+            array(
+                array(0)
             )
         );
 
-        $applications = array ("Administration Isidore 2", "Gestion du portail web", "Help référentiel 2");
+        $applications = array ("Administration Isidore 2", "Gestion du portail web", "Help référentiel 2", "Statistiques");
 
         for ($i = 0; $i < count($applications) ; $i++) {
             for ($j = 0; $j < count($profiles[$i]) ; $j++) {

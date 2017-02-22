@@ -29,16 +29,18 @@ class LoadGroup extends AbstractFixture implements OrderedFixtureInterface
         $users =    array("pfirmin", "gloncke", "tbarrez", "acallens", "asergent", "acastelain");
         $userGroup = array(
             array(0, 5, 4),
-            array(1, 2)
+            array(1, 2),
+            array(3)
         );
 
-        $profiles =  array("Viewer", "Creator", "Admin", "News and Document Creator", "Admin référentiel");
+        $profiles =  array("Viewer", "Creator", "Admin", "News and Document Creator", "Admin référentiel", "Admin statator");
         $profileGroup = array(
-            array(1, 2, 4),
-            array(0, 3)
+            array(1, 2, 4, 5),
+            array(0, 3),
+            array(4)
         );
 
-        $names = array("Administrateurs Isidore", "Non administrateurs");
+        $names = array("Administrateurs Isidore", "Non administrateurs", "Users sans profils à part référentiel");
 
         for ($i = 0; $i < count($names) ; $i++) {
             $group = new Group();
