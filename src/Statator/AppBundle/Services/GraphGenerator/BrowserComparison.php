@@ -26,10 +26,10 @@ class BrowserComparison
         $this->entityManager = $entityManager;
     }
 
-    public function generate() {
+    public function generate($numberMonthsToGenerate) {
         $chart = new ColumnChart();
         $chart->getData()->setArrayToDataTable(
-            $this->generateValues()
+            $this->generateValues($numberMonthsToGenerate)
         );
 
         $chart->getOptions()
@@ -41,10 +41,10 @@ class BrowserComparison
         return $chart;
     }
 
-    private function generateValues() {
+    private function generateValues($numberMonthsToGenerate) {
         $values = $this->entityManager
             ->getRepository("FrontAppBundle:ApplicationConnectionStatistics")
-            ->getComparisonBrowser();
+            ->getComparisonBrowser($numberMonthsToGenerate);
 
         $datas[] = array("Navigateur", "Nombre");
         foreach ($values as $value) {

@@ -2,6 +2,7 @@
 
 namespace Front\AppBundle\Repository;
 
+use DateTime;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,9 +13,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class ApplicationConnectionStatisticsRepository extends EntityRepository
 {
+    /**
+     * Returns the number of users by months by application
+     * @return array
+     */
     public function getCountUserByApplication() {
         return $this->createQueryBuilder("application_connection_statistics")
-            ->select("COUNT(application_connection_statistics.user) as number_user, application.name as application_name, SUBSTRING(application_connection_statistics.date, 6, 2) as month")
+            ->select("COUNT(application_connection_statistics.user) as number_user, 
+                        application.name as application_name, 
+                        MONTH(application_connection_statistics.date) as month, 
+                        MONTHNAME(application_connection_statistics.date)")
             ->leftJoin("application_connection_statistics.application", "application")
             ->groupBy("application_connection_statistics.application")
             ->addGroupBy("month")
@@ -24,9 +32,17 @@ class ApplicationConnectionStatisticsRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getComparisonBrowser () {
+    /**
+     * Returns the values for $numberMonthsToReturn months for the browsers used in the app
+     * @param $numberMonthsToReturn
+     * @return array
+     */
+    public function getComparisonBrowser ($numberMonthsToReturn) {
         return $this->createQueryBuilder("application_connection_statistics")
-            ->select("COUNT(application_connection_statistics.browser) as number_connection, application_connection_statistics.browser")
+            ->select("COUNT(application_connection_statistics.browser) as number_connection, 
+                        application_connection_statistics.browser")
+            ->where("application_connection_statistics.date > :date")
+            ->setParameter("date", new DateTime('0:00 first day of -' . $numberMonthsToReturn . ' months'))
             ->groupBy("application_connection_statistics.browser")
             ->getQuery()
             ->getResult();
