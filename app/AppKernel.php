@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new HelpReferentiel\AppBundle\HelpReferentielAppBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Statator\AppBundle\StatatorAppBundle(),
+            new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

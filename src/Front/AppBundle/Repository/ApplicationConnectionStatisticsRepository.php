@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class ApplicationConnectionStatisticsRepository extends EntityRepository
 {
+    public function getCountUserByApplication() {
+        return $this->createQueryBuilder("application_connection_statistics")
+            ->select("COUNT(application_connection_statistics.user) as number_user, application.name as application_name, SUBSTRING(application_connection_statistics.date, 6, 2) as month")
+            ->leftJoin("application_connection_statistics.application", "application")
+            ->groupBy("application_connection_statistics.application")
+            ->addGroupBy("month")
+            ->orderBy("application.name")
+            ->addOrderBy("month")
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getComparisonBrowser () {
+        return $this->createQueryBuilder("application_connection_statistics")
+            ->select("COUNT(application_connection_statistics.browser) as number_connection, application_connection_statistics.browser")
+            ->groupBy("application_connection_statistics.browser")
+            ->getQuery()
+            ->getResult();
+    }
 }

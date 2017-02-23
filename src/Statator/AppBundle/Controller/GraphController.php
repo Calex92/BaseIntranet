@@ -8,12 +8,17 @@
 
 namespace Statator\AppBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class GraphController extends Controller
 {
     public function indexAction() {
-        return $this->render("@StatatorApp/Graph/index.html.twig");
+        $userByApplication = $this->get("statator_app.graph_generator.user_by_application")->generate();
+        $browserComparisonChart = $this->get("statator_app.graph_generator.browser_comparison")->generate();
+
+        return $this->render("@StatatorApp/Graph/index.html.twig", array(
+            'userByApplication' => $userByApplication,
+            'browserComparisonChart'    => $browserComparisonChart
+        ));
     }
 }

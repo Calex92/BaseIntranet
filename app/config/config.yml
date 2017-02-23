@@ -146,3 +146,6 @@ ivory_ck_editor:
              [ 'Bold','Italic','Underline','Strike', 'Blockquote','Subscript','Superscript' ], "/",
              [ 'NumberedList','BulletedList','-','Outdent','Indent','-','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
              [ 'Styles', 'Format','Font','FontSize', '-', 'TextColor','BGColor' ], [ 'Maximize' ]]
+
+cmen_google_charts:
+    language: "fr"

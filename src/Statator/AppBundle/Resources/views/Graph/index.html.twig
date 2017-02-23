@@ -1,7 +1,27 @@
 {% extends "@StatatorApp/layout.html.twig" %}
 
 {% block content %}
-    {{ parent() }}
+    <div class="main-content">
+        <div class="row">
+            {{ parent() }}
+            <div class="col-md-12">
+                <h1>Utilisateurs par applications</h1>
+                <div class="col-md-offset-2 col-md-8" id="userByApplication"></div>
+            </div>
 
-    Hello! :)
+            <div class="col-md-12">
+                <h1>Navigateurs utilisés dans l'application</h1>
+                <div class="col-md-offset-2 col-md-8" id="browserComparisonChart"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        {{ gc_draw(userByApplication, 'userByApplication') }}
+        {{ gc_draw(browserComparisonChart, 'browserComparisonChart') }}
+    </script>
 {% endblock %}

@@ -4,12 +4,20 @@ services:
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
 
     statator_app.menu_getter:
-            class: Statator\AppBundle\Services\MenuGetter
-            arguments: ["@security.authorization_checker"]
+        class: Statator\AppBundle\Services\MenuGetter
+        arguments: ["@security.authorization_checker"]
 
     statator_app.twig_extension:
-            class: Statator\AppBundle\Twig\StatatorAppTwigExtension
-            public: false
-            arguments: ['@statator_app.menu_getter']
-            tags:
-                - { name: twig.extension }
+        class: Statator\AppBundle\Twig\StatatorAppTwigExtension
+        public: false
+        arguments: ['@statator_app.menu_getter']
+        tags:
+            - { name: twig.extension }
+
+    statator_app.graph_generator.user_by_application:
+        class: Statator\AppBundle\Services\GraphGenerator\UserByApplication
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    statator_app.graph_generator.browser_comparison:
+            class: Statator\AppBundle\Services\GraphGenerator\BrowserComparison
+            arguments: ["@doctrine.orm.entity_manager"]
