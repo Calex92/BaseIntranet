@@ -92,7 +92,7 @@ class ApplicationConnectionLogger
     }
 
     private function getProfileFromApplication(Application $application, User $user) {
-        $profileNamePreferedFromProfilePrefered = $user->getProfileToUse($application->getCode())->getName();
+        $profileNamePreferedFromProfilePrefered = $application->isExternal()? "Application externe" : $user->getProfileToUse($application->getCode())->getName();
         if ($profileNamePreferedFromProfilePrefered != null) {
             return $profileNamePreferedFromProfilePrefered;
         }
