@@ -17,17 +17,17 @@ class ApplicationConnectionStatisticsRepository extends EntityRepository
      * Returns the number of users by months by application
      * @return array
      */
-    public function getCountUserByApplication() {
+    public function getCountUserByApplication($month, $year) {
         return $this->createQueryBuilder("application_connection_statistics")
             ->select("COUNT(application_connection_statistics.user) as number_user, 
-                        application.name as application_name, 
-                        MONTH(application_connection_statistics.date) as month, 
-                        MONTHNAME(application_connection_statistics.date)")
-            ->leftJoin("application_connection_statistics.application", "application")
+                        application.code as application_code")
+            ->innerJoin("application_connection_statistics.application", "application")
+            ->where("MONTH(application_connection_statistics.date) = :month")
+            ->setParameter("month", $month)
+            ->andWhere("YEAR(application_connection_statistics.date) = :year")
+            ->setParameter("year", $year)
             ->groupBy("application_connection_statistics.application")
-            ->addGroupBy("month")
             ->orderBy("application.name")
-            ->addOrderBy("month")
             ->getQuery()
             ->getResult();
     }
