@@ -12,7 +12,6 @@ namespace Front\AppBundle\Services;
 use Doctrine\ORM\EntityManager;
 use Front\AppBundle\Entity\Application;
 use Front\AppBundle\Entity\ApplicationConnectionStatistics;
-use Front\AppBundle\Entity\Profile;
 use Front\UserBundle\Entity\User;
 
 class ApplicationConnectionLogger
@@ -29,12 +28,19 @@ class ApplicationConnectionLogger
     }
 
     public function logAccess(Application $application, User $user) {
+        $profileToBeLogged = $this->getProfileFromApplication($application, $user);
+
+        /* The info can't be logged if we are already logged in the stats today with the
+        same profile for the same app with the same user */
+        if (!$this->canBeLogged($application, $user, $profileToBeLogged))
+            return;
+
         $applicationConnectionStatistic = new ApplicationConnectionStatistics();
         $browserInfo        = get_browser(null, true);
         $applicationConnectionStatistic->setApplication($application)
             ->setUser($user)
             ->setDate(new \DateTime())
-            ->setProfileName($this->getProfileFromApplication($application, $user))
+            ->setProfileName($profileToBeLogged)
             ->setBrowser($this->getBrowserName($_SERVER["HTTP_USER_AGENT"])." ".$browserInfo["version"])
             ->setIpAdress($_SERVER['REMOTE_ADDR'])
             ->setOperatigSystem($this->getOS($_SERVER["HTTP_USER_AGENT"])." / ".$browserInfo["platform_description"]);
@@ -92,18 +98,16 @@ class ApplicationConnectionLogger
     }
 
     private function getProfileFromApplication(Application $application, User $user) {
-        $profileNamePreferedFromProfilePrefered = $application->isExternal()? "Application externe" : $user->getProfileToUse($application->getCode())->getName();
-        if ($profileNamePreferedFromProfilePrefered != null) {
-            return $profileNamePreferedFromProfilePrefered;
+        try {
+            return $user->getProfileToUse($application->getCode())->getName();
         }
+        catch (\Exception $e) {
+            return "Aucun profil défini pour une application externe";
+        }
+    }
 
-        $profilesFromApplication = $user->getProfilesApplication();
-        foreach ($profilesFromApplication as $profile) {
-            /** @var Profile $profile */
-            if ($profile->getApplication()->getId() == $application->getId()) {
-                return $profile->getName();
-            }
-        }
-        return "Aucun profil défini pour une application externe";
+    private function canBeLogged(Application $application, User $user, $profileName) {
+        return count($this->entityManager->getRepository("FrontAppBundle:ApplicationConnectionStatistics")
+            ->findByUserApplicationProfileToday($user, $application, $profileName)) == 0 ;
     }
 }

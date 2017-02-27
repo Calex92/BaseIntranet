@@ -4,6 +4,8 @@ namespace Front\AppBundle\Repository;
 
 use DateTime;
 use Doctrine\ORM\EntityRepository;
+use Front\AppBundle\Entity\Application;
+use Front\UserBundle\Entity\User;
 
 /**
  * ApplicationConnectionStatisticsRepository
@@ -13,6 +15,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class ApplicationConnectionStatisticsRepository extends EntityRepository
 {
+    /**
+     * Returns the ApplicationConnectionStatistics from today, for a specific user, application and profile
+     * @param User $user
+     * @param Application $application
+     * @param $profile
+     * @return array
+     */
+    public function findByUserApplicationProfileToday(User $user, Application $application, $profile) {
+        return $this->createQueryBuilder("application_connection_statistics")
+            ->where("application_connection_statistics.user = :user")
+            ->setParameter("user", $user)
+            ->andWhere("application_connection_statistics.application = :application")
+            ->setParameter("application", $application)
+            ->andWhere("application_connection_statistics.profileName = :profile")
+            ->setParameter("profile", $profile)
+            ->andWhere("application_connection_statistics.date BETWEEN :firstDate AND :lastDate")
+            ->setParameter("firstDate", new DateTime((new DateTime())->format("Y-m-d")." 00:00:00"))
+            ->setParameter("lastDate", new DateTime((new DateTime())->format("Y-m-d")." 23:59:59"))
+            ->getQuery()
+            ->getResult();
+    }
     /**
      * Returns the number of users by months by application
      * @return array
