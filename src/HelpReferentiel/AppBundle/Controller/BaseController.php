@@ -14,6 +14,6 @@ class BaseController extends Controller
             return $this->redirectToRoute("application_index");
         }
 
-        return $this->redirectToRoute($menus[0]["route"]);
+        return $this->redirect($menus[0]["route"]);
     }
 }

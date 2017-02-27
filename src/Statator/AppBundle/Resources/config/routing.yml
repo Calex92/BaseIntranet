@@ -1,7 +1,16 @@
 statator_app_homepage:
     path:     /
     defaults: { _controller: StatatorAppBundle:Base:index }
+    methods: ["GET"]
 
 statator_app_graph_index:
     path:    /general
     defaults: { _controller: StatatorAppBundle:Graph:index}
+    methods: ["GET"]
+
+statator_app_application:
+    path:    /app/{code}
+    defaults: { _controller: StatatorAppBundle:Graph:application }
+    methods: ["GET"]
+    requirements:
+            code: \d+

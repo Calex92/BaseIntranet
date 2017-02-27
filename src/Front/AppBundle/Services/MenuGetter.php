@@ -9,33 +9,16 @@
 namespace Front\AppBundle\Services;
 
 
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Front\DomainBundle\Services\MenuGetterBase;
 
-class MenuGetter
+class MenuGetter extends MenuGetterBase
 {
-    /**
-     * @var AuthorizationChecker
-     */
-    private $authorization_checker;
-
-
-    /**
-     * MenuGetter constructor.
-     * @param $authorization_checker
-     * @internal param $application_code
-     */
-    public function __construct(AuthorizationChecker $authorization_checker)
-    {
-        $this->authorization_checker = $authorization_checker;
-    }
-
-
     public function getMenus($currentRoute)
     {
         $menus = array();
 
         //Then, for each menu item, we see if the right is Ok with it
-        $menu = array("route" => "domain_manager_news_list_view",
+        $menu = array("route" => $this->router->generate("domain_manager_news_list_view"),
             "name" => "News",
             "active" => in_array($currentRoute,
                 array('domain_manager_news_list_view', 'front_homepage', 'domain_manager_news_view')) ? "active" : "");
@@ -43,7 +26,7 @@ class MenuGetter
         array_push($menus, $menu);
 
 
-        $menu = array("route" => "domain_manager_documents_view",
+        $menu = array("route" => $this->router->generate("domain_manager_documents_view"),
             "name" => "Documents références",
             "active" => in_array($currentRoute,
                 array('domain_manager_documents_view')) ? "active" : "");
@@ -52,7 +35,7 @@ class MenuGetter
 
 
         if ($this->authorization_checker->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $menu = array("route" => "application_index",
+            $menu = array("route" => $this->router->generate("application_index"),
                 "name" => "Applications",
                 "active" => in_array($currentRoute,
                     array('application_index')) ? "active" : "");
@@ -60,7 +43,7 @@ class MenuGetter
             array_push($menus, $menu);
         }
 
-        $menu = array("route" => "front_help",
+        $menu = array("route" => $this->router->generate("front_help"),
             "name" => "Aide",
             "active" => in_array($currentRoute,
                 array('front_help')) ? "active" : "");

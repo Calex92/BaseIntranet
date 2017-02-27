@@ -5,7 +5,7 @@ services:
 
     admin.menu_getter:
         class: Admin\AppBundle\Services\MenuGetter
-        arguments: ["@security.authorization_checker"]
+        arguments: ["@security.authorization_checker", "@router"]
 
     admin_app.twig_extension:
         class: Admin\AppBundle\Twig\AdminAppTwigExtension

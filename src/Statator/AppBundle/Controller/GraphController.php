@@ -8,6 +8,8 @@
 
 namespace Statator\AppBundle\Controller;
 
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+use Front\AppBundle\Entity\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class GraphController extends Controller
@@ -21,6 +23,25 @@ class GraphController extends Controller
             'userByApplication' => $userByApplication,
             'browserComparisonChart'    => $browserComparisonChart,
             'numberMonthsBrowserComparison' => self::NUMBER_MONTHS_BROWSER_COMPARISON
+        ));
+    }
+
+    public function applicationAction(Application $application) {
+        $pieChart = new PieChart();
+        $pieChart->getData()->setArrayToDataTable(
+            [
+                ['Pac Man', 'Percentage'],
+                ['Jean', 75],
+                ['Paul', 25],
+                ['Pierre', 30]
+            ]
+        );
+        $pieChart->getOptions()->setHeight(300);
+        $pieChart->getOptions()->setWidth(900);
+
+        return $this->render("StatatorAppBundle:Graph:applicationAdmin.html.twig", array(
+            "pieChart"          => $pieChart,
+            "applicationName"   => $application->getName()
         ));
     }
 }

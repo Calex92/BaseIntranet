@@ -5,7 +5,7 @@ services:
 
     help_referentiel_app.menu_getter:
         class: HelpReferentiel\AppBundle\Services\MenuGetter
-        arguments: ["@security.authorization_checker"]
+        arguments: ["@security.authorization_checker", "@router"]
 
     help_referentiel_app.twig_extension:
         class: HelpReferentiel\AppBundle\Twig\HelpReferentielAppTwigExtension

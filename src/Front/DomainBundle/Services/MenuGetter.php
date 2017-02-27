@@ -9,27 +9,8 @@
 namespace Front\DomainBundle\Services;
 
 
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
-
-class MenuGetter
+class MenuGetter extends MenuGetterBase
 {
-    /**
-     * @var AuthorizationChecker
-     */
-    private $authorization_checker;
-
-
-    /**
-     * MenuGetter constructor.
-     * @param $authorization_checker
-     * @internal param $application_code
-     */
-    public function __construct(AuthorizationChecker $authorization_checker)
-    {
-        $this->authorization_checker = $authorization_checker;
-    }
-
-
     public function getMenus($currentRoute) {
         $menus = array();
         if ($this->authorization_checker->isGranted("ROLE_DOMAIN_NEWS_DOCUMENT")) {

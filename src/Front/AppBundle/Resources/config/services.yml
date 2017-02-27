@@ -23,7 +23,7 @@ services:
 
     front_app.menu_getter:
         class: Front\AppBundle\Services\MenuGetter
-        arguments: ["@security.authorization_checker"]
+        arguments: ["@security.authorization_checker", "@router"]
 
     front_app.beta.html_adder:
         class: Front\AppBundle\Services\Beta\BetaHtmlAdder

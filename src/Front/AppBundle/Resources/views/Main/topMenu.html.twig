@@ -2,7 +2,7 @@
     {% for menu in menus %}
         {% if menu.children is not defined %}
             <li class="{{ menu.active }}">
-                <a href="{{ path(menu.route) }}">{{ menu.name }}</a>
+                <a href="{{ menu.route }}">{{ menu.name }}</a>
             </li>
         {% else %}
             <li class="dropdown {{ menu.active }}">
@@ -10,7 +10,7 @@
                    aria-expanded="true">{{ menu.name }} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     {% for childrenElement in menu.children %}
-                        <li><a href="{{ path(childrenElement.route) }}">{{ childrenElement.name }}</a></li>
+                        <li><a href="{{ childrenElement.route }}">{{ childrenElement.name }}</a></li>
                     {% endfor %}
                 </ul>
             </li>

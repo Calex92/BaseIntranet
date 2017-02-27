@@ -5,7 +5,7 @@ services:
 
     statator_app.menu_getter:
         class: Statator\AppBundle\Services\MenuGetter
-        arguments: ["@security.authorization_checker"]
+        arguments: ["@security.authorization_checker", "@router", "@doctrine.orm.entity_manager"]
 
     statator_app.twig_extension:
         class: Statator\AppBundle\Twig\StatatorAppTwigExtension
