@@ -36,6 +36,7 @@ class ApplicationConnectionStatisticsRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
     /**
      * Returns the number of users by months by application
      * @return array
@@ -67,6 +68,18 @@ class ApplicationConnectionStatisticsRepository extends EntityRepository
             ->where("application_connection_statistics.date > :date")
             ->setParameter("date", new DateTime('0:00 first day of -' . $numberMonthsToReturn . ' months'))
             ->groupBy("application_connection_statistics.browser")
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getCountByProfile(Application $application, $numberMonthToDisplay) {
+        return $this->createQueryBuilder("application_connection_statistics")
+            ->select("application_connection_statistics.profileName, COUNT(application_connection_statistics.profileName) as number_profile")
+            ->where("application_connection_statistics.date > :date")
+            ->setParameter("date", new DateTime('0:00 first day of -'.$numberMonthToDisplay.' months'))
+            ->andWhere("application_connection_statistics.application = :application")
+            ->setParameter("application", $application)
+            ->groupBy("application_connection_statistics.profileName")
             ->getQuery()
             ->getResult();
     }

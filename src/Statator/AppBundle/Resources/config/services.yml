@@ -21,3 +21,7 @@ services:
     statator_app.graph_generator.browser_comparison:
             class: Statator\AppBundle\Services\GraphGenerator\BrowserComparison
             arguments: ["@doctrine.orm.entity_manager"]
+
+    statator_app.services_graph_generator.profile_connection_application:
+        class: Statator\AppBundle\Services\GraphGenerator\ProfileConnectionApplication
+        arguments: ['@doctrine.orm.entity_manager']

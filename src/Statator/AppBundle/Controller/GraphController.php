@@ -8,13 +8,13 @@
 
 namespace Statator\AppBundle\Controller;
 
-use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use Front\AppBundle\Entity\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class GraphController extends Controller
 {
     const NUMBER_MONTHS_BROWSER_COMPARISON = 6;
+    const NUMBER_MONTHS_APPLICATION_PROFILE = 6;
     public function indexAction() {
         $userByApplication = $this->get("statator_app.graph_generator.user_by_application")->generate();
         $browserComparisonChart = $this->get("statator_app.graph_generator.browser_comparison")->generate(self::NUMBER_MONTHS_BROWSER_COMPARISON);
@@ -27,21 +27,14 @@ class GraphController extends Controller
     }
 
     public function applicationAction(Application $application) {
-        $pieChart = new PieChart();
-        $pieChart->getData()->setArrayToDataTable(
-            [
-                ['Pac Man', 'Percentage'],
-                ['Jean', 75],
-                ['Paul', 25],
-                ['Pierre', 30]
-            ]
-        );
-        $pieChart->getOptions()->setHeight(300);
-        $pieChart->getOptions()->setWidth(900);
+        $applicationChart = $this
+            ->get("statator_app.services_graph_generator.profile_connection_application")
+            ->generate($application, self::NUMBER_MONTHS_APPLICATION_PROFILE);
 
-        return $this->render("StatatorAppBundle:Graph:applicationAdmin.html.twig", array(
-            "pieChart"          => $pieChart,
-            "applicationName"   => $application->getName()
+        return $this->render("StatatorAppBundle:Graph:application.html.twig", array(
+            "applicationChart"          => $applicationChart,
+            "applicationName"   => $application->getName(),
+            "lastMonth"         => self::NUMBER_MONTHS_APPLICATION_PROFILE
         ));
     }
 }

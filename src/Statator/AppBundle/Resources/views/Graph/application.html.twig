@@ -5,8 +5,8 @@
         <div class="row">
             {{ parent() }}
             <div class="col-md-12">
-                <h1>Profils de l'application {{ applicationName }}</h1>
-                <div class="col-md-offset-2 col-md-8" id="pieChart"></div>
+                <h1>Profils connectés à l'application "{{ applicationName }}" sur les {{ lastMonth }} derniers mois</h1>
+                <div class="col-md-offset-2 col-md-8" id="applicationChart"></div>
             </div>
         </div>
     </div>
@@ -16,6 +16,6 @@
     {{ parent() }}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        {{ gc_draw(pieChart, 'pieChart') }}
+        {{ gc_draw(applicationChart, 'applicationChart') }}
     </script>
 {% endblock %}
