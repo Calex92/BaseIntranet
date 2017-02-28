@@ -58,7 +58,7 @@ class MenuGetter extends MenuGetterBase
         foreach ($internalApplications as $internalApplication) {
             /** @var Application $internalApplication */
             $route = $this->router->generate("statator_app_application", array("code" => $internalApplication->getCode()));
-            $routes[] = $route;
+            $routes[] = "statator_app_application";
 
             $children[] = array("route" => $route, "name" => $internalApplication->getName());
         }
