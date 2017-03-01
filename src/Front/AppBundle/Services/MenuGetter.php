@@ -34,7 +34,7 @@ class MenuGetter extends MenuGetterBase
         array_push($menus, $menu);
 
 
-        if ($this->authorization_checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($this->authorization_checker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $menu = array("route" => $this->router->generate("application_index"),
                 "name" => "Applications",
                 "active" => in_array($currentRoute,
