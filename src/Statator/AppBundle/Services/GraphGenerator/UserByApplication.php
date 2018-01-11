@@ -10,21 +10,21 @@ namespace Statator\AppBundle\Services\GraphGenerator;
 
 
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\ColumnChart;
-use Doctrine\ORM\EntityManager;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Front\AppBundle\Entity\Application;
 
 class UserByApplication
 {
-    /** @var EntityManager $entityManager */
+    /** @var EntityManagerInterface $entityManager */
     private $entityManager;
     const NUMBER_MONTH_TO_DISPLAY = 2;
 
     /**
      * UserByApplication constructor.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }

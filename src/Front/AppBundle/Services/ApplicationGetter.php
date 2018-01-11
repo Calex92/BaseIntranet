@@ -9,7 +9,7 @@
 namespace Front\AppBundle\Services;
 
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Front\AppBundle\Entity\Application;
 use Front\AppBundle\Entity\Profile;
 use Front\UserBundle\Entity\User;
@@ -23,11 +23,11 @@ class ApplicationGetter
 
     /**
      * ApplicationGetter constructor.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      * @param FlashBag $flashBag
      * @param $helpInfoCode
      */
-    public function __construct(EntityManager $entityManager, FlashBag $flashBag, $helpInfoCode)
+    public function __construct(EntityManagerInterface $entityManager, FlashBag $flashBag, $helpInfoCode)
     {
         $this->entityManager = $entityManager;
         $this->flashBag      = $flashBag;
@@ -38,7 +38,7 @@ class ApplicationGetter
      * @param User $user
      * @return array
      */
-    private function getAllApplication(User $user) {
+    private function getAllApplication(User $user) : array {
         $externalApplications = $this->getExternalApplication($user);
         $internalApplications = $this->getInternalApplication($user);
 

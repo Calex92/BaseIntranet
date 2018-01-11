@@ -10,7 +10,7 @@ namespace Front\AppBundle\Twig;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Front\AppBundle\Entity\Profile;
 use Front\AppBundle\Services\MenuGetter;
 use Front\UserBundle\Entity\User;
@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class FrontAppTwigExtension extends \Twig_Extension
 {
-    /** @var  EntityManager */
+    /** @var  EntityManagerInterface */
     private $entityManager;
     private $tokenStorage;
     /** @var  MenuGetter */
@@ -26,12 +26,12 @@ class FrontAppTwigExtension extends \Twig_Extension
 
     /**
      * FrontAppExtension constructor.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      * @param TokenStorageInterface $tokenStorage
      * @param MenuGetter $menuGetter
      */
     public function __construct(
-        EntityManager $entityManager,
+        EntityManagerInterface $entityManager,
         TokenStorageInterface $tokenStorage,
         MenuGetter $menuGetter
     ) {

@@ -3,6 +3,8 @@
 namespace Front\AppBundle\Controller;
 
 use Front\AppBundle\Entity\Application;
+use Front\AppBundle\Services\ApplicationConnectionLogger;
+use Front\AppBundle\Services\ApplicationGetter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -10,12 +12,13 @@ class ApplicationsController extends Controller
 {
     /**
      * @Security("has_role('IS_AUTHENTICATED_FULLY')")
+     * @param ApplicationGetter $applicationGetter
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(ApplicationGetter $applicationGetter)
     {
-        $applications               = $this->get("frontapp.application_getter")->getApplicationAccessible($this->getUser());
-        $applicationsNotAccessible  = $this->get("frontapp.application_getter")->getApplicationNotAccessible($applications);
+        $applications               = $applicationGetter->getApplicationAccessible($this->getUser());
+        $applicationsNotAccessible  = $applicationGetter->getApplicationNotAccessible($applications);
 
         return $this->render('FrontAppBundle:Applications:index.html.twig', array(
             "applications" => $applications,
@@ -26,10 +29,11 @@ class ApplicationsController extends Controller
     /**
      * @Security("has_role('IS_AUTHENTICATED_FULLY')")
      * @param Application $application
+     * @param ApplicationConnectionLogger $applicationConnectionLogger
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getAction(Application $application) {
-        $this->get("frontapp.application_connection_statistics")->logAccess($application, $this->getUser());
+    public function getAction(Application $application, ApplicationConnectionLogger $applicationConnectionLogger) {
+        $applicationConnectionLogger->logAccess($application, $this->getUser());
         return $this->redirectToRoute($application->getLocation(), array("applicationId" => $application->getId()));
     }
 

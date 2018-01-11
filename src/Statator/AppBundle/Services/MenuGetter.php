@@ -9,19 +9,23 @@
 namespace Statator\AppBundle\Services;
 
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Front\AppBundle\Entity\Application;
 use Front\DomainBundle\Services\MenuGetterBase;
-use Symfony\Component\Routing\Router;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class MenuGetter extends MenuGetterBase
 {
     private $entityManager;
+
     /**
      * MenuGetter constructor.
+     * @param AuthorizationCheckerInterface $authorization_checker
+     * @param RouterInterface $router
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(AuthorizationChecker $authorization_checker, Router $router, EntityManager $entityManager)
+    public function __construct(AuthorizationCheckerInterface $authorization_checker, RouterInterface $router, EntityManagerInterface $entityManager)
     {
         parent::__construct($authorization_checker, $router);
         $this->entityManager = $entityManager;

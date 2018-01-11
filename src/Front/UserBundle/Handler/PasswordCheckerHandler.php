@@ -2,9 +2,9 @@
 namespace Front\UserBundle\Handler;
 
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Router;
@@ -17,7 +17,7 @@ class PasswordCheckerHandler implements AuthenticationSuccessHandlerInterface
     protected $session;
     protected $numberMonth;
 
-    public function __construct(Router $router, AuthorizationChecker $security, Session $session, $numberMonth)
+    public function __construct(Router $router, AuthorizationCheckerInterface $security, Session $session, $numberMonth)
     {
         $this->router = $router;
         $this->security = $security;

@@ -10,18 +10,18 @@ namespace Statator\AppBundle\Services\GraphGenerator;
 
 
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\ColumnChart;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class BrowserComparison
 {
-    /** @var EntityManager $entityManager */
+    /** @var EntityManagerInterface $entityManager */
     private $entityManager;
 
     /**
      * UserByApplication constructor.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }

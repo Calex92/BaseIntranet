@@ -10,14 +10,18 @@ namespace Statator\AppBundle\Services\GraphGenerator;
 
 
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Front\AppBundle\Entity\Application;
 
 class ProfileConnectionApplication
 {
     private $entityManager;
 
-    public function __construct(EntityManager $entityManager)
+    /**
+     * ProfileConnectionApplication constructor.
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }

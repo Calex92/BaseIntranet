@@ -9,26 +9,26 @@
 namespace Front\DomainBundle\Services;
 
 
-use Symfony\Component\Routing\Router;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 abstract class MenuGetterBase
 {
     /**
-     * @var AuthorizationChecker
+     * @var AuthorizationCheckerInterface
      */
     protected $authorization_checker;
     /**
-     * @var Router
+     * @var RouterInterface
      */
     protected $router;
 
     /**
      * MenuGetter constructor.
-     * @param AuthorizationChecker $authorization_checker
-     * @param Router $router
+     * @param AuthorizationCheckerInterface $authorization_checker
+     * @param RouterInterface $router
      */
-    public function __construct(AuthorizationChecker $authorization_checker, Router $router)
+    public function __construct(AuthorizationCheckerInterface $authorization_checker, RouterInterface $router)
     {
         $this->authorization_checker = $authorization_checker;
         $this->router = $router;

@@ -8,8 +8,7 @@
 
 namespace Front\AppBundle\Services;
 
-
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Front\AppBundle\Entity\Application;
 use Front\AppBundle\Entity\ApplicationConnectionStatistics;
 use Front\UserBundle\Entity\User;
@@ -20,9 +19,9 @@ class ApplicationConnectionLogger
 
     /**
      * ApplicationGetter constructor.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }

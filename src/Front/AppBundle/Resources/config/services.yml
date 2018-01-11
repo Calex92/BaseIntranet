@@ -1,32 +1,38 @@
+# Learn more about services, parameters and containers at
+# https://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
 services:
-#    front_app.example:
-#        class: Front\AppBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    # default configuration for services in *this* file
     _defaults:
+        # automatically injects dependencies in your services
         autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
         autoconfigure: true
-
-    frontapp.twig_extension:
-        class: Front\AppBundle\Twig\FrontAppTwigExtension
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
         public: false
-        arguments: ['@doctrine.orm.entity_manager', '@security.token_storage', '@front_app.menu_getter']
-        tags:
-            - { name: twig.extension }
 
+    # makes classes in src/AppBundle available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    Front\AppBundle\:
+        resource: '../../*'
+        # you can exclude directories or files
+        # but if a service is unused, it's removed anyway
+        exclude: '../../{Repository,Tests}'
+
+    # controllers are imported separately to make sure they're public
+    # and have a tag that allows actions to type-hint services
+    Front\AppBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    Front\AppBundle\Services\ApplicationGetter: "@frontapp.application_getter"
     frontapp.application_getter:
         class: Front\AppBundle\Services\ApplicationGetter
         arguments: ["@doctrine.orm.entity_manager", "@session.flash_bag", "%application.code.helpinfo%"]
-
-    frontapp.right_checker:
-        class: Front\AppBundle\Services\RightChecker
-
-    frontapp.application_connection_statistics:
-        class: Front\AppBundle\Services\ApplicationConnectionLogger
-        arguments: ["@doctrine.orm.entity_manager"]
-
-    front_app.menu_getter:
-        class: Front\AppBundle\Services\MenuGetter
-        arguments: ["@security.authorization_checker", "@router"]
 
     front_app.beta.html_adder:
         class: Front\AppBundle\Services\Beta\BetaHtmlAdder
