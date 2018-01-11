@@ -4,6 +4,10 @@ parameters:
 #    parameter_name: value
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
     app.form.registration:
         class: Front\UserBundle\Form\Type\ProfileFormType
         tags:

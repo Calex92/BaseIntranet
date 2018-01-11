@@ -1,6 +1,11 @@
 parameters:
     password_checker.number_month: 6
 services:
+
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
     front_userbundle.password_checker:
             class:  Front\UserBundle\Handler\PasswordCheckerHandler
             arguments:  ["@router", "@security.authorization_checker", "@session", "%password_checker.number_month%"]

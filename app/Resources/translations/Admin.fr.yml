@@ -3,6 +3,7 @@ admin:
         application:
             name:     Nom
             route:    Route
+            code:     Code de l'application
             image:    Image
             description: Description
         agency:

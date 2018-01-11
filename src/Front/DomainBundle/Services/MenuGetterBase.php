@@ -25,8 +25,8 @@ abstract class MenuGetterBase
 
     /**
      * MenuGetter constructor.
-     * @param $authorization_checker
-     * @internal param $application_code
+     * @param AuthorizationChecker $authorization_checker
+     * @param Router $router
      */
     public function __construct(AuthorizationChecker $authorization_checker, Router $router)
     {

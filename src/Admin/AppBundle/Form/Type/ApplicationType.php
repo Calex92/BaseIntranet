@@ -28,6 +28,10 @@ class ApplicationType extends AbstractType
                 "label"     => "admin.app.application.route",
                 "translation_domain"     => "Admin"
             ))
+            ->add("code", TextType::class, array(
+                "label"     => "admin.app.application.code",
+                "translation_domain"    => "Admin"
+            ))
             ->add("imageFile", VichImageType::class, array(
                 "label" => "admin.app.application.image",
                 "translation_domain"     => "Admin",

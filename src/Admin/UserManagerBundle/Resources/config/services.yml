@@ -1,4 +1,8 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
     admin_user_manager_json_generator.agencies_for_ajax:
         class: Admin\UserManagerBundle\Service\JsonGenerator\AgenciesForAjaxCall
         arguments: [ "@doctrine.orm.entity_manager"]

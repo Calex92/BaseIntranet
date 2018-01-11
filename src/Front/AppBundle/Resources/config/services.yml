@@ -2,6 +2,9 @@ services:
 #    front_app.example:
 #        class: Front\AppBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
+    _defaults:
+        autowire: true
+        autoconfigure: true
 
     frontapp.twig_extension:
         class: Front\AppBundle\Twig\FrontAppTwigExtension

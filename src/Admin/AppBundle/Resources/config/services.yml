@@ -3,6 +3,10 @@ services:
 #        class: Admin\AppBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
 
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
     admin.menu_getter:
         class: Admin\AppBundle\Services\MenuGetter
         arguments: ["@security.authorization_checker", "@router"]

@@ -24,7 +24,6 @@ framework:
         engines: ['twig']
     default_locale:  "%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
     session:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
@@ -134,39 +133,37 @@ vich_uploader:
 
     mappings:
         user_avatar:
-            # I don't understand clearly how I have to create the good Path for here. The "Isidore2" part is not good
-            # but I don't manage to change it
-            uri_prefix:            '/../%application_name%/web/uploads/avatar'
+            uri_prefix:            '/uploads/avatar'
             upload_destination:    '%kernel.root_dir%/../web/uploads/avatar'
             namer:                 vich_uploader.namer_origname
 
         news_image:
-            uri_prefix:            '/../%application_name%/web/uploads/domain/news'
+            uri_prefix:            '/uploads/domain/news'
             upload_destination:    '%kernel.root_dir%/../web/uploads/domain/news'
             namer:                 vich_uploader.namer_origname
 
         news_file:
-            uri_prefix:            '/../%application_name%/web/uploads/domain/newsFiles'
+            uri_prefix:            '/uploads/domain/newsFiles'
             upload_destination:    '%kernel.root_dir%/../web/uploads/domain/newsFiles'
             namer:                 vich_uploader.namer_origname
 
         document_file:
-            uri_prefix:            '/../%application_name%/web/uploads/domain/frontDocuments'
+            uri_prefix:            '/uploads/domain/frontDocuments'
             upload_destination:    '%kernel.root_dir%/../web/uploads/domain/frontDocuments'
             namer:                 vich_uploader.namer_origname
 
         catalog_file:
-            uri_prefix:            '/../%application_name%/web/uploads/domain/catalog/file'
+            uri_prefix:            '/uploads/domain/catalog/file'
             upload_destination:    '%kernel.root_dir%/../web/uploads/domain/catalog/file'
             namer:                 vich_uploader.namer_origname
 
         catalog_image:
-            uri_prefix:            '/../%application_name%/web/uploads/domain/catalog/image'
+            uri_prefix:            '/uploads/domain/catalog/image'
             upload_destination:    '%kernel.root_dir%/../web/uploads/domain/catalog/image'
             namer:                 vich_uploader.namer_origname
 
         application_image:
-            uri_prefix:            /../isidore2/web/download/front/applications
+            uri_prefix:            '/download/front/applications'
             upload_destination:    '%kernel.root_dir%/../web/download/front/applications'
             namer:                 vich_uploader.namer_origname
 

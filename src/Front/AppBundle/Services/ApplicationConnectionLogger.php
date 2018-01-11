@@ -43,7 +43,7 @@ class ApplicationConnectionLogger
             ->setProfileName($profileToBeLogged)
             ->setBrowser($this->getBrowserName($_SERVER["HTTP_USER_AGENT"])." ".$browserInfo["version"])
             ->setIpAdress($_SERVER['REMOTE_ADDR'])
-            ->setOperatigSystem($this->getOS($_SERVER["HTTP_USER_AGENT"])." / ".$browserInfo["platform_description"]);
+            ->setOperatigSystem($this->getOS($_SERVER["HTTP_USER_AGENT"])." / ".$browserInfo["platform"]);
 
         $this->entityManager->persist($applicationConnectionStatistic);
         $this->entityManager->flush();
