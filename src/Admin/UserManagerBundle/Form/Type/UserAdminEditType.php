@@ -66,7 +66,8 @@ class UserAdminEditType extends AbstractType
                     "query_builder" => function(DomainRepository $domainRepository) {
                         return $domainRepository->getActiveQueryBuilder();
                     },
-                    "placeholder"   => "Sélectionnez un domaine"
+                    "placeholder"   => "Sélectionnez un domaine",
+                    "required" => false
                 ));
                 break;
             }

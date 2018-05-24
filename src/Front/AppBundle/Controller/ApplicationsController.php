@@ -5,6 +5,7 @@ namespace Front\AppBundle\Controller;
 use Front\AppBundle\Entity\Application;
 use Front\AppBundle\Services\ApplicationConnectionLogger;
 use Front\AppBundle\Services\ApplicationGetter;
+use Front\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -46,7 +47,9 @@ class ApplicationsController extends Controller
     {
         $application = $this->getDoctrine()->getRepository("FrontAppBundle:ApplicationExternal")->find($applicationId);
         $key = $this->get("frontapp.application_getter")->getCryptedKey();
+        /** @var User $user */
+        $user = $this->getUser();
 
-        return $this->redirect("http://vanina/external_access.php?login=acastelain&application=".$application->getCode()."&password=$key");
+        return $this->redirect("http://vanina/external_access.php?login=".$user->getUsername() ."&application=".$application->getCode()."&password=$key");
     }
 }

@@ -20,9 +20,13 @@
             {% endfor %}
         </select>
     </div>
-    <a class="col-md-3 margin-top-20 btn btn-default pull-right" href="{{ path("domain_manager_document_add") }}">
-        Créer un document
-    </a>
+    {% if app.user.domainManaged is not null or is_granted('ROLE_DOMAIN_ADMIN') %}
+        <a class="col-md-3 margin-top-20 btn btn-default pull-right" href="{{ path("domain_manager_document_add") }}">
+            Créer un document
+        </a>
+    {% else %}
+        <p class="pull-right alert alert-danger col-md-3">Vous n'avez aucun domaine affecté.</p>
+    {% endif %}
     <table class="table table-striped table-bordered table-hover dataTable">
         <thead>
         <tr>
@@ -45,7 +49,7 @@
                 <td>{{ document.beginPublicationDate | date('d/m/Y') }}</td>
                 <td>{{ document.fileNameShown }}</td>
                 <td class="text-center">
-                    {% if is_granted(document.domain.role) or is_granted("ROLE_DOMAIN_ADMIN") %}
+                    {% if is_granted("ROLE_DOMAIN_ADMIN") %}
                         <a href="{{ path('domain_manager_document_modify', {'id': document.id }) }}"
                            title="Modifier le document">
                             <i class="glyphicon glyphicon-cog"></i>

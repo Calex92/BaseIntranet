@@ -39,7 +39,8 @@
         "h4cc/wkhtmltoimage-i386": "0.12.x",
         "wemersonjanuario/wkhtmltopdf-windows": "0.12.x",
         "cmen/google-charts-bundle": "^2.1",
-        "beberlei/DoctrineExtensions": "1.0.*"
+        "beberlei/DoctrineExtensions": "1.0.*",
+        "symfony/intl": "^4.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
